@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is Artificial Intelligence? - Week 1</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="what_is_ai_week1_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <header>
+        <h1>What is Artificial Intelligence?</h1>
+        <p class="subtitle">Week 1: Introduction Session</p>
+    </header>
+
+    <nav class="table-of-contents no-print">
+        <h2>Contents</h2>
+        <ul>
+            <li><a href="#overview">Learning Objectives</a></li>
+            <li><a href="#part1">AI is Already Part of Your Life</a></li>
+            <li><a href="#part2">Defining Artificial Intelligence</a></li>
+            <li><a href="#part3">What Can AI Do Today?</a></li>
+            <li><a href="#part4">Brief History of AI</a></li>
+            <li><a href="#part5">Intelligent Agents</a></li>
+            <li><a href="#part6">The Landscape of AI</a></li>
+            <li><a href="#part7">AI and Data Science</a></li>
+            <li><a href="#summary">Summary and Key Takeaways</a></li>
+            <li><a href="#resources">Additional Resources</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="overview" class="learning-objectives">
+            <h2>Learning Objectives</h2>
+            <p>By the end of this session, students will be able to:</p>
+            <ul>
+                <li>Define Artificial Intelligence and explain different perspectives on what AI means</li>
+                <li>Identify real-world applications of AI in everyday life</li>
+                <li>Understand the basic concept of an intelligent agent</li>
+                <li>Recognize major milestones in AI history</li>
+                <li>Name the main areas of AI research and application</li>
+            </ul>
+        </section>
+
+        <!-- Part 1: Opening Hook -->
+        <section id="part1" class="content-section">
+            <h2>Part 1: AI is Already Part of Your Life</h2>
+
+            <div class="key-message">
+                <p><strong>Key Message:</strong> You're already using artificial intelligence multiple times every day, often without realizing it.</p>
+            </div>
+
+            <p>Consider these everyday activities:</p>
+            <ul>
+                <li>Using a GPS or map app to navigate</li>
+                <li>Asking Siri, Alexa, or Google Assistant a question</li>
+                <li>Watching Netflix or scrolling through TikTok recommendations</li>
+                <li>Using photo apps that automatically recognize faces</li>
+            </ul>
+
+            <p>All of these are AI applications that have become seamlessly integrated into our daily lives.</p>
+
+            <!-- AI Examples Image Gallery -->
+            <div class="ai-examples-gallery">
+                <figure class="example-image">
+                    <img src="images/applications/gps_navigation.jpg"
+                         alt="GPS navigation interface on smartphone showing route planning with maps and directions">
+                    <figcaption>GPS Navigation</figcaption>
+                </figure>
+
+                <figure class="example-image">
+                    <img src="images/applications/amazon_echo.jpg"
+                         alt="Amazon Echo smart speaker with Alexa voice assistant for answering questions">
+                    <figcaption>Voice Assistants</figcaption>
+                </figure>
+
+                <figure class="example-image">
+                    <img src="images/applications/netflix_recommendations.jpg"
+                         alt="Netflix streaming interface showing personalized content recommendations">
+                    <figcaption>Content Recommendations</figcaption>
+                </figure>
+
+                <figure class="example-image">
+                    <img src="images/applications/chatgpt_interface.jpg"
+                         alt="ChatGPT conversational AI interface demonstrating natural language interaction">
+                    <figcaption>AI Chatbots</figcaption>
+                </figure>
+
+                <figure class="example-image">
+                    <img src="images/applications/face_recognition.jpg"
+                         alt="Face recognition technology automatically identifying and tagging faces in photos">
+                    <figcaption>Face Recognition</figcaption>
+                </figure>
+
+                <figure class="example-image">
+                    <img src="images/applications/ai_art_generation.jpg"
+                         alt="AI-generated digital artwork demonstrating creative artificial intelligence">
+                    <figcaption>AI Art Generation</figcaption>
+                </figure>
+
+                <figure class="example-image">
+                    <img src="images/applications/self_driving_car.jpg"
+                         alt="Autonomous self-driving vehicle with sensors for navigation and safety">
+                    <figcaption>Self-Driving Cars</figcaption>
+                </figure>
+            </div>
+
+            <div class="example">
+                <h3>Examples of AI in Action:</h3>
+                <ul>
+                    <li>Voice assistants responding to questions</li>
+                    <li>Face recognition in photos</li>
+                    <li>Autonomous car technology</li>
+                    <li>AI art generation (Midjourney, DALL-E)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Part 2: Defining AI -->
+        <section id="part2" class="content-section">
+            <h2>Part 2: Defining Artificial Intelligence</h2>
+
+            <h3>What is Intelligence?</h3>
+            <p>Before we define <em>artificial</em> intelligence, let's think about what intelligence means:</p>
+            <ul>
+                <li>The ability to learn from experience</li>
+                <li>The ability to solve problems</li>
+                <li>The ability to understand complex ideas</li>
+                <li>The ability to adapt to new situations</li>
+                <li>The ability to reason and plan</li>
+            </ul>
+
+            <p><strong>Artificial Intelligence</strong> is about creating machines (computers, robots, software) that can do these things.</p>
+
+            <h3>Four Perspectives on AI</h3>
+            <p>There are different ways to think about what AI should do:</p>
+
+            <!-- Four Perspectives diagram - CSS version -->
+            <div class="diagram-container">
+                <div class="diagram-title-section">
+                    <h3 class="diagram-title">Four Perspectives on AI</h3>
+                    <p class="diagram-subtitle">(Russell & Norvig Framework)</p>
+                </div>
+
+                <div class="four-perspectives-grid">
+                    <!-- Axis labels -->
+                    <div class="axis-label axis-top">Thinking</div>
+                    <div class="axis-label axis-bottom">Acting</div>
+                    <div class="axis-label axis-left">Human</div>
+                    <div class="axis-label axis-right">Rational</div>
+
+                    <!-- Quadrant 1: Thinking Humanly (top-left) -->
+                    <div class="quadrant quad-thinking-humanly">
+                        <h4>Thinking Humanly</h4>
+                        <p class="quad-subtitle">Cognitive Science</p>
+                        <p class="quad-example">Example: Modeling how the human brain recognizes faces, then making AI do it the same way</p>
+                        <p class="quad-focus">Understanding human cognition</p>
+                    </div>
+
+                    <!-- Quadrant 2: Thinking Rationally (top-right) -->
+                    <div class="quadrant quad-thinking-rationally">
+                        <h4>Thinking Rationally</h4>
+                        <p class="quad-subtitle">Logic & Reasoning</p>
+                        <p class="quad-example">Example: Medical diagnosis system using logical rules: "IF fever AND cough THEN check for flu"</p>
+                        <p class="quad-focus">Laws of thought</p>
+                    </div>
+
+                    <!-- Quadrant 3: Acting Humanly (bottom-left) -->
+                    <div class="quadrant quad-acting-humanly">
+                        <h4>Acting Humanly</h4>
+                        <p class="quad-subtitle">The Turing Test</p>
+                        <p class="quad-example">Example: A chatbot that converses so naturally you can't tell if it's human or machine</p>
+                        <p class="quad-focus">Behaving like humans</p>
+                    </div>
+
+                    <!-- Quadrant 4: Acting Rationally (bottom-right) -->
+                    <div class="quadrant quad-acting-rationally">
+                        <h4>Acting Rationally</h4>
+                        <p class="quad-subtitle">Rational Agents</p>
+                        <p class="quad-example">Example: Chess AI that plays to win, choosing moves that maximize winning chances</p>
+                        <p class="quad-star">★ Modern AI Focus ★</p>
+                        <p class="quad-focus">Achieving goals effectively</p>
+                    </div>
+                </div>
+
+                <p class="diagram-note">The modern approach focuses on building rational agents that achieve their goals effectively</p>
+            </div>
+
+            <article class="ai-perspective">
+                <h4>1. Acting Like Humans</h4>
+                <p>Making machines that <em>behave</em> like humans</p>
+                <ul>
+                    <li><strong>Example:</strong> A chatbot that can hold a conversation</li>
+                    <li><strong>Example:</strong> A robot that can walk and move like a person</li>
+                    <li><strong>The Turing Test:</strong> If you chat with something and can't tell if it's human or machine, it passes the test</li>
+                </ul>
+            </article>
+
+            <article class="ai-perspective">
+                <h4>2. Thinking Like Humans</h4>
+                <p>Making machines that <em>think</em> the way humans think</p>
+                <ul>
+                    <li>Understanding how the human brain works</li>
+                    <li>Trying to make computers solve problems the same way</li>
+                    <li><strong>Example:</strong> Modeling how humans recognize faces, then making AI do it the same way</li>
+                </ul>
+            </article>
+
+            <article class="ai-perspective">
+                <h4>3. Thinking Rationally</h4>
+                <p>Making machines that think <em>logically</em> and <em>correctly</em></p>
+                <ul>
+                    <li>Using formal logic and rules</li>
+                    <li>Making sure the reasoning is sound</li>
+                    <li><strong>Example:</strong> A medical diagnosis system that uses logical rules: "IF patient has fever AND cough THEN check for flu"</li>
+                </ul>
+            </article>
+
+            <article class="ai-perspective">
+                <h4>4. Acting Rationally</h4>
+                <p>Making machines that do the <em>right</em> thing to achieve their goals</p>
+                <ul>
+                    <li><strong>This is the most common modern approach</strong></li>
+                    <li>Not necessarily thinking like humans, just getting good results</li>
+                    <li><strong>Example:</strong> A chess program that plays to win, even if it doesn't think like a human chess player</li>
+                </ul>
+            </article>
+
+            <div class="definition">
+                <h3>Simple Definition for Our Course</h3>
+                <p><strong>Artificial Intelligence is the science and engineering of making machines that can perceive their environment, learn from experience, and take actions to achieve goals.</strong></p>
+            </div>
+        </section>
+
+        <!-- Part 3: What Can AI Do Today? -->
+        <section id="part3" class="content-section">
+            <h2>Part 3: What Can AI Do Today?</h2>
+            <p class="section-intro">The State of the Art: Real-World Applications</p>
+
+            <article class="ai-application">
+                <h3>1. Language and Communication</h3>
+
+                <h4>Speech Recognition</h4>
+                <ul>
+                    <li>Voice assistants (Siri, Alexa, Google Assistant)</li>
+                    <li>Real-time translation (Google Translate)</li>
+                    <li>Automatic captions on videos</li>
+                    <li><strong>How it works (simple):</strong> AI learns patterns in how words sound by listening to thousands of hours of speech</li>
+                </ul>
+
+
+                <h4>Text Generation</h4>
+                <ul>
+                    <li>ChatGPT and other conversational AI</li>
+                    <li>Automated email replies</li>
+                    <li>Content writing assistants</li>
+                    <li><strong>How it works (simple):</strong> AI learns from billions of text examples to predict what words should come next</li>
+                </ul>
+
+                <h4>Translation</h4>
+                <ul>
+                    <li>Google Translate can translate between 100+ languages</li>
+                    <li>Real-time conversation translation in apps</li>
+                    <li><strong>Impact:</strong> Breaking down language barriers worldwide</li>
+                </ul>
+            </article>
+
+            <article class="ai-application">
+                <h3>2. Vision and Image Recognition</h3>
+
+                <h4>Face Recognition</h4>
+                <ul>
+                    <li>Unlocking your phone with Face ID</li>
+                    <li>Tagging friends automatically in photos</li>
+                    <li>Security systems</li>
+                </ul>
+
+                <h4>Object Recognition</h4>
+                <ul>
+                    <li>Medical imaging: detecting tumors in X-rays and MRIs</li>
+                    <li>Quality control in manufacturing</li>
+                    <li>Self-checkout systems that recognize products</li>
+                </ul>
+
+
+                <h4>Image Generation</h4>
+                <ul>
+                    <li>AI art tools (DALL-E, Midjourney, Stable Diffusion)</li>
+                    <li>Creating realistic faces of people who don't exist</li>
+                    <li>Helping designers and artists create concepts quickly</li>
+                </ul>
+            </article>
+
+            <article class="ai-application">
+                <h3>3. Autonomous Systems</h3>
+
+                <h4>Self-Driving Cars</h4>
+                <ul>
+                    <li>Tesla Autopilot, Waymo taxis</li>
+                    <li>Cars that can perceive the road, other vehicles, pedestrians</li>
+                    <li>Make decisions: when to brake, turn, accelerate</li>
+                    <li><strong>Challenge:</strong> Still being perfected - safety is critical!</li>
+                </ul>
+
+
+                <h4>Drones</h4>
+                <ul>
+                    <li>Package delivery (Amazon Prime Air)</li>
+                    <li>Agricultural monitoring</li>
+                    <li>Search and rescue operations</li>
+                </ul>
+
+                <h4>Robots</h4>
+                <ul>
+                    <li>Warehouse robots (Amazon fulfillment centers)</li>
+                    <li>Manufacturing robots</li>
+                    <li>Surgical robots assisting doctors</li>
+                </ul>
+
+            </article>
+
+            <article class="ai-application">
+                <h3>4. Games and Competition</h3>
+
+                <h4>Major Achievements</h4>
+                <ul>
+                    <li><strong>1997:</strong> Deep Blue defeats world chess champion Garry Kasparov</li>
+                    <li><strong>2016:</strong> AlphaGo defeats world Go champion Lee Sedol</li>
+                    <li><strong>2019:</strong> AI defeats professional players in Dota 2 (complex video game)</li>
+                    <li><strong>Today:</strong> AI can play thousands of games at superhuman levels</li>
+                </ul>
+
+
+                <p><strong>Why games matter:</strong> They're good testing grounds for AI because they have clear rules and goals</p>
+            </article>
+
+            <article class="ai-application">
+                <h3>5. Recommendation Systems</h3>
+
+                <p><strong>You experience these daily:</strong></p>
+                <ul>
+                    <li>Netflix: "What should I watch next?"</li>
+                    <li>Spotify: "Discover Weekly" playlist</li>
+                    <li>Amazon: "Customers who bought this also bought..."</li>
+                    <li>TikTok/Instagram: Your personalized feed</li>
+                    <li>YouTube: Suggested videos</li>
+                </ul>
+
+                <p><strong>How they work (simple):</strong> AI learns what you like based on your past behavior and finds patterns with similar users</p>
+
+            </article>
+
+            <article class="ai-application">
+                <h3>6. Healthcare and Medicine</h3>
+
+                <h4>Diagnosis</h4>
+                <ul>
+                    <li>AI can detect cancer in medical images with high accuracy</li>
+                    <li>Predicting disease risk based on patient data</li>
+                    <li>Drug discovery: finding new medicines faster</li>
+                </ul>
+
+                <p class="example"><strong>Example:</strong> AI detected COVID-19 from chest X-rays during the pandemic</p>
+            </article>
+
+            <article class="ai-application">
+                <h3>7. Business and Finance</h3>
+
+                <h4>Applications</h4>
+                <ul>
+                    <li>Fraud detection in credit card transactions</li>
+                    <li>Stock trading algorithms</li>
+                    <li>Customer service chatbots</li>
+                    <li>Predictive analytics for business decisions</li>
+                </ul>
+            </article>
+
+            <article class="ai-application">
+                <h3>8. Creative Applications</h3>
+                <ul>
+                    <li>Music composition</li>
+                    <li>Writing assistance</li>
+                    <li>Art generation</li>
+                    <li>Video game character behavior</li>
+                    <li>Special effects in movies</li>
+                </ul>
+            </article>
+
+            <div class="limitations-box">
+                <h3>What AI Cannot Do Well (Yet)</h3>
+                <p><strong>Important to understand limitations:</strong></p>
+                <ul>
+                    <li>Common sense reasoning about everyday situations</li>
+                    <li>Understanding context and nuance like humans</li>
+                    <li>Truly creative thinking (vs. pattern matching)</li>
+                    <li>General intelligence (AI is usually narrow - good at one thing)</li>
+                    <li>Ethical reasoning and moral judgment</li>
+                    <li>Understanding emotions deeply</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Part 4: Brief History -->
+        <section id="part4" class="content-section">
+            <h2>Part 4: How Did We Get Here? Brief History</h2>
+
+            <!-- AI Timeline diagram -->
+            <div class="diagram-container">
+                <div class="diagram-title-section">
+                    <h3 class="diagram-title">History of Artificial Intelligence</h3>
+                    <p class="diagram-subtitle">Key Milestones 1950-2020s</p>
+                </div>
+
+                <div class="timeline-container">
+                    <div class="timeline-main">
+                        <!-- Central timeline line -->
+                        <div class="timeline-line"></div>
+
+                        <!-- Timeline eras -->
+                        <div class="timeline-eras">
+                            <!-- 1950s: The Birth -->
+                            <div class="timeline-era era-1950s">
+                                <h4>1950s</h4>
+                                <div class="era-subtitle">Birth of AI</div>
+                                <ul>
+                                    <li>• Turing Test (1950)</li>
+                                    <li>• "AI" coined (1956)</li>
+                                    <li>• Dartmouth Conf.</li>
+                                    <li>• Early optimism</li>
+                                    <li>• Checkers programs</li>
+                                </ul>
+                            </div>
+
+                            <!-- 1960s-70s: First AI Winter -->
+                            <div class="timeline-era era-1960s">
+                                <h4>1960s-70s</h4>
+                                <div class="era-subtitle">First Challenges</div>
+                                <ul>
+                                    <li>• Limited progress</li>
+                                    <li>• Underpowered</li>
+                                    <li>  computers</li>
+                                    <li>• First "AI Winter"</li>
+                                    <li>• Reduced funding</li>
+                                </ul>
+                            </div>
+
+                            <!-- 1980s: Expert Systems -->
+                            <div class="timeline-era era-1980s">
+                                <h4>1980s</h4>
+                                <div class="era-subtitle">Expert Systems</div>
+                                <ul>
+                                    <li>• MYCIN diagnosis</li>
+                                    <li>• IF-THEN rules</li>
+                                    <li>• Business interest</li>
+                                    <li>• Second AI Winter</li>
+                                    <li>  (late 80s)</li>
+                                </ul>
+                            </div>
+
+                            <!-- 1990s-2000s: Machine Learning -->
+                            <div class="timeline-era era-1990s">
+                                <h4>1990s-2000s</h4>
+                                <div class="era-subtitle">ML Takes Off</div>
+                                <ul>
+                                    <li>• Deep Blue (1997)</li>
+                                    <li>• Learning from data</li>
+                                    <li>• More computing</li>
+                                    <li>• Internet data</li>
+                                    <li>• Practical apps</li>
+                                </ul>
+                            </div>
+
+                            <!-- 2010s: Deep Learning Revolution -->
+                            <div class="timeline-era era-2010s">
+                                <h4>2010s</h4>
+                                <div class="era-subtitle">DL Revolution</div>
+                                <ul>
+                                    <li>• ImageNet (2012)</li>
+                                    <li>• AlphaGo (2016)</li>
+                                    <li>• Self-driving cars</li>
+                                    <li>• Voice assistants</li>
+                                    <li>• AI mainstream</li>
+                                </ul>
+                            </div>
+
+                            <!-- 2020s: Current Era -->
+                            <div class="timeline-era era-2020s">
+                                <h4>2020s</h4>
+                                <div class="era-subtitle">Current Era</div>
+                                <ul>
+                                    <li>• GPT-3 (2020)</li>
+                                    <li>• ChatGPT (2022)</li>
+                                    <li>• AI art tools</li>
+                                    <li>• Ethics concerns</li>
+                                    <li>• Rapid progress</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Key Pattern Box -->
+                    <div class="timeline-pattern">
+                        <h4>Pattern: Excitement → Disappointment → New Approach → Progress</h4>
+                        <p>Each "winter" taught lessons that led to the next breakthrough</p>
+                        <p>Better technology + More data + New methods = Success</p>
+                    </div>
+                </div>
+
+                <p class="diagram-credit">Original educational diagram, CC BY 4.0</p>
+            </div>
+
+            <article class="history-period">
+                <h3>1950s: The Birth of AI</h3>
+                <ul>
+                    <li><strong>1950:</strong> Alan Turing asks "Can machines think?" - proposes the Turing Test</li>
+                    <li><strong>1956:</strong> The term "Artificial Intelligence" is coined at Dartmouth Conference</li>
+                    <li><strong>Early excitement:</strong> Researchers believed human-level AI was 20 years away</li>
+                    <li><strong>Early achievements:</strong> Programs that could play checkers, solve algebra problems</li>
+                </ul>
+
+            </article>
+
+            <article class="history-period">
+                <h3>1960s-1970s: Early Enthusiasm and First Challenges</h3>
+                <ul>
+                    <li>Success with specific problems</li>
+                    <li>But... reality set in: problems were harder than expected</li>
+                    <li>Computers weren't powerful enough yet</li>
+                    <li><strong>First "AI Winter"</strong> (1970s): Reduced funding and interest when AI didn't deliver on promises</li>
+                </ul>
+            </article>
+
+            <article class="history-period">
+                <h3>1980s: Expert Systems</h3>
+                <ul>
+                    <li>AI that captured human expert knowledge in specific domains</li>
+                    <li><strong>Example:</strong> MYCIN - diagnosed bacterial infections</li>
+                    <li>Used "IF-THEN" rules</li>
+                    <li>Businesses started investing in AI again</li>
+                    <li>But... another AI winter in late 1980s when systems were hard to maintain</li>
+                </ul>
+            </article>
+
+            <article class="history-period">
+                <h3>1990s-2000s: Machine Learning Takes Off</h3>
+                <ul>
+                    <li>Shift from hand-coding rules to letting machines <em>learn</em> from data</li>
+                    <li><strong>1997:</strong> Deep Blue beats chess champion</li>
+                    <li>More powerful computers</li>
+                    <li>Internet provides massive amounts of data</li>
+                    <li>Focus on practical applications</li>
+                </ul>
+
+            </article>
+
+            <article class="history-period">
+                <h3>2010s: The Deep Learning Revolution</h3>
+                <ul>
+                    <li><strong>2012:</strong> Deep learning breakthrough in image recognition</li>
+                    <li><strong>2016:</strong> AlphaGo defeats Go champion</li>
+                    <li>Explosion in applications: voice assistants, autonomous cars, etc.</li>
+                    <li>AI becomes mainstream</li>
+                </ul>
+
+            </article>
+
+            <article class="history-period">
+                <h3>2020s: The Current Era</h3>
+                <ul>
+                    <li><strong>2020:</strong> GPT-3 shows impressive language abilities</li>
+                    <li><strong>2022:</strong> ChatGPT launched - AI enters public consciousness</li>
+                    <li>AI art tools become popular</li>
+                    <li>Concerns about ethics, bias, job displacement</li>
+                    <li>Race to develop more powerful AI</li>
+                </ul>
+            </article>
+
+            <div class="key-pattern">
+                <h3>Key Pattern to Notice</h3>
+                <p>AI has gone through cycles:</p>
+                <ol>
+                    <li><strong>Excitement</strong> → Build cool things</li>
+                    <li><strong>Disappointment</strong> → Harder than we thought</li>
+                    <li><strong>New approach</strong> → Learn from failures</li>
+                    <li><strong>Progress</strong> → Better technology + more data + new methods</li>
+                </ol>
+                <p>Each "winter" taught us lessons that led to the next breakthrough.</p>
+            </div>
+        </section>
+
+        <!-- Part 5: Intelligent Agents -->
+        <section id="part5" class="content-section">
+            <h2>Part 5: The Core Concept - Intelligent Agents</h2>
+
+            <h3>What is an Agent?</h3>
+            <p>An <strong>agent</strong> is something that:</p>
+            <ol>
+                <li><strong>Perceives</strong> its environment (gathers information through sensors)</li>
+                <li><strong>Processes</strong> that information (thinks, reasons, decides)</li>
+                <li><strong>Acts</strong> on the environment (takes actions through actuators)</li>
+                <li><strong>Has a goal</strong> (trying to achieve something)</li>
+            </ol>
+
+            <!-- Agent Architecture diagram -->
+            <figure class="content-image">
+                <img src="images/diagrams/agent_architecture.svg"
+                     alt="Intelligent agent architecture diagram showing the perception-action cycle: environment provides input through sensors to the agent which processes and makes decisions, then takes actions through actuators that affect the environment, creating a feedback loop">
+                <figcaption>
+                    Intelligent Agent Architecture: The Perception-Action Cycle
+                    <span class="image-credit">Original educational diagram, CC BY 4.0</span>
+                </figcaption>
+            </figure>
+
+            <h3>Everyday Examples</h3>
+
+            <article class="agent-example">
+                <h4>Example 1: A Thermostat (Simple Agent)</h4>
+                <ul>
+                    <li><strong>Perceives:</strong> Temperature sensor reads the room temperature</li>
+                    <li><strong>Goal:</strong> Keep room at 22°C (72°F)</li>
+                    <li><strong>Acts:</strong> Turns heating on or off</li>
+                    <li><strong>Very simple agent:</strong> Just follows basic rules</li>
+                </ul>
+            </article>
+
+            <article class="agent-example">
+                <h4>Example 2: A Robot Vacuum (More Complex Agent)</h4>
+                <ul>
+                    <li><strong>Perceives:</strong>
+                        <ul>
+                            <li>Sensors detect walls, furniture, dirt</li>
+                            <li>Camera might map the room</li>
+                        </ul>
+                    </li>
+                    <li><strong>Goal:</strong> Clean the floor efficiently</li>
+                    <li><strong>Acts:</strong>
+                        <ul>
+                            <li>Moves around</li>
+                            <li>Adjusts suction</li>
+                            <li>Returns to charging station when battery low</li>
+                        </ul>
+                    </li>
+                    <li><strong>More intelligent:</strong> Learns the room layout, plans efficient paths</li>
+                </ul>
+
+            </article>
+
+            <article class="agent-example">
+                <h4>Example 3: Self-Driving Car (Complex Agent)</h4>
+                <ul>
+                    <li><strong>Perceives:</strong>
+                        <ul>
+                            <li>Cameras see the road, signs, other vehicles, pedestrians</li>
+                            <li>Radar and lidar measure distances</li>
+                            <li>GPS provides location</li>
+                        </ul>
+                    </li>
+                    <li><strong>Goal:</strong> Transport passengers safely to destination</li>
+                    <li><strong>Acts:</strong>
+                        <ul>
+                            <li>Steers, accelerates, brakes</li>
+                            <li>Signals turns</li>
+                            <li>Parks</li>
+                        </ul>
+                    </li>
+                    <li><strong>Highly intelligent:</strong> Must handle unpredictable situations, make split-second decisions</li>
+                </ul>
+            </article>
+
+            <article class="agent-example">
+                <h4>Example 4: Recommendation System (Virtual Agent)</h4>
+                <ul>
+                    <li><strong>Perceives:</strong>
+                        <ul>
+                            <li>What you've watched/bought/clicked</li>
+                            <li>What similar users liked</li>
+                            <li>Time of day, device you're using</li>
+                        </ul>
+                    </li>
+                    <li><strong>Goal:</strong> Show you content you'll engage with</li>
+                    <li><strong>Acts:</strong>
+                        <ul>
+                            <li>Recommends videos, products, songs</li>
+                            <li>Adjusts the order of your feed</li>
+                        </ul>
+                    </li>
+                    <li><strong>Learns continuously:</strong> Gets better as it gathers more data</li>
+                </ul>
+            </article>
+
+            <div class="diagram-code">
+                <h3>Key Components of Every Agent</h3>
+                <pre><code>ENVIRONMENT → [SENSORS] → AGENT (Processing/Decision-Making) → [ACTUATORS] → ENVIRONMENT
+                             ↑                                      ↓
+                             └──────────── Feedback Loop ──────────┘</code></pre>
+            </div>
+
+            <div class="component-explanation">
+                <p><strong>Sensors:</strong> Eyes, cameras, microphones, temperature sensors, GPS, etc.</p>
+
+                <p><strong>Processing:</strong> The "brain" - where AI algorithms work</p>
+                <ul>
+                    <li>Analyzes sensor data</li>
+                    <li>Makes decisions</li>
+                    <li>Plans actions</li>
+                    <li>Learns from experience</li>
+                </ul>
+
+                <p><strong>Actuators:</strong> Motors, speakers, displays, robotic arms, etc.</p>
+
+                <p><strong>Environment:</strong> The world the agent operates in</p>
+                <ul>
+                    <li>Physical (roads, buildings)</li>
+                    <li>Digital (websites, databases)</li>
+                    <li>Social (interactions with humans)</li>
+                </ul>
+            </div>
+
+            <h3>What Makes an Agent "Intelligent"?</h3>
+            <p>An intelligent agent should be:</p>
+            <ol>
+                <li><strong>Autonomous:</strong> Can operate without constant human control</li>
+                <li><strong>Reactive:</strong> Responds to changes in environment</li>
+                <li><strong>Proactive:</strong> Takes initiative to achieve goals</li>
+                <li><strong>Adaptive:</strong> Learns and improves over time</li>
+                <li><strong>Social:</strong> Can interact with humans or other agents (when needed)</li>
+            </ol>
+
+            <div class="definition">
+                <h3>Rationality: Doing the "Right" Thing</h3>
+                <p>A <strong>rational agent</strong> tries to do whatever action will lead to the best outcome (or expected outcome when uncertain).</p>
+
+                <p><strong>Example:</strong> Chess-playing AI</p>
+                <ul>
+                    <li>Not necessarily thinking like a human player</li>
+                    <li>But choosing moves that maximize chances of winning</li>
+                    <li>Evaluates millions of possible future positions</li>
+                    <li>Selects the move that leads to the best outcomes</li>
+                </ul>
+
+                <p><strong>Key Point:</strong> Modern AI focuses on building rational agents that achieve their goals effectively, not necessarily on copying human thinking exactly.</p>
+            </div>
+        </section>
+
+        <!-- Part 6: The Landscape of AI -->
+        <section id="part6" class="content-section">
+            <h2>Part 6: The Landscape of AI</h2>
+
+            <p class="section-intro">AI is a broad field with many sub-areas. Here's a quick overview:</p>
+
+
+            <article class="ai-subfield">
+                <h3>1. Machine Learning</h3>
+                <p>Learning patterns from data without being explicitly programmed</p>
+
+                <h4>Sub-areas:</h4>
+                <ul>
+                    <li><strong>Supervised Learning:</strong> Learning from labeled examples (e.g., showing AI 1000s of cat pictures labeled "cat")</li>
+                    <li><strong>Unsupervised Learning:</strong> Finding patterns in unlabeled data (e.g., grouping customers by behavior)</li>
+                    <li><strong>Reinforcement Learning:</strong> Learning by trial and error with rewards (e.g., game-playing AI)</li>
+                    <li><strong>Deep Learning:</strong> Using artificial neural networks (inspired by brain) with many layers</li>
+                </ul>
+
+                <!-- ML Types diagram - CSS version -->
+                <div class="diagram-container">
+                    <div class="diagram-title-section">
+                        <h3 class="diagram-title">Three Main Types of Machine Learning</h3>
+                    </div>
+
+                    <div class="ml-types-grid">
+                        <!-- Supervised Learning -->
+                        <div class="ml-type ml-supervised">
+                            <h4>Supervised<br>Learning</h4>
+                            <p class="ml-description">Learning from labeled data</p>
+                            <ul class="ml-details">
+                                <li>Teacher provides correct answers</li>
+                                <li>Algorithm learns patterns</li>
+                                <li>Makes predictions on new data</li>
+                            </ul>
+                            <p class="ml-examples-title">Examples:</p>
+                            <ul class="ml-examples">
+                                <li>Email spam detection (labeled spam/not spam)</li>
+                                <li>Image recognition (labeled cat/dog/bird)</li>
+                                <li>Medical diagnosis (labeled symptoms → disease)</li>
+                                <li>House price prediction</li>
+                            </ul>
+                            <p class="ml-flow">Data + Labels → Model → Predictions</p>
+                        </div>
+
+                        <!-- Unsupervised Learning -->
+                        <div class="ml-type ml-unsupervised">
+                            <h4>Unsupervised<br>Learning</h4>
+                            <p class="ml-description">Finding patterns in data</p>
+                            <ul class="ml-details">
+                                <li>No labeled answers provided</li>
+                                <li>Algorithm discovers structure</li>
+                                <li>Groups similar items together</li>
+                            </ul>
+                            <p class="ml-examples-title">Examples:</p>
+                            <ul class="ml-examples">
+                                <li>Customer segmentation (grouping similar customers)</li>
+                                <li>Topic discovery (finding themes in documents)</li>
+                                <li>Anomaly detection (finding unusual patterns)</li>
+                                <li>Recommendation systems</li>
+                            </ul>
+                            <p class="ml-flow">Data (no labels) → Model → Clusters/Patterns</p>
+                        </div>
+
+                        <!-- Reinforcement Learning -->
+                        <div class="ml-type ml-reinforcement">
+                            <h4>Reinforcement<br>Learning</h4>
+                            <p class="ml-description">Learning by trial and error</p>
+                            <ul class="ml-details">
+                                <li>Agent takes actions</li>
+                                <li>Receives rewards/penalties</li>
+                                <li>Learns to maximize reward</li>
+                            </ul>
+                            <p class="ml-examples-title">Examples:</p>
+                            <ul class="ml-examples">
+                                <li>Game playing AI (AlphaGo, chess programs)</li>
+                                <li>Robot control (learning to walk, grasp)</li>
+                                <li>Self-driving cars (learning to navigate)</li>
+                                <li>Resource optimization</li>
+                            </ul>
+                            <p class="ml-flow">Actions + Rewards → Policy → Better Actions</p>
+                        </div>
+                    </div>
+
+                    <p class="diagram-note">Deep Learning is a powerful technique that can be used in all three types of machine learning</p>
+                </div>
+
+                <!-- Neural Network diagram -->
+                <figure class="content-image">
+                    <img src="images/diagrams/neural_network.svg"
+                         alt="Artificial neural network diagram showing input layer, multiple hidden layers, and output layer with interconnected neurons representing how deep learning processes information">
+                    <figcaption>
+                        Artificial Neural Network Architecture (Simplified Deep Learning Model)
+                        <span class="image-credit">Original educational diagram, CC BY 4.0</span>
+                    </figcaption>
+                </figure>
+            </article>
+
+            <article class="ai-subfield">
+                <h3>2. Computer Vision</h3>
+                <p>Enabling computers to "see" and understand visual information</p>
+
+                <h4>Applications:</h4>
+                <ul>
+                    <li>Face recognition</li>
+                    <li>Object detection</li>
+                    <li>Medical image analysis</li>
+                    <li>Autonomous vehicles</li>
+                    <li>Augmented reality</li>
+                </ul>
+            </article>
+
+            <article class="ai-subfield">
+                <h3>3. Natural Language Processing (NLP)</h3>
+                <p>Enabling computers to understand and generate human language</p>
+
+                <h4>Applications:</h4>
+                <ul>
+                    <li>Chatbots and virtual assistants</li>
+                    <li>Machine translation</li>
+                    <li>Sentiment analysis (is this review positive or negative?)</li>
+                    <li>Text summarization</li>
+                    <li>Speech recognition</li>
+                </ul>
+            </article>
+
+            <article class="ai-subfield">
+                <h3>4. Robotics</h3>
+                <p>Building physical agents that can move and manipulate objects</p>
+
+                <h4>Applications:</h4>
+                <ul>
+                    <li>Manufacturing robots</li>
+                    <li>Surgical robots</li>
+                    <li>Delivery robots/drones</li>
+                    <li>Exploration robots (Mars rovers)</li>
+                </ul>
+            </article>
+
+            <article class="ai-subfield">
+                <h3>5. Planning and Decision Making</h3>
+                <p>Figuring out sequences of actions to achieve goals</p>
+
+                <h4>Applications:</h4>
+                <ul>
+                    <li>Route planning (GPS navigation)</li>
+                    <li>Project scheduling</li>
+                    <li>Resource allocation</li>
+                    <li>Game playing</li>
+                    <li>Logistics optimization</li>
+                </ul>
+            </article>
+
+            <article class="ai-subfield">
+                <h3>6. Knowledge Representation and Reasoning</h3>
+                <p>Storing information and using logic to draw conclusions</p>
+
+                <h4>Applications:</h4>
+                <ul>
+                    <li>Expert systems</li>
+                    <li>Semantic web</li>
+                    <li>Question answering systems</li>
+                    <li>Legal reasoning systems</li>
+                </ul>
+            </article>
+        </section>
+
+        <!-- Part 7: AI and Data Science -->
+        <section id="part7" class="content-section">
+            <h2>Part 7: Connecting AI and Data Science</h2>
+
+            <h3>What is Data Science?</h3>
+            <p><strong>Data Science</strong> is the field of extracting knowledge and insights from data using:</p>
+            <ul>
+                <li>Statistics</li>
+                <li>Machine learning</li>
+                <li>Data analysis</li>
+                <li>Visualization</li>
+                <li>Domain expertise</li>
+            </ul>
+
+            <h3>How AI and Data Science Relate</h3>
+            <p>Think of it this way:</p>
+
+            <p><strong>Data Science</strong> is broader:</p>
+            <ul>
+                <li>Collecting and cleaning data</li>
+                <li>Analyzing data to answer questions</li>
+                <li>Creating visualizations and reports</li>
+                <li>Making predictions</li>
+                <li>Communicating insights to stakeholders</li>
+            </ul>
+
+            <p><strong>AI/Machine Learning</strong> is a key tool used in Data Science:</p>
+            <ul>
+                <li>When data scientists need to make predictions → Use machine learning</li>
+                <li>When they need to automate decisions → Use AI</li>
+                <li>When they need to find patterns → Use ML algorithms</li>
+            </ul>
+
+            <!-- Venn Diagram - CSS version -->
+            <div class="diagram-container">
+                <div class="diagram-title-section">
+                    <h3 class="diagram-title">Data Science and AI Relationship</h3>
+                </div>
+
+                <div class="venn-container">
+                    <div class="venn-label-top">DATA SCIENCE</div>
+
+                    <div class="venn-circle-outer">
+                        <!-- Surrounding concepts -->
+                        <span class="venn-concept venn-top">Statistics</span>
+                        <span class="venn-concept venn-top-left">Data Collection</span>
+                        <span class="venn-concept venn-top-right">Data Cleaning</span>
+                        <span class="venn-concept venn-left">Visualization</span>
+                        <span class="venn-concept venn-right">Communication</span>
+                        <span class="venn-concept venn-bottom-left">Domain Expertise</span>
+                        <span class="venn-concept venn-bottom-right">Business Knowledge</span>
+                        <span class="venn-concept venn-bottom">Reporting & Insights</span>
+
+                        <div class="venn-circle-inner">
+                            <div class="venn-label-inner">
+                                AI / Machine<br>Learning
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="diagram-note">AI/ML is a powerful tool within Data Science, used for predictions, automation, and pattern recognition</p>
+            </div>
+
+            <div class="example">
+                <h4>Example in Practice</h4>
+                <p>A data scientist working on customer churn (customers leaving a service):</p>
+                <ol>
+                    <li><strong>Data Collection:</strong> Gather customer data (Data Science)</li>
+                    <li><strong>Exploration:</strong> Visualize patterns - who's leaving? (Data Science)</li>
+                    <li><strong>Modeling:</strong> Build ML model to predict who will leave (AI/ML)</li>
+                    <li><strong>Insight:</strong> Interpret results - why are they leaving? (Data Science)</li>
+                    <li><strong>Action:</strong> Recommend business strategies (Data Science + Domain Knowledge)</li>
+                    <li><strong>Deployment:</strong> Automate churn prediction system (AI/ML)</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section id="summary" class="content-section summary">
+            <h2>Part 8: Summary and Key Takeaways</h2>
+
+            <h3>What We've Learned</h3>
+            <ol>
+                <li><strong>AI is about making machines intelligent</strong> - able to perceive, learn, reason, and act</li>
+
+                <li><strong>AI is already everywhere</strong> in your daily life - from Netflix recommendations to voice assistants to GPS navigation</li>
+
+                <li><strong>AI can do impressive things</strong> - beat humans at games, recognize faces, translate languages, drive cars, diagnose diseases</li>
+
+                <li><strong>But AI has limitations</strong> - struggles with common sense, general intelligence, true creativity, and ethical reasoning</li>
+
+                <li><strong>AI has evolved over 70+ years</strong> - through cycles of excitement, disappointment, and breakthrough</li>
+
+                <li><strong>The agent concept is fundamental</strong> - AI systems perceive their environment and take actions to achieve goals</li>
+
+                <li><strong>AI encompasses many areas</strong> - machine learning, computer vision, natural language processing, robotics, and more</li>
+
+                <li><strong>Data Science and AI work together</strong> - AI/ML is a powerful tool within the broader field of Data Science</li>
+            </ol>
+
+            <h3>Looking Ahead in This Course</h3>
+            <p>In the coming weeks, we'll explore:</p>
+            <ul>
+                <li><strong>Week 2:</strong> How AI learns from data (Machine Learning basics)</li>
+                <li><strong>Week 3:</strong> How AI makes decisions and solves problems</li>
+                <li><strong>Week 4:</strong> Ethics, challenges, and the future of AI</li>
+            </ul>
+        </section>
+
+        <!-- Additional Resources -->
+        <section id="resources" class="content-section">
+            <h2>Additional Resources for Students</h2>
+
+            <h3>Videos to Watch</h3>
+            <ul>
+                <li>"What is Artificial Intelligence?" - Crash Course AI</li>
+                <li>TED Talks on AI</li>
+                <li>AlphaGo documentary</li>
+            </ul>
+
+            <h3>Articles to Read</h3>
+            <ul>
+                <li>"AI for Everyone" - Andrew Ng (Coursera)</li>
+                <li>Your textbook: Chapter 1 (Introduction) and Chapter 2 (Intelligent Agents) - first sections only</li>
+            </ul>
+
+            <h3>Hands-On Exploration</h3>
+            <ul>
+                <li>Try ChatGPT or other conversational AI</li>
+                <li>Experiment with AI image generators</li>
+                <li>Use Google Lens to see image recognition in action</li>
+                <li>Explore AI demos online (e.g., Quick, Draw! by Google)</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <section id="image-credits">
+            <h2>Image Credits and Attributions</h2>
+            <p class="credits-intro">All diagrams in this document are original educational works created specifically for this course.</p>
+            <ul class="credits-list">
+                <li><strong>Agent Architecture Diagram:</strong> Original educational diagram showing intelligent agent perception-action cycle. Licensed under CC BY 4.0</li>
+                <li><strong>Four Perspectives on AI:</strong> Original educational diagram based on Russell &amp; Norvig's AI framework. Licensed under CC BY 4.0</li>
+                <li><strong>AI Timeline (1950s-2020s):</strong> Original educational diagram summarizing major milestones in AI history. Licensed under CC BY 4.0</li>
+                <li><strong>Machine Learning Types:</strong> Original educational diagram comparing Supervised, Unsupervised, and Reinforcement Learning. Licensed under CC BY 4.0</li>
+                <li><strong>Neural Network Architecture:</strong> Original educational diagram showing simplified deep learning structure. Licensed under CC BY 4.0</li>
+                <li><strong>Data Science and AI Venn Diagram:</strong> Original educational diagram showing the relationship between Data Science and AI/ML. Licensed under CC BY 4.0</li>
+            </ul>
+            <p class="credits-intro" style="margin-top: 1rem;">
+                <strong>License:</strong> All diagrams are licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).
+                You are free to share and adapt these materials with appropriate attribution.
+            </p>
+            <p class="credits-intro">
+                <strong>Attribution:</strong> "AI Educational Diagrams by DS-AI Course Materials, licensed under CC BY 4.0"
+            </p>
+        </section>
+    </footer>
+</body>
+</html>

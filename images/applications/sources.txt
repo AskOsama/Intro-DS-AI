@@ -1,0 +1,7 @@
+ai_art_generation.jpg:https://www.pcworld.com/article/1672975/the-best-ai-art-generators-for-you-midjourney-bing-and-more.html
+chatgpt_interface.jpg: https://www.ymca.int/refine-chat-gpt-prompts/
+face_recognition.jpg:https://faceonlive.com/how-does-face-recognition-work/
+self_driving_car.jpg:https://bernardmarr.com/how-tesla-is-using-artificial-intelligence-to-create-the-autonomous-cars-of-the-future/
+gps_navigation.jpg:https://afb.org/blindness-and-low-vision/using-technology/smartphone-gps-navigation-people-visual-impairments
+amazon_echo.jpg:https://www.infotex.uk/the-evolving-journey-of-voice-search-and-smart-speakers/
+netflix_recommendations:https://destinationksa.com/en/netflix-and-shahid-joint-subscription/

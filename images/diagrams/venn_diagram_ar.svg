@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <style>
+      .outer-circle { fill: #e3f2fd; stroke: #2c3e50; stroke-width: 3; opacity: 0.8; }
+      .inner-circle { fill: #3498db; stroke: #2c3e50; stroke-width: 3; opacity: 0.7; }
+      .text-title { fill: #2c3e50; font-family: Cairo, Arial, sans-serif; font-size: 28px; font-weight: bold; text-anchor: middle; }
+      .text-label { fill: #2c3e50; font-family: Cairo, Arial, sans-serif; font-size: 20px; font-weight: bold; text-anchor: middle; }
+      .text-desc { fill: #2c3e50; font-family: Cairo, Arial, sans-serif; font-size: 14px; text-anchor: middle; }
+      .text-white { fill: white; font-family: Cairo, Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="40" class="text-title">العلاقة بين علم البيانات والذكاء الاصطناعي</text>
+
+  <!-- Outer circle: Data Science -->
+  <circle cx="400" cy="320" r="240" class="outer-circle"/>
+
+  <!-- Inner circle: AI/Machine Learning -->
+  <circle cx="400" cy="340" r="150" class="inner-circle"/>
+
+  <!-- Labels -->
+  <text x="400" y="120" class="text-label">علم البيانات</text>
+
+  <text x="400" y="340" class="text-white" style="font-size: 22px;">AI / Machine</text>
+  <text x="400" y="365" class="text-white" style="font-size: 22px;">Learning</text>
+
+  <!-- Data Science components (outside ML circle) -->
+  <text x="400" y="180" class="text-desc">Statistics</text>
+  <text x="260" y="230" class="text-desc">Data Collection</text>
+  <text x="540" y="230" class="text-desc">Data Cleaning</text>
+
+  <text x="210" y="300" class="text-desc">Visualization</text>
+  <text x="590" y="300" class="text-desc">Communication</text>
+
+  <text x="250" y="480" class="text-desc">Domain Expertise</text>
+  <text x="550" y="480" class="text-desc">Business Knowledge</text>
+
+  <text x="400" y="520" class="text-desc">Reporting &amp; Insights</text>
+
+  <!-- Bottom explanation box -->
+  <rect x="50" y="560" width="700" height="35" fill="#f8f9fa" stroke="#2c3e50" stroke-width="2" rx="5"/>
+  <text x="400" y="583" class="text-desc" style="font-size: 13px;">
+    AI/ML is a powerful tool within Data Science, used for predictions, automation, and pattern recognition
+  </text>
+</svg>
