@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300">
+  <defs>
+    <style>
+      .workflow-box {
+        fill: #f0f8ff;
+        stroke: #0066cc;
+        stroke-width: 2;
+      }
+      .workflow-text {
+        font-family: 'Cairo', 'Arial', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        fill: #0066cc;
+        text-anchor: middle;
+        direction: rtl;
+      }
+      .workflow-desc {
+        font-family: 'Cairo', 'Arial', sans-serif;
+        font-size: 12px;
+        fill: #333;
+        text-anchor: middle;
+        direction: rtl;
+      }
+      .arrow {
+        fill: none;
+        stroke: #666;
+        stroke-width: 2;
+        marker-start: url(#arrowhead-rtl);
+      }
+      .ai-box {
+        fill: #fff3cd;
+        stroke: #ff6b6b;
+        stroke-width: 2;
+      }
+      .ai-text {
+        fill: #ff6b6b;
+      }
+    </style>
+    <marker id="arrowhead-rtl" markerWidth="10" markerHeight="10" refX="1" refY="3" orient="auto">
+      <polygon points="10 0, 0 3, 10 6" fill="#666" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="600" y="25" style="font-family: 'Cairo', Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #333; text-anchor: middle;">
+    سير عمل علم البيانات
+  </text>
+
+  <!-- Step 5: Insights & Decisions (starts from right in RTL) -->
+  <rect x="20" y="60" width="200" height="100" rx="10" class="workflow-box"/>
+  <text x="120" y="95" class="workflow-text">الرؤى</text>
+  <text x="120" y="113" class="workflow-text">والقرارات</text>
+  <text x="120" y="138" class="workflow-desc">اتخاذ إجراءات بناءً</text>
+  <text x="120" y="153" class="workflow-desc">على النتائج</text>
+
+  <!-- Arrow (RTL - pointing left) -->
+  <path d="M 220 110 L 260 110" class="arrow"/>
+
+  <!-- Step 4: Machine Learning (AI) - Highlighted -->
+  <rect x="260" y="60" width="200" height="100" rx="10" class="ai-box"/>
+  <text x="360" y="95" class="workflow-text ai-text">تعلّم الآلة</text>
+  <text x="360" y="113" class="workflow-text ai-text">(الذكاء الاصطناعي)</text>
+  <text x="360" y="138" class="workflow-desc">بناء نماذج</text>
+  <text x="360" y="153" class="workflow-desc">تنبؤية</text>
+
+  <!-- Arrow (RTL) -->
+  <path d="M 460 110 L 500 110" class="arrow"/>
+
+  <!-- Step 3: Analysis & Visualization -->
+  <rect x="500" y="60" width="200" height="100" rx="10" class="workflow-box"/>
+  <text x="600" y="95" class="workflow-text">التحليل</text>
+  <text x="600" y="113" class="workflow-text">والتصور</text>
+  <text x="600" y="138" class="workflow-desc">استكشاف الأنماط،</text>
+  <text x="600" y="153" class="workflow-desc">إنشاء الرسوم البيانية</text>
+
+  <!-- Arrow (RTL) -->
+  <path d="M 700 110 L 740 110" class="arrow"/>
+
+  <!-- Step 2: Data Cleaning -->
+  <rect x="740" y="60" width="200" height="100" rx="10" class="workflow-box"/>
+  <text x="840" y="100" class="workflow-text">تنظيف البيانات</text>
+  <text x="840" y="125" class="workflow-desc">إزالة الأخطاء،</text>
+  <text x="840" y="143" class="workflow-desc">معالجة القيم المفقودة</text>
+
+  <!-- Arrow (RTL) -->
+  <path d="M 940 110 L 980 110" class="arrow"/>
+
+  <!-- Step 1: Data Collection (ends on right in RTL) -->
+  <rect x="980" y="60" width="200" height="100" rx="10" class="workflow-box"/>
+  <text x="1080" y="100" class="workflow-text">جمع البيانات</text>
+  <text x="1080" y="125" class="workflow-desc">جمع المعلومات</text>
+  <text x="1080" y="143" class="workflow-desc">من مصادر متعددة</text>
+
+  <!-- Bottom note -->
+  <text x="600" y="200" style="font-family: 'Cairo', Arial, sans-serif; font-size: 14px; fill: #666; text-anchor: middle; font-style: italic;">
+    الذكاء الاصطناعي/تعلّم الآلة خطوة مهمة واحدة في عملية علم البيانات الأوسع
+  </text>
+
+  <!-- Tools section -->
+  <text x="600" y="235" style="font-family: 'Cairo', Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #333; text-anchor: middle;">
+    الأدوات الشائعة:
+  </text>
+  <text x="600" y="255" style="font-family: 'Cairo', Arial, sans-serif; font-size: 12px; fill: #555; text-anchor: middle;">
+    Pandas (معالجة البيانات) • NumPy (الحسابات) • Matplotlib (التصور) • Scikit-learn (تعلّم الآلة)
+  </text>
+
+  <!-- License -->
+  <text x="600" y="285" style="font-family: Arial, sans-serif; font-size: 10px; fill: #999; text-anchor: middle;">
+    رسم تعليمي أصلي، CC BY 4.0
+  </text>
+</svg>
