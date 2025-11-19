@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="Arabic">
+    <meta name="direction" content="rtl">
+    <title>دورة أساسيات بايثون - مقرر DS-AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tutorial-specific styles */
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .tutorial-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .tutorial-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tutorial-header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .tutorial-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .tutorial-section h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .tutorial-section h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .tutorial-section p {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background-color: #667eea;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .code-example {
+            margin: 1.5rem 0;
+        }
+
+        .code-label {
+            background-color: #667eea;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 6px 6px 0 0;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .code-block {
+            background-color: #f6f8fa;
+            border: 1px solid #e1e4e8;
+            border-radius: 0 6px 6px 6px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin-top: 0;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #24292e;
+        }
+
+        .output-example {
+            margin: 1rem 0 1.5rem 0;
+        }
+
+        .output-label {
+            color: #0066cc;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .output-block {
+            background-color: #f0f9ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 6px;
+            padding: 1.5rem;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .output-block pre {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #1e40af;
+            line-height: 1.5;
+        }
+
+        .key-concept {
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f9ff 100%);
+            border-right: 4px solid #0066cc;
+            border-left: none;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 6px;
+        }
+
+        .key-concept h4 {
+            color: #0066cc;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .tip-box {
+            background-color: #d4edda;
+            border-right: 4px solid #28a745;
+            border-left: none;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 6px;
+        }
+
+        .tip-box strong {
+            color: #28a745;
+        }
+
+        .comparison-table {
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table th {
+            background-color: #667eea;
+            color: white;
+            padding: 1rem;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 0.75rem 1rem;
+            border: 1px solid #e1e4e8;
+            vertical-align: top;
+            text-align: right;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 3rem 0;
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+
+        .conclusion h2 {
+            color: white;
+            border: none;
+            margin-bottom: 1rem;
+        }
+
+        .back-link {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .back-link a {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .back-link a:hover {
+            background-color: #5568d3;
+        }
+
+        @media (max-width: 768px) {
+            .tutorial-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .tutorial-section {
+                padding: 1.5rem;
+            }
+
+            .code-block, .output-block {
+                padding: 1rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="Python_Basics_Tutorial_English.html" class="lang-button" title="Switch to English">English</a>
+    </div>
+
+    <div class="tutorial-header">
+        <h1>دورة أساسيات بايثون</h1>
+        <p class="subtitle">التعلم التفاعلي مع أمثلة البرمجة</p>
+    </div>
+
+    <main style="max-width: 900px; margin: 0 auto; padding: 0 2rem;">
+
+        <!-- Introduction -->
+        <div class="tutorial-section">
+            <span class="section-badge">مقدمة</span>
+            <h2>مرحباً بك في برمجة بايثون</h2>
+            <p>
+                تغطي هذه الدورة المفاهيم الأساسية لبايثون الضرورية لعلم البيانات والذكاء الاصطناعي.
+                بايثون هي لغة البرمجة الأساسية المستخدمة في الذكاء الاصطناعي/تعلّم الآلة لأنها سهلة التعلم
+                وفي نفس الوقت قوية بما يكفي لمهام تحليل البيانات وتعلّم الآلة المعقدة.
+            </p>
+            <p>
+                ستتعلم عن المتغيرات، هياكل البيانات (بما في ذلك مصفوفات NumPy)، التحكم في التدفق، الدوال،
+                والبرمجة الكائنية التوجه - جميع اللبنات الأساسية التي تحتاجها لبدء العمل مع البيانات ومكتبات
+                الذكاء الاصطناعي مثل Pandas و NumPy و Scikit-learn.
+            </p>
+        </div>
+
+        <!-- Section 1: Basic Variables -->
+        <div class="tutorial-section" id="section1">
+            <span class="section-badge">الجزء الأول</span>
+            <h2>1. المتغيرات الأساسية</h2>
+            <p>
+                في بايثون، يتم إنشاء المتغيرات عند تعيين قيمة لها. تحدد بايثون النوع تلقائياً بناءً على
+                القيمة التي تعينها. دعنا نستكشف أنواع المتغيرات المختلفة:
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">كود بايثون</span>
+                <div class="code-block">
+                    <pre><code># عدد صحيح
+age = 25
+print(f"age (integer): {age}")
+
+# عدد عشري
+height = 1.75
+print(f"height (float): {height}")
+
+# نص
+name = "Alice"
+print(f"name (string): {name}")
+
+# قيمة منطقية
+is_student = True
+print(f"is_student (boolean): {is_student}")</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">المخرجات:</span>
+                <div class="output-block">
+                    <pre>age (integer): 25
+height (float): 1.75
+name (string): Alice
+is_student (boolean): True</pre>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4>💡 المفهوم الأساسي: الكتابة الديناميكية</h4>
+                <p>
+                    تستخدم بايثون <strong>الكتابة الديناميكية</strong>، مما يعني أنك لست بحاجة إلى تعريف أنواع المتغيرات
+                    بشكل صريح. يحدد المفسر تلقائياً ما إذا كان المتغير عدداً صحيحاً أو عشرياً أو نصاً أو قيمة منطقية
+                    بناءً على القيمة التي تعينها. هذا يجعل كود بايثون أكثر إيجازاً وسهولة في الكتابة.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 2: Data Structures -->
+        <div class="tutorial-section" id="section2">
+            <span class="section-badge">الجزء الثاني</span>
+            <h2>2. هياكل البيانات</h2>
+            <p>
+                تحتوي بايثون على العديد من هياكل البيانات المدمجة لتنظيم وتخزين البيانات. دعنا نستكشف
+                الأكثر أهمية للعمل في علم البيانات.
+            </p>
+
+            <h3>2.1. القوائم</h3>
+            <p>
+                القوائم هي مجموعات مرتبة وقابلة للتعديل يمكن أن تحتوي على عناصر من أي نوع. إنها واحدة من
+                أكثر هياكل البيانات تنوعاً في بايثون.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">كود بايثون</span>
+                <div class="code-block">
+                    <pre><code># قوائم
+fruits = ["apple", "banana", "orange"]
+print("Lists:")
+print(f"Original list: {fruits}")
+
+# إضافة عناصر
+fruits.append("grape")
+print(f"After append: {fruits}")
+
+# الوصول إلى العناصر
+print(f"First fruit: {fruits[0]}")
+print(f"Last fruit: {fruits[-1]}")
+
+# تقسيم القائمة
+print(f"First two fruits: {fruits[0:2]}")</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">المخرجات:</span>
+                <div class="output-block">
+                    <pre>Lists:
+Original list: ['apple', 'banana', 'orange']
+After append: ['apple', 'banana', 'orange', 'grape']
+First fruit: apple
+Last fruit: grape
+First two fruits: ['apple', 'banana']</pre>
+                </div>
+            </div>
+
+            <h3>2.2. القواميس</h3>
+            <p>
+                القواميس تخزن البيانات في أزواج مفتاح-قيمة، مما يجعلها مثالية لتمثيل البيانات المنظمة
+                ذات الحقول المسماة.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">كود بايثون</span>
+                <div class="code-block">
+                    <pre><code># قواميس
+student = {
+    "name": "Alice",
+    "age": 20,
+    "grades": [85, 90, 88]
+}
+
+print("Dictionaries:")
+print(f"Student info: {student}")
+print(f"Student name: {student['name']}")
+print(f"Student grades: {student['grades']}")</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">المخرجات:</span>
+                <div class="output-block">
+                    <pre>Dictionaries:
+Student info: {'name': 'Alice', 'age': 20, 'grades': [85, 90, 88]}
+Student name: Alice
+Student grades: [85, 90, 88]</pre>
+                </div>
+            </div>
+
+            <h3>2.3. مقدمة لمصفوفات NumPy</h3>
+            <p>
+                <strong>NumPy (بايثون الرقمية)</strong> هي مكتبة أساسية للحوسبة الرقمية في بايثون.
+                توفر كائنات مصفوفات قوية متعددة الأبعاد أكثر كفاءة بكثير من قوائم بايثون المدمجة
+                للعمليات الرياضية.
+            </p>
+
+            <div class="key-concept">
+                <h4>ما هي مصفوفات NumPy؟</h4>
+                <p>
+                    مصفوفات NumPy هي هياكل شبيهة بالشبكة يمكنها الاحتفاظ بالبيانات في أبعاد متعددة.
+                    على عكس قوائم بايثون، مصفوفات NumPy:
+                </p>
+                <ul>
+                    <li>تخزن عناصر من نفس نوع البيانات (متجانسة)</li>
+                    <li>محسّنة للعمليات الرقمية</li>
+                    <li>تدعم العمليات الموجهة (عمليات على مصفوفات كاملة بدون حلقات)</li>
+                    <li>تستخدم ذاكرة أقل وأسرع لمجموعات البيانات الكبيرة</li>
+                </ul>
+            </div>
+
+            <h4>أبعاد المصفوفات</h4>
+            <p><strong>مصفوفة أحادية البعد (متجه):</strong> صف أو عمود واحد من البيانات</p>
+            <div class="code-block" style="display: inline-block; padding: 0.5rem 1rem; margin: 0.5rem 0;">
+                <pre><code>[1, 2, 3, 4, 5]</code></pre>
+            </div>
+
+            <p><strong>مصفوفة ثنائية الأبعاد (مصفوفة):</strong> بيانات منظمة في صفوف وأعمدة</p>
+            <div class="code-block" style="display: inline-block; padding: 0.5rem 1rem; margin: 0.5rem 0;">
+                <pre><code>[[1, 2, 3],
+ [4, 5, 6]]</code></pre>
+            </div>
+
+            <p><strong>مصفوفة ثلاثية الأبعاد (موتر):</strong> بيانات منظمة في طبقات متعددة من الصفوف والأعمدة</p>
+            <div class="code-block" style="display: inline-block; padding: 0.5rem 1rem; margin: 0.5rem 0;">
+                <pre><code>[[[1, 2],
+  [3, 4]],
+ [[5, 6],
+  [7, 8]]]</code></pre>
+            </div>
+
+            <h4>الاختلافات الرئيسية: مصفوفات NumPy مقابل القوائم/القواميس في بايثون</h4>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>الميزة</th>
+                            <th>قوائم بايثون</th>
+                            <th>قواميس بايثون</th>
+                            <th>مصفوفات NumPy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>هيكل البيانات</strong></td>
+                            <td>تسلسل مرتب</td>
+                            <td>أزواج مفتاح-قيمة</td>
+                            <td>شبكة متعددة الأبعاد</td>
+                        </tr>
+                        <tr>
+                            <td><strong>أنواع البيانات</strong></td>
+                            <td>أنواع مختلطة مسموحة</td>
+                            <td>أنواع مختلطة (مفاتيح وقيم)</td>
+                            <td>متجانسة (نفس النوع)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>الفهرسة</strong></td>
+                            <td>فهارس صحيحة</td>
+                            <td>قائمة على المفاتيح</td>
+                            <td>فهارس صحيحة (متعددة الأبعاد)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>العمليات الرياضية</strong></td>
+                            <td>محدودة، عنصر بعنصر</td>
+                            <td>غير قابلة للتطبيق</td>
+                            <td>موجهة، محسّنة للغاية</td>
+                        </tr>
+                        <tr>
+                            <td><strong>كفاءة الذاكرة</strong></td>
+                            <td>استهلاك أعلى</td>
+                            <td>استهلاك أعلى</td>
+                            <td>مدمجة وفعالة</td>
+                        </tr>
+                        <tr>
+                            <td><strong>الأداء</strong></td>
+                            <td>أبطأ للعمل الرقمي</td>
+                            <td>سريعة للبحث</td>
+                            <td>سريعة جداً للعمل الرقمي</td>
+                        </tr>
+                        <tr>
+                            <td><strong>الأبعاد</strong></td>
+                            <td>أحادي البعد (متداخل للأبعاد المتعددة)</td>
+                            <td>أحادي البعد (مفتاح-قيمة)</td>
+                            <td>متعدد الأبعاد أصلياً</td>
+                        </tr>
+                        <tr>
+                            <td><strong>حالات الاستخدام</strong></td>
+                            <td>مجموعات للأغراض العامة</td>
+                            <td>بحث سريع، تعيينات</td>
+                            <td>حوسبة رقمية، تعلّم آلة</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="code-example">
+                <span class="code-label">كود بايثون</span>
+                <div class="code-block">
+                    <pre><code>import numpy as np
+
+# مصفوفة أحادية البعد
+arr_1d = np.array([1, 2, 3, 4, 5])
+print(f"1D array: {arr_1d}")
+print(f"Shape: {arr_1d.shape}")
+
+# مصفوفة ثنائية الأبعاد
+arr_2d = np.array([[1, 2, 3], [4, 5, 6]])
+print(f"2D array:\n{arr_2d}")
+print(f"Shape: {arr_2d.shape}")
+
+# الاختلاف الرئيسي: التوجيه
+python_list = [1, 2, 3, 4]
+numpy_array = np.array([1, 2, 3, 4])
+
+# هذا يدمج القوائم
+print(f"List + List: {python_list + python_list}")
+
+# هذا يضيف عنصراً بعنصر
+print(f"Array + Array: {numpy_array + numpy_array}")</code></pre>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 متى تستخدم كل واحد؟</strong><br>
+                • <strong>القوائم:</strong> تخزين البيانات للأغراض العامة، أنواع مختلطة، حجم ديناميكي<br>
+                • <strong>القواميس:</strong> بحث سريع، تخزين بيانات مفتاح-قيمة ذات صلة<br>
+                • <strong>مصفوفات NumPy:</strong> عمليات رياضية، تحليل بيانات، تعلّم آلة، حوسبة علمية
+            </div>
+        </div>
+
+        <!-- Section 3: Conditional Statements -->
+        <div class="tutorial-section" id="section3">
+            <span class="section-badge">الجزء الثالث</span>
+            <h2>3. العبارات الشرطية</h2>
+            <p>
+                تستخدم بايثون <code>if</code> و <code>elif</code> و <code>else</code> للتنفيذ الشرطي.
+                هذا يسمح لبرنامجك باتخاذ قرارات بناءً على شروط مختلفة.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">كود بايثون</span>
+                <div class="code-block">
+                    <pre><code>score = 85
+
+print("Using if-elif-else:")
+if score >= 90:
+    print("Grade: A")
+elif score >= 80:
+    print("Grade: B")
+elif score >= 70:
+    print("Grade: C")
+else:
+    print("Grade: D")</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">المخرجات:</span>
+                <div class="output-block">
+                    <pre>Using if-elif-else:
+Grade: B</pre>
+                </div>
+            </div>
+
+            <h3>الشروط المتداخلة</h3>
+            <p>
+                يمكنك أيضاً تداخل العبارات الشرطية داخل بعضها البعض لمنطق اتخاذ قرارات أكثر تعقيداً.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">كود بايثون</span>
+                <div class="code-block">
+                    <pre><code># شروط متداخلة
+age = 18
+has_id = True
+
+if age >= 18:
+    if has_id:
+        print("Can enter the venue")
+    else:
+        print("Need to show ID")
+else:
+    print("Too young to enter")</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">المخرجات:</span>
+                <div class="output-block">
+                    <pre>Can enter the venue</pre>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 أفضل الممارسات:</strong> استخدم أسماء شروط واضحة وذات معنى وتجنب الشروط المتداخلة
+                بعمق كلما أمكن ذلك. فكّر في استخدام الدوال لتقسيم المنطق المعقد إلى أجزاء أصغر وأكثر قابلية للإدارة.
+            </div>
+        </div>
+
+        <!-- Section 4: Loops -->
+        <div class="tutorial-section" id="section4">
+            <span class="section-badge">الجزء الرابع</span>
+            <h2>4. الحلقات</h2>
+            <p>
+                توفر بايثون حلقات <code>for</code> و <code>while</code> للتكرار. تسمح لك الحلقات بتكرار
+                كتل من الكود عدة مرات، وهو أمر ضروري لمعالجة مجموعات البيانات.
+            </p>
+
+            <h3>حلقات For</h3>
+            <p>
+                تُستخدم حلقات for للتكرار عبر التسلسلات مثل القوائم أو النصوص أو النطاقات.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">كود بايثون</span>
+                <div class="code-block">
+                    <pre><code># حلقة for مع قائمة
+fruits = ["apple", "banana", "orange", "grape"]
+print("For loop with list:")
+for fruit in fruits:
+    print(f"Current fruit: {fruit}")
+
+# حلقة for مع نطاق
+print("\nFor loop with range:")
+for i in range(3):
+    print(f"Number: {i}")</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">المخرجات:</span>
+                <div class="output-block">
+                    <pre>For loop with list:
+Current fruit: apple
+Current fruit: banana
+Current fruit: orange
+Current fruit: grape
+
+For loop with range:
+Number: 0
+Number: 1
+Number: 2</pre>
+                </div>
+            </div>
+
+            <h3>حلقات While</h3>
+            <p>
+                تستمر حلقات while في التنفيذ طالما بقي الشرط صحيحاً.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">كود بايثون</span>
+                <div class="code-block">
+                    <pre><code># حلقة while
+print("While loop:")
+counter = 0
+while counter < 3:
+    print(f"Counter: {counter}")
+    counter = counter + 1</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">المخرجات:</span>
+                <div class="output-block">
+                    <pre>While loop:
+Counter: 0
+Counter: 1
+Counter: 2</pre>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4>اختيار نوع الحلقة المناسب</h4>
+                <p>
+                    <strong>استخدم حلقات for عندما:</strong> تعرف عدد مرات التكرار أو تحتاج إلى المرور عبر كل
+                    عنصر في مجموعة.<br><br>
+                    <strong>استخدم حلقات while عندما:</strong> تحتاج إلى التكرار حتى يتم استيفاء شرط معين،
+                    ولا تعرف مسبقاً عدد التكرارات المطلوبة.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 5: Functions -->
+        <div class="tutorial-section" id="section5">
+            <span class="section-badge">الجزء الخامس</span>
+            <h2>5. الدوال</h2>
+            <p>
+                الدوال هي كتل من الكود قابلة لإعادة الاستخدام تؤدي مهام محددة. يتم تعريفها باستخدام الكلمة
+                المفتاحية <code>def</code> وتساعدك على تنظيم كودك وتجنب التكرار.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">كود بايثون</span>
+                <div class="code-block">
+                    <pre><code># دالة أساسية
+def greet(name):
+    return f"Hello, {name}!"
+
+# دالة مع معامل افتراضي
+def calculate_total(prices, tax_rate=0.1):
+    subtotal = sum(prices)
+    tax = subtotal * tax_rate
+    return subtotal + tax
+
+# اختبار الدوال
+print(greet("Alice"))
+prices = [10, 20, 30]
+total = calculate_total(prices)
+print(f"Total with 10% tax: ${total:.2f}")</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">المخرجات:</span>
+                <div class="output-block">
+                    <pre>Hello, Alice!
+Total with 10% tax: $66.00</pre>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4>مبدأ DRY: لا تكرر نفسك</h4>
+                <p>
+                    تساعدك الدوال على اتباع مبدأ DRY من خلال تغليف المنطق الذي تحتاج إلى استخدامه عدة مرات.
+                    بدلاً من نسخ ولصق نفس الكود، تكتبه مرة واحدة في دالة وتستدعيه كلما احتجت. هذا يجعل كودك
+                    أسهل في الصيانة وأقل عرضة للأخطاء.
+                </p>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 المعاملات الافتراضية:</strong> يمكنك إعطاء معاملات الدوال قيماً افتراضية (مثل <code>tax_rate=0.1</code>).
+                هذا يعني أن المعامل اختياري عند استدعاء الدالة. إذا لم يتم توفيره، يتم استخدام القيمة الافتراضية.
+            </div>
+        </div>
+
+        <!-- Section 6: Classes (OOP) -->
+        <div class="tutorial-section" id="section6">
+            <span class="section-badge">الجزء السادس</span>
+            <h2>6. الفئات والبرمجة الكائنية التوجه</h2>
+            <p>
+                تُستخدم الفئات لإنشاء كائنات تجمع البيانات (الخصائص) والوظائف (الطرق) معاً.
+                هذا هو أساس البرمجة الكائنية التوجه (OOP)، والتي تُستخدم على نطاق واسع في مكتبات علم البيانات.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">كود بايثون</span>
+                <div class="code-block">
+                    <pre><code>class Car:
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.speed = 0
+
+    def accelerate(self, amount):
+        self.speed += amount
+        return f"Speed increased to {self.speed} mph"
+
+    def brake(self, amount):
+        self.speed = max(0, self.speed - amount)
+        return f"Speed decreased to {self.speed} mph"
+
+    def get_info(self):
+        return f"{self.year} {self.make} {self.model}"
+
+# إنشاء واستخدام نسخة من الفئة
+my_car = Car("Toyota", "Camry", 2022)
+print(f"Car info: {my_car.get_info()}")
+print(my_car.accelerate(30))
+print(my_car.brake(10))</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">المخرجات:</span>
+                <div class="output-block">
+                    <pre>Car info: 2022 Toyota Camry
+Speed increased to 30 mph
+Speed decreased to 20 mph</pre>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4>فهم الفئات</h4>
+                <p>
+                    <strong>الفئة:</strong> مخطط لإنشاء الكائنات (مثل القالب)<br>
+                    <strong>الكائن/النسخة:</strong> تحقيق محدد لفئة (مثل <code>my_car</code>)<br>
+                    <strong>__init__:</strong> طريقة البناء التي تعمل عند إنشاء كائن جديد<br>
+                    <strong>self:</strong> يشير إلى النسخة نفسها<br>
+                    <strong>الخصائص:</strong> بيانات مخزنة في الكائن (مثل <code>make</code> و <code>model</code> و <code>speed</code>)<br>
+                    <strong>الطرق:</strong> دوال تنتمي إلى الفئة (مثل <code>accelerate()</code> و <code>brake()</code>)
+                </p>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 لماذا نتعلم البرمجة الكائنية؟</strong> العديد من مكتبات علم البيانات والذكاء الاصطناعي
+                (مثل scikit-learn) تستخدم التصميم الكائني التوجه. فهم الفئات سيساعدك على استخدام هذه المكتبات
+                بفعالية وتنظيم كودك الخاص بشكل أفضل.
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div class="conclusion">
+            <h2 style="color: white; border: none; margin-bottom: 1rem;">الخطوات التالية</h2>
+            <p>
+                تهانينا! لقد تعلمت المفاهيم الأساسية لبايثون المطلوبة لعلم البيانات والذكاء الاصطناعي:
+            </p>
+            <ul style="line-height: 2;">
+                <li><strong>المتغيرات</strong> - تخزين والعمل مع أنواع بيانات مختلفة</li>
+                <li><strong>هياكل البيانات</strong> - القوائم والقواميس ومصفوفات NumPy</li>
+                <li><strong>التحكم في التدفق</strong> - اتخاذ القرارات بالشروط</li>
+                <li><strong>الحلقات</strong> - تكرار العمليات بكفاءة</li>
+                <li><strong>الدوال</strong> - تنظيم الكود القابل لإعادة الاستخدام</li>
+                <li><strong>الفئات</strong> - فهم البرمجة الكائنية التوجه</li>
+            </ul>
+            <p style="margin-top: 1.5rem;">
+                تشكل هذه المفاهيم الأساس للعمل مع المكتبات القوية مثل Pandas (معالجة البيانات)،
+                NumPy (الحوسبة الرقمية)، و Scikit-learn (تعلّم الآلة). بينما تواصل رحلتك في
+                مقرر DS-AI، ستستخدم هذه المهارات لتحليل البيانات وبناء النماذج وإنشاء أنظمة ذكية.
+            </p>
+        </div>
+
+        <div class="back-link">
+            <a href="what_is_ai_week1_ar.html">→ العودة إلى صفحة المقرر الرئيسية</a>
+        </div>
+    </main>
+
+    <footer style="margin-top: 4rem; padding: 2rem; background-color: #f5f5f5; text-align: center;">
+        <p style="color: #666;">جزء من مواد مقرر DS-AI</p>
+        <p style="color: #666; font-size: 0.9rem;">
+            دفتر Jupyter الأصلي تم تحويله إلى دورة HTML تفاعلية<br>
+            جميع أمثلة الكود قابلة للتنفيذ في Python 3.x<br>
+            مرخص بموجب CC BY 4.0
+        </p>
+    </footer>
+</body>
+</html>

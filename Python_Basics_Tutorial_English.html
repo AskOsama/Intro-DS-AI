@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics Tutorial - DS-AI Course</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Tutorial-specific styles */
+        .tutorial-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .tutorial-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tutorial-header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .tutorial-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .tutorial-section h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .tutorial-section h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .tutorial-section p {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background-color: #667eea;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .code-example {
+            margin: 1.5rem 0;
+        }
+
+        .code-label {
+            background-color: #667eea;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 6px 6px 0 0;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .code-block {
+            background-color: #f6f8fa;
+            border: 1px solid #e1e4e8;
+            border-radius: 0 6px 6px 6px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin-top: 0;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #24292e;
+        }
+
+        .output-example {
+            margin: 1rem 0 1.5rem 0;
+        }
+
+        .output-label {
+            color: #0066cc;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .output-block {
+            background-color: #f0f9ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 6px;
+            padding: 1.5rem;
+        }
+
+        .output-block pre {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #1e40af;
+            line-height: 1.5;
+        }
+
+        .key-concept {
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f9ff 100%);
+            border-left: 4px solid #0066cc;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 6px;
+        }
+
+        .key-concept h4 {
+            color: #0066cc;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .tip-box {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 6px;
+        }
+
+        .tip-box strong {
+            color: #28a745;
+        }
+
+        .comparison-table {
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table th {
+            background-color: #667eea;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 0.75rem 1rem;
+            border: 1px solid #e1e4e8;
+            vertical-align: top;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 3rem 0;
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+
+        .conclusion h2 {
+            color: white;
+            border: none;
+            margin-bottom: 1rem;
+        }
+
+        .back-link {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .back-link a {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .back-link a:hover {
+            background-color: #5568d3;
+        }
+
+        @media (max-width: 768px) {
+            .tutorial-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .tutorial-section {
+                padding: 1.5rem;
+            }
+
+            .code-block, .output-block {
+                padding: 1rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="Python_Basics_Tutorial_Arabic.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <div class="tutorial-header">
+        <h1>Python Basics Tutorial</h1>
+        <p class="subtitle">Interactive Learning with Code Examples</p>
+    </div>
+
+    <main style="max-width: 900px; margin: 0 auto; padding: 0 2rem;">
+
+        <!-- Introduction -->
+        <div class="tutorial-section">
+            <span class="section-badge">Introduction</span>
+            <h2>Welcome to Python Programming</h2>
+            <p>
+                This tutorial covers fundamental Python concepts that are essential for Data Science and Artificial Intelligence.
+                Python is the primary programming language used in AI/ML because it's easy to learn yet powerful enough for
+                complex data analysis and machine learning tasks.
+            </p>
+            <p>
+                You'll learn about variables, data structures (including NumPy arrays), control flow, functions, and
+                object-oriented programming - all the building blocks you need to start working with data and AI libraries
+                like Pandas, NumPy, and Scikit-learn.
+            </p>
+        </div>
+
+        <!-- Section 1: Basic Variables -->
+        <div class="tutorial-section" id="section1">
+            <span class="section-badge">Part 1</span>
+            <h2>1. Basic Variables</h2>
+            <p>
+                In Python, variables are created when you assign a value to them. Python automatically determines the
+                type based on the value you assign. Let's explore different variable types:
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">Python Code</span>
+                <div class="code-block">
+                    <pre><code># Integer
+age = 25
+print(f"age (integer): {age}")
+
+# Float
+height = 1.75
+print(f"height (float): {height}")
+
+# String
+name = "Alice"
+print(f"name (string): {name}")
+
+# Boolean
+is_student = True
+print(f"is_student (boolean): {is_student}")</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">Output:</span>
+                <div class="output-block">
+                    <pre>age (integer): 25
+height (float): 1.75
+name (string): Alice
+is_student (boolean): True</pre>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4>💡 Key Concept: Dynamic Typing</h4>
+                <p>
+                    Python uses <strong>dynamic typing</strong>, which means you don't need to declare variable types explicitly.
+                    The interpreter automatically determines whether a variable is an integer, float, string, or boolean based
+                    on the value you assign. This makes Python code more concise and easier to write.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 2: Data Structures -->
+        <div class="tutorial-section" id="section2">
+            <span class="section-badge">Part 2</span>
+            <h2>2. Data Structures</h2>
+            <p>
+                Python has several built-in data structures for organizing and storing data. Let's explore the most
+                important ones for data science work.
+            </p>
+
+            <h3>2.1. Lists</h3>
+            <p>
+                Lists are ordered, mutable collections that can hold items of any type. They're one of the most versatile
+                data structures in Python.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">Python Code</span>
+                <div class="code-block">
+                    <pre><code># Lists
+fruits = ["apple", "banana", "orange"]
+print("Lists:")
+print(f"Original list: {fruits}")
+
+# Adding items
+fruits.append("grape")
+print(f"After append: {fruits}")
+
+# Accessing items
+print(f"First fruit: {fruits[0]}")
+print(f"Last fruit: {fruits[-1]}")
+
+# List slicing
+print(f"First two fruits: {fruits[0:2]}")</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">Output:</span>
+                <div class="output-block">
+                    <pre>Lists:
+Original list: ['apple', 'banana', 'orange']
+After append: ['apple', 'banana', 'orange', 'grape']
+First fruit: apple
+Last fruit: grape
+First two fruits: ['apple', 'banana']</pre>
+                </div>
+            </div>
+
+            <h3>2.2. Dictionaries</h3>
+            <p>
+                Dictionaries store data in key-value pairs, making them perfect for representing structured data with
+                named fields.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">Python Code</span>
+                <div class="code-block">
+                    <pre><code># Dictionaries
+student = {
+    "name": "Alice",
+    "age": 20,
+    "grades": [85, 90, 88]
+}
+
+print("Dictionaries:")
+print(f"Student info: {student}")
+print(f"Student name: {student['name']}")
+print(f"Student grades: {student['grades']}")</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">Output:</span>
+                <div class="output-block">
+                    <pre>Dictionaries:
+Student info: {'name': 'Alice', 'age': 20, 'grades': [85, 90, 88]}
+Student name: Alice
+Student grades: [85, 90, 88]</pre>
+                </div>
+            </div>
+
+            <h3>2.3. Introduction to NumPy Arrays</h3>
+            <p>
+                <strong>NumPy (Numerical Python)</strong> is a fundamental library for numerical computing in Python.
+                It provides powerful n-dimensional array objects that are much more efficient than Python's built-in
+                lists for mathematical operations.
+            </p>
+
+            <div class="key-concept">
+                <h4>What are NumPy Arrays?</h4>
+                <p>
+                    NumPy arrays are grid-like structures that can hold data in multiple dimensions. Unlike Python lists,
+                    NumPy arrays:
+                </p>
+                <ul>
+                    <li>Store elements of the same data type (homogeneous)</li>
+                    <li>Are optimized for numerical operations</li>
+                    <li>Support vectorized operations (operations on entire arrays without loops)</li>
+                    <li>Use less memory and are faster for large datasets</li>
+                </ul>
+            </div>
+
+            <h4>Array Dimensions</h4>
+            <p><strong>1D Array (Vector):</strong> A single row or column of data</p>
+            <div class="code-block" style="display: inline-block; padding: 0.5rem 1rem; margin: 0.5rem 0;">
+                <pre><code>[1, 2, 3, 4, 5]</code></pre>
+            </div>
+
+            <p><strong>2D Array (Matrix):</strong> Data organized in rows and columns</p>
+            <div class="code-block" style="display: inline-block; padding: 0.5rem 1rem; margin: 0.5rem 0;">
+                <pre><code>[[1, 2, 3],
+ [4, 5, 6]]</code></pre>
+            </div>
+
+            <p><strong>3D Array (Tensor):</strong> Data organized in multiple layers of rows and columns</p>
+            <div class="code-block" style="display: inline-block; padding: 0.5rem 1rem; margin: 0.5rem 0;">
+                <pre><code>[[[1, 2],
+  [3, 4]],
+ [[5, 6],
+  [7, 8]]]</code></pre>
+            </div>
+
+            <h4>Key Differences: NumPy Arrays vs Python Lists/Dictionaries</h4>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Python Lists</th>
+                            <th>Python Dictionaries</th>
+                            <th>NumPy Arrays</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Data Structure</strong></td>
+                            <td>Ordered sequence</td>
+                            <td>Key-value pairs</td>
+                            <td>Multi-dimensional grid</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data Types</strong></td>
+                            <td>Mixed types allowed</td>
+                            <td>Mixed types (keys & values)</td>
+                            <td>Homogeneous (same type)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Indexing</strong></td>
+                            <td>Integer indices</td>
+                            <td>Key-based</td>
+                            <td>Integer indices (multi-dim)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mathematical Operations</strong></td>
+                            <td>Limited, element-by-element</td>
+                            <td>Not applicable</td>
+                            <td>Vectorized, highly optimized</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Memory Efficiency</strong></td>
+                            <td>Higher overhead</td>
+                            <td>Higher overhead</td>
+                            <td>Compact, efficient</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Performance</strong></td>
+                            <td>Slower for numerical work</td>
+                            <td>Fast for lookups</td>
+                            <td>Very fast for numerical work</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dimensions</strong></td>
+                            <td>1D (nested for multi-D)</td>
+                            <td>1D (key-value)</td>
+                            <td>Native multi-dimensional</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Use Cases</strong></td>
+                            <td>General-purpose collections</td>
+                            <td>Fast lookups, mappings</td>
+                            <td>Numerical computing, ML</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="code-example">
+                <span class="code-label">Python Code</span>
+                <div class="code-block">
+                    <pre><code>import numpy as np
+
+# 1D Array
+arr_1d = np.array([1, 2, 3, 4, 5])
+print(f"1D array: {arr_1d}")
+print(f"Shape: {arr_1d.shape}")
+
+# 2D Array
+arr_2d = np.array([[1, 2, 3], [4, 5, 6]])
+print(f"2D array:\n{arr_2d}")
+print(f"Shape: {arr_2d.shape}")
+
+# Key difference: Vectorization
+python_list = [1, 2, 3, 4]
+numpy_array = np.array([1, 2, 3, 4])
+
+# This concatenates lists
+print(f"List + List: {python_list + python_list}")
+
+# This adds element-wise
+print(f"Array + Array: {numpy_array + numpy_array}")</code></pre>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 When to Use Each?</strong><br>
+                • <strong>Lists:</strong> General-purpose data storage, mixed types, dynamic sizing<br>
+                • <strong>Dictionaries:</strong> Fast lookups, storing related key-value data<br>
+                • <strong>NumPy Arrays:</strong> Mathematical operations, data analysis, machine learning, scientific computing
+            </div>
+        </div>
+
+        <!-- Section 3: Conditional Statements -->
+        <div class="tutorial-section" id="section3">
+            <span class="section-badge">Part 3</span>
+            <h2>3. Conditional Statements</h2>
+            <p>
+                Python uses <code>if</code>, <code>elif</code>, and <code>else</code> for conditional execution.
+                This allows your program to make decisions based on different conditions.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">Python Code</span>
+                <div class="code-block">
+                    <pre><code>score = 85
+
+print("Using if-elif-else:")
+if score >= 90:
+    print("Grade: A")
+elif score >= 80:
+    print("Grade: B")
+elif score >= 70:
+    print("Grade: C")
+else:
+    print("Grade: D")</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">Output:</span>
+                <div class="output-block">
+                    <pre>Using if-elif-else:
+Grade: B</pre>
+                </div>
+            </div>
+
+            <h3>Nested Conditions</h3>
+            <p>
+                You can also nest conditional statements inside each other for more complex decision-making logic.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">Python Code</span>
+                <div class="code-block">
+                    <pre><code># Nested conditions
+age = 18
+has_id = True
+
+if age >= 18:
+    if has_id:
+        print("Can enter the venue")
+    else:
+        print("Need to show ID")
+else:
+    print("Too young to enter")</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">Output:</span>
+                <div class="output-block">
+                    <pre>Can enter the venue</pre>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Best Practice:</strong> Use clear, meaningful condition names and avoid deeply nested conditionals
+                when possible. Consider using functions to break down complex logic into smaller, more manageable pieces.
+            </div>
+        </div>
+
+        <!-- Section 4: Loops -->
+        <div class="tutorial-section" id="section4">
+            <span class="section-badge">Part 4</span>
+            <h2>4. Loops</h2>
+            <p>
+                Python provides <code>for</code> and <code>while</code> loops for iteration. Loops allow you to repeat
+                blocks of code multiple times, which is essential for processing collections of data.
+            </p>
+
+            <h3>For Loops</h3>
+            <p>
+                For loops are used to iterate over sequences like lists, strings, or ranges.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">Python Code</span>
+                <div class="code-block">
+                    <pre><code># For loop with list
+fruits = ["apple", "banana", "orange", "grape"]
+print("For loop with list:")
+for fruit in fruits:
+    print(f"Current fruit: {fruit}")
+
+# For loop with range
+print("\nFor loop with range:")
+for i in range(3):
+    print(f"Number: {i}")</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">Output:</span>
+                <div class="output-block">
+                    <pre>For loop with list:
+Current fruit: apple
+Current fruit: banana
+Current fruit: orange
+Current fruit: grape
+
+For loop with range:
+Number: 0
+Number: 1
+Number: 2</pre>
+                </div>
+            </div>
+
+            <h3>While Loops</h3>
+            <p>
+                While loops continue executing as long as a condition remains true.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">Python Code</span>
+                <div class="code-block">
+                    <pre><code># While loop
+print("While loop:")
+counter = 0
+while counter < 3:
+    print(f"Counter: {counter}")
+    counter = counter + 1</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">Output:</span>
+                <div class="output-block">
+                    <pre>While loop:
+Counter: 0
+Counter: 1
+Counter: 2</pre>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4>Choosing the Right Loop Type</h4>
+                <p>
+                    <strong>Use for loops when:</strong> You know how many times to iterate or need to go through each
+                    item in a collection.<br><br>
+                    <strong>Use while loops when:</strong> You need to repeat until a certain condition is met, and you
+                    don't know in advance how many iterations will be needed.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 5: Functions -->
+        <div class="tutorial-section" id="section5">
+            <span class="section-badge">Part 5</span>
+            <h2>5. Functions</h2>
+            <p>
+                Functions are reusable blocks of code that perform specific tasks. They're defined using the <code>def</code>
+                keyword and help you organize your code and avoid repetition.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">Python Code</span>
+                <div class="code-block">
+                    <pre><code># Basic function
+def greet(name):
+    return f"Hello, {name}!"
+
+# Function with default parameter
+def calculate_total(prices, tax_rate=0.1):
+    subtotal = sum(prices)
+    tax = subtotal * tax_rate
+    return subtotal + tax
+
+# Testing functions
+print(greet("Alice"))
+prices = [10, 20, 30]
+total = calculate_total(prices)
+print(f"Total with 10% tax: ${total:.2f}")</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">Output:</span>
+                <div class="output-block">
+                    <pre>Hello, Alice!
+Total with 10% tax: $66.00</pre>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4>DRY Principle: Don't Repeat Yourself</h4>
+                <p>
+                    Functions help you follow the DRY principle by encapsulating logic that you need to use multiple times.
+                    Instead of copying and pasting the same code, you write it once in a function and call it whenever needed.
+                    This makes your code easier to maintain and less prone to errors.
+                </p>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Default Parameters:</strong> You can give function parameters default values (like <code>tax_rate=0.1</code>).
+                This means the parameter is optional when calling the function. If not provided, the default value is used.
+            </div>
+        </div>
+
+        <!-- Section 6: Classes (OOP) -->
+        <div class="tutorial-section" id="section6">
+            <span class="section-badge">Part 6</span>
+            <h2>6. Classes and Object-Oriented Programming</h2>
+            <p>
+                Classes are used to create objects that bundle data (attributes) and functionality (methods) together.
+                This is the foundation of object-oriented programming (OOP), which is widely used in data science libraries.
+            </p>
+
+            <div class="code-example">
+                <span class="code-label">Python Code</span>
+                <div class="code-block">
+                    <pre><code>class Car:
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.speed = 0
+
+    def accelerate(self, amount):
+        self.speed += amount
+        return f"Speed increased to {self.speed} mph"
+
+    def brake(self, amount):
+        self.speed = max(0, self.speed - amount)
+        return f"Speed decreased to {self.speed} mph"
+
+    def get_info(self):
+        return f"{self.year} {self.make} {self.model}"
+
+# Creating and using a class instance
+my_car = Car("Toyota", "Camry", 2022)
+print(f"Car info: {my_car.get_info()}")
+print(my_car.accelerate(30))
+print(my_car.brake(10))</code></pre>
+                </div>
+            </div>
+
+            <div class="output-example">
+                <span class="output-label">Output:</span>
+                <div class="output-block">
+                    <pre>Car info: 2022 Toyota Camry
+Speed increased to 30 mph
+Speed decreased to 20 mph</pre>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4>Understanding Classes</h4>
+                <p>
+                    <strong>Class:</strong> A blueprint for creating objects (like a template)<br>
+                    <strong>Object/Instance:</strong> A specific realization of a class (like <code>my_car</code>)<br>
+                    <strong>__init__:</strong> The constructor method that runs when creating a new object<br>
+                    <strong>self:</strong> Refers to the instance itself<br>
+                    <strong>Attributes:</strong> Data stored in the object (like <code>make</code>, <code>model</code>, <code>speed</code>)<br>
+                    <strong>Methods:</strong> Functions that belong to the class (like <code>accelerate()</code>, <code>brake()</code>)
+                </p>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Why Learn OOP?</strong> Many data science and AI libraries (like scikit-learn) use object-oriented
+                design. Understanding classes will help you use these libraries effectively and organize your own code better.
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div class="conclusion">
+            <h2 style="color: white; border: none; margin-bottom: 1rem;">Next Steps</h2>
+            <p>
+                Congratulations! You've learned the fundamental Python concepts needed for data science and AI:
+            </p>
+            <ul style="line-height: 2;">
+                <li><strong>Variables</strong> - storing and working with different data types</li>
+                <li><strong>Data Structures</strong> - lists, dictionaries, and NumPy arrays</li>
+                <li><strong>Control Flow</strong> - making decisions with conditionals</li>
+                <li><strong>Loops</strong> - repeating operations efficiently</li>
+                <li><strong>Functions</strong> - organizing reusable code</li>
+                <li><strong>Classes</strong> - understanding object-oriented programming</li>
+            </ul>
+            <p style="margin-top: 1.5rem;">
+                These concepts form the foundation for working with powerful libraries like Pandas (data manipulation),
+                NumPy (numerical computing), and Scikit-learn (machine learning). As you continue your journey in the
+                DS-AI course, you'll use these skills to analyze data, build models, and create intelligent systems.
+            </p>
+        </div>
+
+        <div class="back-link">
+            <a href="what_is_ai_week1.html">← Back to Main Course Page</a>
+        </div>
+    </main>
+
+    <footer style="margin-top: 4rem; padding: 2rem; background-color: #f5f5f5; text-align: center;">
+        <p style="color: #666;">Part of the DS-AI Course Materials</p>
+        <p style="color: #666; font-size: 0.9rem;">
+            Original Jupyter Notebook converted to interactive HTML tutorial<br>
+            All code examples are executable in Python 3.x<br>
+            Licensed under CC BY 4.0
+        </p>
+    </footer>
+</body>
+</html>
