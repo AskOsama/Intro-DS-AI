@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="Arabic">
+    <meta name="direction" content="rtl">
+    <title>أساسيات برمجة بايثون - الأسبوع الثاني الجلسة الأولى</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="python_session1_week2.html" class="lang-button" title="Switch to English">English</a>
+    </div>
+
+    <header>
+        <h1>أساسيات برمجة بايثون</h1>
+        <p class="subtitle">الأسبوع الثاني، الجلسة الأولى: اللبنات الأساسية للبرمجة</p>
+    </header>
+
+    <nav class="table-of-contents no-print">
+        <h2>المحتويات</h2>
+        <ul>
+            <li><a href="#overview">أهداف التعلم</a></li>
+            <li><a href="#intro">مقدمة: المكونات السبعة لبايثون</a></li>
+            <li><a href="#variables">١. المتغيرات: البيانات في الذاكرة</a></li>
+            <li><a href="#filesystem">٢. نظام الملفات: التخزين الدائم</a></li>
+            <li><a href="#control">٣. جمل التحكم</a></li>
+            <li><a href="#functions">٤. الدوال</a></li>
+            <li><a href="#classes">٥. الأصناف والكائنات</a></li>
+            <li><a href="#packages">٦. الحزم والمكتبات</a></li>
+            <li><a href="#pip">٧. تثبيت الحزم باستخدام pip</a></li>
+            <li><a href="#summary">الملخص والخطوات التالية</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="overview" class="learning-objectives">
+            <h2>أهداف التعلم</h2>
+            <p>بنهاية هذه الجلسة، سيكون الطلاب قادرين على:</p>
+            <ul>
+                <li>فهم المتغيرات كحاويات للبيانات مخزنة في الذاكرة</li>
+                <li>التفريق بين الذاكرة المؤقتة (RAM) والتخزين الدائم (نظام الملفات)</li>
+                <li>استخدام جمل التحكم (if/else, for, while) لتوجيه تدفق البرنامج</li>
+                <li>تعريف واستدعاء الدوال لإنشاء كتل كود قابلة لإعادة الاستخدام</li>
+                <li>فهم مفهوم الأصناف والكائنات لتنظيم البيانات والسلوك</li>
+                <li>استيراد واستخدام الحزم/المكتبات مثل NumPy</li>
+                <li>تثبيت الحزم باستخدام pip</li>
+            </ul>
+        </section>
+
+        <!-- Introduction -->
+        <section id="intro" class="content-section">
+            <h2>مقدمة: المكونات السبعة لبرمجة بايثون</h2>
+
+            <div class="key-message">
+                <p><strong>الرسالة الأساسية:</strong> كل برنامج بايثون مبني من نفس اللبنات الأساسية. فهم هذه المكونات السبعة يمنحك الأساس لإنشاء أي برنامج.</p>
+            </div>
+
+            <p>فكر في البرمجة مثل البناء بقطع الليغو. كما يمكنك إنشاء أي شيء من قطع ليغو أساسية، يمكنك بناء أي برنامج باستخدام هذه المكونات السبعة الأساسية:</p>
+
+            <!-- Overview Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/python_components_ar.svg" alt="المكونات السبعة لبرمجة بايثون: المتغيرات، نظام الملفات، التحكم بالتدفق، الدوال، الفئات، الحزم، و pip" class="content-image">
+                <figcaption>اللبنات السبعة لبرمجة بايثون</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>لماذا هذه المكونات مهمة:</h3>
+                <ul>
+                    <li><strong>المتغيرات</strong> - تخزن بياناتك</li>
+                    <li><strong>نظام الملفات</strong> - تحفظ البيانات بشكل دائم</li>
+                    <li><strong>جمل التحكم</strong> - تتخذ قرارات وتكرر الإجراءات</li>
+                    <li><strong>الدوال</strong> - تنظم وتعيد استخدام الكود</li>
+                    <li><strong>الأصناف والكائنات</strong> - تنمذج الأشياء الحقيقية</li>
+                    <li><strong>الحزم</strong> - تستخدم أدوات جاهزة</li>
+                    <li><strong>pip</strong> - تثبت أدوات جديدة</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 1: Variables -->
+        <section id="variables" class="content-section">
+            <h2>١. المتغيرات: حاويات البيانات في الذاكرة</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>المتغير</em> هو حاوية مسماة تخزن البيانات في ذاكرة الحاسوب (RAM). فكر فيه كصندوق مسمى يمكنك وضع المعلومات فيه.</p>
+            </div>
+
+            <h3>تشبيه الصندوق</h3>
+            <p>تخيل أن لديك صناديق في غرفتك. كل صندوق له تسمية (اسم المتغير) ويحتوي على شيء ما (القيمة). يمكنك:</p>
+            <ul>
+                <li>وضع شيء في صندوق (تعيين قيمة)</li>
+                <li>النظر لما بداخله (قراءة القيمة)</li>
+                <li>استبدال ما بداخله (تحديث القيمة)</li>
+            </ul>
+
+            <!-- Variable Memory Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/variable_memory_ar.svg" alt="المتغيرات المخزنة في ذاكرة الحاسوب تظهر أنواع البيانات المختلفة" class="content-image">
+                <figcaption>المتغيرات تُخزن في ذاكرة الوصول العشوائي (RAM)</figcaption>
+            </figure>
+
+            <h3>أنواع البيانات في بايثون</h3>
+            <p>متغيرات بايثون يمكنها حمل أنواع مختلفة من البيانات:</p>
+
+            <div class="example">
+                <h3>مثال الكود: إنشاء المتغيرات</h3>
+                <pre dir="ltr"><code># النص (String)
+name = "أحمد"
+city = "الرياض"
+
+# عدد صحيح (Integer)
+age = 25
+year = 2024
+
+# عدد عشري (Float)
+temperature = 36.5
+price = 99.99
+
+# منطقي (Boolean)
+is_student = True
+is_graduated = False
+
+# قائمة (List)
+grades = [90, 85, 92, 88]
+colors = ["أحمر", "أخضر", "أزرق"]
+
+# قاموس (Dictionary)
+student = {
+    "name": "أحمد",
+    "age": 25,
+    "grades": [90, 85, 92]
+}
+
+# التحقق من نوع المتغير
+print(type(name))    # المخرجات: &lt;class 'str'&gt;
+print(type(age))     # المخرجات: &lt;class 'int'&gt;
+print(type(grades))  # المخرجات: &lt;class 'list'&gt;</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>مهم:</strong> المتغيرات توجد فقط في الذاكرة (RAM). عندما ينتهي برنامجك أو يُغلق حاسوبك، البيانات في المتغيرات تُفقد! لذلك نحتاج نظام الملفات للتخزين الدائم.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: File System -->
+        <section id="filesystem" class="content-section">
+            <h2>٢. نظام الملفات: التخزين الدائم</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>نظام الملفات</em> هو المكان الذي تُخزن فيه البيانات بشكل دائم على القرص الصلب أو SSD. على عكس المتغيرات في الذاكرة، البيانات المحفوظة في الملفات تبقى حتى بعد انتهاء البرنامج.</p>
+            </div>
+
+            <h3>الذاكرة مقابل التخزين: فهم الفرق</h3>
+
+            <!-- File vs Memory Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/file_vs_memory_ar.svg" alt="مقارنة بين الذاكرة (المؤقتة) ونظام الملفات (الدائم)" class="content-image">
+                <figcaption>الذاكرة سريعة لكن مؤقتة؛ التخزين أبطأ لكن دائم</figcaption>
+            </figure>
+
+            <div class="key-pattern">
+                <h3>متى تستخدم ماذا:</h3>
+                <ul>
+                    <li><strong>المتغيرات (RAM):</strong> للبيانات التي تعمل عليها أثناء تنفيذ البرنامج</li>
+                    <li><strong>الملفات (التخزين):</strong> للبيانات التي تحتاج الاحتفاظ بها بعد انتهاء البرنامج، أو مشاركتها، أو استخدامها لاحقاً</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>مثال الكود: العمل مع الملفات</h3>
+                <pre dir="ltr"><code># كتابة البيانات إلى ملف
+data = "معلومات مهمة أريد حفظها"
+
+with open("my_data.txt", "w", encoding="utf-8") as file:
+    file.write(data)
+# الملف يُغلق تلقائياً بعد كتلة 'with'
+
+# قراءة البيانات من ملف
+with open("my_data.txt", "r", encoding="utf-8") as file:
+    content = file.read()
+    print(content)  # المخرجات: معلومات مهمة أريد حفظها
+
+# الإضافة إلى ملف (إضافة بدون الكتابة فوق)
+with open("my_data.txt", "a", encoding="utf-8") as file:
+    file.write("\nبيانات إضافية أضيفت لاحقاً")
+
+# العمل مع عدة أسطر
+grades = [90, 85, 92, 88]
+with open("grades.txt", "w") as file:
+    for grade in grades:
+        file.write(str(grade) + "\n")</code></pre>
+            </div>
+
+            <div class="example">
+                <h3>تشبيه من الواقع:</h3>
+                <p>فكر فيها هكذا:</p>
+                <ul>
+                    <li><strong>الذاكرة (المتغيرات)</strong> = مكتبك حيث تعمل بنشاط</li>
+                    <li><strong>التخزين (الملفات)</strong> = خزانة الملفات حيث تحفظ الوثائق</li>
+                </ul>
+                <p>تأخذ الملفات من الخزانة إلى مكتبك للعمل عليها، ثم تعيدها عند الانتهاء.</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Control Statements -->
+        <section id="control" class="content-section">
+            <h2>٣. جمل التحكم: توجيه تدفق البرنامج</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>جمل التحكم</em> تسمح لك بتغيير تدفق برنامجك. بدلاً من تشغيل كل سطر من الأعلى للأسفل، يمكنك اتخاذ قرارات (التفرع) أو تكرار الإجراءات (الحلقات).</p>
+            </div>
+
+            <h3>تصور تدفق البرنامج</h3>
+
+            <!-- Control Flow Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/control_flow_ar.svg" alt="رسم توضيحي لتدفق التحكم يظهر التفرع if/else وحلقات for/while" class="content-image">
+                <figcaption>ثلاثة أنواع من التحكم في التدفق: if/else، حلقات for، وحلقات while</figcaption>
+            </figure>
+
+            <h3>If/Else: اتخاذ القرارات</h3>
+            <p>استخدم <code dir="ltr">if/else</code> عندما تحتاج أن يتخذ برنامجك خيارات بناءً على شروط:</p>
+
+            <div class="example">
+                <h3>مثال الكود: جمل If/Else</h3>
+                <pre dir="ltr"><code># جملة if بسيطة
+temperature = 35
+
+if temperature > 30:
+    print("الجو حار اليوم!")
+
+# جملة if/else
+age = 18
+
+if age >= 18:
+    print("يمكنك التصويت")
+else:
+    print("لا يمكنك التصويت بعد")
+
+# if/elif/else لشروط متعددة
+grade = 85
+
+if grade >= 90:
+    print("ممتاز! التقدير: A")
+elif grade >= 80:
+    print("جيد جداً! التقدير: B")
+elif grade >= 70:
+    print("جيد! التقدير: C")
+else:
+    print("يحتاج تحسين")</code></pre>
+            </div>
+
+            <h3>حلقة For: التكرار عدد معروف من المرات</h3>
+            <p>استخدم حلقات <code dir="ltr">for</code> عندما تعرف كم مرة تريد التكرار:</p>
+
+            <div class="example">
+                <h3>مثال الكود: حلقات For</h3>
+                <pre dir="ltr"><code># التكرار خلال قائمة
+grades = [90, 85, 92, 88]
+
+for grade in grades:
+    print(f"الدرجة: {grade}")
+
+# المخرجات:
+# الدرجة: 90
+# الدرجة: 85
+# الدرجة: 92
+# الدرجة: 88
+
+# التكرار باستخدام range
+for i in range(5):
+    print(f"العدد: {i}")
+
+# المخرجات: العدد: 0, 1, 2, 3, 4
+
+# حساب المجموع باستخدام حلقة
+total = 0
+for grade in grades:
+    total = total + grade
+
+average = total / len(grades)
+print(f"المتوسط: {average}")  # المخرجات: المتوسط: 88.75</code></pre>
+            </div>
+
+            <h3>حلقة While: التكرار حتى يتغير شرط</h3>
+            <p>استخدم حلقات <code dir="ltr">while</code> عندما لا تعرف كم مرة تريد التكرار:</p>
+
+            <div class="example">
+                <h3>مثال الكود: حلقات While</h3>
+                <pre dir="ltr"><code># العد التنازلي
+count = 5
+
+while count > 0:
+    print(count)
+    count = count - 1
+
+print("انطلاق!")
+
+# المخرجات: 5, 4, 3, 2, 1, انطلاق!
+
+# الاستمرار بالسؤال حتى إدخال صحيح
+password = ""
+
+while password != "secret123":
+    password = input("أدخل كلمة المرور: ")
+
+print("تم منح الوصول!")</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>تذكر:</strong> جمل التحكم هي كيف تعطي برنامجك "ذكاء" - القدرة على اتخاذ قرارات والاستجابة لمواقف مختلفة.</p>
+            </div>
+        </section>
+
+        <!-- Section 4: Functions -->
+        <section id="functions" class="content-section">
+            <h2>٤. الدوال: كتل الكود القابلة لإعادة الاستخدام</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>الدالة</em> هي كتلة كود مسماة تؤدي مهمة محددة. تأخذ مدخلات (معاملات)، تعالجها باستخدام جمل التحكم، وترجع مخرجات اختيارياً.</p>
+            </div>
+
+            <h3>صيغة الدالة: مدخلات ← معالجة ← مخرجات</h3>
+
+            <!-- Function Anatomy Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/function_anatomy_ar.svg" alt="تشريح الدالة يظهر معاملات الإدخال وجسم المعالجة ومخرجات الإرجاع" class="content-image">
+                <figcaption>الدوال تحول المدخلات إلى مخرجات من خلال عملية محددة</figcaption>
+            </figure>
+
+            <h3>لماذا نستخدم الدوال؟</h3>
+            <ul>
+                <li><strong>إعادة الاستخدام:</strong> اكتب الكود مرة واحدة، استخدمه مرات عديدة</li>
+                <li><strong>التنظيم:</strong> قسّم المشاكل المعقدة إلى قطع أصغر</li>
+                <li><strong>القراءة:</strong> أعطِ أسماء ذات معنى لكتل الكود</li>
+                <li><strong>الاختبار:</strong> اختبر القطع الصغيرة بشكل مستقل</li>
+            </ul>
+
+            <div class="example">
+                <h3>مثال الكود: إنشاء واستخدام الدوال</h3>
+                <pre dir="ltr"><code># تعريف دالة بسيطة
+def greet(name):
+    """هذه الدالة تحيّي شخصاً"""
+    return f"مرحباً، {name}!"
+
+# استدعاء الدالة
+message = greet("أحمد")
+print(message)  # المخرجات: مرحباً، أحمد!
+
+# دالة بمعاملات متعددة
+def calculate_average(grades):
+    """حساب متوسط قائمة من الدرجات"""
+    total = sum(grades)
+    count = len(grades)
+    average = total / count
+    return average
+
+# استخدام الدالة
+my_grades = [90, 85, 92, 88]
+result = calculate_average(my_grades)
+print(f"المتوسط: {result}")  # المخرجات: المتوسط: 88.75
+
+# دالة بمعامل افتراضي
+def power(base, exponent=2):
+    """حساب الأساس مرفوعاً للأس"""
+    return base ** exponent
+
+print(power(5))      # المخرجات: 25 (تستخدم الافتراضي exponent=2)
+print(power(5, 3))   # المخرجات: 125 (5^3)
+
+# دالة لا ترجع شيئاً
+def print_report(student_name, grades):
+    """طباعة تقرير درجات منسق"""
+    print(f"=== تقرير {student_name} ===")
+    for i, grade in enumerate(grades, 1):
+        print(f"  المادة {i}: {grade}")
+    print(f"  المتوسط: {calculate_average(grades):.2f}")
+
+print_report("سارة", [95, 88, 92])</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>أفضل الممارسات للدوال:</h3>
+                <ul>
+                    <li>أعطِ الدوال أسماء وصفية توضح ما تفعله</li>
+                    <li>كل دالة يجب أن تفعل شيئاً واحداً بشكل جيد</li>
+                    <li>استخدم المعاملات للإدخال، و return للإخراج</li>
+                    <li>أضف docstrings لشرح ما تفعله الدالة</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 5: Classes & Objects -->
+        <section id="classes" class="content-section">
+            <h2>٥. الأصناف والكائنات: تنظيم البيانات والسلوك</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>الصنف</em> هو قالب يحدد كلاً من البيانات (السمات) والسلوك (الدوال) معاً. <em>الكائن</em> هو نسخة محددة أُنشئت من ذلك القالب.</p>
+            </div>
+
+            <h3>تشبيه المخطط</h3>
+            <p>فكر في الصنف كمخطط معماري لمنزل:</p>
+            <ul>
+                <li><strong>المخطط (الصنف)</strong> يحدد ما يجب أن يحتويه المنزل: غرف، أبواب، نوافذ</li>
+                <li>كل <strong>منزل فعلي (كائن)</strong> يُبنى من ذلك المخطط بتفاصيل محددة</li>
+                <li>يمكنك بناء عدة منازل مختلفة من نفس المخطط</li>
+            </ul>
+
+            <!-- Class Object Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/class_object_ar.svg" alt="الصنف كقالب ينشئ عدة نسخ كائنات" class="content-image">
+                <figcaption>الصنف هو قالب؛ الكائنات هي نسخ محددة</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>مثال الكود: إنشاء صنف</h3>
+                <pre dir="ltr"><code># تعريف صنف (القالب) - Define a class (template)
+class طالب:
+    """صنف يمثل طالباً - A class representing a student"""
+
+    def __init__(self, الاسم, العمر):
+        """تهيئة طالب جديد بالاسم والعمر"""
+        self.الاسم = الاسم        # سمة: اسم الطالب
+        self.العمر = العمر        # سمة: عمر الطالب
+        self.الدرجات = []         # سمة: قائمة الدرجات
+
+    def أضف_درجة(self, درجة):
+        """إضافة درجة لسجل الطالب"""
+        self.الدرجات.append(درجة)
+
+    def احصل_على_المتوسط(self):
+        """حساب وإرجاع متوسط الدرجات"""
+        if len(self.الدرجات) == 0:
+            return 0
+        return sum(self.الدرجات) / len(self.الدرجات)
+
+    def اعرض_المعلومات(self):
+        """عرض معلومات الطالب"""
+        print(f"الاسم: {self.الاسم}")
+        print(f"العمر: {self.العمر}")
+        print(f"الدرجات: {self.الدرجات}")
+        print(f"المتوسط: {self.احصل_على_المتوسط():.2f}")
+
+
+# إنشاء كائنات (نسخ) من الصنف - Create objects from the class
+طالب1 = طالب("أحمد", 20)
+طالب2 = طالب("سارة", 22)
+
+# استخدام دوال الكائن - Using object methods
+طالب1.أضف_درجة(90)
+طالب1.أضف_درجة(85)
+طالب1.أضف_درجة(92)
+
+طالب2.أضف_درجة(95)
+طالب2.أضف_درجة(88)
+
+# الوصول لسمات ودوال الكائن
+print(طالب1.الاسم)              # المخرجات: أحمد
+print(طالب1.احصل_على_المتوسط()) # المخرجات: 89.0
+
+طالب1.اعرض_المعلومات()
+# المخرجات:
+# الاسم: أحمد
+# العمر: 20
+# الدرجات: [90, 85, 92]
+# المتوسط: 89.00</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>الفكرة الأساسية:</strong> الأصناف تجمع البيانات (ما يعرفه الكائن) والدوال (ما يمكن للكائن فعله) معاً. هذا يجعل الكود أكثر تنظيماً ويعكس طريقة تفكيرنا في الأشياء الحقيقية.</p>
+            </div>
+
+            <div class="key-pattern">
+                <h3>متى تستخدم الأصناف:</h3>
+                <ul>
+                    <li>عندما يكون لديك بيانات تنتمي طبيعياً معاً (مثل اسم الطالب، العمر، الدرجات)</li>
+                    <li>عندما تحتاج لإنشاء عدة أشياء متشابهة (مثل عدة طلاب)</li>
+                    <li>عندما ترتبط البيانات والعمليات عليها ارتباطاً وثيقاً</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 6: Packages & Libraries -->
+        <section id="packages" class="content-section">
+            <h2>٦. الحزم والوحدات والمكتبات</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>الحزمة/المكتبة</em> هي مجموعة من الكود المكتوب مسبقاً (دوال، أصناف، إلخ) يمكنك استيرادها واستخدامها في برامجك. هذا يوفر عليك "إعادة اختراع العجلة".</p>
+            </div>
+
+            <h3>فهم التسلسل الهرمي</h3>
+            <ul>
+                <li><strong>الوحدة:</strong> ملف بايثون واحد (.py) يحتوي على دوال وأصناف</li>
+                <li><strong>الحزمة:</strong> مجموعة من الوحدات المرتبطة منظمة في مجلد</li>
+                <li><strong>المكتبة:</strong> مجموعة من الحزم (غالباً تُستخدم بالتبادل مع "حزمة")</li>
+            </ul>
+
+            <!-- Package Ecosystem Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/package_ecosystem_ar.svg" alt="نظام الحزم يظهر التسلسل الهرمي للمكتبة والحزمة والوحدة وتثبيت pip" class="content-image">
+                <figcaption>المكتبات تحتوي حزماً، التي تحتوي وحدات، التي تحتوي دوالاً وأصناف</figcaption>
+            </figure>
+
+            <h3>NumPy: مثال عملي</h3>
+            <p>NumPy هي واحدة من أهم مكتبات بايثون لعلم البيانات. توفر أدوات قوية للعمل مع الأرقام والمصفوفات.</p>
+
+            <div class="example">
+                <h3>مثال الكود: استخدام NumPy</h3>
+                <pre dir="ltr"><code># استيراد مكتبة numpy
+import numpy as np
+
+# إنشاء مصفوفة (أقوى من القائمة)
+grades = np.array([90, 85, 92, 88, 95])
+
+# NumPy توفر دوالاً مفيدة كثيرة
+print(f"المصفوفة: {grades}")
+print(f"المتوسط: {np.mean(grades)}")       # المتوسط
+print(f"الأعلى: {np.max(grades)}")         # القيمة الأعلى
+print(f"الأدنى: {np.min(grades)}")         # القيمة الأدنى
+print(f"المجموع: {np.sum(grades)}")         # المجموع
+print(f"الانحراف المعياري: {np.std(grades):.2f}") # الانحراف المعياري
+
+# المخرجات:
+# المصفوفة: [90 85 92 88 95]
+# المتوسط: 90.0
+# الأعلى: 95
+# الأدنى: 85
+# المجموع: 450
+# الانحراف المعياري: 3.41
+
+# عمليات المصفوفات سهلة
+doubled = grades * 2
+print(f"المضاعفة: {doubled}")  # [180 170 184 176 190]
+
+# التصفية بالشروط
+passing = grades[grades >= 90]
+print(f"الدرجات >= 90: {passing}")  # [90 92 95]
+
+# إنشاء مصفوفات بسهولة
+zeros = np.zeros(5)         # [0. 0. 0. 0. 0.]
+ones = np.ones(3)           # [1. 1. 1.]
+sequence = np.arange(0, 10, 2)  # [0 2 4 6 8]</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>أنماط الاستيراد الشائعة:</h3>
+                <pre dir="ltr"><code># استيراد المكتبة كاملة مع اسم مستعار
+import numpy as np
+import pandas as pd
+
+# استيراد دالة محددة
+from math import sqrt, pi
+
+# استيراد كل شيء (غير موصى به)
+from numpy import *</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 7: pip -->
+        <section id="pip" class="content-section">
+            <h2>٧. تثبيت الحزم باستخدام pip</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>pip</em> هو مدير حزم بايثون. يحمّل الحزم من فهرس حزم بايثون (PyPI) ويثبتها على حاسوبك، يتعامل مع جميع المتطلبات تلقائياً.</p>
+            </div>
+
+            <h3>كيف يعمل pip</h3>
+            <p>عندما تشغّل <code dir="ltr">pip install numpy</code>، يقوم pip بـ:</p>
+            <ol>
+                <li>الاتصال بـ PyPI (فهرس حزم بايثون)</li>
+                <li>تحميل حزمة numpy</li>
+                <li>تحميل أي حزم تعتمد عليها numpy</li>
+                <li>تثبيت كل شيء في المكان الصحيح</li>
+            </ol>
+
+            <div class="example">
+                <h3>أوامر pip الشائعة</h3>
+                <pre dir="ltr"><code># تثبيت حزمة
+pip install numpy
+
+# تثبيت إصدار محدد
+pip install numpy==1.24.0
+
+# تثبيت عدة حزم
+pip install numpy pandas matplotlib
+
+# ترقية حزمة
+pip install --upgrade numpy
+
+# عرض الحزم المثبتة
+pip list
+
+# عرض معلومات عن حزمة
+pip show numpy
+
+# إزالة حزمة
+pip uninstall numpy
+
+# التثبيت من ملف متطلبات
+pip install -r requirements.txt</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>للبدء:</strong> لتثبيت حزم بايثون على حاسوبك، افتح الطرفية (Command Prompt في ويندوز، Terminal في ماك/لينكس) واكتب أوامر pip.</p>
+            </div>
+
+            <h3>الحزم الشائعة لعلم البيانات</h3>
+            <div class="example">
+                <h3>الحزم الأساسية للتثبيت:</h3>
+                <pre dir="ltr"><code># حزم علم البيانات الأساسية
+pip install numpy          # الحوسبة العددية
+pip install pandas         # تحليل البيانات
+pip install matplotlib     # التصور البياني
+pip install seaborn        # التصور الإحصائي
+
+# تعلم الآلة
+pip install scikit-learn   # خوارزميات تعلم الآلة
+
+# دفاتر جوبيتر (البرمجة التفاعلية)
+pip install jupyter notebook</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>أفضل الممارسات:</h3>
+                <ul>
+                    <li>دائماً تحقق إذا كانت الحزمة مثبتة بـ <code dir="ltr">pip list</code></li>
+                    <li>استخدم البيئات الافتراضية للمشاريع المختلفة</li>
+                    <li>احتفظ بملف <code dir="ltr">requirements.txt</code> يسرد متطلبات مشروعك</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section id="summary" class="content-section">
+            <h2>الملخص والخطوات التالية</h2>
+
+            <div class="key-message">
+                <h3>ما تعلمناه اليوم:</h3>
+                <p>غطينا اللبنات السبعة الأساسية لبرمجة بايثون:</p>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>المكون</th>
+                        <th>الغرض</th>
+                        <th>المفهوم الأساسي</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>المتغيرات</strong></td>
+                        <td>تخزين البيانات مؤقتاً</td>
+                        <td>حاويات مسماة في الذاكرة</td>
+                    </tr>
+                    <tr>
+                        <td><strong>نظام الملفات</strong></td>
+                        <td>تخزين البيانات بشكل دائم</td>
+                        <td>البيانات تبقى بعد انتهاء البرنامج</td>
+                    </tr>
+                    <tr>
+                        <td><strong>جمل التحكم</strong></td>
+                        <td>توجيه تدفق البرنامج</td>
+                        <td>if/else, for, while</td>
+                    </tr>
+                    <tr>
+                        <td><strong>الدوال</strong></td>
+                        <td>كتل كود قابلة لإعادة الاستخدام</td>
+                        <td>مدخلات ← معالجة ← مخرجات</td>
+                    </tr>
+                    <tr>
+                        <td><strong>الأصناف والكائنات</strong></td>
+                        <td>تجميع البيانات + السلوك</td>
+                        <td>قالب ← نسخة</td>
+                    </tr>
+                    <tr>
+                        <td><strong>الحزم</strong></td>
+                        <td>استخدام أدوات جاهزة</td>
+                        <td>import numpy as np</td>
+                    </tr>
+                    <tr>
+                        <td><strong>pip</strong></td>
+                        <td>تثبيت الحزم</td>
+                        <td>pip install &lt;الحزمة&gt;</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="example">
+                <h3>تمرين للممارسة:</h3>
+                <p>حاول إنشاء برنامج بسيط يستخدم جميع المكونات السبعة:</p>
+                <ol>
+                    <li>أنشئ متغيرات لتخزين معلومات طالب</li>
+                    <li>اكتب دالة لحساب متوسط الدرجات</li>
+                    <li>استخدم حلقة for لمعالجة عدة طلاب</li>
+                    <li>أنشئ صنف Student</li>
+                    <li>احفظ النتائج في ملف</li>
+                    <li>استخدم NumPy للحسابات</li>
+                </ol>
+            </div>
+
+            <div class="key-pattern">
+                <h3>معاينة الجلسة القادمة:</h3>
+                <p>في الجلسة القادمة، سنستكشف كيفية استخدام <strong>الذكاء الاصطناعي والنماذج اللغوية الكبيرة (LLMs)</strong> مثل ChatGPT و Claude لمساعدتك في كتابة الكود. ستتعلم كيف:</p>
+                <ul>
+                    <li>تطلب من الذكاء الاصطناعي توليد كود بايثون لمهام محددة</li>
+                    <li>تصحيح وإصلاح الأخطاء بمساعدة الذكاء الاصطناعي</li>
+                    <li>فهم وشرح الكود الموجود باستخدام النماذج اللغوية</li>
+                    <li>أفضل الممارسات للتواصل مع الذكاء الاصطناعي للمساعدة البرمجية</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p class="no-print">
+            <a href="index_ar.html">→ العودة للصفحة الرئيسية للدورة</a>
+        </p>
+        <p>&copy; ٢٠٢٥ مقدمة في علم البيانات والذكاء الاصطناعي</p>
+    </footer>
+</body>
+</html>
