@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&amp;display=swap');
+      .title { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 22px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .box-label { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 14px; font-weight: bold; }
+      .box-value { fill: white; font-family: 'Courier New', monospace; font-size: 16px; font-weight: bold; text-anchor: middle; }
+      .code-text { fill: #2c3e50; font-family: 'Courier New', monospace; font-size: 14px; }
+      .memory-cell { stroke: #3498db; stroke-width: 2; }
+      .desc-text { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 12px; text-anchor: middle; }
+      .arrow { stroke: #e74c3c; stroke-width: 2; fill: none; marker-end: url(#redarrow); }
+      .arabic-text { font-family: 'Cairo', Arial, sans-serif; }
+    </style>
+    <marker id="redarrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="400" y="35" class="title">المتغيرات: حاويات البيانات في الذاكرة</text>
+  <text x="400" y="55" class="subtitle">المتغيرات مثل الصناديق المسماة التي تخزن القيم في الذاكرة</text>
+
+  <!-- Memory Visualization (Right side for RTL) -->
+  <rect x="30" y="80" width="320" height="340" fill="#ecf0f1" rx="10" stroke="#bdc3c7" stroke-width="2"/>
+  <text x="190" y="105" class="box-label arabic-text" style="text-anchor: middle; font-size: 16px;">ذاكرة الحاسوب (RAM)</text>
+
+  <!-- Variable 1: name = "Ahmed" -->
+  <rect x="60" y="130" width="260" height="50" fill="white" class="memory-cell" rx="5"/>
+  <rect x="240" y="130" width="80" height="50" fill="#3498db" rx="5"/>
+  <text x="280" y="162" class="box-value" style="font-size: 14px;">name</text>
+  <rect x="65" y="135" width="165" height="40" fill="#27ae60" rx="3"/>
+  <text x="147" y="162" class="box-value">"أحمد"</text>
+
+  <!-- Variable 2: age = 25 -->
+  <rect x="60" y="200" width="260" height="50" fill="white" class="memory-cell" rx="5"/>
+  <rect x="240" y="200" width="80" height="50" fill="#3498db" rx="5"/>
+  <text x="280" y="232" class="box-value" style="font-size: 14px;">age</text>
+  <rect x="65" y="205" width="165" height="40" fill="#9b59b6" rx="3"/>
+  <text x="147" y="232" class="box-value">٢٥</text>
+
+  <!-- Variable 3: grades = [90, 85, 92] -->
+  <rect x="60" y="270" width="260" height="50" fill="white" class="memory-cell" rx="5"/>
+  <rect x="240" y="270" width="80" height="50" fill="#3498db" rx="5"/>
+  <text x="280" y="302" class="box-value" style="font-size: 14px;">grades</text>
+  <rect x="65" y="275" width="165" height="40" fill="#e74c3c" rx="3"/>
+  <text x="147" y="302" class="box-value" style="font-size: 13px;">[٩٠، ٨٥، ٩٢]</text>
+
+  <!-- Variable 4: is_student = True -->
+  <rect x="60" y="340" width="260" height="50" fill="white" class="memory-cell" rx="5"/>
+  <rect x="240" y="340" width="80" height="50" fill="#3498db" rx="5"/>
+  <text x="280" y="372" class="box-value" style="font-size: 12px;">is_student</text>
+  <rect x="65" y="345" width="165" height="40" fill="#f39c12" rx="3"/>
+  <text x="147" y="372" class="box-value">True</text>
+
+  <!-- Code Section (Left side for RTL) -->
+  <rect x="390" y="80" width="380" height="200" fill="#2c3e50" rx="10"/>
+  <text x="410" y="110" style="fill: #7f8c8d; font-family: 'Courier New', monospace; font-size: 12px;"># كود بايثون</text>
+
+  <text x="410" y="145" class="code-text" style="fill: #3498db;">name</text>
+  <text x="460" y="145" class="code-text" style="fill: #ecf0f1;"> = </text>
+  <text x="490" y="145" class="code-text" style="fill: #27ae60;">"أحمد"</text>
+
+  <text x="410" y="175" class="code-text" style="fill: #3498db;">age</text>
+  <text x="445" y="175" class="code-text" style="fill: #ecf0f1;"> = </text>
+  <text x="470" y="175" class="code-text" style="fill: #9b59b6;">25</text>
+
+  <text x="410" y="205" class="code-text" style="fill: #3498db;">grades</text>
+  <text x="475" y="205" class="code-text" style="fill: #ecf0f1;"> = </text>
+  <text x="500" y="205" class="code-text" style="fill: #e74c3c;">[90, 85, 92]</text>
+
+  <text x="410" y="235" class="code-text" style="fill: #3498db;">is_student</text>
+  <text x="505" y="235" class="code-text" style="fill: #ecf0f1;"> = </text>
+  <text x="530" y="235" class="code-text" style="fill: #f39c12;">True</text>
+
+  <!-- Arrows from code to memory -->
+  <path d="M 390 145 L 330 155" class="arrow"/>
+  <path d="M 390 175 L 330 225" class="arrow"/>
+  <path d="M 390 205 L 330 295" class="arrow"/>
+  <path d="M 390 235 L 330 365" class="arrow"/>
+
+  <!-- Data Types Legend -->
+  <rect x="390" y="300" width="380" height="120" fill="white" rx="10" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="580" y="325" class="box-label arabic-text" style="text-anchor: middle;">أنواع البيانات</text>
+
+  <rect x="560" y="340" width="20" height="20" fill="#27ae60" rx="3"/>
+  <text x="550" y="355" class="desc-text arabic-text" style="text-anchor: end;">نص (String)</text>
+
+  <rect x="560" y="375" width="20" height="20" fill="#9b59b6" rx="3"/>
+  <text x="550" y="390" class="desc-text arabic-text" style="text-anchor: end;">عدد صحيح (Integer)</text>
+
+  <rect x="720" y="340" width="20" height="20" fill="#e74c3c" rx="3"/>
+  <text x="710" y="355" class="desc-text arabic-text" style="text-anchor: end;">قائمة (List)</text>
+
+  <rect x="720" y="375" width="20" height="20" fill="#f39c12" rx="3"/>
+  <text x="710" y="390" class="desc-text arabic-text" style="text-anchor: end;">منطقي (Boolean)</text>
+</svg>

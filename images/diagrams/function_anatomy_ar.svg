@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 500" width="850" height="500">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&amp;display=swap');
+      .title { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 22px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .section-title { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle; }
+      .label { fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .label-dark { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 12px; }
+      .code-text { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 14px; }
+      .arrow { stroke: #3498db; stroke-width: 3; fill: none; marker-end: url(#bluearrow); }
+    </style>
+    <marker id="bluearrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3498db"/>
+    </marker>
+    <marker id="greenarrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="850" height="500" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="425" y="35" class="title">الدوال: كتل الكود القابلة لإعادة الاستخدام</text>
+  <text x="425" y="55" class="subtitle">مدخلات ← معالجة ← مخرجات</text>
+
+  <!-- Function Anatomy Visualization (RTL) -->
+  <!-- Output Box (Right for RTL) -->
+  <rect x="50" y="120" width="150" height="80" fill="#27ae60" rx="10"/>
+  <text x="125" y="155" class="label" style="font-size: 14px;">المخرجات</text>
+  <text x="125" y="180" class="label" style="font-size: 11px;">(القيمة المُرجعة)</text>
+
+  <!-- Arrow from Process -->
+  <path d="M 280 160 L 200 160" class="arrow" style="stroke: #27ae60; marker-end: url(#greenarrow);"/>
+
+  <!-- Process Box (Center) -->
+  <rect x="280" y="100" width="280" height="120" fill="#9b59b6" rx="10"/>
+  <text x="420" y="135" class="label" style="font-size: 14px;">المعالجة</text>
+  <text x="420" y="160" class="label" style="font-size: 11px;">(جسم الدالة)</text>
+  <text x="420" y="185" class="label" style="font-size: 10px;">جمل التحكم التي</text>
+  <text x="420" y="200" class="label" style="font-size: 10px;">تعالج البيانات</text>
+
+  <!-- Arrow from Input -->
+  <path d="M 640 160 L 560 160" class="arrow"/>
+
+  <!-- Input Box (Left for RTL) -->
+  <rect x="640" y="120" width="150" height="80" fill="#3498db" rx="10"/>
+  <text x="715" y="155" class="label" style="font-size: 14px;">المدخلات</text>
+  <text x="715" y="180" class="label" style="font-size: 11px;">(المعاملات)</text>
+
+  <!-- Code Example -->
+  <rect x="50" y="250" width="750" height="180" fill="#2c3e50" rx="10"/>
+
+  <!-- Function definition -->
+  <text x="70" y="280" class="code-text" style="fill: #7f8c8d;"># تعريف الدالة</text>
+  <text x="70" y="305" class="code-text"><tspan style="fill: #f39c12;">def</tspan> <tspan style="fill: #3498db;">calculate_average</tspan>(<tspan style="fill: #e74c3c;">grades</tspan>):</text>
+  <text x="70" y="330" class="code-text">    total = <tspan style="fill: #9b59b6;">sum</tspan>(grades)</text>
+  <text x="70" y="355" class="code-text">    count = <tspan style="fill: #9b59b6;">len</tspan>(grades)</text>
+  <text x="70" y="380" class="code-text">    average = total / count</text>
+  <text x="70" y="405" class="code-text">    <tspan style="fill: #f39c12;">return</tspan> average</text>
+
+  <!-- Function call -->
+  <text x="480" y="280" class="code-text" style="fill: #7f8c8d;"># استخدام الدالة</text>
+  <text x="480" y="305" class="code-text">my_grades = [<tspan style="fill: #9b59b6;">90</tspan>, <tspan style="fill: #9b59b6;">85</tspan>, <tspan style="fill: #9b59b6;">92</tspan>, <tspan style="fill: #9b59b6;">88</tspan>]</text>
+  <text x="480" y="330" class="code-text">result = <tspan style="fill: #3498db;">calculate_average</tspan>(my_grades)</text>
+  <text x="480" y="355" class="code-text"><tspan style="fill: #9b59b6;">print</tspan>(result)</text>
+  <text x="480" y="380" class="code-text" style="fill: #7f8c8d;"># المخرجات: 88.75</text>
+
+  <!-- Annotations -->
+  <!-- def keyword -->
+  <rect x="68" y="290" width="30" height="18" fill="none" stroke="#f39c12" stroke-width="2" rx="3"/>
+  <line x1="83" y1="308" x2="83" y2="445" stroke="#f39c12" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="60" y="460" class="label-dark" style="fill: #f39c12; font-size: 10px;">كلمة مفتاحية</text>
+  <text x="60" y="475" class="label-dark" style="fill: #f39c12; font-size: 10px;">لتعريف الدالة</text>
+
+  <!-- Function name -->
+  <rect x="108" y="290" width="145" height="18" fill="none" stroke="#3498db" stroke-width="2" rx="3"/>
+  <line x1="180" y1="308" x2="180" y2="445" stroke="#3498db" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="165" y="460" class="label-dark" style="fill: #3498db; font-size: 10px;">اسم الدالة</text>
+  <text x="165" y="475" class="label-dark" style="fill: #3498db; font-size: 10px;">(أنت تختاره)</text>
+
+  <!-- Parameters -->
+  <rect x="254" y="290" width="60" height="18" fill="none" stroke="#e74c3c" stroke-width="2" rx="3"/>
+  <line x1="284" y1="308" x2="284" y2="445" stroke="#e74c3c" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="275" y="460" class="label-dark" style="fill: #e74c3c; font-size: 10px;">المعاملات</text>
+  <text x="275" y="475" class="label-dark" style="fill: #e74c3c; font-size: 10px;">(المدخلات)</text>
+
+  <!-- Return -->
+  <rect x="68" y="390" width="52" height="18" fill="none" stroke="#27ae60" stroke-width="2" rx="3"/>
+  <line x1="94" y1="408" x2="370" y2="440" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="355" y="460" class="label-dark" style="fill: #27ae60; font-size: 10px;">return ترجع</text>
+  <text x="355" y="475" class="label-dark" style="fill: #27ae60; font-size: 10px;">القيمة للخلف</text>
+
+  <!-- Why Functions box -->
+  <rect x="480" y="445" width="310" height="45" fill="#ecf0f1" rx="8" stroke="#17a2b8" stroke-width="2"/>
+  <text x="500" y="465" class="label-dark" style="fill: #17a2b8; font-weight: bold;">لماذا الدوال؟</text>
+  <text x="500" y="480" class="label-dark" style="font-size: 10px;">إعادة استخدام الكود، تجنب التكرار، تنظيم المنطق</text>
+</svg>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&amp;display=swap');
+      .title { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 22px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .section-title { fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 15px; font-weight: bold; text-anchor: middle; }
+      .label { fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 12px; text-anchor: middle; }
+      .label-dark { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; text-anchor: middle; }
+      .code-text { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 13px; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="600" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="450" y="35" class="title">الحزم والوحدات والمكتبات</text>
+  <text x="450" y="55" class="subtitle">أدوات جاهزة يمكنك استيرادها واستخدامها في الكود</text>
+
+  <!-- Hierarchy Visualization (Right side for RTL) -->
+  <!-- Library (Largest) -->
+  <rect x="450" y="80" width="400" height="280" fill="#1abc9c" rx="15" opacity="0.2"/>
+  <rect x="450" y="80" width="400" height="40" fill="#1abc9c" rx="15"/>
+  <rect x="450" y="108" width="400" height="12" fill="#1abc9c"/>
+  <text x="650" y="107" class="section-title">المكتبة (مثل: NumPy)</text>
+
+  <!-- Package (Medium) -->
+  <rect x="480" y="140" width="340" height="200" fill="#3498db" rx="12" opacity="0.2"/>
+  <rect x="480" y="140" width="340" height="35" fill="#3498db" rx="12"/>
+  <rect x="480" y="165" width="340" height="10" fill="#3498db"/>
+  <text x="650" y="163" class="section-title" style="font-size: 13px;">الحزمة (مثل: numpy.linalg)</text>
+
+  <!-- Module 1 -->
+  <rect x="660" y="195" width="130" height="70" fill="#9b59b6" rx="8"/>
+  <text x="725" y="220" class="label" style="font-size: 11px;">الوحدة</text>
+  <text x="725" y="240" class="label" style="font-size: 10px;">numpy.array</text>
+  <text x="725" y="255" class="label" style="font-size: 9px;">(ملف .py واحد)</text>
+
+  <!-- Module 2 -->
+  <rect x="510" y="195" width="130" height="70" fill="#9b59b6" rx="8"/>
+  <text x="575" y="220" class="label" style="font-size: 11px;">الوحدة</text>
+  <text x="575" y="240" class="label" style="font-size: 10px;">numpy.random</text>
+  <text x="575" y="255" class="label" style="font-size: 9px;">(ملف .py واحد)</text>
+
+  <!-- Functions/Classes inside -->
+  <rect x="730" y="280" width="60" height="45" fill="#e74c3c" rx="5"/>
+  <text x="760" y="300" class="label" style="font-size: 9px;">دالة</text>
+  <text x="760" y="315" class="label" style="font-size: 8px;">sum()</text>
+
+  <rect x="660" y="280" width="60" height="45" fill="#f39c12" rx="5"/>
+  <text x="690" y="300" class="label" style="font-size: 9px;">فئة</text>
+  <text x="690" y="315" class="label" style="font-size: 8px;">ndarray</text>
+
+  <rect x="580" y="280" width="60" height="45" fill="#e74c3c" rx="5"/>
+  <text x="610" y="300" class="label" style="font-size: 9px;">دالة</text>
+  <text x="610" y="315" class="label" style="font-size: 8px;">rand()</text>
+
+  <rect x="510" y="280" width="60" height="45" fill="#e74c3c" rx="5"/>
+  <text x="540" y="300" class="label" style="font-size: 9px;">دالة</text>
+  <text x="540" y="315" class="label" style="font-size: 8px;">choice()</text>
+
+  <!-- pip Section (Left for RTL) -->
+  <rect x="30" y="80" width="380" height="150" fill="#e91e63" rx="15" opacity="0.15"/>
+  <rect x="30" y="80" width="380" height="40" fill="#e91e63" rx="15"/>
+  <rect x="30" y="108" width="380" height="12" fill="#e91e63"/>
+  <text x="220" y="107" class="section-title">pip: مدير الحزم</text>
+
+  <text x="360" y="145" class="label-dark" style="text-anchor: end; font-weight: bold;">ماذا يفعل pip:</text>
+  <text x="360" y="165" class="label-dark" style="text-anchor: end;">📦 يحمّل الحزم من PyPI</text>
+  <text x="360" y="185" class="label-dark" style="text-anchor: end;">🔧 يثبّت المتطلبات تلقائياً</text>
+  <text x="360" y="205" class="label-dark" style="text-anchor: end;">📋 يدير إصدارات الحزم</text>
+
+  <!-- pip Commands -->
+  <rect x="30" y="250" width="380" height="110" fill="#2c3e50" rx="10"/>
+  <text x="50" y="275" class="code-text" style="fill: #7f8c8d;"># تثبيت حزمة</text>
+  <text x="50" y="300" class="code-text"><tspan style="fill: #e91e63;">pip</tspan> install numpy</text>
+  <text x="50" y="330" class="code-text" style="fill: #7f8c8d;"># عرض الحزم المثبتة</text>
+  <text x="50" y="355" class="code-text"><tspan style="fill: #e91e63;">pip</tspan> list</text>
+
+  <!-- Code Examples -->
+  <rect x="450" y="380" width="400" height="200" fill="#2c3e50" rx="10"/>
+  <text x="470" y="405" class="code-text" style="fill: #7f8c8d;"># استيراد المكتبة بالكامل</text>
+  <text x="470" y="430" class="code-text"><tspan style="fill: #f39c12;">import</tspan> numpy <tspan style="fill: #f39c12;">as</tspan> np</text>
+  <text x="470" y="460" class="code-text" style="fill: #7f8c8d;"># إنشاء مصفوفة (باستخدام numpy)</text>
+  <text x="470" y="485" class="code-text">grades = np.<tspan style="fill: #3498db;">array</tspan>([<tspan style="fill: #9b59b6;">90</tspan>, <tspan style="fill: #9b59b6;">85</tspan>, <tspan style="fill: #9b59b6;">92</tspan>])</text>
+  <text x="470" y="515" class="code-text" style="fill: #7f8c8d;"># استخدام دوال numpy</text>
+  <text x="470" y="540" class="code-text">average = np.<tspan style="fill: #3498db;">mean</tspan>(grades)</text>
+  <text x="470" y="565" class="code-text"><tspan style="fill: #9b59b6;">print</tspan>(average)  <tspan style="fill: #7f8c8d;"># المخرجات: 89.0</tspan></text>
+
+  <!-- Popular Libraries -->
+  <rect x="30" y="380" width="380" height="200" fill="#ecf0f1" rx="10" stroke="#3498db" stroke-width="2"/>
+  <text x="220" y="405" class="label-dark" style="font-weight: bold; font-size: 14px;">مكتبات بايثون الشائعة</text>
+
+  <rect x="290" y="420" width="100" height="35" fill="#1abc9c" rx="5"/>
+  <text x="340" y="443" class="label" style="font-size: 11px;">NumPy</text>
+  <text x="340" y="465" class="label-dark" style="font-size: 9px;">الأرقام/المصفوفات</text>
+
+  <rect x="175" y="420" width="100" height="35" fill="#3498db" rx="5"/>
+  <text x="225" y="443" class="label" style="font-size: 11px;">Pandas</text>
+  <text x="225" y="465" class="label-dark" style="font-size: 9px;">تحليل البيانات</text>
+
+  <rect x="50" y="420" width="110" height="35" fill="#e74c3c" rx="5"/>
+  <text x="105" y="443" class="label" style="font-size: 11px;">Matplotlib</text>
+  <text x="105" y="465" class="label-dark" style="font-size: 9px;">التصور البياني</text>
+
+  <rect x="290" y="490" width="100" height="35" fill="#9b59b6" rx="5"/>
+  <text x="340" y="513" class="label" style="font-size: 11px;">Scikit-learn</text>
+  <text x="340" y="535" class="label-dark" style="font-size: 9px;">تعلم الآلة</text>
+
+  <rect x="175" y="490" width="100" height="35" fill="#f39c12" rx="5"/>
+  <text x="225" y="513" class="label" style="font-size: 11px;">TensorFlow</text>
+  <text x="225" y="535" class="label-dark" style="font-size: 9px;">التعلم العميق</text>
+
+  <rect x="50" y="490" width="110" height="35" fill="#27ae60" rx="5"/>
+  <text x="105" y="513" class="label" style="font-size: 11px;">Requests</text>
+  <text x="105" y="535" class="label-dark" style="font-size: 9px;">HTTP/الويب</text>
+
+  <text x="220" y="570" class="label-dark" style="font-size: 10px; font-style: italic;">ثبّت أياً منها بـ: pip install &lt;الاسم&gt;</text>
+</svg>

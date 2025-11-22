@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+  <defs>
+    <style>
+      .title { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 22px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .section-title { fill: white; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; text-anchor: middle; }
+      .label { fill: white; font-family: Arial, sans-serif; font-size: 12px; text-anchor: middle; }
+      .label-dark { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 11px; text-anchor: middle; }
+      .code-text { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 13px; }
+      .arrow { stroke: #95a5a6; stroke-width: 2; fill: none; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="600" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="450" y="35" class="title">Packages, Modules &amp; Libraries</text>
+  <text x="450" y="55" class="subtitle">Pre-built tools you can import and use in your code</text>
+
+  <!-- Hierarchy Visualization -->
+  <!-- Library (Largest) -->
+  <rect x="50" y="80" width="400" height="280" fill="#1abc9c" rx="15" opacity="0.2"/>
+  <rect x="50" y="80" width="400" height="40" fill="#1abc9c" rx="15"/>
+  <rect x="50" y="108" width="400" height="12" fill="#1abc9c"/>
+  <text x="250" y="107" class="section-title">LIBRARY (e.g., NumPy)</text>
+
+  <!-- Package (Medium) -->
+  <rect x="80" y="140" width="340" height="200" fill="#3498db" rx="12" opacity="0.2"/>
+  <rect x="80" y="140" width="340" height="35" fill="#3498db" rx="12"/>
+  <rect x="80" y="165" width="340" height="10" fill="#3498db"/>
+  <text x="250" y="163" class="section-title" style="font-size: 13px;">PACKAGE (e.g., numpy.linalg)</text>
+
+  <!-- Module 1 -->
+  <rect x="110" y="195" width="130" height="70" fill="#9b59b6" rx="8"/>
+  <text x="175" y="220" class="label" style="font-size: 11px;">MODULE</text>
+  <text x="175" y="240" class="label" style="font-size: 10px;">numpy.array</text>
+  <text x="175" y="255" class="label" style="font-size: 9px;">(Single .py file)</text>
+
+  <!-- Module 2 -->
+  <rect x="260" y="195" width="130" height="70" fill="#9b59b6" rx="8"/>
+  <text x="325" y="220" class="label" style="font-size: 11px;">MODULE</text>
+  <text x="325" y="240" class="label" style="font-size: 10px;">numpy.random</text>
+  <text x="325" y="255" class="label" style="font-size: 9px;">(Single .py file)</text>
+
+  <!-- Functions/Classes inside -->
+  <rect x="110" y="280" width="60" height="45" fill="#e74c3c" rx="5"/>
+  <text x="140" y="300" class="label" style="font-size: 9px;">func</text>
+  <text x="140" y="315" class="label" style="font-size: 8px;">sum()</text>
+
+  <rect x="180" y="280" width="60" height="45" fill="#f39c12" rx="5"/>
+  <text x="210" y="300" class="label" style="font-size: 9px;">class</text>
+  <text x="210" y="315" class="label" style="font-size: 8px;">ndarray</text>
+
+  <rect x="260" y="280" width="60" height="45" fill="#e74c3c" rx="5"/>
+  <text x="290" y="300" class="label" style="font-size: 9px;">func</text>
+  <text x="290" y="315" class="label" style="font-size: 8px;">rand()</text>
+
+  <rect x="330" y="280" width="60" height="45" fill="#e74c3c" rx="5"/>
+  <text x="360" y="300" class="label" style="font-size: 9px;">func</text>
+  <text x="360" y="315" class="label" style="font-size: 8px;">choice()</text>
+
+  <!-- pip Section -->
+  <rect x="490" y="80" width="380" height="150" fill="#e91e63" rx="15" opacity="0.15"/>
+  <rect x="490" y="80" width="380" height="40" fill="#e91e63" rx="15"/>
+  <rect x="490" y="108" width="380" height="12" fill="#e91e63"/>
+  <text x="680" y="107" class="section-title">pip: Package Manager</text>
+
+  <text x="520" y="145" class="label-dark" style="text-anchor: start; font-weight: bold;">What pip does:</text>
+  <text x="530" y="165" class="label-dark" style="text-anchor: start;">📦 Downloads packages from PyPI</text>
+  <text x="530" y="185" class="label-dark" style="text-anchor: start;">🔧 Installs dependencies automatically</text>
+  <text x="530" y="205" class="label-dark" style="text-anchor: start;">📋 Manages package versions</text>
+
+  <!-- pip Commands -->
+  <rect x="490" y="250" width="380" height="110" fill="#2c3e50" rx="10"/>
+  <text x="510" y="275" class="code-text" style="fill: #7f8c8d;"># Install a package</text>
+  <text x="510" y="300" class="code-text"><tspan style="fill: #e91e63;">pip</tspan> install numpy</text>
+  <text x="510" y="330" class="code-text" style="fill: #7f8c8d;"># List installed packages</text>
+  <text x="510" y="355" class="code-text"><tspan style="fill: #e91e63;">pip</tspan> list</text>
+
+  <!-- Code Examples -->
+  <rect x="50" y="380" width="400" height="200" fill="#2c3e50" rx="10"/>
+  <text x="70" y="405" class="code-text" style="fill: #7f8c8d;"># Import entire library</text>
+  <text x="70" y="430" class="code-text"><tspan style="fill: #f39c12;">import</tspan> numpy <tspan style="fill: #f39c12;">as</tspan> np</text>
+  <text x="70" y="460" class="code-text" style="fill: #7f8c8d;"># Create an array (using numpy)</text>
+  <text x="70" y="485" class="code-text">grades = np.<tspan style="fill: #3498db;">array</tspan>([<tspan style="fill: #9b59b6;">90</tspan>, <tspan style="fill: #9b59b6;">85</tspan>, <tspan style="fill: #9b59b6;">92</tspan>])</text>
+  <text x="70" y="515" class="code-text" style="fill: #7f8c8d;"># Use numpy methods</text>
+  <text x="70" y="540" class="code-text">average = np.<tspan style="fill: #3498db;">mean</tspan>(grades)</text>
+  <text x="70" y="565" class="code-text"><tspan style="fill: #9b59b6;">print</tspan>(average)  <tspan style="fill: #7f8c8d;"># Output: 89.0</tspan></text>
+
+  <!-- Popular Libraries -->
+  <rect x="490" y="380" width="380" height="200" fill="#ecf0f1" rx="10" stroke="#3498db" stroke-width="2"/>
+  <text x="680" y="405" class="label-dark" style="font-weight: bold; font-size: 14px;">Popular Python Libraries</text>
+
+  <rect x="510" y="420" width="100" height="35" fill="#1abc9c" rx="5"/>
+  <text x="560" y="443" class="label" style="font-size: 11px;">NumPy</text>
+  <text x="560" y="465" class="label-dark" style="font-size: 9px;">Numbers/Arrays</text>
+
+  <rect x="625" y="420" width="100" height="35" fill="#3498db" rx="5"/>
+  <text x="675" y="443" class="label" style="font-size: 11px;">Pandas</text>
+  <text x="675" y="465" class="label-dark" style="font-size: 9px;">Data Analysis</text>
+
+  <rect x="740" y="420" width="110" height="35" fill="#e74c3c" rx="5"/>
+  <text x="795" y="443" class="label" style="font-size: 11px;">Matplotlib</text>
+  <text x="795" y="465" class="label-dark" style="font-size: 9px;">Visualization</text>
+
+  <rect x="510" y="490" width="100" height="35" fill="#9b59b6" rx="5"/>
+  <text x="560" y="513" class="label" style="font-size: 11px;">Scikit-learn</text>
+  <text x="560" y="535" class="label-dark" style="font-size: 9px;">Machine Learning</text>
+
+  <rect x="625" y="490" width="100" height="35" fill="#f39c12" rx="5"/>
+  <text x="675" y="513" class="label" style="font-size: 11px;">TensorFlow</text>
+  <text x="675" y="535" class="label-dark" style="font-size: 9px;">Deep Learning</text>
+
+  <rect x="740" y="490" width="110" height="35" fill="#27ae60" rx="5"/>
+  <text x="795" y="513" class="label" style="font-size: 11px;">Requests</text>
+  <text x="795" y="535" class="label-dark" style="font-size: 9px;">HTTP/Web</text>
+
+  <text x="680" y="570" class="label-dark" style="font-size: 10px; font-style: italic;">Install any of these with: pip install &lt;name&gt;</text>
+</svg>

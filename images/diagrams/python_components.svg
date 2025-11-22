@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+  <defs>
+    <style>
+      .title { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: Arial, sans-serif; font-size: 14px; text-anchor: middle; }
+      .component-box { rx: 12; ry: 12; stroke-width: 3; }
+      .component-text { fill: white; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle; }
+      .component-desc { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 11px; text-anchor: middle; }
+      .arrow { stroke: #95a5a6; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .center-box { fill: #2c3e50; }
+      .var-box { fill: #3498db; }
+      .file-box { fill: #27ae60; }
+      .control-box { fill: #e74c3c; }
+      .func-box { fill: #9b59b6; }
+      .class-box { fill: #f39c12; }
+      .pkg-box { fill: #1abc9c; }
+      .pip-box { fill: #e91e63; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#95a5a6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="600" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="450" y="35" class="title">7 Components of Python Programming</text>
+  <text x="450" y="55" class="subtitle">Building blocks for creating powerful programs</text>
+
+  <!-- Center: Python Program -->
+  <rect x="350" y="250" width="200" height="80" class="component-box center-box"/>
+  <text x="450" y="285" class="component-text" style="font-size: 16px;">Python Program</text>
+  <text x="450" y="310" class="component-text" style="font-size: 12px; font-weight: normal;">Your Code</text>
+
+  <!-- Component 1: Variables (Top Left) -->
+  <rect x="50" y="80" width="160" height="70" class="component-box var-box"/>
+  <text x="130" y="110" class="component-text">1. Variables</text>
+  <text x="130" y="130" class="component-text" style="font-size: 11px; font-weight: normal;">Data in Memory</text>
+  <text x="130" y="170" class="component-desc">Store values temporarily</text>
+
+  <!-- Component 2: File System (Top Center) -->
+  <rect x="370" y="80" width="160" height="70" class="component-box file-box"/>
+  <text x="450" y="110" class="component-text">2. File System</text>
+  <text x="450" y="130" class="component-text" style="font-size: 11px; font-weight: normal;">Data in Storage</text>
+  <text x="450" y="170" class="component-desc">Persist data permanently</text>
+
+  <!-- Component 3: Control Statements (Top Right) -->
+  <rect x="690" y="80" width="160" height="70" class="component-box control-box"/>
+  <text x="770" y="110" class="component-text">3. Control Flow</text>
+  <text x="770" y="130" class="component-text" style="font-size: 11px; font-weight: normal;">if, for, while</text>
+  <text x="770" y="170" class="component-desc">Direct program logic</text>
+
+  <!-- Component 4: Functions (Left) -->
+  <rect x="50" y="260" width="160" height="70" class="component-box func-box"/>
+  <text x="130" y="290" class="component-text">4. Functions</text>
+  <text x="130" y="310" class="component-text" style="font-size: 11px; font-weight: normal;">Reusable Code</text>
+  <text x="130" y="350" class="component-desc">Input → Process → Output</text>
+
+  <!-- Component 5: Classes & Objects (Right) -->
+  <rect x="690" y="260" width="160" height="70" class="component-box class-box"/>
+  <text x="770" y="290" class="component-text">5. Classes</text>
+  <text x="770" y="310" class="component-text" style="font-size: 11px; font-weight: normal;">Data + Methods</text>
+  <text x="770" y="350" class="component-desc">Blueprint for objects</text>
+
+  <!-- Component 6: Packages (Bottom Left) -->
+  <rect x="150" y="440" width="160" height="70" class="component-box pkg-box"/>
+  <text x="230" y="470" class="component-text">6. Packages</text>
+  <text x="230" y="490" class="component-text" style="font-size: 11px; font-weight: normal;">numpy, pandas</text>
+  <text x="230" y="530" class="component-desc">Pre-built tools to import</text>
+
+  <!-- Component 7: pip Install (Bottom Right) -->
+  <rect x="590" y="440" width="160" height="70" class="component-box pip-box"/>
+  <text x="670" y="470" class="component-text">7. pip Install</text>
+  <text x="670" y="490" class="component-text" style="font-size: 11px; font-weight: normal;">Package Manager</text>
+  <text x="670" y="530" class="component-desc">Download &amp; install packages</text>
+
+  <!-- Connecting Lines -->
+  <!-- Variables to Center -->
+  <path d="M 210 120 Q 280 180 350 270" class="arrow"/>
+  <!-- File System to Center -->
+  <path d="M 450 150 L 450 250" class="arrow"/>
+  <!-- Control to Center -->
+  <path d="M 690 120 Q 620 180 550 270" class="arrow"/>
+  <!-- Functions to Center -->
+  <path d="M 210 295 L 350 295" class="arrow"/>
+  <!-- Classes to Center -->
+  <path d="M 690 295 L 550 295" class="arrow"/>
+  <!-- Packages to Center -->
+  <path d="M 280 440 Q 350 380 380 330" class="arrow"/>
+  <!-- pip to Center -->
+  <path d="M 620 440 Q 550 380 520 330" class="arrow"/>
+
+  <!-- Legend -->
+  <rect x="30" y="560" width="840" height="30" fill="#ecf0f1" rx="5"/>
+  <text x="450" y="580" class="component-desc" style="font-size: 12px;">Each component works together to create complete Python applications</text>
+</svg>

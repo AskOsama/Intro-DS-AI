@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="900" height="550">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&amp;display=swap');
+      .title { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 22px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .section-title { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle; }
+      .label { fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 12px; text-anchor: middle; }
+      .label-dark { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; text-anchor: middle; }
+      .code-text { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 12px; }
+      .arrow { stroke: #f39c12; stroke-width: 3; fill: none; marker-end: url(#orangearrow); stroke-dasharray: 8,4; }
+    </style>
+    <marker id="orangearrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#f39c12"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="550" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="450" y="35" class="title">الفئات والكائنات</text>
+  <text x="450" y="55" class="subtitle">القالب (الفئة) ← النسخة (الكائن)</text>
+
+  <!-- Class Section (Right for RTL) - Blueprint -->
+  <rect x="490" y="80" width="380" height="250" fill="#f39c12" rx="15" opacity="0.1"/>
+  <rect x="490" y="80" width="380" height="45" fill="#f39c12" rx="15"/>
+  <rect x="490" y="110" width="380" height="15" fill="#f39c12"/>
+  <text x="680" y="110" class="section-title" style="fill: white;">الفئة (القالب)</text>
+
+  <!-- Blueprint visual -->
+  <rect x="520" y="140" width="320" height="170" fill="white" stroke="#f39c12" stroke-width="3" stroke-dasharray="10,5" rx="10"/>
+
+  <!-- Class name -->
+  <rect x="540" y="155" width="280" height="30" fill="#f39c12" rx="5"/>
+  <text x="680" y="175" class="label" style="font-size: 14px;">class Student:</text>
+
+  <!-- Attributes section -->
+  <text x="730" y="205" class="label-dark" style="text-anchor: start; font-weight: bold;">البيانات (السمات):</text>
+  <text x="740" y="225" class="label-dark" style="text-anchor: start;">• الاسم</text>
+  <text x="740" y="243" class="label-dark" style="text-anchor: start;">• العمر</text>
+  <text x="740" y="261" class="label-dark" style="text-anchor: start;">• الدرجات</text>
+
+  <!-- Methods section -->
+  <text x="560" y="205" class="label-dark" style="text-anchor: start; font-weight: bold;">السلوك (الدوال):</text>
+  <text x="560" y="225" class="label-dark" style="text-anchor: start;">• ()get_average</text>
+  <text x="560" y="243" class="label-dark" style="text-anchor: start;">• ()add_grade</text>
+  <text x="560" y="261" class="label-dark" style="text-anchor: start;">• ()display_info</text>
+
+  <!-- "Defines structure" text -->
+  <text x="680" y="295" class="label-dark" style="font-style: italic; fill: #f39c12;">تحدد الهيكل</text>
+
+  <!-- Arrow from Class to Objects -->
+  <path d="M 490 205 L 420 205" class="arrow"/>
+  <text x="455" y="195" class="label-dark" style="fill: #f39c12; font-size: 10px;">تُنشئ</text>
+
+  <!-- Objects Section (Left for RTL) - Instances -->
+  <rect x="30" y="80" width="380" height="250" fill="#27ae60" rx="15" opacity="0.1"/>
+  <rect x="30" y="80" width="380" height="45" fill="#27ae60" rx="15"/>
+  <rect x="30" y="110" width="380" height="15" fill="#27ae60"/>
+  <text x="220" y="110" class="section-title" style="fill: white;">الكائنات (النسخ)</text>
+
+  <!-- Object 1: Ahmed -->
+  <rect x="230" y="140" width="160" height="90" fill="white" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <rect x="230" y="140" width="160" height="25" fill="#27ae60" rx="8"/>
+  <rect x="230" y="157" width="160" height="8" fill="#27ae60"/>
+  <text x="310" y="158" class="label" style="font-size: 11px;">student1</text>
+  <text x="245" y="185" class="label-dark" style="text-anchor: start; font-size: 10px;">الاسم: "أحمد"</text>
+  <text x="245" y="200" class="label-dark" style="text-anchor: start; font-size: 10px;">العمر: ٢٠</text>
+  <text x="245" y="215" class="label-dark" style="text-anchor: start; font-size: 10px;">الدرجات: [٩٠، ٨٥]</text>
+
+  <!-- Object 2: Sara -->
+  <rect x="50" y="140" width="160" height="90" fill="white" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <rect x="50" y="140" width="160" height="25" fill="#27ae60" rx="8"/>
+  <rect x="50" y="157" width="160" height="8" fill="#27ae60"/>
+  <text x="130" y="158" class="label" style="font-size: 11px;">student2</text>
+  <text x="65" y="185" class="label-dark" style="text-anchor: start; font-size: 10px;">الاسم: "سارة"</text>
+  <text x="65" y="200" class="label-dark" style="text-anchor: start; font-size: 10px;">العمر: ٢٢</text>
+  <text x="65" y="215" class="label-dark" style="text-anchor: start; font-size: 10px;">الدرجات: [٩٥، ٩٢]</text>
+
+  <!-- Object 3: Mohammed -->
+  <rect x="140" y="245" width="160" height="75" fill="white" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <rect x="140" y="245" width="160" height="25" fill="#27ae60" rx="8"/>
+  <rect x="140" y="262" width="160" height="8" fill="#27ae60"/>
+  <text x="220" y="263" class="label" style="font-size: 11px;">student3</text>
+  <text x="155" y="290" class="label-dark" style="text-anchor: start; font-size: 10px;">الاسم: "محمد"</text>
+  <text x="155" y="305" class="label-dark" style="text-anchor: start; font-size: 10px;">العمر: ٢١، الدرجات: [٨٨]</text>
+
+  <!-- Code Example -->
+  <rect x="460" y="350" width="410" height="185" fill="#2c3e50" rx="10"/>
+  <text x="480" y="375" class="code-text" style="fill: #7f8c8d;"># تعريف الفئة (القالب)</text>
+  <text x="480" y="395" class="code-text"><tspan style="fill: #f39c12;">class</tspan> <tspan style="fill: #3498db;">Student</tspan>:</text>
+  <text x="480" y="415" class="code-text">    <tspan style="fill: #f39c12;">def</tspan> <tspan style="fill: #9b59b6;">__init__</tspan>(self, name, age):</text>
+  <text x="480" y="435" class="code-text">        self.name = name</text>
+  <text x="480" y="455" class="code-text">        self.age = age</text>
+  <text x="480" y="475" class="code-text">        self.grades = []</text>
+  <text x="480" y="500" class="code-text">    <tspan style="fill: #f39c12;">def</tspan> <tspan style="fill: #3498db;">add_grade</tspan>(self, grade):</text>
+  <text x="480" y="520" class="code-text">        self.grades.append(grade)</text>
+
+  <rect x="30" y="350" width="410" height="185" fill="#2c3e50" rx="10"/>
+  <text x="50" y="375" class="code-text" style="fill: #7f8c8d;"># إنشاء الكائنات (النسخ)</text>
+  <text x="50" y="400" class="code-text">student1 = <tspan style="fill: #3498db;">Student</tspan>(<tspan style="fill: #27ae60;">"أحمد"</tspan>, <tspan style="fill: #9b59b6;">20</tspan>)</text>
+  <text x="50" y="425" class="code-text">student2 = <tspan style="fill: #3498db;">Student</tspan>(<tspan style="fill: #27ae60;">"سارة"</tspan>, <tspan style="fill: #9b59b6;">22</tspan>)</text>
+  <text x="50" y="455" class="code-text" style="fill: #7f8c8d;"># استخدام دوال الكائن</text>
+  <text x="50" y="480" class="code-text">student1.<tspan style="fill: #3498db;">add_grade</tspan>(<tspan style="fill: #9b59b6;">90</tspan>)</text>
+  <text x="50" y="505" class="code-text"><tspan style="fill: #9b59b6;">print</tspan>(student1.name)</text>
+  <text x="50" y="525" class="code-text" style="fill: #7f8c8d;"># المخرجات: أحمد</text>
+</svg>

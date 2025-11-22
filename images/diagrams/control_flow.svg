@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1350" width="900" height="1350">
+  <defs>
+    <style>
+      .title { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 22px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .section-title { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; text-anchor: middle; }
+      .section-banner { fill: white; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle; }
+      .label { fill: white; font-family: Arial, sans-serif; font-size: 11px; text-anchor: middle; }
+      .label-dark { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 11px; text-anchor: middle; }
+      .code-text { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 10px; }
+      .flow-arrow { stroke: #2c3e50; stroke-width: 2; fill: none; marker-end: url(#darkarrow); }
+      .yes-label { fill: #27ae60; font-family: Arial, sans-serif; font-size: 10px; font-weight: bold; }
+      .no-label { fill: #e74c3c; font-family: Arial, sans-serif; font-size: 10px; font-weight: bold; }
+      .example-title { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; text-anchor: middle; }
+    </style>
+    <marker id="darkarrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="1350" fill="#f8f9fa"/>
+
+  <!-- Main Title -->
+  <text x="450" y="30" class="title">Control Flow Statements</text>
+  <text x="450" y="50" class="subtitle">Directing program execution with decisions and loops</text>
+
+  <!-- ==================== SECTION 1: WALKING EXAMPLE ==================== -->
+  <rect x="20" y="65" width="860" height="30" fill="#9b59b6" rx="5"/>
+  <text x="450" y="86" class="section-banner">Example 1: "Walk Until You Hit an Object"</text>
+
+  <!-- If/Else Walking (Left) -->
+  <rect x="20" y="105" width="270" height="240" fill="#e74c3c" rx="10" opacity="0.1"/>
+  <text x="155" y="130" class="section-title">If/Else: Making Decisions</text>
+
+  <!-- Flowchart for if/else walking -->
+  <ellipse cx="155" cy="160" rx="35" ry="15" fill="#3498db"/>
+  <text x="155" y="165" class="label">Start</text>
+
+  <path d="M 155 175 L 155 200" class="flow-arrow"/>
+
+  <polygon points="155,205 210,240 155,275 100,240" fill="#f39c12"/>
+  <text x="155" y="244" class="label" style="font-size: 9px;">hit_object()?</text>
+
+  <path d="M 100 240 L 55 240 L 55 305" class="flow-arrow"/>
+  <path d="M 210 240 L 255 240 L 255 305" class="flow-arrow"/>
+  <text x="65" y="270" class="yes-label">Yes</text>
+  <text x="240" y="270" class="no-label">No</text>
+
+  <rect x="25" y="310" width="80" height="30" fill="#e74c3c" rx="5"/>
+  <text x="65" y="330" class="label">Stop!</text>
+
+  <rect x="205" y="310" width="80" height="30" fill="#27ae60" rx="5"/>
+  <text x="245" y="330" class="label">Continue</text>
+
+  <!-- While Loop Walking (Center) -->
+  <rect x="310" y="105" width="280" height="240" fill="#3498db" rx="10" opacity="0.1"/>
+  <text x="450" y="130" class="section-title">While Loop: Unknown Iterations</text>
+
+  <ellipse cx="450" cy="155" rx="35" ry="15" fill="#3498db"/>
+  <text x="450" y="160" class="label">Start</text>
+
+  <path d="M 450 170 L 450 190" class="flow-arrow"/>
+
+  <rect x="400" y="195" width="100" height="25" fill="#2c3e50" rx="5"/>
+  <text x="450" y="212" class="label" style="font-size: 9px;">steps = 0</text>
+
+  <path d="M 450 220 L 450 240" class="flow-arrow"/>
+
+  <polygon points="450,245 510,280 450,315 390,280" fill="#f39c12"/>
+  <text x="450" y="284" class="label" style="font-size: 8px;">not hit_object()?</text>
+
+  <path d="M 450 315 L 450 345" class="flow-arrow"/>
+  <text x="470" y="335" class="yes-label">Yes</text>
+
+  <rect x="400" y="350" width="100" height="25" fill="#27ae60" rx="5"/>
+  <text x="450" y="367" class="label" style="font-size: 8px;">steps = steps + 1</text>
+
+  <path d="M 500 362 L 540 362 L 540 280 L 510 280" class="flow-arrow" style="marker-end: none;"/>
+
+  <path d="M 390 280 L 350 280 L 350 395" class="flow-arrow"/>
+  <text x="365" y="335" class="no-label">No</text>
+
+  <ellipse cx="400" cy="400" rx="45" ry="12" fill="#e74c3c"/>
+  <text x="400" y="404" class="label" style="font-size: 9px;">return steps</text>
+
+  <!-- For Loop Walking (Right) -->
+  <rect x="610" y="105" width="270" height="240" fill="#27ae60" rx="10" opacity="0.1"/>
+  <text x="745" y="130" class="section-title">For Loop: Max 100 Steps</text>
+
+  <ellipse cx="745" cy="155" rx="35" ry="15" fill="#3498db"/>
+  <text x="745" y="160" class="label">Start</text>
+
+  <path d="M 745 170 L 745 195" class="flow-arrow"/>
+
+  <rect x="680" y="200" width="130" height="25" fill="#9b59b6" rx="5"/>
+  <text x="745" y="217" class="label" style="font-size: 8px;">for step in range(100)</text>
+
+  <path d="M 745 225 L 745 250" class="flow-arrow"/>
+
+  <rect x="695" y="255" width="100" height="25" fill="#27ae60" rx="5"/>
+  <text x="745" y="272" class="label" style="font-size: 8px;">steps = steps + 1</text>
+
+  <path d="M 745 280 L 745 305" class="flow-arrow"/>
+
+  <polygon points="745,310 800,345 745,380 690,345" fill="#f39c12"/>
+  <text x="745" y="349" class="label" style="font-size: 8px;">hit_object()?</text>
+
+  <path d="M 800 345 L 850 345 L 850 400" class="flow-arrow"/>
+  <text x="830" y="370" class="yes-label">Yes</text>
+
+  <ellipse cx="850" cy="410" rx="30" ry="12" fill="#e74c3c"/>
+  <text x="850" y="414" class="label" style="font-size: 8px;">return</text>
+
+  <path d="M 690 345 L 650 345 L 650 210 L 680 210" class="flow-arrow" style="marker-end: none;"/>
+  <text x="660" y="370" class="no-label">No</text>
+
+  <!-- Walking Code Examples -->
+  <rect x="20" y="360" width="270" height="95" fill="#2c3e50" rx="8"/>
+  <text x="40" y="380" class="code-text" style="fill: #7f8c8d;"># Simple decision</text>
+  <text x="40" y="395" class="code-text"><tspan style="fill: #f39c12;">if</tspan> hit_object():</text>
+  <text x="40" y="410" class="code-text">    <tspan style="fill: #9b59b6;">print</tspan>(<tspan style="fill: #27ae60;">"Stop!"</tspan>)</text>
+  <text x="40" y="425" class="code-text"><tspan style="fill: #f39c12;">else</tspan>:</text>
+  <text x="40" y="440" class="code-text">    <tspan style="fill: #9b59b6;">print</tspan>(<tspan style="fill: #27ae60;">"Keep walking"</tspan>)</text>
+
+  <rect x="310" y="425" width="280" height="95" fill="#2c3e50" rx="8"/>
+  <text x="330" y="445" class="code-text" style="fill: #7f8c8d;"># Walk until you hit something</text>
+  <text x="330" y="460" class="code-text">steps = <tspan style="fill: #9b59b6;">0</tspan></text>
+  <text x="330" y="475" class="code-text"><tspan style="fill: #f39c12;">while not</tspan> hit_object():</text>
+  <text x="330" y="490" class="code-text">    steps = steps + <tspan style="fill: #9b59b6;">1</tspan></text>
+  <text x="330" y="505" class="code-text"><tspan style="fill: #f39c12;">return</tspan> steps</text>
+
+  <rect x="610" y="430" width="270" height="95" fill="#2c3e50" rx="8"/>
+  <text x="630" y="450" class="code-text" style="fill: #7f8c8d;"># Walk with max 100 steps</text>
+  <text x="630" y="465" class="code-text">steps = <tspan style="fill: #9b59b6;">0</tspan></text>
+  <text x="630" y="480" class="code-text"><tspan style="fill: #f39c12;">for</tspan> step <tspan style="fill: #f39c12;">in</tspan> <tspan style="fill: #9b59b6;">range</tspan>(<tspan style="fill: #9b59b6;">100</tspan>):</text>
+  <text x="630" y="495" class="code-text">    steps = steps + <tspan style="fill: #9b59b6;">1</tspan></text>
+  <text x="630" y="510" class="code-text">    <tspan style="fill: #f39c12;">if</tspan> hit_object(): <tspan style="fill: #f39c12;">return</tspan> steps</text>
+
+  <!-- ==================== SECTION 2: PRACTICAL EXAMPLES ==================== -->
+  <rect x="20" y="545" width="860" height="30" fill="#17a2b8" rx="5"/>
+  <text x="450" y="566" class="section-banner">Example 2: Practical Programming Examples</text>
+
+  <!-- Temperature Check If/Else (Left) -->
+  <rect x="20" y="585" width="270" height="240" fill="#e74c3c" rx="10" opacity="0.1"/>
+  <text x="155" y="610" class="section-title">If/Else: Temperature Check</text>
+
+  <ellipse cx="155" cy="640" rx="35" ry="15" fill="#3498db"/>
+  <text x="155" y="645" class="label">Start</text>
+
+  <path d="M 155 655 L 155 680" class="flow-arrow"/>
+
+  <rect x="95" y="685" width="120" height="25" fill="#2c3e50" rx="5"/>
+  <text x="155" y="702" class="label" style="font-size: 9px;">temperature = 35</text>
+
+  <path d="M 155 710 L 155 735" class="flow-arrow"/>
+
+  <polygon points="155,740 210,775 155,810 100,775" fill="#f39c12"/>
+  <text x="155" y="775" class="label" style="font-size: 8px;">temp > 30?</text>
+
+  <path d="M 100 775 L 55 775 L 55 840" class="flow-arrow"/>
+  <path d="M 210 775 L 255 775 L 255 840" class="flow-arrow"/>
+  <text x="65" y="810" class="yes-label">Yes</text>
+  <text x="240" y="810" class="no-label">No</text>
+
+  <rect x="20" y="845" width="90" height="30" fill="#e74c3c" rx="5"/>
+  <text x="65" y="865" class="label" style="font-size: 9px;">print "Hot!"</text>
+
+  <rect x="200" y="845" width="90" height="30" fill="#3498db" rx="5"/>
+  <text x="245" y="865" class="label" style="font-size: 9px;">print "Cool"</text>
+
+  <!-- Process Grades For Loop (Center) -->
+  <rect x="310" y="585" width="280" height="240" fill="#27ae60" rx="10" opacity="0.1"/>
+  <text x="450" y="610" class="section-title">For Loop: Process Grades</text>
+
+  <ellipse cx="450" cy="640" rx="35" ry="15" fill="#3498db"/>
+  <text x="450" y="645" class="label">Start</text>
+
+  <path d="M 450 655 L 450 680" class="flow-arrow"/>
+
+  <rect x="370" y="685" width="160" height="25" fill="#2c3e50" rx="5"/>
+  <text x="450" y="702" class="label" style="font-size: 8px;">grades=[90,85,92,88]</text>
+
+  <path d="M 450 710 L 450 735" class="flow-arrow"/>
+
+  <rect x="380" y="740" width="140" height="25" fill="#9b59b6" rx="5"/>
+  <text x="450" y="757" class="label" style="font-size: 8px;">for grade in grades</text>
+
+  <path d="M 450 765 L 450 790" class="flow-arrow"/>
+
+  <rect x="380" y="795" width="140" height="25" fill="#27ae60" rx="5"/>
+  <text x="450" y="812" class="label" style="font-size: 8px;">total = total + grade</text>
+
+  <path d="M 520 807 L 555 807 L 555 750 L 520 750" class="flow-arrow" style="marker-end: none;"/>
+
+  <path d="M 380 750 L 340 750 L 340 850" class="flow-arrow"/>
+  <text x="355" y="810" class="no-label">Done</text>
+
+  <ellipse cx="390" cy="855" rx="45" ry="12" fill="#e74c3c"/>
+  <text x="390" y="859" class="label" style="font-size: 9px;">print(total)</text>
+
+  <!-- Countdown While Loop (Right) -->
+  <rect x="610" y="585" width="270" height="240" fill="#3498db" rx="10" opacity="0.1"/>
+  <text x="745" y="610" class="section-title">While Loop: Countdown</text>
+
+  <ellipse cx="745" cy="640" rx="35" ry="15" fill="#3498db"/>
+  <text x="745" y="645" class="label">Start</text>
+
+  <path d="M 745 655 L 745 680" class="flow-arrow"/>
+
+  <rect x="695" y="685" width="100" height="25" fill="#2c3e50" rx="5"/>
+  <text x="745" y="702" class="label" style="font-size: 9px;">count = 5</text>
+
+  <path d="M 745 710 L 745 735" class="flow-arrow"/>
+
+  <polygon points="745,740 800,775 745,810 690,775" fill="#f39c12"/>
+  <text x="745" y="779" class="label" style="font-size: 9px;">count > 0?</text>
+
+  <path d="M 745 810 L 745 840" class="flow-arrow"/>
+  <text x="765" y="830" class="yes-label">Yes</text>
+
+  <rect x="695" y="845" width="100" height="25" fill="#27ae60" rx="5"/>
+  <text x="745" y="862" class="label" style="font-size: 8px;">count = count - 1</text>
+
+  <path d="M 795 857 L 830 857 L 830 775 L 800 775" class="flow-arrow" style="marker-end: none;"/>
+
+  <path d="M 690 775 L 650 775 L 650 890" class="flow-arrow"/>
+  <text x="665" y="830" class="no-label">No</text>
+
+  <ellipse cx="700" cy="895" rx="50" ry="12" fill="#e74c3c"/>
+  <text x="700" y="899" class="label" style="font-size: 8px;">print "Blast off!"</text>
+
+  <!-- Practical Code Examples -->
+  <rect x="20" y="890" width="270" height="100" fill="#2c3e50" rx="8"/>
+  <text x="40" y="910" class="code-text" style="fill: #7f8c8d;"># Temperature check</text>
+  <text x="40" y="925" class="code-text">temperature = <tspan style="fill: #9b59b6;">35</tspan></text>
+  <text x="40" y="940" class="code-text"><tspan style="fill: #f39c12;">if</tspan> temperature > <tspan style="fill: #9b59b6;">30</tspan>:</text>
+  <text x="40" y="955" class="code-text">    <tspan style="fill: #9b59b6;">print</tspan>(<tspan style="fill: #27ae60;">"It's hot!"</tspan>)</text>
+  <text x="40" y="970" class="code-text"><tspan style="fill: #f39c12;">else</tspan>:</text>
+  <text x="40" y="985" class="code-text">    <tspan style="fill: #9b59b6;">print</tspan>(<tspan style="fill: #27ae60;">"It's cool"</tspan>)</text>
+
+  <rect x="310" y="890" width="280" height="100" fill="#2c3e50" rx="8"/>
+  <text x="330" y="910" class="code-text" style="fill: #7f8c8d;"># Process grades</text>
+  <text x="330" y="925" class="code-text">grades = [<tspan style="fill: #9b59b6;">90</tspan>, <tspan style="fill: #9b59b6;">85</tspan>, <tspan style="fill: #9b59b6;">92</tspan>, <tspan style="fill: #9b59b6;">88</tspan>]</text>
+  <text x="330" y="940" class="code-text">total = <tspan style="fill: #9b59b6;">0</tspan></text>
+  <text x="330" y="955" class="code-text"><tspan style="fill: #f39c12;">for</tspan> grade <tspan style="fill: #f39c12;">in</tspan> grades:</text>
+  <text x="330" y="970" class="code-text">    total = total + grade</text>
+  <text x="330" y="985" class="code-text"><tspan style="fill: #9b59b6;">print</tspan>(total)  <tspan style="fill: #7f8c8d;"># 355</tspan></text>
+
+  <rect x="610" y="920" width="270" height="100" fill="#2c3e50" rx="8"/>
+  <text x="630" y="940" class="code-text" style="fill: #7f8c8d;"># Countdown</text>
+  <text x="630" y="955" class="code-text">count = <tspan style="fill: #9b59b6;">5</tspan></text>
+  <text x="630" y="970" class="code-text"><tspan style="fill: #f39c12;">while</tspan> count > <tspan style="fill: #9b59b6;">0</tspan>:</text>
+  <text x="630" y="985" class="code-text">    <tspan style="fill: #9b59b6;">print</tspan>(count)</text>
+  <text x="630" y="1000" class="code-text">    count = count - <tspan style="fill: #9b59b6;">1</tspan></text>
+  <text x="630" y="1015" class="code-text"><tspan style="fill: #9b59b6;">print</tspan>(<tspan style="fill: #27ae60;">"Blast off!"</tspan>)</text>
+
+  <!-- ==================== KEY CONCEPT BOX ==================== -->
+  <rect x="20" y="1040" width="860" height="300" fill="#ecf0f1" rx="10" stroke="#3498db" stroke-width="2"/>
+  <text x="450" y="1070" class="section-title" style="fill: #3498db; font-size: 18px;">Key Concept: When to Use Which?</text>
+
+  <!-- Three columns -->
+  <rect x="40" y="1095" width="260" height="230" fill="white" rx="8" stroke="#e74c3c" stroke-width="2"/>
+  <text x="170" y="1125" class="label-dark" style="font-weight: bold; font-size: 16px; fill: #e74c3c;">IF/ELSE</text>
+  <text x="170" y="1155" class="label-dark" style="font-size: 12px;">One-time decision</text>
+  <text x="170" y="1180" class="label-dark" style="font-size: 11px;">"Should I stop or continue?"</text>
+  <text x="170" y="1210" class="label-dark" style="font-weight: bold; font-size: 12px;">Best for:</text>
+  <text x="170" y="1235" class="label-dark">- Checking conditions once</text>
+  <text x="170" y="1260" class="label-dark">- Branching logic</text>
+  <text x="170" y="1285" class="label-dark">- Validation checks</text>
+  <text x="170" y="1310" class="label-dark">- Temperature check example</text>
+
+  <rect x="320" y="1095" width="260" height="230" fill="white" rx="8" stroke="#3498db" stroke-width="2"/>
+  <text x="450" y="1125" class="label-dark" style="font-weight: bold; font-size: 16px; fill: #3498db;">WHILE Loop</text>
+  <text x="450" y="1155" class="label-dark" style="font-size: 12px;">Unknown iterations</text>
+  <text x="450" y="1180" class="label-dark" style="font-size: 11px;">"Repeat until condition changes"</text>
+  <text x="450" y="1210" class="label-dark" style="font-weight: bold; font-size: 12px;">Best for:</text>
+  <text x="450" y="1235" class="label-dark">- Repeating until condition</text>
+  <text x="450" y="1260" class="label-dark">- User input validation</text>
+  <text x="450" y="1285" class="label-dark">- Walking until hit object</text>
+  <text x="450" y="1310" class="label-dark">- Countdown example</text>
+
+  <rect x="600" y="1095" width="260" height="230" fill="white" rx="8" stroke="#27ae60" stroke-width="2"/>
+  <text x="730" y="1125" class="label-dark" style="font-weight: bold; font-size: 16px; fill: #27ae60;">FOR Loop</text>
+  <text x="730" y="1155" class="label-dark" style="font-size: 12px;">Known iterations</text>
+  <text x="730" y="1180" class="label-dark" style="font-size: 11px;">"Process each item in list"</text>
+  <text x="730" y="1210" class="label-dark" style="font-weight: bold; font-size: 12px;">Best for:</text>
+  <text x="730" y="1235" class="label-dark">- Iterating through lists</text>
+  <text x="730" y="1260" class="label-dark">- Fixed number of repeats</text>
+  <text x="730" y="1285" class="label-dark">- range(n) operations</text>
+  <text x="730" y="1310" class="label-dark">- Process grades example</text>
+</svg>
