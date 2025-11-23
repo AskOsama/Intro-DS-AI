@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="phase1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#388E3C;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="phase2Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2196F3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1976D2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="phase3Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF9800;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F57C00;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="phase4Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9C27B0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7B1FA2;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="400" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1a1a2e">
+    The Four-Phase AI Development Methodology
+  </text>
+
+  <!-- Center Circle -->
+  <circle cx="400" cy="320" r="80" fill="#1a1a2e" filter="url(#shadow)"/>
+  <text x="400" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">AI-Assisted</text>
+  <text x="400" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">Development</text>
+
+  <!-- Phase 1: Exploration (Top) -->
+  <g transform="translate(400, 130)">
+    <circle cx="0" cy="0" r="70" fill="url(#phase1Grad)" filter="url(#shadow)"/>
+    <text x="0" y="-25" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">PHASE 1</text>
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">Exploration</text>
+    <text x="0" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">&amp; Discovery</text>
+    <!-- Icon: Magnifying glass -->
+    <circle cx="0" cy="45" r="12" fill="none" stroke="white" stroke-width="2"/>
+    <line x1="8" y1="53" x2="16" y2="61" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Phase 2: Planning (Right) -->
+  <g transform="translate(590, 320)">
+    <circle cx="0" cy="0" r="70" fill="url(#phase2Grad)" filter="url(#shadow)"/>
+    <text x="0" y="-25" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">PHASE 2</text>
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">Planning</text>
+    <text x="0" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">&amp; Architecture</text>
+    <!-- Icon: Blueprint/Grid -->
+    <rect x="-15" y="35" width="30" height="25" fill="none" stroke="white" stroke-width="2"/>
+    <line x1="-15" y1="45" x2="15" y2="45" stroke="white" stroke-width="1"/>
+    <line x1="-15" y1="52" x2="15" y2="52" stroke="white" stroke-width="1"/>
+    <line x1="-5" y1="35" x2="-5" y2="60" stroke="white" stroke-width="1"/>
+    <line x1="5" y1="35" x2="5" y2="60" stroke="white" stroke-width="1"/>
+  </g>
+
+  <!-- Phase 3: Implementation (Bottom) -->
+  <g transform="translate(400, 510)">
+    <circle cx="0" cy="0" r="70" fill="url(#phase3Grad)" filter="url(#shadow)"/>
+    <text x="0" y="-25" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">PHASE 3</text>
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">Implementation</text>
+    <text x="0" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">&amp; Execution</text>
+    <!-- Icon: Code brackets -->
+    <text x="0" y="50" text-anchor="middle" font-family="monospace" font-size="20" fill="white">&lt;/&gt;</text>
+  </g>
+
+  <!-- Phase 4: Improvement (Left) -->
+  <g transform="translate(210, 320)">
+    <circle cx="0" cy="0" r="70" fill="url(#phase4Grad)" filter="url(#shadow)"/>
+    <text x="0" y="-25" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">PHASE 4</text>
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">Improvement</text>
+    <text x="0" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">&amp; Optimization</text>
+    <!-- Icon: Arrow up chart -->
+    <polyline points="-12,55 -12,40 0,48 12,35" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="12,35 12,42 5,38" fill="white"/>
+  </g>
+
+  <!-- Connecting Arrows (Curved) -->
+  <!-- Arrow 1 to 2 -->
+  <path d="M 455 165 Q 530 200 555 260" fill="none" stroke="#4CAF50" stroke-width="3" marker-end="url(#arrowGreen)"/>
+  <!-- Arrow 2 to 3 -->
+  <path d="M 555 380 Q 530 440 455 475" fill="none" stroke="#2196F3" stroke-width="3" marker-end="url(#arrowBlue)"/>
+  <!-- Arrow 3 to 4 -->
+  <path d="M 345 475 Q 270 440 245 380" fill="none" stroke="#FF9800" stroke-width="3" marker-end="url(#arrowOrange)"/>
+  <!-- Arrow 4 to 1 -->
+  <path d="M 245 260 Q 270 200 345 165" fill="none" stroke="#9C27B0" stroke-width="3" marker-end="url(#arrowPurple)"/>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4CAF50"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2196F3"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#FF9800"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#9C27B0"/>
+    </marker>
+  </defs>
+
+  <!-- Key Activities Labels -->
+  <!-- Phase 1 activities -->
+  <g transform="translate(160, 100)">
+    <rect x="0" y="0" width="130" height="60" rx="5" fill="white" stroke="#4CAF50" stroke-width="1"/>
+    <text x="65" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">Research tools</text>
+    <text x="65" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">Assess capabilities</text>
+    <text x="65" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">Deep dive learning</text>
+  </g>
+
+  <!-- Phase 2 activities -->
+  <g transform="translate(650, 220)">
+    <rect x="0" y="0" width="130" height="60" rx="5" fill="white" stroke="#2196F3" stroke-width="1"/>
+    <text x="65" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">Define environment</text>
+    <text x="65" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">Plan data flow</text>
+    <text x="65" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">Design verification</text>
+  </g>
+
+  <!-- Phase 3 activities -->
+  <g transform="translate(510, 520)">
+    <rect x="0" y="0" width="130" height="60" rx="5" fill="white" stroke="#FF9800" stroke-width="1"/>
+    <text x="65" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">Setup environment</text>
+    <text x="65" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">Execute in stages</text>
+    <text x="65" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">Verify continuously</text>
+  </g>
+
+  <!-- Phase 4 activities -->
+  <g transform="translate(20, 360)">
+    <rect x="0" y="0" width="130" height="60" rx="5" fill="white" stroke="#9C27B0" stroke-width="1"/>
+    <text x="65" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">Version control</text>
+    <text x="65" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">Iterative refinement</text>
+    <text x="65" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">Document changes</text>
+  </g>
+</svg>

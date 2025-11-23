@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9C27B0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7B1FA2;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="bold" fill="#1a1a2e">
+    Phase 4: Version Control as Your Safety Net
+  </text>
+  <text x="400" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#666">
+    Git enables safe experimentation with the ability to rollback anytime
+  </text>
+
+  <!-- Main timeline -->
+  <line x1="100" y1="200" x2="700" y2="200" stroke="#9C27B0" stroke-width="4"/>
+
+  <!-- Commits on the timeline -->
+  <!-- Commit 1 -->
+  <g transform="translate(150, 200)">
+    <circle cx="0" cy="0" r="20" fill="url(#purpleGrad)" filter="url(#shadow)"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">v1</text>
+    <text x="0" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">Initial</text>
+    <text x="0" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">Version</text>
+  </g>
+
+  <!-- Commit 2 -->
+  <g transform="translate(280, 200)">
+    <circle cx="0" cy="0" r="20" fill="url(#purpleGrad)" filter="url(#shadow)"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">v2</text>
+    <text x="0" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">Feature</text>
+    <text x="0" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">Added</text>
+  </g>
+
+  <!-- Commit 3 -->
+  <g transform="translate(410, 200)">
+    <circle cx="0" cy="0" r="20" fill="url(#purpleGrad)" filter="url(#shadow)"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">v3</text>
+    <text x="0" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">Bug</text>
+    <text x="0" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">Fixed</text>
+  </g>
+
+  <!-- Commit 4 (Problem) -->
+  <g transform="translate(540, 200)">
+    <circle cx="0" cy="0" r="20" fill="#F44336" filter="url(#shadow)"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">v4</text>
+    <text x="0" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#C62828">Problem!</text>
+    <text x="0" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#C62828">Bad Code</text>
+  </g>
+
+  <!-- Rollback arrow -->
+  <path d="M 540 160 Q 475 100 410 160" fill="none" stroke="#4CAF50" stroke-width="3" stroke-dasharray="5,5"/>
+  <polygon points="410,160 415,150 420,163" fill="#4CAF50"/>
+  <text x="475" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4CAF50">ROLLBACK!</text>
+
+  <!-- Continue from v3 -->
+  <g transform="translate(670, 200)">
+    <circle cx="0" cy="0" r="20" fill="#4CAF50" filter="url(#shadow)"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">v5</text>
+    <text x="0" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2E7D32">Fixed</text>
+    <text x="0" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2E7D32">Version</text>
+  </g>
+
+  <!-- Branch line from v3 to v5 -->
+  <path d="M 430 200 Q 500 250 650 200" fill="none" stroke="#4CAF50" stroke-width="2"/>
+
+  <!-- Benefits section -->
+  <g transform="translate(100, 290)">
+    <rect x="0" y="0" width="600" height="130" rx="10" fill="white" stroke="#9C27B0" stroke-width="2" filter="url(#shadow)"/>
+    <text x="300" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#7B1FA2">Best Practices for AI-Assisted Development</text>
+
+    <!-- Practice items -->
+    <g transform="translate(30, 50)">
+      <circle cx="10" cy="10" r="6" fill="#9C27B0"/>
+      <text x="25" y="15" font-family="Arial, sans-serif" font-size="12" fill="#333">Commit frequently during improvement cycles</text>
+    </g>
+    <g transform="translate(30, 75)">
+      <circle cx="10" cy="10" r="6" fill="#9C27B0"/>
+      <text x="25" y="15" font-family="Arial, sans-serif" font-size="12" fill="#333">Write clear commit messages documenting AI changes</text>
+    </g>
+    <g transform="translate(30, 100)">
+      <circle cx="10" cy="10" r="6" fill="#9C27B0"/>
+      <text x="25" y="15" font-family="Arial, sans-serif" font-size="12" fill="#333">Always able to return to working state</text>
+    </g>
+
+    <g transform="translate(320, 50)">
+      <circle cx="10" cy="10" r="6" fill="#9C27B0"/>
+      <text x="25" y="15" font-family="Arial, sans-serif" font-size="12" fill="#333">Test before each commit</text>
+    </g>
+    <g transform="translate(320, 75)">
+      <circle cx="10" cy="10" r="6" fill="#9C27B0"/>
+      <text x="25" y="15" font-family="Arial, sans-serif" font-size="12" fill="#333">Use branches for experiments</text>
+    </g>
+    <g transform="translate(320, 100)">
+      <circle cx="10" cy="10" r="6" fill="#9C27B0"/>
+      <text x="25" y="15" font-family="Arial, sans-serif" font-size="12" fill="#333">Keep CHANGELOG updated</text>
+    </g>
+  </g>
+
+  <!-- Key Principle -->
+  <rect x="100" y="420" width="600" height="25" rx="5" fill="#9C27B0"/>
+  <text x="400" y="437" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">
+    Version control is your safety net. Always be able to return to a working state!
+  </text>
+</svg>

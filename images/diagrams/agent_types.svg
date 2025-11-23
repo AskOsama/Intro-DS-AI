@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550">
+  <defs>
+    <linearGradient id="agentGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#388E3C;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="agentGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2196F3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1976D2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="agentGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF9800;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F57C00;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="agentGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9C27B0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7B1FA2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="agentGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00BCD4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0097A7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="agentGrad6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E91E63;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C2185B;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="550" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="bold" fill="#1a1a2e">
+    Agent-Based Architecture
+  </text>
+  <text x="400" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#666">
+    Specialized AI agents for different tasks work together in a pipeline
+  </text>
+
+  <!-- Agent 1: Planning -->
+  <g transform="translate(50, 100)">
+    <rect x="0" y="0" width="220" height="130" rx="10" fill="white" stroke="#4CAF50" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="40" cy="40" r="25" fill="url(#agentGrad1)"/>
+    <text x="40" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="white">1</text>
+    <text x="40" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">PLAN</text>
+    <text x="130" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2E7D32">Planning Agent</text>
+    <text x="15" y="75" font-family="Arial, sans-serif" font-size="10" fill="#333">Break down problems</text>
+    <text x="15" y="90" font-family="Arial, sans-serif" font-size="10" fill="#333">Design architecture</text>
+    <text x="15" y="105" font-family="Arial, sans-serif" font-size="10" fill="#333">Create roadmaps</text>
+    <text x="15" y="120" font-family="Arial, sans-serif" font-size="10" fill="#333">Identify dependencies</text>
+  </g>
+
+  <!-- Arrow 1-2 -->
+  <path d="M 275 165 L 295 165" stroke="#666" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- Agent 2: Implementation -->
+  <g transform="translate(290, 100)">
+    <rect x="0" y="0" width="220" height="130" rx="10" fill="white" stroke="#2196F3" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="40" cy="40" r="25" fill="url(#agentGrad2)"/>
+    <text x="40" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="white">2</text>
+    <text x="40" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">CODE</text>
+    <text x="130" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1976D2">Implementation</text>
+    <text x="15" y="75" font-family="Arial, sans-serif" font-size="10" fill="#333">Write actual code</text>
+    <text x="15" y="90" font-family="Arial, sans-serif" font-size="10" fill="#333">Follow coding standards</text>
+    <text x="15" y="105" font-family="Arial, sans-serif" font-size="10" fill="#333">Implement features</text>
+    <text x="15" y="120" font-family="Arial, sans-serif" font-size="10" fill="#333">Refactor as needed</text>
+  </g>
+
+  <!-- Arrow 2-3 -->
+  <path d="M 515 165 L 535 165" stroke="#666" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- Agent 3: Tester -->
+  <g transform="translate(530, 100)">
+    <rect x="0" y="0" width="220" height="130" rx="10" fill="white" stroke="#FF9800" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="40" cy="40" r="25" fill="url(#agentGrad3)"/>
+    <text x="40" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="white">3</text>
+    <text x="40" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">TEST</text>
+    <text x="130" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#E65100">Tester Agent</text>
+    <text x="15" y="75" font-family="Arial, sans-serif" font-size="10" fill="#333">Write test cases</text>
+    <text x="15" y="90" font-family="Arial, sans-serif" font-size="10" fill="#333">Execute tests</text>
+    <text x="15" y="105" font-family="Arial, sans-serif" font-size="10" fill="#333">Analyze results</text>
+    <text x="15" y="120" font-family="Arial, sans-serif" font-size="10" fill="#333">Report &amp; suggest fixes</text>
+  </g>
+
+  <!-- Agent 4: Configuration -->
+  <g transform="translate(50, 260)">
+    <rect x="0" y="0" width="220" height="130" rx="10" fill="white" stroke="#9C27B0" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="40" cy="40" r="25" fill="url(#agentGrad4)"/>
+    <text x="40" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="white">4</text>
+    <text x="40" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">CFG</text>
+    <text x="130" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#7B1FA2">Configuration</text>
+    <text x="15" y="75" font-family="Arial, sans-serif" font-size="10" fill="#333">Setup environments</text>
+    <text x="15" y="90" font-family="Arial, sans-serif" font-size="10" fill="#333">Manage dependencies</text>
+    <text x="15" y="105" font-family="Arial, sans-serif" font-size="10" fill="#333">Configure deployment</text>
+    <text x="15" y="120" font-family="Arial, sans-serif" font-size="10" fill="#333">Handle env variables</text>
+  </g>
+
+  <!-- Arrow 4-5 -->
+  <path d="M 275 325 L 295 325" stroke="#666" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- Agent 5: Documentation -->
+  <g transform="translate(290, 260)">
+    <rect x="0" y="0" width="220" height="130" rx="10" fill="white" stroke="#00BCD4" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="40" cy="40" r="25" fill="url(#agentGrad5)"/>
+    <text x="40" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="white">5</text>
+    <text x="40" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">DOC</text>
+    <text x="130" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#0097A7">Documentation</text>
+    <text x="15" y="75" font-family="Arial, sans-serif" font-size="10" fill="#333">Write API docs</text>
+    <text x="15" y="90" font-family="Arial, sans-serif" font-size="10" fill="#333">Create user guides</text>
+    <text x="15" y="105" font-family="Arial, sans-serif" font-size="10" fill="#333">Maintain README</text>
+    <text x="15" y="120" font-family="Arial, sans-serif" font-size="10" fill="#333">Update CHANGELOG</text>
+  </g>
+
+  <!-- Arrow 5-6 -->
+  <path d="M 515 325 L 535 325" stroke="#666" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- Agent 6: Version Control -->
+  <g transform="translate(530, 260)">
+    <rect x="0" y="0" width="220" height="130" rx="10" fill="white" stroke="#E91E63" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="40" cy="40" r="25" fill="url(#agentGrad6)"/>
+    <text x="40" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="white">6</text>
+    <text x="40" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">GIT</text>
+    <text x="130" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#C2185B">Version Control</text>
+    <text x="15" y="75" font-family="Arial, sans-serif" font-size="10" fill="#333">Create commits</text>
+    <text x="15" y="90" font-family="Arial, sans-serif" font-size="10" fill="#333">Manage branches</text>
+    <text x="15" y="105" font-family="Arial, sans-serif" font-size="10" fill="#333">Handle merges</text>
+    <text x="15" y="120" font-family="Arial, sans-serif" font-size="10" fill="#333">Tag releases</text>
+  </g>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowGray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#666"/>
+    </marker>
+  </defs>
+
+  <!-- Benefits section -->
+  <g transform="translate(100, 420)">
+    <rect x="0" y="0" width="600" height="110" rx="10" fill="white" stroke="#1a1a2e" stroke-width="2" filter="url(#shadow)"/>
+    <text x="300" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">Benefits of Agent-Based Architecture</text>
+
+    <g transform="translate(30, 45)">
+      <circle cx="8" cy="8" r="5" fill="#4CAF50"/>
+      <text x="20" y="12" font-family="Arial, sans-serif" font-size="11" fill="#333">Separation of concerns</text>
+    </g>
+    <g transform="translate(30, 70)">
+      <circle cx="8" cy="8" r="5" fill="#2196F3"/>
+      <text x="20" y="12" font-family="Arial, sans-serif" font-size="11" fill="#333">Specialized expertise</text>
+    </g>
+    <g transform="translate(220, 45)">
+      <circle cx="8" cy="8" r="5" fill="#FF9800"/>
+      <text x="20" y="12" font-family="Arial, sans-serif" font-size="11" fill="#333">Parallel development</text>
+    </g>
+    <g transform="translate(220, 70)">
+      <circle cx="8" cy="8" r="5" fill="#9C27B0"/>
+      <text x="20" y="12" font-family="Arial, sans-serif" font-size="11" fill="#333">Easier debugging</text>
+    </g>
+    <g transform="translate(410, 45)">
+      <circle cx="8" cy="8" r="5" fill="#00BCD4"/>
+      <text x="20" y="12" font-family="Arial, sans-serif" font-size="11" fill="#333">Better quality output</text>
+    </g>
+    <g transform="translate(410, 70)">
+      <circle cx="8" cy="8" r="5" fill="#E91E63"/>
+      <text x="20" y="12" font-family="Arial, sans-serif" font-size="11" fill="#333">Scalable workflow</text>
+    </g>
+  </g>
+</svg>

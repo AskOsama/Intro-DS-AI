@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550">
+  <defs>
+    <linearGradient id="warningGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F44336;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C62828;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="550" fill="#f8f9fa"/>
+
+  <!-- Warning Banner -->
+  <rect x="100" y="20" width="600" height="60" rx="10" fill="url(#warningGrad)" filter="url(#shadow)"/>
+  <text x="400" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">
+    تحذير: أنت المسؤول
+  </text>
+  <text x="400" y="68" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    أنت مسؤول عن الكود المُولَّد وسلوكه. كن حذراً.
+  </text>
+
+  <!-- Before Deployment Checklist -->
+  <g transform="translate(410, 100)">
+    <rect x="0" y="0" width="340" height="280" rx="10" fill="white" stroke="#F44336" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="340" height="40" rx="10" fill="#F44336"/>
+    <rect x="0" y="25" width="340" height="15" fill="#F44336"/>
+    <text x="170" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">قائمة فحص ما قبل النشر</text>
+
+    <g transform="translate(20, 55)">
+      <rect x="280" y="0" width="20" height="20" rx="3" fill="none" stroke="#F44336" stroke-width="2"/>
+      <text x="270" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#333">تمت مراجعة الكود وفهمه</text>
+    </g>
+    <g transform="translate(20, 85)">
+      <rect x="280" y="0" width="20" height="20" rx="3" fill="none" stroke="#F44336" stroke-width="2"/>
+      <text x="270" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#333">جميع الاختبارات ناجحة</text>
+    </g>
+    <g transform="translate(20, 115)">
+      <rect x="280" y="0" width="20" height="20" rx="3" fill="none" stroke="#F44336" stroke-width="2"/>
+      <text x="270" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#333">تدقيق الأمان مكتمل</text>
+    </g>
+    <g transform="translate(20, 145)">
+      <rect x="280" y="0" width="20" height="20" rx="3" fill="none" stroke="#F44336" stroke-width="2"/>
+      <text x="270" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#333">الأداء مُتحقق منه</text>
+    </g>
+    <g transform="translate(20, 175)">
+      <rect x="280" y="0" width="20" height="20" rx="3" fill="none" stroke="#F44336" stroke-width="2"/>
+      <text x="270" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#333">التوثيق مُنشأ</text>
+    </g>
+    <g transform="translate(20, 205)">
+      <rect x="280" y="0" width="20" height="20" rx="3" fill="none" stroke="#F44336" stroke-width="2"/>
+      <text x="270" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#333">خطة التراجع جاهزة</text>
+    </g>
+    <g transform="translate(20, 235)">
+      <rect x="280" y="0" width="20" height="20" rx="3" fill="none" stroke="#F44336" stroke-width="2"/>
+      <text x="270" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#333">المراقبة في مكانها</text>
+    </g>
+  </g>
+
+  <!-- Key Responsibilities -->
+  <g transform="translate(50, 100)">
+    <rect x="0" y="0" width="340" height="280" rx="10" fill="white" stroke="#FF9800" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="340" height="40" rx="10" fill="#FF9800"/>
+    <rect x="0" y="25" width="340" height="15" fill="#FF9800"/>
+    <text x="170" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">مسؤولياتك الرئيسية</text>
+
+    <g transform="translate(20, 55)">
+      <circle cx="300" cy="10" r="8" fill="#FF9800"/>
+      <text x="300" y="14" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">1</text>
+      <text x="285" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#333">راجع كود AI بدقة</text>
+    </g>
+    <g transform="translate(20, 90)">
+      <circle cx="300" cy="10" r="8" fill="#FF9800"/>
+      <text x="300" y="14" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">2</text>
+      <text x="285" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#333">افهم قبل النشر</text>
+    </g>
+    <g transform="translate(20, 125)">
+      <circle cx="300" cy="10" r="8" fill="#FF9800"/>
+      <text x="300" y="14" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">3</text>
+      <text x="285" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#333">اختبر بدقة - لا اختصارات!</text>
+    </g>
+    <g transform="translate(20, 160)">
+      <circle cx="300" cy="10" r="8" fill="#FF9800"/>
+      <text x="300" y="14" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">4</text>
+      <text x="285" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#333">تحقق من تطابق السلوك مع النية</text>
+    </g>
+    <g transform="translate(20, 195)">
+      <circle cx="300" cy="10" r="8" fill="#FF9800"/>
+      <text x="300" y="14" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">5</text>
+      <text x="285" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#333">افحص الثغرات الأمنية</text>
+    </g>
+    <g transform="translate(20, 230)">
+      <circle cx="300" cy="10" r="8" fill="#FF9800"/>
+      <text x="300" y="14" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">6</text>
+      <text x="285" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#333">اعرف القيود</text>
+    </g>
+
+    <rect x="15" y="250" width="310" height="20" rx="3" fill="#FFF3E0"/>
+    <text x="170" y="264" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#E65100" font-style="italic">AI قد يخطئ، قد يحتوي على أخطاء، أخطاء منطقية...</text>
+  </g>
+
+  <!-- Don't Do Section -->
+  <g transform="translate(100, 395)">
+    <rect x="0" y="0" width="600" height="145" rx="10" fill="#FFEBEE" stroke="#F44336" stroke-width="2" filter="url(#shadow)"/>
+    <text x="300" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#C62828">لا تفعل هذه الأشياء</text>
+
+    <g transform="translate(320, 50)">
+      <text x="250" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#C62828">إلقاء اللوم على AI عند حدوث خطأ</text>
+      <text x="250" y="40" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#C62828">تخطي العناية الواجبة بحجة أن AI كتبه</text>
+      <text x="250" y="65" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#C62828">النشر بدون فهم</text>
+    </g>
+    <g transform="translate(30, 50)">
+      <text x="250" y="15" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#C62828">تجاهل التحذيرات أو العلامات الحمراء</text>
+      <text x="250" y="40" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#C62828">التنازل عن الاختبار</text>
+      <text x="250" y="65" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#C62828">الثقة العمياء بالمخرجات</text>
+    </g>
+
+    <text x="300" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1a1a2e">
+      تعامل مع كود AI بنفس الصرامة التي تتعامل بها مع كود من طرف ثالث غير موثوق. تحقق من كل شيء.
+    </text>
+  </g>
+</svg>
