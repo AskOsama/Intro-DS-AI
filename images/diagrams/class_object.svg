@@ -90,12 +90,12 @@
   <rect x="30" y="350" width="410" height="185" fill="#2c3e50" rx="10"/>
   <text x="50" y="375" class="code-text" style="fill: #7f8c8d;"># Define the Class (Blueprint)</text>
   <text x="50" y="395" class="code-text"><tspan style="fill: #f39c12;">class</tspan> <tspan style="fill: #3498db;">Student</tspan>:</text>
-  <text x="50" y="415" class="code-text">    <tspan style="fill: #f39c12;">def</tspan> <tspan style="fill: #9b59b6;">__init__</tspan>(self, name, age):</text>
-  <text x="50" y="435" class="code-text">        self.name = name</text>
-  <text x="50" y="455" class="code-text">        self.age = age</text>
-  <text x="50" y="475" class="code-text">        self.grades = []</text>
-  <text x="50" y="500" class="code-text">    <tspan style="fill: #f39c12;">def</tspan> <tspan style="fill: #3498db;">add_grade</tspan>(self, grade):</text>
-  <text x="50" y="520" class="code-text">        self.grades.append(grade)</text>
+  <text x="50" y="415" class="code-text">&#160;&#160;&#160;&#160;<tspan style="fill: #f39c12;">def</tspan> <tspan style="fill: #9b59b6;">__init__</tspan>(self, name, age):</text>
+  <text x="50" y="435" class="code-text">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;self.name = name</text>
+  <text x="50" y="455" class="code-text">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;self.age = age</text>
+  <text x="50" y="475" class="code-text">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;self.grades = []</text>
+  <text x="50" y="500" class="code-text">&#160;&#160;&#160;&#160;<tspan style="fill: #f39c12;">def</tspan> <tspan style="fill: #3498db;">add_grade</tspan>(self, grade):</text>
+  <text x="50" y="520" class="code-text">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;self.grades.append(grade)</text>
 
   <rect x="460" y="350" width="410" height="185" fill="#2c3e50" rx="10"/>
   <text x="480" y="375" class="code-text" style="fill: #7f8c8d;"># Create Objects (Instances)</text>

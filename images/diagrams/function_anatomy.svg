@@ -59,10 +59,10 @@
   <!-- Function definition -->
   <text x="70" y="280" class="code-text" style="fill: #7f8c8d;"># Define a function</text>
   <text x="70" y="305" class="code-text"><tspan style="fill: #f39c12;">def</tspan> <tspan style="fill: #3498db;">calculate_average</tspan>(<tspan style="fill: #e74c3c;">grades</tspan>):</text>
-  <text x="70" y="330" class="code-text">    total = <tspan style="fill: #9b59b6;">sum</tspan>(grades)</text>
-  <text x="70" y="355" class="code-text">    count = <tspan style="fill: #9b59b6;">len</tspan>(grades)</text>
-  <text x="70" y="380" class="code-text">    average = total / count</text>
-  <text x="70" y="405" class="code-text">    <tspan style="fill: #f39c12;">return</tspan> average</text>
+  <text x="70" y="330" class="code-text">&#160;&#160;&#160;&#160;total = <tspan style="fill: #9b59b6;">sum</tspan>(grades)</text>
+  <text x="70" y="355" class="code-text">&#160;&#160;&#160;&#160;count = <tspan style="fill: #9b59b6;">len</tspan>(grades)</text>
+  <text x="70" y="380" class="code-text">&#160;&#160;&#160;&#160;average = total / count</text>
+  <text x="70" y="405" class="code-text">&#160;&#160;&#160;&#160;<tspan style="fill: #f39c12;">return</tspan> average</text>
 
   <!-- Function call -->
   <text x="480" y="280" class="code-text" style="fill: #7f8c8d;"># Use the function</text>

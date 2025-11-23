@@ -69,7 +69,7 @@
   <text x="50" y="405" class="code-text" style="fill: #7f8c8d;"># حفظ البيانات من الذاكرة إلى ملف</text>
   <text x="50" y="430" class="code-text"><tspan style="fill: #3498db;">data</tspan><tspan style="fill: #ecf0f1;"> = </tspan><tspan style="fill: #e74c3c;">"معلومات مهمة"</tspan><tspan style="fill: #7f8c8d;">  # في الذاكرة (مؤقت)</tspan></text>
   <text x="50" y="455" class="code-text"><tspan style="fill: #f39c12;">with</tspan><tspan style="fill: #ecf0f1;"> </tspan><tspan style="fill: #9b59b6;">open</tspan><tspan style="fill: #ecf0f1;">(</tspan><tspan style="fill: #27ae60;">"data.txt"</tspan><tspan style="fill: #ecf0f1;">, </tspan><tspan style="fill: #27ae60;">"w"</tspan><tspan style="fill: #ecf0f1;">) </tspan><tspan style="fill: #f39c12;">as</tspan><tspan style="fill: #ecf0f1;"> file:</tspan><tspan style="fill: #7f8c8d;">  # حفظ في التخزين</tspan></text>
-  <text x="50" y="470" class="code-text"><tspan style="fill: #ecf0f1;">    file.write(data)</tspan><tspan style="fill: #7f8c8d;">  # الآن أصبحت دائمة!</tspan></text>
+  <text x="50" y="470" class="code-text"><tspan style="fill: #ecf0f1;">&#160;&#160;&#160;&#160;file.write(data)</tspan><tspan style="fill: #7f8c8d;">  # الآن أصبحت دائمة!</tspan></text>
 
   <!-- Arrow from RAM to Storage -->
   <path d="M 450 200 L 400 200" class="arrow" style="stroke-width: 4;"/>
