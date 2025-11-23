@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="Arabic">
+    <meta name="direction" content="rtl">
+    <title>البرمجة بالذكاء الاصطناعي - الأسبوع 2 الجلسة 2</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="ai_programming_session2_week2.html" class="lang-button" title="Switch to English">English</a>
+    </div>
+
+    <header>
+        <h1>البرمجة بالذكاء الاصطناعي</h1>
+        <p class="subtitle">الأسبوع الثاني، الجلسة الثانية: منهجية التطوير بمساعدة الذكاء الاصطناعي</p>
+    </header>
+
+    <nav class="table-of-contents no-print">
+        <h2>المحتويات</h2>
+        <ul>
+            <li><a href="#overview">أهداف التعلم</a></li>
+            <li><a href="#intro">مقدمة: منهجية المراحل الأربع</a></li>
+            <li><a href="#exploration">1. المرحلة الأولى: الاستكشاف والاكتشاف</a></li>
+            <li><a href="#planning">2. المرحلة الثانية: التخطيط والهندسة</a></li>
+            <li><a href="#implementation">3. المرحلة الثالثة: التنفيذ والتطبيق</a></li>
+            <li><a href="#improvement">4. المرحلة الرابعة: التحسين والتطوير</a></li>
+            <li><a href="#testing">5. الاختبار: التحقق الحرج</a></li>
+            <li><a href="#safety">6. العمل بأمان مع الذكاء الاصطناعي</a></li>
+            <li><a href="#summary">الملخص والخطوات التالية</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="overview" class="learning-objectives">
+            <h2>أهداف التعلم</h2>
+            <p>بنهاية هذه الجلسة، سيتمكن الطلاب من:</p>
+            <ul>
+                <li>تطبيق منهجية المراحل الأربع للتطوير بمساعدة الذكاء الاصطناعي</li>
+                <li>إجراء استكشاف واكتشاف شامل للأدوات قبل التنفيذ</li>
+                <li>إنشاء خطط شاملة تتناول موقع الكود وتدفق البيانات والتحقق</li>
+                <li>تنفيذ التطبيق المرحلي مع التحقق المستمر</li>
+                <li>استخدام التحكم في الإصدارات كشبكة أمان خلال دورات التحسين</li>
+                <li>فهم تحديات الاختبار وتنفيذ استراتيجيات تحقق فعالة</li>
+                <li>اتخاذ قرارات مدروسة حول خصوصية البيانات عند العمل مع الذكاء الاصطناعي</li>
+                <li>تصميم بنى قائمة على الوكلاء لمهام التطوير المعقدة</li>
+            </ul>
+        </section>
+
+        <!-- Introduction -->
+        <section id="intro" class="content-section">
+            <h2>مقدمة: منهجية التطوير بالذكاء الاصطناعي ذات المراحل الأربع</h2>
+
+            <div class="key-message">
+                <p><strong>الرسالة الرئيسية:</strong> تمثل هذه المنهجية نهجنا الأساسي للبرمجة بالذكاء الاصطناعي. توفر عملية منهجية وقابلة للتكرار للاستفادة من الذكاء الاصطناعي مع الحفاظ على السيطرة والأمان وجودة الكود.</p>
+            </div>
+
+            <p>عند العمل مع الذكاء الاصطناعي لتطوير البرمجيات، فإن اتباع نهج منظم أمر ضروري. بدونه، تخاطر بإنشاء كود لا تفهمه، قد يحتوي على ثغرات أمنية، أو لا يحل مشكلتك فعلياً.</p>
+
+            <!-- Overview Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/four_phases_cycle_ar.svg" alt="المراحل الأربع: الاستكشاف، التخطيط، التنفيذ، التحسين" class="content-image">
+                <figcaption>المراحل الأربع للتطوير بمساعدة الذكاء الاصطناعي تشكل دورة مستمرة</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>المراحل الأربع باختصار:</h3>
+                <ul>
+                    <li><strong>المرحلة 1: الاستكشاف</strong> - افهم الأدوات والقدرات قبل البدء</li>
+                    <li><strong>المرحلة 2: التخطيط</strong> - أنشئ خطة تطوير شاملة</li>
+                    <li><strong>المرحلة 3: التنفيذ</strong> - نفذ مع التحقق المرحلي</li>
+                    <li><strong>المرحلة 4: التحسين</strong> - حسّن مع التحكم في الإصدارات كشبكة أمان</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 1: Exploration -->
+        <section id="exploration" class="content-section">
+            <h2>1. المرحلة الأولى: الاستكشاف والاكتشاف</h2>
+
+            <div class="definition">
+                <p><strong>الهدف:</strong> فهم الأدوات والمكتبات وقدراتها المتاحة <em>قبل</em> بدء التطوير. جمع المعرفة في هذه المرحلة يمنع المشاكل لاحقاً.</p>
+            </div>
+
+            <h3>لماذا الاستكشاف مهم</h3>
+            <p>حتى لو كنت تعتقد أنك تعرف أداة ما، استكشفها بشكل أعمق. كلما فهمت هذه الجوانب أكثر، كلما كنت أفضل استعداداً للتنفيذ.</p>
+
+            <!-- Exploration Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/exploration_discovery_ar.svg" alt="أنشطة الاستكشاف والاكتشاف" class="content-image">
+                <figcaption>ثلاثة أنشطة رئيسية في مرحلة الاستكشاف</figcaption>
+            </figure>
+
+            <h3>أنشطة الاستكشاف الرئيسية</h3>
+
+            <div class="example">
+                <h3>1. اكتشاف البرمجيات والحزم</h3>
+                <ul>
+                    <li>ابحث عن الحلول البرمجية الموجودة بلغتك المختارة (مثل Python)</li>
+                    <li>حدد الحزم والمكتبات ذات الصلة التي يمكن أن تحل أو تبسط مشكلتك</li>
+                    <li>ابحث عن البدائل مفتوحة المصدر ومستويات نضجها</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>2. تقييم قدرات الأدوات</h3>
+                <ul>
+                    <li>قيّم القدرات العامة لكل أداة</li>
+                    <li>قيّم خصائص الكفاءة والأداء</li>
+                    <li>افهم متطلبات التوافق والاعتماديات</li>
+                    <li>ابحث عن دعم المجتمع وجودة التوثيق</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>3. أسئلة التعمق</h3>
+                <p>اسأل هذه الأسئلة الأساسية عن كل أداة:</p>
+                <ul>
+                    <li>ما هي هذه الأداة بالضبط؟</li>
+                    <li>كيف نستخدمها بفعالية؟</li>
+                    <li>كيف نحملها ونثبتها؟</li>
+                    <li>ما هي آلية التثبيت؟</li>
+                    <li>ما هي متطلبات التشغيل؟</li>
+                    <li>هل يمكننا تشغيلها على منصتنا المستهدفة (مثل Colab، الجهاز المحلي)؟</li>
+                </ul>
+            </div>
+
+            <div class="key-message">
+                <p><strong>المبدأ الرئيسي:</strong> الاستكشاف الشامل يمنع المشاكل لاحقاً. جمع المعرفة يقلل مفاجآت التنفيذ.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Planning -->
+        <section id="planning" class="content-section">
+            <h2>2. المرحلة الثانية: التخطيط والهندسة</h2>
+
+            <div class="definition">
+                <p><strong>الهدف:</strong> إنشاء خطة شاملة تتناول جميع جوانب عملية التطوير والنشر <em>قبل</em> كتابة أي كود.</p>
+            </div>
+
+            <!-- Planning Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/planning_questions_ar.svg" alt="أربعة أسئلة تخطيط حرجة" class="content-image">
+                <figcaption>أجب على هذه الأسئلة الأربعة الحرجة قبل بدء التنفيذ</figcaption>
+            </figure>
+
+            <h3>أسئلة التخطيط الحرجة</h3>
+
+            <div class="example">
+                <h3>السؤال 1: موقع الكود والبيئة</h3>
+                <ul>
+                    <li>أين سنكتب الكود؟</li>
+                    <li>ما بيئة التطوير التي سنستخدمها؟</li>
+                    <li>أين سيقيم الحل النهائي؟ (Google Colab، بيئة محلية، منصة سحابية)</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>السؤال 2: تدفق البيانات وإدارة الملفات</h3>
+                <ul>
+                    <li>هل سيعالج الكود ملفات في وجهة محددة؟</li>
+                    <li>ما الملفات التي ستُنتج كمخرجات؟</li>
+                    <li>هل سنحتاج لتحميل ملفات؟ من أين؟</li>
+                    <li>كيف ستتدفق البيانات عبر النظام؟</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>السؤال 3: استراتيجية التحقق</h3>
+                <ul>
+                    <li>أنشئ آلية للتحقق من صحة البرنامج</li>
+                    <li>قرر هل ستبرمج ككتلة واحدة أو أجزاء صغيرة قابلة للاختبار (موصى به)</li>
+                    <li>حدد كيف سنتواصل ونتحقق من كل مكون</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>السؤال 4: بنية الاختبار</h3>
+                <ul>
+                    <li>كيف سنجري الاختبار؟</li>
+                    <li>هل سيكون الاختبار مباشراً من المستخدم أو اختبار آلي خارجي؟</li>
+                    <li>كيف سنتحقق من السلوك في كل مرحلة؟</li>
+                </ul>
+            </div>
+
+            <div class="key-pattern">
+                <h3>مخرجات التخطيط:</h3>
+                <ul>
+                    <li>خارطة طريق تطوير مفصلة</li>
+                    <li>وثيقة استراتيجية الاختبار</li>
+                    <li>رسوم بيانية لتدفق البيانات</li>
+                    <li>هيكل تقسيم المكونات</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Implementation -->
+        <section id="implementation" class="content-section">
+            <h2>3. المرحلة الثالثة: التنفيذ والتطبيق</h2>
+
+            <div class="definition">
+                <p><strong>الهدف:</strong> تحويل الخطة إلى كود عامل من خلال التنفيذ المنهجي والتحقق المستمر.</p>
+            </div>
+
+            <!-- Implementation Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/implementation_workflow_ar.svg" alt="سير عمل التنفيذ التكراري" class="content-image">
+                <figcaption>سير عمل التطوير التكراري: رفع، معالجة، إرجاع، حفظ، تحقق، تكرار</figcaption>
+            </figure>
+
+            <h3>عملية التنفيذ</h3>
+
+            <div class="example">
+                <h3>الخطوة 1: إعداد البيئة</h3>
+                <ul>
+                    <li>جهز بيئة البرمجة</li>
+                    <li>ثبت الاعتماديات الضرورية</li>
+                    <li>كوّن المنصة (مبدئياً، ستكون هناك حاجة لإعداد المنصة)</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>الخطوة 2: التنفيذ المرحلي</h3>
+                <ul>
+                    <li>نفذ خطة البرمجة في مراحل محددة</li>
+                    <li>اتبع هيكل المكونات المخطط</li>
+                    <li>نفذ مكوناً واحداً في كل مرة عندما يكون ذلك ممكناً</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>الخطوة 3: سير العمل التطويري التكراري</h3>
+                <pre dir="ltr" style="text-align: left;"><code># دورة التطوير بمساعدة الذكاء الاصطناعي:
+
+1. رفع     - قدم الملف/الكود لنظام AI
+2. معالجة  - AI يعدل أو يولد الكود
+3. إرجاع   - AI يعيد النتيجة
+4. حفظ     - احفظ النتيجة في مشروعك
+5. تحقق    - اختبر أنها تعمل بشكل صحيح
+6. تكرار   - استمر لكل مكون
+
+# مثال على سير العمل في الممارسة:
+prompt = "أنشئ دالة لحساب متوسط الدرجات"
+# AI يولد الكود
+# تراجعه وتختبره
+# تحفظ الكود العامل
+# تنتقل للمكون التالي</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>التحقق المستمر:</strong> اختبر كل مكون فور اكتماله. تحقق من التكامل بين المكونات. وثّق أي انحرافات عن الخطة.</p>
+            </div>
+        </section>
+
+        <!-- Section 4: Improvement -->
+        <section id="improvement" class="content-section">
+            <h2>4. المرحلة الرابعة: التحسين والتطوير</h2>
+
+            <div class="definition">
+                <p><strong>الهدف:</strong> تحسين المخرجات الأولية وإنشاء تحكم في الإصدارات للتطوير المستمر. التحكم في الإصدارات هو شبكة أمانك!</p>
+            </div>
+
+            <!-- Version Control Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/version_control_safety_ar.svg" alt="التحكم في الإصدارات كشبكة أمان" class="content-image">
+                <figcaption>Git يمكّنك من التجريب الآمن مع القدرة على التراجع في أي وقت</figcaption>
+            </figure>
+
+            <h3>أفضل ممارسات التحكم في الإصدارات</h3>
+
+            <div class="example">
+                <h3>استخدام Git للتطوير بالذكاء الاصطناعي</h3>
+                <pre dir="ltr" style="text-align: left;"><code># احفظ الإصدارات بشكل متكرر خلال التحسين
+git add .
+git commit -m "إضافة ميزة حساب الدرجات"
+
+# إذا حدث خطأ، تراجع!
+git log --oneline          # شاهد التاريخ
+git checkout abc123        # عد لإصدار يعمل
+
+# أنشئ فروعاً للتجارب
+git checkout -b experiment-new-approach
+# جرب التغييرات...
+# إذا نجحت: ادمجها
+# إذا فشلت: احذف الفرع، لا ضرر</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>أفضل ممارسات التحسين:</h3>
+                <ul>
+                    <li><strong>احفظ بشكل متكرر:</strong> احفظ الإصدارات كثيراً خلال دورات التحسين</li>
+                    <li><strong>رسائل واضحة:</strong> وثّق ما تم تغييره بواسطة AI</li>
+                    <li><strong>اختبر قبل الحفظ:</strong> تأكد أن الكود يعمل قبل الحفظ</li>
+                    <li><strong>استخدم الفروع:</strong> جرب بأمان دون التأثير على الكود الرئيسي</li>
+                    <li><strong>حافظ على CHANGELOG:</strong> تتبع التعديلات عبر الزمن</li>
+                </ul>
+            </div>
+
+            <div class="key-message">
+                <p><strong>المبدأ الرئيسي:</strong> التحكم في الإصدارات هو شبكة أمانك. كن دائماً قادراً على العودة لحالة تعمل!</p>
+            </div>
+        </section>
+
+        <!-- Section 5: Testing -->
+        <section id="testing" class="content-section">
+            <h2>5. الاختبار: التحقق الحرج</h2>
+
+            <div class="definition">
+                <p><strong>مهم:</strong> الاختبار في البرمجة بمساعدة الذكاء الاصطناعي ليس اختيارياً - إنه ضروري. الذكاء الاصطناعي يمكنه توليد الكود بسرعة، لكن التحقق يضمن أنه يعمل بشكل صحيح وآمن.</p>
+            </div>
+
+            <!-- Testing Pyramid Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/testing_pyramid_ar.svg" alt="هرم الاختبار متعدد المستويات" class="content-image">
+                <figcaption>هرم الاختبار: من اختبارات الوحدة إلى التحقق</figcaption>
+            </figure>
+
+            <h3>نهج الاختبار متعدد المستويات</h3>
+
+            <div class="example">
+                <h3>المستويات الأربعة للاختبار</h3>
+                <ul>
+                    <li><strong>اختبار الوحدة:</strong> اختبر الدوال الفردية - أكثر الاختبارات، الأسرع في التشغيل</li>
+                    <li><strong>اختبار التكامل:</strong> اختبر تفاعلات المكونات، عقود API، تدفق البيانات</li>
+                    <li><strong>اختبار النظام:</strong> اختبر سلوك النظام الكامل، التدفقات من البداية للنهاية</li>
+                    <li><strong>اختبار التحقق:</strong> هل يحل المشكلة فعلاً؟ قبول المستخدم</li>
+                </ul>
+            </div>
+
+            <h3>تحديات الاختبار مع الكود المُولَّد بالذكاء الاصطناعي</h3>
+
+            <div class="example">
+                <h3>تحديات يجب الانتباه لها:</h3>
+                <ul>
+                    <li><strong>التحقق البشري:</strong> بعض المخرجات تتطلب حكماً بشرياً (النتائج البصرية، واجهة المستخدم)</li>
+                    <li><strong>تعريف المقاييس:</strong> ما هي المقاييس الصحيحة للنجاح؟</li>
+                    <li><strong>الجودة الذاتية:</strong> "جيد بما يكفي" يختلف حسب حالة الاستخدام</li>
+                </ul>
+                <p><strong>الحل:</strong> المقاييس نفسها يمكن تطويرها بمساعدة LLM!</p>
+            </div>
+
+            <div class="example">
+                <h3>مثال اختبار عملي</h3>
+                <pre dir="ltr" style="text-align: left;"><code># اختبار دالة تحليل التوزيع
+
+import numpy as np
+
+# الخطوة 1: أنشئ بيانات اختبار معروفة
+# ولّد 1000 نقطة بتوزيع منتظم معروف
+test_data = np.random.uniform(0, 100, 1000)
+
+# الخطوة 2: شغّل دالتك المُولَّدة بالذكاء الاصطناعي
+result = analyze_distribution(test_data)
+
+# الخطوة 3: تحقق من النتائج
+# إذا حددت الدالة التوزيع "المنتظم"،
+# فهي تعمل بشكل صحيح!
+assert result["distribution_type"] == "uniform"
+assert 45 < result["mean"] < 55  # يجب أن تكون حوالي 50
+
+print("نجح الاختبار! الدالة تعمل بشكل صحيح.")</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>المبدأ الرئيسي:</strong> اختبر ببيانات خصائصها معروفة لك مسبقاً. هذا يوفر حقيقة أساسية للتحقق.</p>
+            </div>
+        </section>
+
+        <!-- Section 6: Working Safely with AI -->
+        <section id="safety" class="content-section">
+            <h2>6. العمل بأمان مع الذكاء الاصطناعي</h2>
+
+            <p>العمل مع الذكاء الاصطناعي يتطلب اعتباراً دقيقاً لخصوصية البيانات وإدارة السياق وفهم أنك <strong>مسؤول</strong> عن جميع الكود المُولَّد.</p>
+
+            <h3>خصوصية البيانات: ما الذي تشاركه مع AI</h3>
+
+            <!-- Data Privacy Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/data_privacy_guide_ar.svg" alt="دليل خصوصية البيانات للذكاء الاصطناعي" class="content-image">
+                <figcaption>اتخذ قرارات ذكية حول المعلومات التي ترسلها لنماذج اللغة العامة</figcaption>
+            </figure>
+
+            <div class="key-pattern">
+                <h3>جمال الكود المحلي</h3>
+                <p>عندما يكون لديك كود يعمل محلياً:</p>
+                <ul>
+                    <li>تحافظ على السيطرة الكاملة على البيانات</li>
+                    <li>يمكنك ضمان أن الكود لا يرسل البيانات خارج جهازك</li>
+                    <li>يمكنك معالجة المعلومات الحساسة دون تعرض خارجي</li>
+                    <li>التحقق من أن الكود لا يسرب البيانات هو بحد ذاته شكل من الاختبار</li>
+                </ul>
+            </div>
+
+            <h3>إدارة نافذة السياق</h3>
+
+            <!-- Context Window Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/context_window_ar.svg" alt="إدارة نافذة السياق" class="content-image">
+                <figcaption>تحكم في المعلومات التي يمكن للذكاء الاصطناعي "رؤيتها" والعمل معها</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>استراتيجية إدارة السياق</h3>
+                <p><strong>أضف في السياق:</strong></p>
+                <ul>
+                    <li>متطلبات المهمة الحالية</li>
+                    <li>أقسام الكود ذات الصلة التي يتم تعديلها</li>
+                    <li>رسائل الخطأ الأخيرة</li>
+                    <li>نقاط القرار النشطة</li>
+                </ul>
+                <p><strong>احذف من السياق:</strong></p>
+                <ul>
+                    <li>المكونات المكتملة والمُتحقق منها</li>
+                    <li>أقسام الكود القديمة</li>
+                    <li>محاولات التصحيح القديمة</li>
+                    <li>الشروحات المكررة</li>
+                </ul>
+            </div>
+
+            <h3>البنية القائمة على الوكلاء</h3>
+
+            <!-- Agent Types Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/agent_types_ar.svg" alt="ستة أنواع من وكلاء الذكاء الاصطناعي" class="content-image">
+                <figcaption>وكلاء الذكاء الاصطناعي المتخصصون يعملون معاً في خط إنتاج تطوير</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>ما وراء البرمجة: القدرات الكاملة للذكاء الاصطناعي</h3>
+                <p>الوكلاء يمكنهم أكثر من مجرد كتابة الكود. يمكنهم:</p>
+                <ul>
+                    <li><strong>المحتوى البصري:</strong> إنشاء رسوم بيانية، مخططات تدفق، تصورات بيانات</li>
+                    <li><strong>المحتوى المكتوب:</strong> توثيق، تقارير، أدلة مستخدم</li>
+                    <li><strong>التحليل:</strong> تحليل أنماط البيانات، مقارنة التقنيات</li>
+                    <li><strong>التخطيط:</strong> إنشاء جداول زمنية، تصميم سير العمل</li>
+                    <li><strong>التواصل:</strong> الترجمة، شرح المفاهيم، إنشاء عروض تقديمية</li>
+                </ul>
+            </div>
+
+            <h3>تحذير حرج: مسؤوليتك</h3>
+
+            <!-- Responsibility Checklist Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/responsibility_checklist_ar.svg" alt="قائمة فحص المسؤولية" class="content-image">
+                <figcaption>أنت مسؤول عن الكود المُولَّد بالذكاء الاصطناعي. تحقق دائماً قبل النشر.</figcaption>
+            </figure>
+
+            <div class="key-message">
+                <p><strong>تحذير:</strong> أنت مسؤول عن الكود المُولَّد وسلوكه. كن حذراً. هذا ليس إخلاء مسؤولية - إنه مبدأ أساسي للعمل مع الكود المُولَّد بالذكاء الاصطناعي.</p>
+            </div>
+
+            <div class="example">
+                <h3>قائمة فحص ما قبل النشر</h3>
+                <ul>
+                    <li>الكود مُراجَع ومفهوم</li>
+                    <li>جميع الاختبارات ناجحة</li>
+                    <li>تدقيق الأمان مكتمل</li>
+                    <li>الأداء مُتحقق منه</li>
+                    <li>التوثيق مُنشأ</li>
+                    <li>خطة التراجع جاهزة</li>
+                    <li>المراقبة في مكانها</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section id="summary" class="content-section">
+            <h2>الملخص والخطوات التالية</h2>
+
+            <div class="key-message">
+                <h3>ما تعلمناه اليوم:</h3>
+                <p>غطينا منهجية شاملة للبرمجة بمساعدة الذكاء الاصطناعي:</p>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>المرحلة/الموضوع</th>
+                        <th>الغرض</th>
+                        <th>النقطة الرئيسية</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>المرحلة 1: الاستكشاف</strong></td>
+                        <td>افهم الأدوات أولاً</td>
+                        <td>المعرفة تمنع المفاجآت</td>
+                    </tr>
+                    <tr>
+                        <td><strong>المرحلة 2: التخطيط</strong></td>
+                        <td>أنشئ خطة شاملة</td>
+                        <td>أجب على 4 أسئلة حرجة</td>
+                    </tr>
+                    <tr>
+                        <td><strong>المرحلة 3: التنفيذ</strong></td>
+                        <td>نفذ في مراحل</td>
+                        <td>تحقق باستمرار</td>
+                    </tr>
+                    <tr>
+                        <td><strong>المرحلة 4: التحسين</strong></td>
+                        <td>حسّن بأمان</td>
+                        <td>التحكم في الإصدارات ضروري</td>
+                    </tr>
+                    <tr>
+                        <td><strong>الاختبار</strong></td>
+                        <td>تحقق من الصحة</td>
+                        <td>اختبر ببيانات معروفة</td>
+                    </tr>
+                    <tr>
+                        <td><strong>خصوصية البيانات</strong></td>
+                        <td>احمِ المعلومات الحساسة</td>
+                        <td>اعرف ما تشاركه</td>
+                    </tr>
+                    <tr>
+                        <td><strong>المسؤولية</strong></td>
+                        <td>امتلك كودك</td>
+                        <td>أنت المسؤول</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="example">
+                <h3>تمرين عملي:</h3>
+                <p>طبق منهجية المراحل الأربع على مشروع بسيط:</p>
+                <ol>
+                    <li><strong>استكشف:</strong> ابحث عن مكتبة Python لم تستخدمها من قبل (مثل requests، beautifulsoup4)</li>
+                    <li><strong>خطط:</strong> اكتب إجابات للأسئلة الأربعة الحرجة للتخطيط</li>
+                    <li><strong>نفذ:</strong> استخدم AI للمساعدة في كتابة برنامج صغير يستخدم تلك المكتبة</li>
+                    <li><strong>حسّن:</strong> أنشئ مستودع Git واحفظ كودك العامل</li>
+                    <li><strong>اختبر:</strong> أنشئ حالات اختبار بمخرجات متوقعة معروفة</li>
+                </ol>
+            </div>
+
+            <div class="key-pattern">
+                <h3>المبادئ الرئيسية للتذكر:</h3>
+                <ul>
+                    <li>الاختبار ضروري لكنه صعب</li>
+                    <li>تحكم فيما تشاركه مع LLMs العامة</li>
+                    <li>أدر نوافذ السياق من خلال التسجيل</li>
+                    <li>استخدم البنية القائمة على الوكلاء للأنظمة المعقدة</li>
+                    <li>الوكلاء يمكنهم أكثر من البرمجة</li>
+                    <li><strong>أنت مسؤول عن جميع الكود المُولَّد</strong></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p class="no-print">
+            <a href="index_ar.html">&larr; العودة للصفحة الرئيسية</a>
+        </p>
+        <p>&copy; 2025 مقرر مقدمة في علم البيانات والذكاء الاصطناعي</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming with AI - Week 2 Session 2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="ai_programming_session2_week2_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <header>
+        <h1>Programming with Artificial Intelligence</h1>
+        <p class="subtitle">Week 2, Session 2: AI-Assisted Development Methodology</p>
+    </header>
+
+    <nav class="table-of-contents no-print">
+        <h2>Contents</h2>
+        <ul>
+            <li><a href="#overview">Learning Objectives</a></li>
+            <li><a href="#intro">Introduction: The Four-Phase Methodology</a></li>
+            <li><a href="#exploration">1. Phase 1: Exploration &amp; Discovery</a></li>
+            <li><a href="#planning">2. Phase 2: Planning &amp; Architecture</a></li>
+            <li><a href="#implementation">3. Phase 3: Implementation &amp; Execution</a></li>
+            <li><a href="#improvement">4. Phase 4: Improvement &amp; Optimization</a></li>
+            <li><a href="#testing">5. Testing: The Critical Verification</a></li>
+            <li><a href="#safety">6. Working Safely with AI</a></li>
+            <li><a href="#summary">Summary &amp; Next Steps</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="overview" class="learning-objectives">
+            <h2>Learning Objectives</h2>
+            <p>By the end of this session, students will be able to:</p>
+            <ul>
+                <li>Apply the four-phase methodology for AI-assisted development</li>
+                <li>Conduct thorough exploration and discovery of tools before implementation</li>
+                <li>Create comprehensive plans addressing code location, data flow, and verification</li>
+                <li>Execute staged implementation with continuous verification</li>
+                <li>Use version control as a safety net during improvement cycles</li>
+                <li>Understand testing challenges and implement effective verification strategies</li>
+                <li>Make informed decisions about data privacy when working with AI</li>
+                <li>Design agent-based architectures for complex development tasks</li>
+            </ul>
+        </section>
+
+        <!-- Introduction -->
+        <section id="intro" class="content-section">
+            <h2>Introduction: The Four-Phase AI Development Methodology</h2>
+
+            <div class="key-message">
+                <p><strong>Key Message:</strong> This methodology represents our core approach to programming with AI. It provides a systematic, repeatable process for leveraging AI while maintaining control, security, and code quality.</p>
+            </div>
+
+            <p>When working with AI to develop software, following a structured approach is essential. Without it, you risk creating code that you don't understand, that may have security vulnerabilities, or that doesn't actually solve your problem.</p>
+
+            <!-- Overview Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/four_phases_cycle.svg" alt="The Four Phases: Exploration, Planning, Implementation, Improvement" class="content-image">
+                <figcaption>The four phases of AI-assisted development form a continuous cycle</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>The Four Phases at a Glance:</h3>
+                <ul>
+                    <li><strong>Phase 1: Exploration</strong> - Understand tools and capabilities before starting</li>
+                    <li><strong>Phase 2: Planning</strong> - Create a comprehensive development plan</li>
+                    <li><strong>Phase 3: Implementation</strong> - Execute with staged verification</li>
+                    <li><strong>Phase 4: Improvement</strong> - Refine with version control as your safety net</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 1: Exploration -->
+        <section id="exploration" class="content-section">
+            <h2>1. Phase 1: Exploration &amp; Discovery</h2>
+
+            <div class="definition">
+                <p><strong>Objective:</strong> Understand the available tools, libraries, and their capabilities <em>before</em> beginning development. Knowledge gathering at this stage prevents problems later.</p>
+            </div>
+
+            <h3>Why Exploration Matters</h3>
+            <p>Even if you think you know a tool, explore it more deeply. The more you understand these aspects, the better equipped you'll be for implementation.</p>
+
+            <!-- Exploration Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/exploration_discovery.svg" alt="Exploration and Discovery activities" class="content-image">
+                <figcaption>Three key activities in the exploration phase</figcaption>
+            </figure>
+
+            <h3>Key Exploration Activities</h3>
+
+            <div class="example">
+                <h3>1. Software and Package Discovery</h3>
+                <ul>
+                    <li>Investigate existing software solutions in your chosen language (e.g., Python)</li>
+                    <li>Identify relevant packages and libraries that could solve or simplify your problem</li>
+                    <li>Research open-source alternatives and their maturity levels</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>2. Tool Capability Assessment</h3>
+                <ul>
+                    <li>Evaluate the general capabilities of each tool</li>
+                    <li>Assess efficiency and performance characteristics</li>
+                    <li>Understand compatibility requirements and dependencies</li>
+                    <li>Investigate community support and documentation quality</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>3. Deep Diving Questions</h3>
+                <p>Ask these fundamental questions about every tool:</p>
+                <ul>
+                    <li>What exactly is this tool?</li>
+                    <li>How do we use it effectively?</li>
+                    <li>How do we download and install it?</li>
+                    <li>What is the installation mechanism?</li>
+                    <li>What are the operating requirements?</li>
+                    <li>Can we run it on our target platform (e.g., Colab, local machine)?</li>
+                </ul>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Key Principle:</strong> Thorough exploration prevents problems later. Knowledge gathering reduces implementation surprises.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Planning -->
+        <section id="planning" class="content-section">
+            <h2>2. Phase 2: Planning &amp; Architecture</h2>
+
+            <div class="definition">
+                <p><strong>Objective:</strong> Create a comprehensive plan that addresses all aspects of the development and deployment process <em>before</em> writing any code.</p>
+            </div>
+
+            <!-- Planning Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/planning_questions.svg" alt="Four critical planning questions" class="content-image">
+                <figcaption>Answer these four critical questions before starting implementation</figcaption>
+            </figure>
+
+            <h3>Critical Planning Questions</h3>
+
+            <div class="example">
+                <h3>Question 1: Code Location and Environment</h3>
+                <ul>
+                    <li>Where will we write the code?</li>
+                    <li>What development environment will we use?</li>
+                    <li>Where will the final solution reside? (Google Colab, local environment, cloud platform)</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>Question 2: Data Flow and File Management</h3>
+                <ul>
+                    <li>Will the code process files at a specific destination?</li>
+                    <li>What files will be produced as output?</li>
+                    <li>Will we need to download files? From where?</li>
+                    <li>How will data flow through the system?</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>Question 3: Verification Strategy</h3>
+                <ul>
+                    <li>Establish a mechanism to verify program correctness</li>
+                    <li>Decide whether to program as one monolithic block or multiple small, testable parts (recommended)</li>
+                    <li>Define how we will communicate with and verify each component</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>Question 4: Testing Architecture</h3>
+                <ul>
+                    <li>How will we perform testing?</li>
+                    <li>Will testing be direct from the user or external automated testing?</li>
+                    <li>How will we verify behavior at each stage?</li>
+                </ul>
+            </div>
+
+            <div class="key-pattern">
+                <h3>Planning Outputs:</h3>
+                <ul>
+                    <li>Detailed development roadmap</li>
+                    <li>Testing strategy document</li>
+                    <li>Data flow diagrams</li>
+                    <li>Component breakdown structure</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Implementation -->
+        <section id="implementation" class="content-section">
+            <h2>3. Phase 3: Implementation &amp; Execution</h2>
+
+            <div class="definition">
+                <p><strong>Objective:</strong> Transform the plan into working code through systematic execution and continuous verification.</p>
+            </div>
+
+            <!-- Implementation Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/implementation_workflow.svg" alt="Iterative implementation workflow" class="content-image">
+                <figcaption>The iterative development workflow: Upload, Process, Return, Save, Verify, Repeat</figcaption>
+            </figure>
+
+            <h3>Implementation Process</h3>
+
+            <div class="example">
+                <h3>Step 1: Environment Setup</h3>
+                <ul>
+                    <li>Prepare the programming environment</li>
+                    <li>Install necessary dependencies</li>
+                    <li>Configure the platform (initially, a platform setup will be needed)</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>Step 2: Staged Execution</h3>
+                <ul>
+                    <li>Execute the programming plan in defined stages</li>
+                    <li>Follow the planned component structure</li>
+                    <li>Implement one component at a time when possible</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>Step 3: Iterative Development Workflow</h3>
+                <pre><code># The cycle of AI-assisted development:
+
+1. Upload    - Provide the file/code to the AI system
+2. Process   - AI modifies or generates code
+3. Return    - AI returns the result
+4. Save      - Save the result to your project
+5. Verify    - Test that it works correctly
+6. Repeat    - Continue for each component
+
+# Example workflow in practice:
+prompt = "Create a function to calculate average grades"
+# AI generates code
+# You review and test
+# Save working code
+# Move to next component</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Continuous Verification:</strong> Test each component as it's completed. Verify integration between components. Document any deviations from the plan.</p>
+            </div>
+        </section>
+
+        <!-- Section 4: Improvement -->
+        <section id="improvement" class="content-section">
+            <h2>4. Phase 4: Improvement &amp; Optimization</h2>
+
+            <div class="definition">
+                <p><strong>Objective:</strong> Refine the initial output and establish version control for ongoing development. Version control is your safety net!</p>
+            </div>
+
+            <!-- Version Control Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/version_control_safety.svg" alt="Version control as a safety net" class="content-image">
+                <figcaption>Git enables safe experimentation with the ability to rollback anytime</figcaption>
+            </figure>
+
+            <h3>Version Control Best Practices</h3>
+
+            <div class="example">
+                <h3>Using Git for AI Development</h3>
+                <pre><code># Save versions frequently during improvement
+git add .
+git commit -m "Added grade calculation feature"
+
+# If something goes wrong, rollback!
+git log --oneline          # See history
+git checkout abc123        # Return to working version
+
+# Create branches for experiments
+git checkout -b experiment-new-approach
+# Try changes...
+# If it works: merge back
+# If it fails: delete branch, no harm done</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>Improvement Best Practices:</h3>
+                <ul>
+                    <li><strong>Commit frequently:</strong> Save versions often during improvement cycles</li>
+                    <li><strong>Clear messages:</strong> Document what AI-generated changes were made</li>
+                    <li><strong>Test before commit:</strong> Ensure code works before saving</li>
+                    <li><strong>Use branches:</strong> Experiment safely without affecting main code</li>
+                    <li><strong>Keep CHANGELOG:</strong> Track modifications over time</li>
+                </ul>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Key Principle:</strong> Version control is your safety net. Always be able to return to a working state!</p>
+            </div>
+        </section>
+
+        <!-- Section 5: Testing -->
+        <section id="testing" class="content-section">
+            <h2>5. Testing: The Critical Verification</h2>
+
+            <div class="definition">
+                <p><strong>Important:</strong> Testing in AI-assisted programming is not optional - it's essential. AI can generate code quickly, but verification ensures it works correctly and safely.</p>
+            </div>
+
+            <!-- Testing Pyramid Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/testing_pyramid.svg" alt="Multi-level testing pyramid" class="content-image">
+                <figcaption>The testing pyramid: from unit tests to validation</figcaption>
+            </figure>
+
+            <h3>Multi-Level Testing Approach</h3>
+
+            <div class="example">
+                <h3>The Four Levels of Testing</h3>
+                <ul>
+                    <li><strong>Unit Testing:</strong> Test individual functions - most tests, fastest to run</li>
+                    <li><strong>Integration Testing:</strong> Test component interactions, API contracts, data flow</li>
+                    <li><strong>System Testing:</strong> Test complete system behavior, end-to-end flows</li>
+                    <li><strong>Validation Testing:</strong> Does it actually solve the problem? User acceptance</li>
+                </ul>
+            </div>
+
+            <h3>Testing Challenges with AI-Generated Code</h3>
+
+            <div class="example">
+                <h3>Challenges to Be Aware Of:</h3>
+                <ul>
+                    <li><strong>Human Validation:</strong> Some outputs require human judgment (visual results, UI/UX)</li>
+                    <li><strong>Metric Definition:</strong> What are the correct metrics for success?</li>
+                    <li><strong>Subjective Quality:</strong> "Good enough" varies by use case</li>
+                </ul>
+                <p><strong>Solution:</strong> Metrics themselves can be developed with LLM assistance!</p>
+            </div>
+
+            <div class="example">
+                <h3>Practical Testing Example</h3>
+                <pre><code># Testing a distribution analysis function
+
+import numpy as np
+
+# Step 1: Create known test data
+# Generate 1000 points with known uniform distribution
+test_data = np.random.uniform(0, 100, 1000)
+
+# Step 2: Run your AI-generated function
+result = analyze_distribution(test_data)
+
+# Step 3: Verify results
+# If the function identifies "uniform" distribution,
+# then it's working correctly!
+assert result["distribution_type"] == "uniform"
+assert 45 < result["mean"] < 55  # Should be around 50
+
+print("Test passed! Function works correctly.")</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Key Principle:</strong> Test with data whose characteristics you already know. This provides ground truth for verification.</p>
+            </div>
+        </section>
+
+        <!-- Section 6: Working Safely with AI -->
+        <section id="safety" class="content-section">
+            <h2>6. Working Safely with AI</h2>
+
+            <p>Working with AI requires careful consideration of data privacy, context management, and understanding that <strong>you are responsible</strong> for all generated code.</p>
+
+            <h3>Data Privacy: What to Share with AI</h3>
+
+            <!-- Data Privacy Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/data_privacy_guide.svg" alt="Data privacy guide for AI" class="content-image">
+                <figcaption>Make smart decisions about what information goes to public LLMs</figcaption>
+            </figure>
+
+            <div class="key-pattern">
+                <h3>The Beauty of Local Code</h3>
+                <p>When you have your own code running locally:</p>
+                <ul>
+                    <li>You maintain complete control over data</li>
+                    <li>You can ensure code doesn't send data outside your computer</li>
+                    <li>You can process sensitive information without external exposure</li>
+                    <li>The verification that code doesn't leak data is itself a form of testing</li>
+                </ul>
+            </div>
+
+            <h3>Context Window Management</h3>
+
+            <!-- Context Window Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/context_window.svg" alt="Context window management" class="content-image">
+                <figcaption>Control what information the AI can "see" and work with</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>Context Management Strategy</h3>
+                <p><strong>Include in context:</strong></p>
+                <ul>
+                    <li>Current task requirements</li>
+                    <li>Relevant code sections being modified</li>
+                    <li>Recent error messages</li>
+                    <li>Active decision points</li>
+                </ul>
+                <p><strong>Omit from context:</strong></p>
+                <ul>
+                    <li>Completed and verified components</li>
+                    <li>Deprecated code sections</li>
+                    <li>Old debugging attempts</li>
+                    <li>Redundant explanations</li>
+                </ul>
+            </div>
+
+            <h3>Agent-Based Architecture</h3>
+
+            <!-- Agent Types Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/agent_types.svg" alt="Six types of AI agents" class="content-image">
+                <figcaption>Specialized AI agents work together in a development pipeline</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>Beyond Coding: Full AI Capabilities</h3>
+                <p>Agents can do more than just write code. They can:</p>
+                <ul>
+                    <li><strong>Visual Content:</strong> Create diagrams, flowcharts, data visualizations</li>
+                    <li><strong>Written Content:</strong> Documentation, reports, user manuals</li>
+                    <li><strong>Analysis:</strong> Analyze data patterns, compare technologies</li>
+                    <li><strong>Planning:</strong> Create timelines, design workflows</li>
+                    <li><strong>Communication:</strong> Translate, explain concepts, create presentations</li>
+                </ul>
+            </div>
+
+            <h3>Critical Warning: Your Responsibility</h3>
+
+            <!-- Responsibility Checklist Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/responsibility_checklist.svg" alt="Responsibility checklist" class="content-image">
+                <figcaption>YOU are responsible for AI-generated code. Always verify before deployment.</figcaption>
+            </figure>
+
+            <div class="key-message">
+                <p><strong>WARNING:</strong> You are responsible for the generated code and its behavior. Be cautious. This is not a disclaimer - it's a fundamental principle of working with AI-generated code.</p>
+            </div>
+
+            <div class="example">
+                <h3>Before Deployment Checklist</h3>
+                <ul>
+                    <li>Code reviewed and understood</li>
+                    <li>All tests passed</li>
+                    <li>Security audit completed</li>
+                    <li>Performance validated</li>
+                    <li>Documentation created</li>
+                    <li>Rollback plan prepared</li>
+                    <li>Monitoring in place</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section id="summary" class="content-section">
+            <h2>Summary &amp; Next Steps</h2>
+
+            <div class="key-message">
+                <h3>What We Learned Today:</h3>
+                <p>We covered a comprehensive methodology for programming with AI assistance:</p>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Phase/Topic</th>
+                        <th>Purpose</th>
+                        <th>Key Takeaway</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Phase 1: Exploration</strong></td>
+                        <td>Understand tools first</td>
+                        <td>Knowledge prevents surprises</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phase 2: Planning</strong></td>
+                        <td>Create comprehensive plan</td>
+                        <td>Answer 4 critical questions</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phase 3: Implementation</strong></td>
+                        <td>Execute in stages</td>
+                        <td>Verify continuously</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phase 4: Improvement</strong></td>
+                        <td>Refine with safety</td>
+                        <td>Version control is essential</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Testing</strong></td>
+                        <td>Verify correctness</td>
+                        <td>Test with known data</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Privacy</strong></td>
+                        <td>Protect sensitive info</td>
+                        <td>Know what to share</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Responsibility</strong></td>
+                        <td>Own your code</td>
+                        <td>YOU are accountable</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="example">
+                <h3>Practice Exercise:</h3>
+                <p>Apply the four-phase methodology to a simple project:</p>
+                <ol>
+                    <li><strong>Explore:</strong> Research a Python library you haven't used before (e.g., requests, beautifulsoup4)</li>
+                    <li><strong>Plan:</strong> Write down answers to the 4 critical planning questions</li>
+                    <li><strong>Implement:</strong> Use AI to help write a small program using that library</li>
+                    <li><strong>Improve:</strong> Set up a Git repository and commit your working code</li>
+                    <li><strong>Test:</strong> Create test cases with known expected outputs</li>
+                </ol>
+            </div>
+
+            <div class="key-pattern">
+                <h3>Key Principles to Remember:</h3>
+                <ul>
+                    <li>Testing is essential but challenging</li>
+                    <li>Control what you share with public LLMs</li>
+                    <li>Manage context windows through logging</li>
+                    <li>Use agent-based architecture for complex systems</li>
+                    <li>Agents can do more than code</li>
+                    <li><strong>You are responsible for all generated code</strong></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p class="no-print">
+            <a href="index.html">&larr; Back to Course Home</a>
+        </p>
+        <p>&copy; 2025 Introduction to Data Science &amp; AI Course</p>
+    </footer>
+</body>
+</html>
