@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" width="1000" height="480">
+  <defs>
+    <style>
+      .title { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 22px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .stage-title { fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; font-weight: bold; text-anchor: middle; }
+      .label-text { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: middle; }
+      .desc-text { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 10px; text-anchor: middle; }
+      .tool-text { fill: #2c3e50; font-family: 'Courier New', monospace; font-size: 10px; text-anchor: middle; direction: ltr; }
+      .highlight-box { fill: #fff3cd; stroke: #ffc107; stroke-width: 2; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="480" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="500" y="35" class="title">Pandas في خط أنابيب علم البيانات</text>
+  <text x="500" y="55" class="subtitle">أين تقع Pandas في الرحلة من البيانات الخام إلى الرؤى</text>
+
+  <!-- Pipeline stages (RTL layout - right to left) -->
+
+  <!-- Stage 1: Raw Data (rightmost) -->
+  <rect x="830" y="90" width="140" height="180" fill="white" rx="10" stroke="#95a5a6" stroke-width="2"/>
+  <rect x="830" y="90" width="140" height="35" fill="#95a5a6" rx="10"/>
+  <rect x="830" y="115" width="140" height="10" fill="#95a5a6"/>
+  <text x="900" y="113" class="stage-title">١. بيانات خام</text>
+
+  <!-- Data source icons -->
+  <rect x="845" y="140" width="50" height="35" fill="#ecf0f1" rx="3" stroke="#bdc3c7"/>
+  <text x="870" y="160" class="tool-text">.csv</text>
+  <rect x="905" y="140" width="50" height="35" fill="#ecf0f1" rx="3" stroke="#bdc3c7"/>
+  <text x="930" y="160" class="tool-text">.xlsx</text>
+  <rect x="845" y="185" width="50" height="35" fill="#ecf0f1" rx="3" stroke="#bdc3c7"/>
+  <text x="870" y="205" class="tool-text">SQL</text>
+  <rect x="905" y="185" width="50" height="35" fill="#ecf0f1" rx="3" stroke="#bdc3c7"/>
+  <text x="930" y="205" class="tool-text">JSON</text>
+
+  <text x="900" y="245" class="desc-text">تنسيقات متعددة</text>
+  <text x="900" y="258" class="desc-text">فوضوية، متفرقة</text>
+
+  <!-- Arrow 1-2 (right to left) -->
+  <path d="M 825 180 L 805 180" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Stage 2: Load (Pandas) - HIGHLIGHTED -->
+  <rect x="640" y="85" width="160" height="190" class="highlight-box" rx="10"/>
+  <rect x="640" y="85" width="160" height="35" fill="#f39c12" rx="10"/>
+  <rect x="640" y="110" width="160" height="10" fill="#f39c12"/>
+  <text x="720" y="108" class="stage-title">٢. تحميل واستكشاف</text>
+
+  <rect x="655" y="130" width="130" height="55" fill="#fff9e6" rx="5"/>
+  <text x="720" y="150" class="label-text" style="fill: #f39c12;">PANDAS</text>
+  <text x="720" y="168" class="tool-text">pd.read_csv()</text>
+  <text x="720" y="180" class="tool-text">df.info()</text>
+
+  <text x="720" y="205" class="desc-text" style="fill: #f39c12;">تحميل إلى DataFrame</text>
+  <text x="720" y="218" class="desc-text" style="fill: #f39c12;">فهم الهيكل</text>
+  <text x="720" y="231" class="desc-text" style="fill: #f39c12;">استكشاف أنواع البيانات</text>
+
+  <text x="720" y="260" class="label-text" style="fill: #e67e22; font-size: 10px;">أنت هنا!</text>
+
+  <!-- Arrow 2-3 -->
+  <path d="M 635 180 L 615 180" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Stage 3: Clean (Pandas) - HIGHLIGHTED -->
+  <rect x="450" y="85" width="160" height="190" class="highlight-box" rx="10"/>
+  <rect x="450" y="85" width="160" height="35" fill="#f39c12" rx="10"/>
+  <rect x="450" y="110" width="160" height="10" fill="#f39c12"/>
+  <text x="530" y="108" class="stage-title">٣. تنظيف وتحويل</text>
+
+  <rect x="465" y="130" width="130" height="65" fill="#fff9e6" rx="5"/>
+  <text x="530" y="148" class="label-text" style="fill: #f39c12;">PANDAS</text>
+  <text x="530" y="165" class="tool-text">dropna(), fillna()</text>
+  <text x="530" y="178" class="tool-text">df['col'].apply()</text>
+  <text x="530" y="191" class="tool-text">df.groupby()</text>
+
+  <text x="530" y="215" class="desc-text" style="fill: #f39c12;">معالجة البيانات المفقودة</text>
+  <text x="530" y="228" class="desc-text" style="fill: #f39c12;">تصفية، تحويل</text>
+  <text x="530" y="241" class="desc-text" style="fill: #f39c12;">تجميع، دمج</text>
+
+  <!-- Arrow 3-4 -->
+  <path d="M 445 180 L 425 180" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Stage 4: Analyze -->
+  <rect x="260" y="90" width="160" height="180" fill="white" rx="10" stroke="#9b59b6" stroke-width="2"/>
+  <rect x="260" y="90" width="160" height="35" fill="#9b59b6" rx="10"/>
+  <rect x="260" y="115" width="160" height="10" fill="#9b59b6"/>
+  <text x="340" y="113" class="stage-title">٤. تحليل</text>
+
+  <rect x="275" y="140" width="130" height="55" fill="#f5eef8" rx="5"/>
+  <text x="340" y="160" class="label-text" style="fill: #9b59b6;">الأدوات</text>
+  <text x="340" y="175" class="tool-text">NumPy, SciPy</text>
+  <text x="340" y="188" class="tool-text">Scikit-learn</text>
+
+  <text x="340" y="215" class="desc-text">إحصائيات</text>
+  <text x="340" y="228" class="desc-text">تعلم الآلة</text>
+  <text x="340" y="241" class="desc-text">تنبؤات</text>
+
+  <!-- Arrow 4-5 -->
+  <path d="M 255 180 L 235 180" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Stage 5: Visualize & Report -->
+  <rect x="70" y="90" width="160" height="180" fill="white" rx="10" stroke="#27ae60" stroke-width="2"/>
+  <rect x="70" y="90" width="160" height="35" fill="#27ae60" rx="10"/>
+  <rect x="70" y="115" width="160" height="10" fill="#27ae60"/>
+  <text x="150" y="113" class="stage-title">٥. تصور</text>
+
+  <rect x="85" y="140" width="130" height="55" fill="#e8f8f5" rx="5"/>
+  <text x="150" y="160" class="label-text" style="fill: #27ae60;">الأدوات</text>
+  <text x="150" y="175" class="tool-text">Matplotlib</text>
+  <text x="150" y="188" class="tool-text">Seaborn, Plotly</text>
+
+  <text x="150" y="215" class="desc-text">رسوم بيانية</text>
+  <text x="150" y="228" class="desc-text">لوحات معلومات</text>
+  <text x="150" y="241" class="desc-text">تقارير</text>
+
+  <!-- Key Message Box - Fixed alignment -->
+  <rect x="100" y="310" width="800" height="155" fill="white" rx="10" stroke="#f39c12" stroke-width="3"/>
+  <text x="500" y="340" style="fill: #f39c12; font-family: 'Cairo', Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle;">لماذا Pandas ضرورية</text>
+
+  <!-- Right column (in RTL, this appears first visually) -->
+  <circle cx="820" cy="375" r="8" fill="#f39c12"/>
+  <text x="800" y="372" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; text-anchor: end; font-weight: bold;">بوابة علم البيانات</text>
+  <text x="800" y="386" style="fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 10px; text-anchor: end;">أول أداة تستخدمها مع أي مجموعة بيانات</text>
+
+  <circle cx="820" cy="420" r="8" fill="#f39c12"/>
+  <text x="800" y="417" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; text-anchor: end; font-weight: bold;">تحضير البيانات يأخذ 80% من العمل</text>
+  <text x="800" y="431" style="fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 10px; text-anchor: end;">Pandas تتولى هذه المرحلة الحرجة</text>
+
+  <!-- Left column -->
+  <circle cx="420" cy="375" r="8" fill="#f39c12"/>
+  <text x="400" y="372" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; text-anchor: end; font-weight: bold;">تتكامل مع كل شيء</text>
+  <text x="400" y="386" style="fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 10px; text-anchor: end;">تعمل مع NumPy, Matplotlib, Scikit-learn</text>
+
+  <circle cx="420" cy="420" r="8" fill="#f39c12"/>
+  <text x="400" y="417" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; text-anchor: end; font-weight: bold;">المعيار الصناعي</text>
+  <text x="400" y="431" style="fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 10px; text-anchor: end;">يستخدمها علماء البيانات حول العالم</text>
+</svg>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" width="1000" height="580">
+  <defs>
+    <style>
+      .title { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: Arial, sans-serif; font-size: 14px; text-anchor: middle; }
+      .panel-title { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; text-anchor: middle; }
+      .label { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; }
+      .cell-text { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .header-text { fill: white; font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; text-anchor: middle; }
+      .annotation { fill: #e74c3c; font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: middle; }
+      .desc-text { fill: #7f8c8d; font-family: Arial, sans-serif; font-size: 11px; }
+      .arrow { stroke: #e74c3c; stroke-width: 2; fill: none; marker-end: url(#redarrow); }
+      .arrow-dashed { stroke: #3498db; stroke-width: 2; fill: none; stroke-dasharray: 5,3; }
+    </style>
+    <marker id="redarrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="580" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="500" y="35" class="title">DataFrame: From Spreadsheet to Python</text>
+  <text x="500" y="58" class="subtitle">Understanding how familiar spreadsheet concepts map to Pandas DataFrames</text>
+
+  <!-- Left Panel: Excel Spreadsheet -->
+  <rect x="40" y="85" width="400" height="340" fill="white" rx="10" stroke="#27ae60" stroke-width="3"/>
+  <text x="240" y="115" class="panel-title" style="fill: #27ae60;">Excel Spreadsheet</text>
+
+  <!-- Excel Header Row (A, B, C, D) -->
+  <rect x="100" y="135" width="60" height="35" fill="#27ae60"/>
+  <text x="130" y="158" class="header-text">A</text>
+  <rect x="160" y="135" width="80" height="35" fill="#27ae60"/>
+  <text x="200" y="158" class="header-text">B</text>
+  <rect x="240" y="135" width="60" height="35" fill="#27ae60"/>
+  <text x="270" y="158" class="header-text">C</text>
+  <rect x="300" y="135" width="80" height="35" fill="#27ae60"/>
+  <text x="340" y="158" class="header-text">D</text>
+
+  <!-- Excel Row Numbers -->
+  <rect x="55" y="135" width="45" height="35" fill="#bdc3c7"/>
+  <text x="77" y="158" class="cell-text" style="font-weight: bold;"></text>
+
+  <rect x="55" y="170" width="45" height="35" fill="#ecf0f1"/>
+  <text x="77" y="193" class="cell-text" style="font-weight: bold;">1</text>
+
+  <rect x="55" y="205" width="45" height="35" fill="#ecf0f1"/>
+  <text x="77" y="228" class="cell-text" style="font-weight: bold;">2</text>
+
+  <rect x="55" y="240" width="45" height="35" fill="#ecf0f1"/>
+  <text x="77" y="263" class="cell-text" style="font-weight: bold;">3</text>
+
+  <rect x="55" y="275" width="45" height="35" fill="#ecf0f1"/>
+  <text x="77" y="298" class="cell-text" style="font-weight: bold;">4</text>
+
+  <!-- Excel Data Row 1 -->
+  <rect x="100" y="170" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="130" y="193" class="cell-text">Ahmed</text>
+  <rect x="160" y="170" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="200" y="193" class="cell-text">20</text>
+  <rect x="240" y="170" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="270" y="193" class="cell-text">85</text>
+  <rect x="300" y="170" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="340" y="193" class="cell-text">Riyadh</text>
+
+  <!-- Excel Data Row 2 -->
+  <rect x="100" y="205" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="130" y="228" class="cell-text">Sara</text>
+  <rect x="160" y="205" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="200" y="228" class="cell-text">22</text>
+  <rect x="240" y="205" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="270" y="228" class="cell-text">92</text>
+  <rect x="300" y="205" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="340" y="228" class="cell-text">Jeddah</text>
+
+  <!-- Excel Data Row 3 -->
+  <rect x="100" y="240" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="130" y="263" class="cell-text">Ali</text>
+  <rect x="160" y="240" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="200" y="263" class="cell-text">21</text>
+  <rect x="240" y="240" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="270" y="263" class="cell-text">78</text>
+  <rect x="300" y="240" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="340" y="263" class="cell-text">Dammam</text>
+
+  <!-- Excel Data Row 4 -->
+  <rect x="100" y="275" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="130" y="298" class="cell-text">Norah</text>
+  <rect x="160" y="275" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="200" y="298" class="cell-text">20</text>
+  <rect x="240" y="275" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="270" y="298" class="cell-text">95</text>
+  <rect x="300" y="275" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="340" y="298" class="cell-text">Mecca</text>
+
+  <!-- Excel Labels -->
+  <text x="77" y="340" class="desc-text" style="text-anchor: middle; fill: #7f8c8d;">Row</text>
+  <text x="77" y="355" class="desc-text" style="text-anchor: middle; fill: #7f8c8d;">Numbers</text>
+  <text x="240" y="340" class="desc-text" style="text-anchor: middle; fill: #27ae60; font-weight: bold;">Column Letters (A, B, C, D)</text>
+
+  <!-- Right Panel: Pandas DataFrame -->
+  <rect x="560" y="85" width="400" height="340" fill="white" rx="10" stroke="#3498db" stroke-width="3"/>
+  <text x="760" y="115" class="panel-title" style="fill: #3498db;">Pandas DataFrame</text>
+
+  <!-- DataFrame Column Headers -->
+  <rect x="620" y="135" width="60" height="35" fill="#3498db"/>
+  <text x="650" y="158" class="header-text">Name</text>
+  <rect x="680" y="135" width="60" height="35" fill="#3498db"/>
+  <text x="710" y="158" class="header-text">Age</text>
+  <rect x="740" y="135" width="60" height="35" fill="#3498db"/>
+  <text x="770" y="158" class="header-text">Grade</text>
+  <rect x="800" y="135" width="80" height="35" fill="#3498db"/>
+  <text x="840" y="158" class="header-text">City</text>
+
+  <!-- DataFrame Index Column -->
+  <rect x="575" y="135" width="45" height="35" fill="#9b59b6"/>
+  <text x="597" y="158" class="header-text" style="font-size: 11px;">Index</text>
+
+  <rect x="575" y="170" width="45" height="35" fill="#e8daef"/>
+  <text x="597" y="193" class="cell-text" style="font-weight: bold; fill: #9b59b6;">0</text>
+
+  <rect x="575" y="205" width="45" height="35" fill="#e8daef"/>
+  <text x="597" y="228" class="cell-text" style="font-weight: bold; fill: #9b59b6;">1</text>
+
+  <rect x="575" y="240" width="45" height="35" fill="#e8daef"/>
+  <text x="597" y="263" class="cell-text" style="font-weight: bold; fill: #9b59b6;">2</text>
+
+  <rect x="575" y="275" width="45" height="35" fill="#e8daef"/>
+  <text x="597" y="298" class="cell-text" style="font-weight: bold; fill: #9b59b6;">3</text>
+
+  <!-- DataFrame Data Row 0 -->
+  <rect x="620" y="170" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="650" y="193" class="cell-text">Ahmed</text>
+  <rect x="680" y="170" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="710" y="193" class="cell-text">20</text>
+  <rect x="740" y="170" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="770" y="193" class="cell-text">85</text>
+  <rect x="800" y="170" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="840" y="193" class="cell-text">Riyadh</text>
+
+  <!-- DataFrame Data Row 1 -->
+  <rect x="620" y="205" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="650" y="228" class="cell-text">Sara</text>
+  <rect x="680" y="205" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="710" y="228" class="cell-text">22</text>
+  <rect x="740" y="205" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="770" y="228" class="cell-text">92</text>
+  <rect x="800" y="205" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="840" y="228" class="cell-text">Jeddah</text>
+
+  <!-- DataFrame Data Row 2 -->
+  <rect x="620" y="240" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="650" y="263" class="cell-text">Ali</text>
+  <rect x="680" y="240" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="710" y="263" class="cell-text">21</text>
+  <rect x="740" y="240" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="770" y="263" class="cell-text">78</text>
+  <rect x="800" y="240" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="840" y="263" class="cell-text">Dammam</text>
+
+  <!-- DataFrame Data Row 3 -->
+  <rect x="620" y="275" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="650" y="298" class="cell-text">Norah</text>
+  <rect x="680" y="275" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="710" y="298" class="cell-text">20</text>
+  <rect x="740" y="275" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="770" y="298" class="cell-text">95</text>
+  <rect x="800" y="275" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="840" y="298" class="cell-text">Mecca</text>
+
+  <!-- DataFrame Labels -->
+  <text x="597" y="340" class="desc-text" style="text-anchor: middle; fill: #9b59b6; font-weight: bold;">Index</text>
+  <text x="597" y="355" class="desc-text" style="text-anchor: middle; fill: #9b59b6;">(starts at 0)</text>
+  <text x="760" y="340" class="desc-text" style="text-anchor: middle; fill: #3498db; font-weight: bold;">Column Names (meaningful labels)</text>
+
+  <!-- Mapping Arrows -->
+  <path d="M 445 152 L 555 152" class="arrow"/>
+  <text x="500" y="145" class="annotation">Columns</text>
+
+  <path d="M 100 240 Q 510 380 575 240" class="arrow" style="stroke: #9b59b6;"/>
+  <text x="340" y="390" class="annotation" style="fill: #9b59b6;">Row Numbers become Index</text>
+
+  <!-- Key Terminology Box - Reorganized with 2 rows -->
+  <rect x="40" y="440" width="920" height="125" fill="white" rx="10" stroke="#2c3e50" stroke-width="2"/>
+  <text x="500" y="465" style="fill: #2c3e50; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle;">Key Terminology Mapping</text>
+
+  <!-- Row 1 of terminology -->
+  <rect x="60" y="480" width="15" height="15" fill="#27ae60"/>
+  <text x="85" y="492" class="desc-text" style="text-anchor: start; font-size: 11px;">Column Letters (A, B)</text>
+  <text x="85" y="506" class="desc-text" style="text-anchor: start; font-size: 11px; font-weight: bold;">  → Column Names</text>
+
+  <rect x="280" y="480" width="15" height="15" fill="#9b59b6"/>
+  <text x="305" y="492" class="desc-text" style="text-anchor: start; font-size: 11px;">Row Numbers (1, 2, 3)</text>
+  <text x="305" y="506" class="desc-text" style="text-anchor: start; font-size: 11px; font-weight: bold;">  → Index (0, 1, 2...)</text>
+
+  <rect x="500" y="480" width="15" height="15" fill="#3498db"/>
+  <text x="525" y="492" class="desc-text" style="text-anchor: start; font-size: 11px;">Cells</text>
+  <text x="525" y="506" class="desc-text" style="text-anchor: start; font-size: 11px; font-weight: bold;">  → Values</text>
+
+  <rect x="700" y="480" width="15" height="15" fill="#f39c12"/>
+  <text x="725" y="492" class="desc-text" style="text-anchor: start; font-size: 11px;">Sheet</text>
+  <text x="725" y="506" class="desc-text" style="text-anchor: start; font-size: 11px; font-weight: bold;">  → DataFrame</text>
+
+  <text x="500" y="550" class="desc-text" style="text-anchor: middle; font-size: 12px; fill: #e74c3c; font-weight: bold;">Note: Index in Pandas starts at 0, not 1 like Excel row numbers!</text>
+</svg>

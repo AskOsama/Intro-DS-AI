@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 500" width="950" height="500" direction="rtl">
+  <defs>
+    <style>
+      .title { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 22px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .panel-title { fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle; }
+      .cell-text { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 12px; text-anchor: middle; }
+      .header-text { fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle; }
+      .pos-text { fill: #e74c3c; font-family: 'Courier New', monospace; font-size: 11px; font-weight: bold; text-anchor: middle; }
+      .label-text { fill: #27ae60; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: middle; }
+      .code-text { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 11px; direction: ltr; text-anchor: start; }
+      .desc-text { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; }
+      .highlight { fill: #fff3cd; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="950" height="500" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="475" y="35" class="title">iloc مقابل loc: طريقتان للوصول للبيانات</text>
+  <text x="475" y="55" class="subtitle">iloc يستخدم أرقام المواقع (0، 1، 2...)، loc يستخدم التسميات (الأسماء)</text>
+
+  <!-- Right Panel: iloc (mirrored) -->
+  <rect x="500" y="75" width="420" height="400" fill="white" rx="10" stroke="#e74c3c" stroke-width="3"/>
+  <rect x="500" y="75" width="420" height="40" fill="#e74c3c" rx="10"/>
+  <rect x="500" y="100" width="420" height="15" fill="#e74c3c"/>
+  <text x="710" y="102" class="panel-title">iloc = موقع عددي (Position)</text>
+
+  <!-- iloc Column Position Headers -->
+  <text x="560" y="140" class="pos-text">الموقع</text>
+  <text x="620" y="140" class="pos-text">0</text>
+  <text x="690" y="140" class="pos-text">1</text>
+  <text x="760" y="140" class="pos-text">2</text>
+  <text x="850" y="140" class="pos-text">3</text>
+
+  <!-- iloc Headers Row -->
+  <rect x="530" y="150" width="60" height="30" fill="#bdc3c7"/>
+  <rect x="590" y="150" width="60" height="30" fill="#e74c3c"/>
+  <text x="620" y="170" class="header-text">الاسم</text>
+  <rect x="650" y="150" width="80" height="30" fill="#e74c3c"/>
+  <text x="690" y="170" class="header-text">العمر</text>
+  <rect x="730" y="150" width="60" height="30" fill="#e74c3c"/>
+  <text x="760" y="170" class="header-text">الدرجة</text>
+  <rect x="790" y="150" width="120" height="30" fill="#e74c3c"/>
+  <text x="850" y="170" class="header-text">المدينة</text>
+
+  <!-- iloc Row 0 -->
+  <rect x="530" y="180" width="60" height="35" fill="#fadbd8"/>
+  <text x="560" y="203" class="pos-text">0</text>
+  <rect x="590" y="180" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="620" y="203" class="cell-text">أحمد</text>
+  <rect x="650" y="180" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="690" y="203" class="cell-text">20</text>
+  <rect x="730" y="180" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="760" y="203" class="cell-text">85</text>
+  <rect x="790" y="180" width="120" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="850" y="203" class="cell-text">الرياض</text>
+
+  <!-- iloc Row 1 - Highlighted -->
+  <rect x="530" y="215" width="60" height="35" fill="#fadbd8"/>
+  <text x="560" y="238" class="pos-text">1</text>
+  <rect x="590" y="215" width="60" height="35" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+  <text x="620" y="238" class="cell-text">سارة</text>
+  <rect x="650" y="215" width="80" height="35" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+  <text x="690" y="238" class="cell-text">22</text>
+  <rect x="730" y="215" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="760" y="238" class="cell-text">92</text>
+  <rect x="790" y="215" width="120" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="850" y="238" class="cell-text">جدة</text>
+
+  <!-- iloc Row 2 -->
+  <rect x="530" y="250" width="60" height="35" fill="#fadbd8"/>
+  <text x="560" y="273" class="pos-text">2</text>
+  <rect x="590" y="250" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="620" y="273" class="cell-text">علي</text>
+  <rect x="650" y="250" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="690" y="273" class="cell-text">21</text>
+  <rect x="730" y="250" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="760" y="273" class="cell-text">78</text>
+  <rect x="790" y="250" width="120" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="850" y="273" class="cell-text">الدمام</text>
+
+  <!-- iloc Example Code -->
+  <rect x="520" y="300" width="380" height="85" fill="#2c3e50" rx="5"/>
+  <text x="540" y="320" class="code-text" style="fill: #7f8c8d;"># الوصول بالموقع (أرقام)</text>
+  <text x="540" y="340" class="code-text">df.<tspan fill="#e74c3c">iloc</tspan>[<tspan fill="#f39c12">1</tspan>]          <tspan fill="#7f8c8d"># الصف في الموقع 1</tspan></text>
+  <text x="540" y="360" class="code-text">df.<tspan fill="#e74c3c">iloc</tspan>[<tspan fill="#f39c12">1</tspan>, <tspan fill="#f39c12">0</tspan>]       <tspan fill="#7f8c8d"># صف 1، عمود 0 = "سارة"</tspan></text>
+  <text x="540" y="380" class="code-text">df.<tspan fill="#e74c3c">iloc</tspan>[<tspan fill="#f39c12">1</tspan>, <tspan fill="#f39c12">0:2</tspan>]     <tspan fill="#7f8c8d"># صف 1، أعمدة 0-1</tspan></text>
+
+  <!-- iloc Mnemonic -->
+  <rect x="520" y="395" width="380" height="35" fill="#fadbd8" rx="5"/>
+  <text x="710" y="418" style="fill: #e74c3c; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; font-weight: bold; text-anchor: middle;">
+    تذكر: iloc = "i" للأعداد الصحيحة (Integer)
+  </text>
+
+  <!-- Left Panel: loc -->
+  <rect x="30" y="75" width="420" height="400" fill="white" rx="10" stroke="#27ae60" stroke-width="3"/>
+  <rect x="30" y="75" width="420" height="40" fill="#27ae60" rx="10"/>
+  <rect x="30" y="100" width="420" height="15" fill="#27ae60"/>
+  <text x="240" y="102" class="panel-title">loc = موقع التسمية (Label)</text>
+
+  <!-- loc Label Headers -->
+  <text x="90" y="140" class="label-text">الفهرس</text>
+  <text x="150" y="140" class="label-text">'Name'</text>
+  <text x="230" y="140" class="label-text">'Age'</text>
+  <text x="300" y="140" class="label-text">'Grade'</text>
+  <text x="385" y="140" class="label-text">'City'</text>
+
+  <!-- loc Headers Row -->
+  <rect x="60" y="150" width="60" height="30" fill="#bdc3c7"/>
+  <rect x="120" y="150" width="60" height="30" fill="#27ae60"/>
+  <text x="150" y="170" class="header-text">الاسم</text>
+  <rect x="180" y="150" width="80" height="30" fill="#27ae60"/>
+  <text x="220" y="170" class="header-text">العمر</text>
+  <rect x="260" y="150" width="60" height="30" fill="#27ae60"/>
+  <text x="290" y="170" class="header-text">الدرجة</text>
+  <rect x="320" y="150" width="120" height="30" fill="#27ae60"/>
+  <text x="380" y="170" class="header-text">المدينة</text>
+
+  <!-- loc Row labeled 0 -->
+  <rect x="60" y="180" width="60" height="35" fill="#d5f5e3"/>
+  <text x="90" y="203" class="label-text">0</text>
+  <rect x="120" y="180" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="150" y="203" class="cell-text">أحمد</text>
+  <rect x="180" y="180" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="220" y="203" class="cell-text">20</text>
+  <rect x="260" y="180" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="290" y="203" class="cell-text">85</text>
+  <rect x="320" y="180" width="120" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="380" y="203" class="cell-text">الرياض</text>
+
+  <!-- loc Row labeled 1 - Highlighted -->
+  <rect x="60" y="215" width="60" height="35" fill="#d5f5e3"/>
+  <text x="90" y="238" class="label-text">1</text>
+  <rect x="120" y="215" width="60" height="35" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+  <text x="150" y="238" class="cell-text">سارة</text>
+  <rect x="180" y="215" width="80" height="35" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+  <text x="220" y="238" class="cell-text">22</text>
+  <rect x="260" y="215" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="290" y="238" class="cell-text">92</text>
+  <rect x="320" y="215" width="120" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="380" y="238" class="cell-text">جدة</text>
+
+  <!-- loc Row labeled 2 -->
+  <rect x="60" y="250" width="60" height="35" fill="#d5f5e3"/>
+  <text x="90" y="273" class="label-text">2</text>
+  <rect x="120" y="250" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="150" y="273" class="cell-text">علي</text>
+  <rect x="180" y="250" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="220" y="273" class="cell-text">21</text>
+  <rect x="260" y="250" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="290" y="273" class="cell-text">78</text>
+  <rect x="320" y="250" width="120" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="380" y="273" class="cell-text">الدمام</text>
+
+  <!-- loc Example Code -->
+  <rect x="50" y="300" width="380" height="85" fill="#2c3e50" rx="5"/>
+  <text x="70" y="320" class="code-text" style="fill: #7f8c8d;"># الوصول بالتسمية (أسماء)</text>
+  <text x="70" y="340" class="code-text">df.<tspan fill="#27ae60">loc</tspan>[<tspan fill="#f39c12">1</tspan>]            <tspan fill="#7f8c8d"># الصف بتسمية 1</tspan></text>
+  <text x="70" y="360" class="code-text">df.<tspan fill="#27ae60">loc</tspan>[<tspan fill="#f39c12">1</tspan>, <tspan fill="#27ae60">'Name'</tspan>]   <tspan fill="#7f8c8d"># تسمية 1، 'Name' = "سارة"</tspan></text>
+  <text x="70" y="380" class="code-text">df.<tspan fill="#27ae60">loc</tspan>[:, <tspan fill="#27ae60">'Age'</tspan>]    <tspan fill="#7f8c8d"># كل الصفوف، عمود 'Age'</tspan></text>
+
+  <!-- loc Mnemonic -->
+  <rect x="50" y="395" width="380" height="35" fill="#d5f5e3" rx="5"/>
+  <text x="240" y="418" style="fill: #27ae60; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; font-weight: bold; text-anchor: middle;">
+    تذكر: loc = "L" للتسميات (Labels)
+  </text>
+
+  <!-- Key Difference Box -->
+  <rect x="200" y="445" width="550" height="40" fill="#2c3e50" rx="5"/>
+  <text x="475" y="470" style="fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; text-anchor: middle;">
+    <tspan fill="#e74c3c" font-weight="bold">iloc[1, 0]</tspan> = موقع 1، موقع 0   |
+    <tspan fill="#27ae60" font-weight="bold">loc[1, 'Name']</tspan> = تسمية 1، عمود 'Name'
+  </text>
+</svg>

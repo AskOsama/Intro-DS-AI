@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 550" width="950" height="550">
+  <defs>
+    <style>
+      .title { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 22px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .box-title { fill: white; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle; }
+      .label-text { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle; }
+      .code-text { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 11px; }
+      .desc-text { fill: #7f8c8d; font-family: Arial, sans-serif; font-size: 11px; text-anchor: middle; }
+      .cell-text { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 11px; text-anchor: middle; }
+      .nan-text { fill: #e74c3c; font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: middle; }
+      .decision-text { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 11px; text-anchor: middle; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="950" height="550" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="475" y="35" class="title">Handling Missing Data (NaN)</text>
+  <text x="475" y="55" class="subtitle">NaN = "Not a Number" - Pandas way of representing missing values</text>
+
+  <!-- Data with NaN -->
+  <rect x="30" y="80" width="200" height="180" fill="white" rx="10" stroke="#e74c3c" stroke-width="2"/>
+  <rect x="30" y="80" width="200" height="30" fill="#e74c3c" rx="10"/>
+  <rect x="30" y="100" width="200" height="10" fill="#e74c3c"/>
+  <text x="130" y="100" class="box-title">Data with Missing Values</text>
+
+  <!-- Mini table -->
+  <rect x="50" y="120" width="40" height="20" fill="#3498db"/>
+  <text x="70" y="135" style="fill: white; font-size: 9px; font-weight: bold; text-anchor: middle;">Name</text>
+  <rect x="90" y="120" width="35" height="20" fill="#3498db"/>
+  <text x="107" y="135" style="fill: white; font-size: 9px; font-weight: bold; text-anchor: middle;">Age</text>
+  <rect x="125" y="120" width="40" height="20" fill="#3498db"/>
+  <text x="145" y="135" style="fill: white; font-size: 9px; font-weight: bold; text-anchor: middle;">Grade</text>
+  <rect x="165" y="120" width="45" height="20" fill="#3498db"/>
+  <text x="187" y="135" style="fill: white; font-size: 9px; font-weight: bold; text-anchor: middle;">City</text>
+
+  <rect x="50" y="140" width="40" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="70" y="153" class="cell-text" style="font-size: 9px;">Ahmed</text>
+  <rect x="90" y="140" width="35" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="107" y="153" class="cell-text" style="font-size: 9px;">20</text>
+  <rect x="125" y="140" width="40" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="145" y="153" class="cell-text" style="font-size: 9px;">85</text>
+  <rect x="165" y="140" width="45" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="187" y="153" class="cell-text" style="font-size: 9px;">Riyadh</text>
+
+  <rect x="50" y="158" width="40" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="70" y="171" class="cell-text" style="font-size: 9px;">Sara</text>
+  <rect x="90" y="158" width="35" height="18" fill="#ffebee" stroke="#e74c3c"/>
+  <text x="107" y="171" class="nan-text" style="font-size: 9px;">NaN</text>
+  <rect x="125" y="158" width="40" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="145" y="171" class="cell-text" style="font-size: 9px;">92</text>
+  <rect x="165" y="158" width="45" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="187" y="171" class="cell-text" style="font-size: 9px;">Jeddah</text>
+
+  <rect x="50" y="176" width="40" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="70" y="189" class="cell-text" style="font-size: 9px;">Ali</text>
+  <rect x="90" y="176" width="35" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="107" y="189" class="cell-text" style="font-size: 9px;">21</text>
+  <rect x="125" y="176" width="40" height="18" fill="#ffebee" stroke="#e74c3c"/>
+  <text x="145" y="189" class="nan-text" style="font-size: 9px;">NaN</text>
+  <rect x="165" y="176" width="45" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="187" y="189" class="cell-text" style="font-size: 9px;">Dammam</text>
+
+  <rect x="50" y="194" width="40" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="70" y="207" class="cell-text" style="font-size: 9px;">Norah</text>
+  <rect x="90" y="194" width="35" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="107" y="207" class="cell-text" style="font-size: 9px;">20</text>
+  <rect x="125" y="194" width="40" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="145" y="207" class="cell-text" style="font-size: 9px;">95</text>
+  <rect x="165" y="194" width="45" height="18" fill="#ffebee" stroke="#e74c3c"/>
+  <text x="187" y="207" class="nan-text" style="font-size: 9px;">NaN</text>
+
+  <text x="130" y="235" class="desc-text" style="font-size: 10px; fill: #e74c3c;">3 missing values detected!</text>
+
+  <!-- Decision Diamond -->
+  <polygon points="475,100 560,160 475,220 390,160" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="475" y="155" class="decision-text" style="fill: white; font-weight: bold;">What to do?</text>
+  <text x="475" y="170" class="decision-text" style="fill: white; font-size: 10px;">Choose strategy</text>
+
+  <!-- Arrow from data to decision -->
+  <path d="M 235 160 L 385 160" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Strategy 1: dropna - Remove rows -->
+  <rect x="270" y="280" width="180" height="160" fill="white" rx="10" stroke="#e74c3c" stroke-width="2"/>
+  <rect x="270" y="280" width="180" height="30" fill="#e74c3c" rx="10"/>
+  <rect x="270" y="300" width="180" height="10" fill="#e74c3c"/>
+  <text x="360" y="300" class="box-title">Strategy 1: Remove</text>
+
+  <text x="360" y="325" class="label-text" style="fill: #e74c3c;">dropna()</text>
+  <text x="360" y="345" class="desc-text" style="font-size: 10px;">Delete rows with NaN</text>
+
+  <!-- Mini result table for dropna -->
+  <rect x="290" y="360" width="140" height="55" fill="#f5f5f5" rx="3"/>
+  <text x="360" y="378" style="fill: #27ae60; font-family: 'Courier New', monospace; font-size: 9px; text-anchor: middle;">Only Ahmed remains!</text>
+  <text x="360" y="395" style="fill: #2c3e50; font-family: Arial, sans-serif; font-size: 9px; text-anchor: middle;">1 row (3 had NaN)</text>
+
+  <text x="360" y="425" class="desc-text" style="font-size: 9px; fill: #e74c3c;">Use when: few missing,</text>
+  <text x="360" y="437" class="desc-text" style="font-size: 9px; fill: #e74c3c;">data not critical</text>
+
+  <!-- Strategy 2: fillna - Replace values -->
+  <rect x="500" y="280" width="180" height="160" fill="white" rx="10" stroke="#27ae60" stroke-width="2"/>
+  <rect x="500" y="280" width="180" height="30" fill="#27ae60" rx="10"/>
+  <rect x="500" y="300" width="180" height="10" fill="#27ae60"/>
+  <text x="590" y="300" class="box-title">Strategy 2: Fill</text>
+
+  <text x="590" y="325" class="label-text" style="fill: #27ae60;">fillna(value)</text>
+  <text x="590" y="345" class="desc-text" style="font-size: 10px;">Replace NaN with a value</text>
+
+  <!-- Mini result table for fillna -->
+  <rect x="520" y="360" width="140" height="55" fill="#f5f5f5" rx="3"/>
+  <text x="590" y="378" style="fill: #27ae60; font-family: 'Courier New', monospace; font-size: 9px; text-anchor: middle;">NaN → 0 or "Unknown"</text>
+  <text x="590" y="395" style="fill: #2c3e50; font-family: Arial, sans-serif; font-size: 9px; text-anchor: middle;">All 4 rows preserved</text>
+
+  <text x="590" y="425" class="desc-text" style="font-size: 9px; fill: #27ae60;">Use when: need all rows,</text>
+  <text x="590" y="437" class="desc-text" style="font-size: 9px; fill: #27ae60;">have default value</text>
+
+  <!-- Strategy 3: fillna(mean) - Smart fill -->
+  <rect x="730" y="280" width="180" height="160" fill="white" rx="10" stroke="#3498db" stroke-width="2"/>
+  <rect x="730" y="280" width="180" height="30" fill="#3498db" rx="10"/>
+  <rect x="730" y="300" width="180" height="10" fill="#3498db"/>
+  <text x="820" y="300" class="box-title">Strategy 3: Smart Fill</text>
+
+  <text x="820" y="325" class="label-text" style="fill: #3498db;">fillna(df.mean())</text>
+  <text x="820" y="345" class="desc-text" style="font-size: 10px;">Use column average</text>
+
+  <!-- Mini result table for smart fill -->
+  <rect x="750" y="360" width="140" height="55" fill="#f5f5f5" rx="3"/>
+  <text x="820" y="378" style="fill: #27ae60; font-family: 'Courier New', monospace; font-size: 9px; text-anchor: middle;">NaN → 20.3 (mean age)</text>
+  <text x="820" y="395" style="fill: #2c3e50; font-family: Arial, sans-serif; font-size: 9px; text-anchor: middle;">Statistically sensible</text>
+
+  <text x="820" y="425" class="desc-text" style="font-size: 9px; fill: #3498db;">Use when: numeric data,</text>
+  <text x="820" y="437" class="desc-text" style="font-size: 9px; fill: #3498db;">need realistic values</text>
+
+  <!-- Arrows from decision to strategies -->
+  <path d="M 430 200 L 360 275" stroke="#e74c3c" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 475 225 L 590 275" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 520 200 L 820 275" stroke="#3498db" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Code Examples -->
+  <rect x="30" y="460" width="280" height="75" fill="#2c3e50" rx="5"/>
+  <text x="45" y="480" class="code-text" style="fill: #7f8c8d;"># Remove rows with NaN</text>
+  <text x="45" y="500" class="code-text">df_clean = df.<tspan fill="#e74c3c">dropna</tspan>()</text>
+  <text x="45" y="520" class="code-text" style="fill: #7f8c8d;"># Removes rows 1,2,3</text>
+
+  <rect x="335" y="460" width="280" height="75" fill="#2c3e50" rx="5"/>
+  <text x="350" y="480" class="code-text" style="fill: #7f8c8d;"># Fill with a value</text>
+  <text x="350" y="500" class="code-text">df[<tspan fill="#e74c3c">'Age'</tspan>].<tspan fill="#27ae60">fillna</tspan>(<tspan fill="#f39c12">0</tspan>)</text>
+  <text x="350" y="520" class="code-text">df[<tspan fill="#e74c3c">'City'</tspan>].<tspan fill="#27ae60">fillna</tspan>(<tspan fill="#e74c3c">'Unknown'</tspan>)</text>
+
+  <rect x="640" y="460" width="280" height="75" fill="#2c3e50" rx="5"/>
+  <text x="655" y="480" class="code-text" style="fill: #7f8c8d;"># Fill with mean</text>
+  <text x="655" y="500" class="code-text"><tspan fill="#3498db">mean_age</tspan> = df[<tspan fill="#e74c3c">'Age'</tspan>].mean()</text>
+  <text x="655" y="520" class="code-text">df[<tspan fill="#e74c3c">'Age'</tspan>].<tspan fill="#27ae60">fillna</tspan>(<tspan fill="#3498db">mean_age</tspan>)</text>
+</svg>

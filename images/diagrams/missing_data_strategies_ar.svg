@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 550" width="950" height="550" direction="rtl">
+  <defs>
+    <style>
+      .title { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 22px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .box-title { fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle; }
+      .label-text { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle; }
+      .code-text { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 11px; direction: ltr; text-anchor: start; }
+      .desc-text { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; text-anchor: middle; }
+      .cell-text { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; text-anchor: middle; }
+      .nan-text { fill: #e74c3c; font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: middle; }
+      .decision-text { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; text-anchor: middle; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="950" height="550" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="475" y="35" class="title">التعامل مع البيانات المفقودة (NaN)</text>
+  <text x="475" y="55" class="subtitle">NaN = "ليس رقماً" - طريقة Pandas لتمثيل القيم المفقودة</text>
+
+  <!-- Data with NaN (mirrored to right) -->
+  <rect x="720" y="80" width="200" height="180" fill="white" rx="10" stroke="#e74c3c" stroke-width="2"/>
+  <rect x="720" y="80" width="200" height="30" fill="#e74c3c" rx="10"/>
+  <rect x="720" y="100" width="200" height="10" fill="#e74c3c"/>
+  <text x="820" y="100" class="box-title">بيانات بقيم مفقودة</text>
+
+  <!-- Mini table -->
+  <rect x="740" y="120" width="40" height="20" fill="#3498db"/>
+  <text x="760" y="135" style="fill: white; font-size: 9px; font-weight: bold; text-anchor: middle;">الاسم</text>
+  <rect x="780" y="120" width="35" height="20" fill="#3498db"/>
+  <text x="797" y="135" style="fill: white; font-size: 9px; font-weight: bold; text-anchor: middle;">العمر</text>
+  <rect x="815" y="120" width="40" height="20" fill="#3498db"/>
+  <text x="835" y="135" style="fill: white; font-size: 9px; font-weight: bold; text-anchor: middle;">الدرجة</text>
+  <rect x="855" y="120" width="45" height="20" fill="#3498db"/>
+  <text x="877" y="135" style="fill: white; font-size: 9px; font-weight: bold; text-anchor: middle;">المدينة</text>
+
+  <rect x="740" y="140" width="40" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="760" y="153" class="cell-text" style="font-size: 9px;">أحمد</text>
+  <rect x="780" y="140" width="35" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="797" y="153" class="cell-text" style="font-size: 9px;">20</text>
+  <rect x="815" y="140" width="40" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="835" y="153" class="cell-text" style="font-size: 9px;">85</text>
+  <rect x="855" y="140" width="45" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="877" y="153" class="cell-text" style="font-size: 9px;">الرياض</text>
+
+  <rect x="740" y="158" width="40" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="760" y="171" class="cell-text" style="font-size: 9px;">سارة</text>
+  <rect x="780" y="158" width="35" height="18" fill="#ffebee" stroke="#e74c3c"/>
+  <text x="797" y="171" class="nan-text" style="font-size: 9px;">NaN</text>
+  <rect x="815" y="158" width="40" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="835" y="171" class="cell-text" style="font-size: 9px;">92</text>
+  <rect x="855" y="158" width="45" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="877" y="171" class="cell-text" style="font-size: 9px;">جدة</text>
+
+  <rect x="740" y="176" width="40" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="760" y="189" class="cell-text" style="font-size: 9px;">علي</text>
+  <rect x="780" y="176" width="35" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="797" y="189" class="cell-text" style="font-size: 9px;">21</text>
+  <rect x="815" y="176" width="40" height="18" fill="#ffebee" stroke="#e74c3c"/>
+  <text x="835" y="189" class="nan-text" style="font-size: 9px;">NaN</text>
+  <rect x="855" y="176" width="45" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="877" y="189" class="cell-text" style="font-size: 9px;">الدمام</text>
+
+  <rect x="740" y="194" width="40" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="760" y="207" class="cell-text" style="font-size: 9px;">نورة</text>
+  <rect x="780" y="194" width="35" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="797" y="207" class="cell-text" style="font-size: 9px;">20</text>
+  <rect x="815" y="194" width="40" height="18" fill="white" stroke="#bdc3c7"/>
+  <text x="835" y="207" class="cell-text" style="font-size: 9px;">95</text>
+  <rect x="855" y="194" width="45" height="18" fill="#ffebee" stroke="#e74c3c"/>
+  <text x="877" y="207" class="nan-text" style="font-size: 9px;">NaN</text>
+
+  <text x="820" y="235" class="desc-text" style="font-size: 10px; fill: #e74c3c;">تم اكتشاف 3 قيم مفقودة!</text>
+
+  <!-- Decision Diamond -->
+  <polygon points="475,100 560,160 475,220 390,160" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="475" y="155" class="decision-text" style="fill: white; font-weight: bold;">ماذا نفعل؟</text>
+  <text x="475" y="170" class="decision-text" style="fill: white; font-size: 10px;">اختر استراتيجية</text>
+
+  <!-- Arrow from data to decision -->
+  <path d="M 715 160 L 565 160" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Strategy 1: dropna - Remove rows -->
+  <rect x="500" y="280" width="180" height="160" fill="white" rx="10" stroke="#e74c3c" stroke-width="2"/>
+  <rect x="500" y="280" width="180" height="30" fill="#e74c3c" rx="10"/>
+  <rect x="500" y="300" width="180" height="10" fill="#e74c3c"/>
+  <text x="590" y="300" class="box-title">الاستراتيجية 1: حذف</text>
+
+  <text x="590" y="325" class="label-text" style="fill: #e74c3c;" >()dropna</text>
+  <text x="590" y="345" class="desc-text" style="font-size: 10px;">حذف الصفوف مع NaN</text>
+
+  <rect x="520" y="360" width="140" height="55" fill="#f5f5f5" rx="3"/>
+  <text x="590" y="378" style="fill: #27ae60; font-family: 'Courier New', monospace; font-size: 9px; text-anchor: middle;">بقي أحمد فقط!</text>
+  <text x="590" y="395" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; text-anchor: middle;">صف واحد (3 كان بهم NaN)</text>
+
+  <text x="590" y="425" class="desc-text" style="font-size: 9px; fill: #e74c3c;">استخدم عندما: قليل مفقود،</text>
+  <text x="590" y="437" class="desc-text" style="font-size: 9px; fill: #e74c3c;">البيانات ليست حرجة</text>
+
+  <!-- Strategy 2: fillna - Replace values -->
+  <rect x="270" y="280" width="180" height="160" fill="white" rx="10" stroke="#27ae60" stroke-width="2"/>
+  <rect x="270" y="280" width="180" height="30" fill="#27ae60" rx="10"/>
+  <rect x="270" y="300" width="180" height="10" fill="#27ae60"/>
+  <text x="360" y="300" class="box-title">الاستراتيجية 2: ملء</text>
+
+  <text x="360" y="325" class="label-text" style="fill: #27ae60;">fillna(value)</text>
+  <text x="360" y="345" class="desc-text" style="font-size: 10px;">استبدال NaN بقيمة</text>
+
+  <rect x="290" y="360" width="140" height="55" fill="#f5f5f5" rx="3"/>
+  <text x="360" y="378" style="fill: #27ae60; font-family: 'Courier New', monospace; font-size: 9px; text-anchor: middle;">"غير معروف" أو 0 ← NaN</text>
+  <text x="360" y="395" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; text-anchor: middle;">جميع الصفوف الـ4 محفوظة</text>
+
+  <text x="360" y="425" class="desc-text" style="font-size: 9px; fill: #27ae60;">استخدم عندما: تحتاج كل الصفوف،</text>
+  <text x="360" y="437" class="desc-text" style="font-size: 9px; fill: #27ae60;">لديك قيمة افتراضية</text>
+
+  <!-- Strategy 3: fillna(mean) - Smart fill -->
+  <rect x="40" y="280" width="180" height="160" fill="white" rx="10" stroke="#3498db" stroke-width="2"/>
+  <rect x="40" y="280" width="180" height="30" fill="#3498db" rx="10"/>
+  <rect x="40" y="300" width="180" height="10" fill="#3498db"/>
+  <text x="130" y="300" class="box-title">الاستراتيجية 3: ملء ذكي</text>
+
+  <text x="130" y="325" class="label-text" style="fill: #3498db;">fillna(df.mean())</text>
+  <text x="130" y="345" class="desc-text" style="font-size: 10px;">استخدم متوسط العمود</text>
+
+  <rect x="60" y="360" width="140" height="55" fill="#f5f5f5" rx="3"/>
+  <text x="130" y="378" style="fill: #27ae60; font-family: 'Courier New', monospace; font-size: 9px; text-anchor: middle;">20.3 (المتوسط) ← NaN</text>
+  <text x="130" y="395" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; text-anchor: middle;">منطقي إحصائياً</text>
+
+  <text x="130" y="425" class="desc-text" style="font-size: 9px; fill: #3498db;">استخدم عندما: بيانات رقمية،</text>
+  <text x="130" y="437" class="desc-text" style="font-size: 9px; fill: #3498db;">تحتاج قيم واقعية</text>
+
+  <!-- Arrows from decision to strategies -->
+  <path d="M 520 200 L 590 275" stroke="#e74c3c" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 475 225 L 360 275" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 430 200 L 130 275" stroke="#3498db" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Code Examples -->
+  <rect x="640" y="460" width="280" height="75" fill="#2c3e50" rx="5"/>
+  <text x="900" y="480" class="code-text" style="fill: #7f8c8d; text-anchor: end;"># حذف الصفوف مع NaN</text>
+  <text x="900" y="500" class="code-text" style="text-anchor: end;">df_clean = df.<tspan fill="#e74c3c">dropna</tspan>()</text>
+  <text x="900" y="520" class="code-text" style="fill: #7f8c8d; text-anchor: end;"># يحذف الصفوف 1,2,3</text>
+
+  <rect x="335" y="460" width="280" height="75" fill="#2c3e50" rx="5"/>
+  <text x="595" y="480" class="code-text" style="fill: #7f8c8d; text-anchor: end;"># ملء بقيمة</text>
+  <text x="595" y="500" class="code-text" style="text-anchor: end;">df[<tspan fill="#e74c3c">'Age'</tspan>].<tspan fill="#27ae60">fillna</tspan>(<tspan fill="#f39c12">0</tspan>)</text>
+  <text x="595" y="520" class="code-text" style="text-anchor: end;">df[<tspan fill="#e74c3c">'City'</tspan>].<tspan fill="#27ae60">fillna</tspan>(<tspan fill="#e74c3c">'Unknown'</tspan>)</text>
+
+  <rect x="30" y="460" width="280" height="75" fill="#2c3e50" rx="5"/>
+  <text x="290" y="480" class="code-text" style="fill: #7f8c8d; text-anchor: end;"># ملء بالمتوسط</text>
+  <text x="290" y="500" class="code-text" style="text-anchor: end;"><tspan fill="#3498db">mean_age</tspan> = df[<tspan fill="#e74c3c">'Age'</tspan>].mean()</text>
+  <text x="290" y="520" class="code-text" style="text-anchor: end;">df[<tspan fill="#e74c3c">'Age'</tspan>].<tspan fill="#27ae60">fillna</tspan>(<tspan fill="#3498db">mean_age</tspan>)</text>
+</svg>

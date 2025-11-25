@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" width="1000" height="580">
+  <defs>
+    <style>
+      .title { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 24px; font-weight: bold; text-anchor: middle; direction: rtl; }
+      .subtitle { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 14px; text-anchor: middle; direction: rtl; }
+      .panel-title { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle; direction: rtl; }
+      .cell-text { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 12px; text-anchor: middle; direction: rtl; }
+      .header-text { fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle; direction: rtl; }
+      .code-text { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 11px; direction: ltr; text-anchor: start; }
+      .desc-text { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; direction: rtl; }
+      .step-num { fill: white; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle; }
+      .step-label { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; font-weight: bold; direction: rtl; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+    <marker id="arrow-rev" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto">
+      <polygon points="10 0, 0 3.5, 10 7" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="580" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="500" y="35" class="title">GroupBy: تقسيم-تطبيق-دمج</text>
+  <text x="500" y="58" class="subtitle">تجميع الصفوف حسب عمود، تطبيق دالة على كل مجموعة، دمج النتائج</text>
+
+  <!-- Step 1: Original DataFrame (right side for RTL) -->
+  <circle cx="905" cy="90" r="18" fill="#3498db"/>
+  <text x="905" y="95" class="step-num">١</text>
+  <text x="880" y="95" class="step-label" style="text-anchor: end;">البيانات الأصلية</text>
+
+  <rect x="770" y="110" width="200" height="225" fill="white" rx="8" stroke="#3498db" stroke-width="2"/>
+
+  <!-- Headers -->
+  <rect x="890" y="120" width="60" height="25" fill="#3498db"/>
+  <text x="920" y="137" class="header-text">الاسم</text>
+  <rect x="840" y="120" width="50" height="25" fill="#9b59b6"/>
+  <text x="865" y="137" class="header-text">المدينة</text>
+  <rect x="790" y="120" width="50" height="25" fill="#3498db"/>
+  <text x="815" y="137" class="header-text">الدرجة</text>
+
+  <!-- Row 1 - Riyadh (green) -->
+  <rect x="890" y="145" width="60" height="28" fill="white" stroke="#bdc3c7"/>
+  <text x="920" y="164" class="cell-text">أحمد</text>
+  <rect x="840" y="145" width="50" height="28" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <text x="865" y="164" class="cell-text">الرياض</text>
+  <rect x="790" y="145" width="50" height="28" fill="#d5f5e3" stroke="#27ae60"/>
+  <text x="815" y="164" class="cell-text">85</text>
+
+  <!-- Row 2 - Jeddah (orange) -->
+  <rect x="890" y="173" width="60" height="28" fill="white" stroke="#bdc3c7"/>
+  <text x="920" y="192" class="cell-text">سارة</text>
+  <rect x="840" y="173" width="50" height="28" fill="#fdebd0" stroke="#f39c12" stroke-width="2"/>
+  <text x="865" y="192" class="cell-text">جدة</text>
+  <rect x="790" y="173" width="50" height="28" fill="#fdebd0" stroke="#f39c12"/>
+  <text x="815" y="192" class="cell-text">92</text>
+
+  <!-- Row 3 - Riyadh (green) -->
+  <rect x="890" y="201" width="60" height="28" fill="white" stroke="#bdc3c7"/>
+  <text x="920" y="220" class="cell-text">علي</text>
+  <rect x="840" y="201" width="50" height="28" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <text x="865" y="220" class="cell-text">الرياض</text>
+  <rect x="790" y="201" width="50" height="28" fill="#d5f5e3" stroke="#27ae60"/>
+  <text x="815" y="220" class="cell-text">78</text>
+
+  <!-- Row 4 - Jeddah (orange) -->
+  <rect x="890" y="229" width="60" height="28" fill="white" stroke="#bdc3c7"/>
+  <text x="920" y="248" class="cell-text">نورة</text>
+  <rect x="840" y="229" width="50" height="28" fill="#fdebd0" stroke="#f39c12" stroke-width="2"/>
+  <text x="865" y="248" class="cell-text">جدة</text>
+  <rect x="790" y="229" width="50" height="28" fill="#fdebd0" stroke="#f39c12"/>
+  <text x="815" y="248" class="cell-text">95</text>
+
+  <!-- Row 5 - Riyadh (green) -->
+  <rect x="890" y="257" width="60" height="28" fill="white" stroke="#bdc3c7"/>
+  <text x="920" y="276" class="cell-text">عمر</text>
+  <rect x="840" y="257" width="50" height="28" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <text x="865" y="276" class="cell-text">الرياض</text>
+  <rect x="790" y="257" width="50" height="28" fill="#d5f5e3" stroke="#27ae60"/>
+  <text x="815" y="276" class="cell-text">88</text>
+
+  <!-- Row 6 - Dammam (blue) -->
+  <rect x="890" y="285" width="60" height="28" fill="white" stroke="#bdc3c7"/>
+  <text x="920" y="304" class="cell-text">ليلى</text>
+  <rect x="840" y="285" width="50" height="28" fill="#d6eaf8" stroke="#3498db" stroke-width="2"/>
+  <text x="865" y="304" class="cell-text">الدمام</text>
+  <rect x="790" y="285" width="50" height="28" fill="#d6eaf8" stroke="#3498db"/>
+  <text x="815" y="304" class="cell-text">82</text>
+
+  <!-- Arrow 1-2 (RTL - right to left) -->
+  <path d="M 765 200 L 725 200" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="745" y="185" class="desc-text" style="text-anchor: middle; font-size: 10px;">تقسيم</text>
+
+  <!-- Step 2: Split by Groups -->
+  <circle cx="660" cy="90" r="18" fill="#9b59b6"/>
+  <text x="660" y="95" class="step-num">٢</text>
+  <text x="635" y="95" class="step-label" style="text-anchor: end;">تقسيم حسب المدينة</text>
+
+  <!-- Riyadh Group -->
+  <rect x="570" y="110" width="150" height="100" fill="#d5f5e3" rx="8" stroke="#27ae60" stroke-width="2"/>
+  <text x="645" y="130" style="fill: #27ae60; font-family: 'Cairo', Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle;">مجموعة الرياض</text>
+
+  <rect x="655" y="140" width="55" height="22" fill="white" stroke="#27ae60"/>
+  <text x="682" y="155" class="cell-text" style="font-size: 10px;">أحمد</text>
+  <rect x="620" y="140" width="35" height="22" fill="white" stroke="#27ae60"/>
+  <text x="637" y="155" class="cell-text" style="font-size: 10px;">85</text>
+
+  <rect x="655" y="162" width="55" height="22" fill="white" stroke="#27ae60"/>
+  <text x="682" y="177" class="cell-text" style="font-size: 10px;">علي</text>
+  <rect x="620" y="162" width="35" height="22" fill="white" stroke="#27ae60"/>
+  <text x="637" y="177" class="cell-text" style="font-size: 10px;">78</text>
+
+  <rect x="655" y="184" width="55" height="22" fill="white" stroke="#27ae60"/>
+  <text x="682" y="199" class="cell-text" style="font-size: 10px;">عمر</text>
+  <rect x="620" y="184" width="35" height="22" fill="white" stroke="#27ae60"/>
+  <text x="637" y="199" class="cell-text" style="font-size: 10px;">88</text>
+
+  <!-- Jeddah Group -->
+  <rect x="570" y="218" width="150" height="75" fill="#fdebd0" rx="8" stroke="#f39c12" stroke-width="2"/>
+  <text x="645" y="238" style="fill: #e67e22; font-family: 'Cairo', Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle;">مجموعة جدة</text>
+
+  <rect x="655" y="248" width="55" height="22" fill="white" stroke="#f39c12"/>
+  <text x="682" y="263" class="cell-text" style="font-size: 10px;">سارة</text>
+  <rect x="620" y="248" width="35" height="22" fill="white" stroke="#f39c12"/>
+  <text x="637" y="263" class="cell-text" style="font-size: 10px;">92</text>
+
+  <rect x="655" y="270" width="55" height="22" fill="white" stroke="#f39c12"/>
+  <text x="682" y="285" class="cell-text" style="font-size: 10px;">نورة</text>
+  <rect x="620" y="270" width="35" height="22" fill="white" stroke="#f39c12"/>
+  <text x="637" y="285" class="cell-text" style="font-size: 10px;">95</text>
+
+  <!-- Dammam Group -->
+  <rect x="570" y="301" width="150" height="50" fill="#d6eaf8" rx="8" stroke="#3498db" stroke-width="2"/>
+  <text x="645" y="321" style="fill: #2980b9; font-family: 'Cairo', Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle;">مجموعة الدمام</text>
+
+  <rect x="655" y="331" width="55" height="18" fill="white" stroke="#3498db"/>
+  <text x="682" y="343" class="cell-text" style="font-size: 10px;">ليلى</text>
+  <rect x="620" y="331" width="35" height="18" fill="white" stroke="#3498db"/>
+  <text x="637" y="343" class="cell-text" style="font-size: 10px;">82</text>
+
+  <!-- Arrow 2-3 -->
+  <path d="M 565 200 L 525 200" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="545" y="185" class="desc-text" style="text-anchor: middle; font-size: 10px;">تطبيق</text>
+
+  <!-- Step 3: Apply Function -->
+  <circle cx="455" cy="90" r="18" fill="#e74c3c"/>
+  <text x="455" y="95" class="step-num">٣</text>
+  <text x="430" y="95" class="step-label" style="text-anchor: end;">mean() تطبيق</text>
+
+  <!-- Calculation boxes -->
+  <rect x="355" y="110" width="160" height="85" fill="#d5f5e3" rx="8" stroke="#27ae60" stroke-width="2"/>
+  <text x="435" y="130" style="fill: #27ae60; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: middle;">الرياض: متوسط(الدرجة)</text>
+  <text x="435" y="155" style="fill: #2c3e50; font-family: 'Courier New', monospace; font-size: 11px; text-anchor: middle; direction: ltr;">(85 + 78 + 88) / 3</text>
+  <text x="435" y="180" style="fill: #27ae60; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle;">= 83.67</text>
+
+  <rect x="355" y="203" width="160" height="70" fill="#fdebd0" rx="8" stroke="#f39c12" stroke-width="2"/>
+  <text x="435" y="223" style="fill: #e67e22; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: middle;">جدة: متوسط(الدرجة)</text>
+  <text x="435" y="248" style="fill: #2c3e50; font-family: 'Courier New', monospace; font-size: 11px; text-anchor: middle; direction: ltr;">(92 + 95) / 2</text>
+  <text x="435" y="268" style="fill: #e67e22; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle;">= 93.50</text>
+
+  <rect x="355" y="281" width="160" height="70" fill="#d6eaf8" rx="8" stroke="#3498db" stroke-width="2"/>
+  <text x="435" y="301" style="fill: #2980b9; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: middle;">الدمام: متوسط(الدرجة)</text>
+  <text x="435" y="326" style="fill: #2c3e50; font-family: 'Courier New', monospace; font-size: 11px; text-anchor: middle; direction: ltr;">82 / 1</text>
+  <text x="435" y="346" style="fill: #2980b9; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle;">= 82.00</text>
+
+  <!-- Arrow 3-4 -->
+  <path d="M 350 200 L 310 200" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="330" y="185" class="desc-text" style="text-anchor: middle; font-size: 10px;">دمج</text>
+
+  <!-- Step 4: Result DataFrame -->
+  <circle cx="240" cy="90" r="18" fill="#27ae60"/>
+  <text x="240" y="95" class="step-num">٤</text>
+  <text x="215" y="95" class="step-label" style="text-anchor: end;">النتيجة</text>
+
+  <rect x="120" y="110" width="180" height="150" fill="white" rx="8" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Result Headers -->
+  <rect x="210" y="120" width="80" height="28" fill="#9b59b6"/>
+  <text x="250" y="139" class="header-text">المدينة</text>
+  <rect x="130" y="120" width="80" height="28" fill="#27ae60"/>
+  <text x="170" y="139" class="header-text">متوسط الدرجة</text>
+
+  <!-- Result Rows -->
+  <rect x="210" y="148" width="80" height="30" fill="#d5f5e3" stroke="#27ae60"/>
+  <text x="250" y="168" class="cell-text">الرياض</text>
+  <rect x="130" y="148" width="80" height="30" fill="#d5f5e3" stroke="#27ae60"/>
+  <text x="170" y="168" class="cell-text" style="font-weight: bold;">83.67</text>
+
+  <rect x="210" y="178" width="80" height="30" fill="#fdebd0" stroke="#f39c12"/>
+  <text x="250" y="198" class="cell-text">جدة</text>
+  <rect x="130" y="178" width="80" height="30" fill="#fdebd0" stroke="#f39c12"/>
+  <text x="170" y="198" class="cell-text" style="font-weight: bold;">93.50</text>
+
+  <rect x="210" y="208" width="80" height="30" fill="#d6eaf8" stroke="#3498db"/>
+  <text x="250" y="228" class="cell-text">الدمام</text>
+  <rect x="130" y="208" width="80" height="30" fill="#d6eaf8" stroke="#3498db"/>
+  <text x="170" y="228" class="cell-text" style="font-weight: bold;">82.00</text>
+
+  <text x="210" y="255" class="desc-text" style="text-anchor: middle; fill: #27ae60; font-weight: bold;">صف واحد لكل مجموعة!</text>
+
+  <!-- Code Example Box -->
+  <rect x="520" y="380" width="450" height="180" fill="#2c3e50" rx="8"/>
+  <text x="540" y="405" class="code-text" style="fill: #7f8c8d;"># GroupBy Syntax</text>
+  <text x="540" y="430" class="code-text"><tspan fill="#3498db">grouped</tspan> = df.<tspan fill="#e74c3c">groupby</tspan>(<tspan fill="#27ae60">'City'</tspan>)</text>
+  <text x="540" y="455" class="code-text"><tspan fill="#3498db">result</tspan> = grouped[<tspan fill="#27ae60">'Grade'</tspan>].<tspan fill="#f39c12">mean</tspan>()</text>
+  <text x="540" y="485" class="code-text" style="fill: #7f8c8d;"># Or in one line:</text>
+  <text x="540" y="510" class="code-text"><tspan fill="#3498db">result</tspan> = df.<tspan fill="#e74c3c">groupby</tspan>(<tspan fill="#27ae60">'City'</tspan>)[<tspan fill="#27ae60">'Grade'</tspan>].<tspan fill="#f39c12">mean</tspan>()</text>
+  <text x="540" y="545" class="code-text" style="fill: #7f8c8d;"># Other functions: sum(), count(), min(), max(), std()</text>
+
+  <!-- Key Concepts Box -->
+  <rect x="30" y="380" width="450" height="180" fill="white" rx="8" stroke="#9b59b6" stroke-width="2"/>
+  <text x="255" y="405" style="fill: #9b59b6; font-family: 'Cairo', Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle;">المفاهيم الأساسية</text>
+
+  <!-- Split concept -->
+  <circle cx="460" cy="432" r="5" fill="#3498db"/>
+  <text x="450" y="428" style="fill: #3498db; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: end;">Split - تقسيم</text>
+  <text x="450" y="443" style="fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; text-anchor: end;">تقسيم البيانات حسب قيمة العمود</text>
+
+  <!-- Apply concept -->
+  <circle cx="460" cy="465" r="5" fill="#e74c3c"/>
+  <text x="450" y="461" style="fill: #e74c3c; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: end;">Apply - تطبيق</text>
+  <text x="450" y="476" style="fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; text-anchor: end;">حساب دالة لكل مجموعة</text>
+
+  <!-- Combine concept -->
+  <circle cx="460" cy="498" r="5" fill="#27ae60"/>
+  <text x="450" y="494" style="fill: #27ae60; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: end;">Combine - دمج</text>
+  <text x="450" y="509" style="fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; text-anchor: end;">دمج النتائج في إطار جديد</text>
+
+  <rect x="45" y="530" width="420" height="25" fill="#fff3cd" rx="5" stroke="#ffc107"/>
+  <text x="255" y="547" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 10px; text-anchor: middle;">النتيجة: صف واحد لكل قيمة فريدة</text>
+</svg>

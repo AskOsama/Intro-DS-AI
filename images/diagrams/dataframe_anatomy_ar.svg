@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" width="1000" height="580">
+  <defs>
+    <style>
+      .title { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 24px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 14px; text-anchor: middle; }
+      .panel-title { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 18px; font-weight: bold; text-anchor: middle; }
+      .cell-text { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .header-text { fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; font-weight: bold; text-anchor: middle; }
+      .annotation { fill: #e74c3c; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: middle; }
+      .desc-text { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; }
+      .arrow { stroke: #e74c3c; stroke-width: 2; fill: none; marker-end: url(#redarrow); }
+    </style>
+    <marker id="redarrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="580" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="500" y="35" class="title">إطار البيانات: من جدول Excel إلى Python</text>
+  <text x="500" y="58" class="subtitle">فهم كيفية ربط مفاهيم الجداول المألوفة بإطارات بيانات Pandas</text>
+
+  <!-- Right Panel: Excel Spreadsheet (for RTL layout) -->
+  <rect x="560" y="85" width="400" height="340" fill="white" rx="10" stroke="#27ae60" stroke-width="3"/>
+  <text x="760" y="115" class="panel-title" style="fill: #27ae60;">جدول Excel</text>
+
+  <!-- Excel Header Row (A, B, C, D) -->
+  <rect x="620" y="135" width="60" height="35" fill="#27ae60"/>
+  <text x="650" y="158" class="header-text">A</text>
+  <rect x="680" y="135" width="80" height="35" fill="#27ae60"/>
+  <text x="720" y="158" class="header-text">B</text>
+  <rect x="760" y="135" width="60" height="35" fill="#27ae60"/>
+  <text x="790" y="158" class="header-text">C</text>
+  <rect x="820" y="135" width="80" height="35" fill="#27ae60"/>
+  <text x="860" y="158" class="header-text">D</text>
+
+  <!-- Excel Row Numbers -->
+  <rect x="575" y="135" width="45" height="35" fill="#bdc3c7"/>
+  <rect x="575" y="170" width="45" height="35" fill="#ecf0f1"/>
+  <text x="597" y="193" class="cell-text" style="font-weight: bold;">1</text>
+  <rect x="575" y="205" width="45" height="35" fill="#ecf0f1"/>
+  <text x="597" y="228" class="cell-text" style="font-weight: bold;">2</text>
+  <rect x="575" y="240" width="45" height="35" fill="#ecf0f1"/>
+  <text x="597" y="263" class="cell-text" style="font-weight: bold;">3</text>
+  <rect x="575" y="275" width="45" height="35" fill="#ecf0f1"/>
+  <text x="597" y="298" class="cell-text" style="font-weight: bold;">4</text>
+
+  <!-- Excel Data Rows -->
+  <rect x="620" y="170" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="650" y="193" class="cell-text">أحمد</text>
+  <rect x="680" y="170" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="720" y="193" class="cell-text">20</text>
+  <rect x="760" y="170" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="790" y="193" class="cell-text">85</text>
+  <rect x="820" y="170" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="860" y="193" class="cell-text">الرياض</text>
+
+  <rect x="620" y="205" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="650" y="228" class="cell-text">سارة</text>
+  <rect x="680" y="205" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="720" y="228" class="cell-text">22</text>
+  <rect x="760" y="205" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="790" y="228" class="cell-text">92</text>
+  <rect x="820" y="205" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="860" y="228" class="cell-text">جدة</text>
+
+  <rect x="620" y="240" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="650" y="263" class="cell-text">علي</text>
+  <rect x="680" y="240" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="720" y="263" class="cell-text">21</text>
+  <rect x="760" y="240" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="790" y="263" class="cell-text">78</text>
+  <rect x="820" y="240" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="860" y="263" class="cell-text">الدمام</text>
+
+  <rect x="620" y="275" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="650" y="298" class="cell-text">نورة</text>
+  <rect x="680" y="275" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="720" y="298" class="cell-text">20</text>
+  <rect x="760" y="275" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="790" y="298" class="cell-text">95</text>
+  <rect x="820" y="275" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="860" y="298" class="cell-text">مكة</text>
+
+  <!-- Excel Labels -->
+  <text x="597" y="340" class="desc-text" style="text-anchor: middle; fill: #7f8c8d;">أرقام</text>
+  <text x="597" y="355" class="desc-text" style="text-anchor: middle; fill: #7f8c8d;">الصفوف</text>
+  <text x="760" y="345" class="desc-text" style="text-anchor: middle; fill: #27ae60; font-weight: bold;">أحرف الأعمدة (A, B, C, D)</text>
+
+  <!-- Left Panel: Pandas DataFrame -->
+  <rect x="40" y="85" width="400" height="340" fill="white" rx="10" stroke="#3498db" stroke-width="3"/>
+  <text x="240" y="115" class="panel-title" style="fill: #3498db;">إطار بيانات Pandas</text>
+
+  <!-- DataFrame Column Headers -->
+  <rect x="100" y="135" width="60" height="35" fill="#3498db"/>
+  <text x="130" y="158" class="header-text">الاسم</text>
+  <rect x="160" y="135" width="60" height="35" fill="#3498db"/>
+  <text x="190" y="158" class="header-text">العمر</text>
+  <rect x="220" y="135" width="60" height="35" fill="#3498db"/>
+  <text x="250" y="158" class="header-text">الدرجة</text>
+  <rect x="280" y="135" width="80" height="35" fill="#3498db"/>
+  <text x="320" y="158" class="header-text">المدينة</text>
+
+  <!-- DataFrame Index Column -->
+  <rect x="55" y="135" width="45" height="35" fill="#9b59b6"/>
+  <text x="77" y="158" class="header-text" style="font-size: 11px;">الفهرس</text>
+
+  <rect x="55" y="170" width="45" height="35" fill="#e8daef"/>
+  <text x="77" y="193" class="cell-text" style="font-weight: bold; fill: #9b59b6;">0</text>
+  <rect x="55" y="205" width="45" height="35" fill="#e8daef"/>
+  <text x="77" y="228" class="cell-text" style="font-weight: bold; fill: #9b59b6;">1</text>
+  <rect x="55" y="240" width="45" height="35" fill="#e8daef"/>
+  <text x="77" y="263" class="cell-text" style="font-weight: bold; fill: #9b59b6;">2</text>
+  <rect x="55" y="275" width="45" height="35" fill="#e8daef"/>
+  <text x="77" y="298" class="cell-text" style="font-weight: bold; fill: #9b59b6;">3</text>
+
+  <!-- DataFrame Data Rows -->
+  <rect x="100" y="170" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="130" y="193" class="cell-text">أحمد</text>
+  <rect x="160" y="170" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="190" y="193" class="cell-text">20</text>
+  <rect x="220" y="170" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="250" y="193" class="cell-text">85</text>
+  <rect x="280" y="170" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="320" y="193" class="cell-text">الرياض</text>
+
+  <rect x="100" y="205" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="130" y="228" class="cell-text">سارة</text>
+  <rect x="160" y="205" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="190" y="228" class="cell-text">22</text>
+  <rect x="220" y="205" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="250" y="228" class="cell-text">92</text>
+  <rect x="280" y="205" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="320" y="228" class="cell-text">جدة</text>
+
+  <rect x="100" y="240" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="130" y="263" class="cell-text">علي</text>
+  <rect x="160" y="240" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="190" y="263" class="cell-text">21</text>
+  <rect x="220" y="240" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="250" y="263" class="cell-text">78</text>
+  <rect x="280" y="240" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="320" y="263" class="cell-text">الدمام</text>
+
+  <rect x="100" y="275" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="130" y="298" class="cell-text">نورة</text>
+  <rect x="160" y="275" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="190" y="298" class="cell-text">20</text>
+  <rect x="220" y="275" width="60" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="250" y="298" class="cell-text">95</text>
+  <rect x="280" y="275" width="80" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="320" y="298" class="cell-text">مكة</text>
+
+  <!-- DataFrame Labels -->
+  <text x="77" y="340" class="desc-text" style="text-anchor: middle; fill: #9b59b6; font-weight: bold;">الفهرس</text>
+  <text x="77" y="355" class="desc-text" style="text-anchor: middle; fill: #9b59b6;">(يبدأ من 0)</text>
+  <text x="240" y="345" class="desc-text" style="text-anchor: middle; fill: #3498db; font-weight: bold;">أسماء الأعمدة (تسميات ذات معنى)</text>
+
+  <!-- Mapping Arrows -->
+  <path d="M 555 152 L 445 152" class="arrow"/>
+  <text x="500" y="145" class="annotation">الأعمدة</text>
+
+  <path d="M 575 240 Q 490 380 425 240" class="arrow" style="stroke: #9b59b6;"/>
+  <text x="500" y="390" class="annotation" style="fill: #9b59b6;">أرقام الصفوف تصبح الفهرس</text>
+
+  <!-- Key Terminology Box - Fixed layout -->
+  <rect x="40" y="440" width="920" height="125" fill="white" rx="10" stroke="#2c3e50" stroke-width="2"/>
+  <text x="500" y="465" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle;">ربط المصطلحات الأساسية</text>
+
+  <!-- Terminology items - properly spaced -->
+  <rect x="800" y="480" width="15" height="15" fill="#27ae60"/>
+  <text x="790" y="492" class="desc-text" style="text-anchor: end; font-size: 11px;">أحرف الأعمدة (A, B)</text>
+  <text x="790" y="506" class="desc-text" style="text-anchor: end; font-size: 11px; font-weight: bold;">← أسماء الأعمدة</text>
+
+  <rect x="580" y="480" width="15" height="15" fill="#9b59b6"/>
+  <text x="570" y="492" class="desc-text" style="text-anchor: end; font-size: 11px;">أرقام الصفوف (1، 2، 3)</text>
+  <text x="570" y="506" class="desc-text" style="text-anchor: end; font-size: 11px; font-weight: bold;">← الفهرس (0، 1، 2...)</text>
+
+  <rect x="360" y="480" width="15" height="15" fill="#3498db"/>
+  <text x="350" y="492" class="desc-text" style="text-anchor: end; font-size: 11px;">الخلايا</text>
+  <text x="350" y="506" class="desc-text" style="text-anchor: end; font-size: 11px; font-weight: bold;">← القيم</text>
+
+  <rect x="160" y="480" width="15" height="15" fill="#f39c12"/>
+  <text x="150" y="492" class="desc-text" style="text-anchor: end; font-size: 11px;">الورقة</text>
+  <text x="150" y="506" class="desc-text" style="text-anchor: end; font-size: 11px; font-weight: bold;">← DataFrame</text>
+
+  <text x="500" y="550" class="desc-text" style="text-anchor: middle; font-size: 12px; fill: #e74c3c; font-weight: bold;">ملاحظة: الفهرس في Pandas يبدأ من 0، وليس 1 مثل أرقام صفوف Excel!</text>
+</svg>

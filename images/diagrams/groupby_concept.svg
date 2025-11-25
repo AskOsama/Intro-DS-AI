@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" width="1000" height="580">
+  <defs>
+    <style>
+      .title { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: Arial, sans-serif; font-size: 14px; text-anchor: middle; }
+      .panel-title { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle; }
+      .cell-text { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 12px; text-anchor: middle; }
+      .header-text { fill: white; font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle; }
+      .code-text { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 11px; }
+      .desc-text { fill: #7f8c8d; font-family: Arial, sans-serif; font-size: 11px; }
+      .step-num { fill: white; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle; }
+      .step-label { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="580" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="500" y="35" class="title">GroupBy: Split-Apply-Combine</text>
+  <text x="500" y="58" class="subtitle">Group rows by a column, apply a function to each group, combine the results</text>
+
+  <!-- Step 1: Original DataFrame -->
+  <circle cx="95" cy="90" r="18" fill="#3498db"/>
+  <text x="95" y="95" class="step-num">1</text>
+  <text x="125" y="95" class="step-label">Original Data</text>
+
+  <rect x="30" y="110" width="200" height="225" fill="white" rx="8" stroke="#3498db" stroke-width="2"/>
+
+  <!-- Headers -->
+  <rect x="40" y="120" width="60" height="25" fill="#3498db"/>
+  <text x="70" y="137" class="header-text">Name</text>
+  <rect x="100" y="120" width="50" height="25" fill="#9b59b6"/>
+  <text x="125" y="137" class="header-text">City</text>
+  <rect x="150" y="120" width="50" height="25" fill="#3498db"/>
+  <text x="175" y="137" class="header-text">Grade</text>
+
+  <!-- Row 1 - Riyadh (green) -->
+  <rect x="40" y="145" width="60" height="28" fill="white" stroke="#bdc3c7"/>
+  <text x="70" y="164" class="cell-text">Ahmed</text>
+  <rect x="100" y="145" width="50" height="28" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <text x="125" y="164" class="cell-text">Riyadh</text>
+  <rect x="150" y="145" width="50" height="28" fill="#d5f5e3" stroke="#27ae60"/>
+  <text x="175" y="164" class="cell-text">85</text>
+
+  <!-- Row 2 - Jeddah (orange) -->
+  <rect x="40" y="173" width="60" height="28" fill="white" stroke="#bdc3c7"/>
+  <text x="70" y="192" class="cell-text">Sara</text>
+  <rect x="100" y="173" width="50" height="28" fill="#fdebd0" stroke="#f39c12" stroke-width="2"/>
+  <text x="125" y="192" class="cell-text">Jeddah</text>
+  <rect x="150" y="173" width="50" height="28" fill="#fdebd0" stroke="#f39c12"/>
+  <text x="175" y="192" class="cell-text">92</text>
+
+  <!-- Row 3 - Riyadh (green) -->
+  <rect x="40" y="201" width="60" height="28" fill="white" stroke="#bdc3c7"/>
+  <text x="70" y="220" class="cell-text">Ali</text>
+  <rect x="100" y="201" width="50" height="28" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <text x="125" y="220" class="cell-text">Riyadh</text>
+  <rect x="150" y="201" width="50" height="28" fill="#d5f5e3" stroke="#27ae60"/>
+  <text x="175" y="220" class="cell-text">78</text>
+
+  <!-- Row 4 - Jeddah (orange) -->
+  <rect x="40" y="229" width="60" height="28" fill="white" stroke="#bdc3c7"/>
+  <text x="70" y="248" class="cell-text">Norah</text>
+  <rect x="100" y="229" width="50" height="28" fill="#fdebd0" stroke="#f39c12" stroke-width="2"/>
+  <text x="125" y="248" class="cell-text">Jeddah</text>
+  <rect x="150" y="229" width="50" height="28" fill="#fdebd0" stroke="#f39c12"/>
+  <text x="175" y="248" class="cell-text">95</text>
+
+  <!-- Row 5 - Riyadh (green) -->
+  <rect x="40" y="257" width="60" height="28" fill="white" stroke="#bdc3c7"/>
+  <text x="70" y="276" class="cell-text">Omar</text>
+  <rect x="100" y="257" width="50" height="28" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <text x="125" y="276" class="cell-text">Riyadh</text>
+  <rect x="150" y="257" width="50" height="28" fill="#d5f5e3" stroke="#27ae60"/>
+  <text x="175" y="276" class="cell-text">88</text>
+
+  <!-- Row 6 - Dammam (blue) -->
+  <rect x="40" y="285" width="60" height="28" fill="white" stroke="#bdc3c7"/>
+  <text x="70" y="304" class="cell-text">Layla</text>
+  <rect x="100" y="285" width="50" height="28" fill="#d6eaf8" stroke="#3498db" stroke-width="2"/>
+  <text x="125" y="304" class="cell-text">Dammam</text>
+  <rect x="150" y="285" width="50" height="28" fill="#d6eaf8" stroke="#3498db"/>
+  <text x="175" y="304" class="cell-text">82</text>
+
+  <!-- Arrow 1-2 -->
+  <path d="M 235 200 L 275 200" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="255" y="185" class="desc-text" style="text-anchor: middle; font-size: 10px;">SPLIT</text>
+
+  <!-- Step 2: Split by Groups -->
+  <circle cx="340" cy="90" r="18" fill="#9b59b6"/>
+  <text x="340" y="95" class="step-num">2</text>
+  <text x="370" y="95" class="step-label">Split by City</text>
+
+  <!-- Riyadh Group -->
+  <rect x="280" y="110" width="150" height="100" fill="#d5f5e3" rx="8" stroke="#27ae60" stroke-width="2"/>
+  <text x="355" y="130" style="fill: #27ae60; font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle;">Riyadh Group</text>
+
+  <rect x="290" y="140" width="55" height="22" fill="white" stroke="#27ae60"/>
+  <text x="317" y="155" class="cell-text" style="font-size: 10px;">Ahmed</text>
+  <rect x="345" y="140" width="35" height="22" fill="white" stroke="#27ae60"/>
+  <text x="362" y="155" class="cell-text" style="font-size: 10px;">85</text>
+
+  <rect x="290" y="162" width="55" height="22" fill="white" stroke="#27ae60"/>
+  <text x="317" y="177" class="cell-text" style="font-size: 10px;">Ali</text>
+  <rect x="345" y="162" width="35" height="22" fill="white" stroke="#27ae60"/>
+  <text x="362" y="177" class="cell-text" style="font-size: 10px;">78</text>
+
+  <rect x="290" y="184" width="55" height="22" fill="white" stroke="#27ae60"/>
+  <text x="317" y="199" class="cell-text" style="font-size: 10px;">Omar</text>
+  <rect x="345" y="184" width="35" height="22" fill="white" stroke="#27ae60"/>
+  <text x="362" y="199" class="cell-text" style="font-size: 10px;">88</text>
+
+  <!-- Jeddah Group -->
+  <rect x="280" y="218" width="150" height="75" fill="#fdebd0" rx="8" stroke="#f39c12" stroke-width="2"/>
+  <text x="355" y="238" style="fill: #e67e22; font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle;">Jeddah Group</text>
+
+  <rect x="290" y="248" width="55" height="22" fill="white" stroke="#f39c12"/>
+  <text x="317" y="263" class="cell-text" style="font-size: 10px;">Sara</text>
+  <rect x="345" y="248" width="35" height="22" fill="white" stroke="#f39c12"/>
+  <text x="362" y="263" class="cell-text" style="font-size: 10px;">92</text>
+
+  <rect x="290" y="270" width="55" height="22" fill="white" stroke="#f39c12"/>
+  <text x="317" y="285" class="cell-text" style="font-size: 10px;">Norah</text>
+  <rect x="345" y="270" width="35" height="22" fill="white" stroke="#f39c12"/>
+  <text x="362" y="285" class="cell-text" style="font-size: 10px;">95</text>
+
+  <!-- Dammam Group -->
+  <rect x="280" y="301" width="150" height="50" fill="#d6eaf8" rx="8" stroke="#3498db" stroke-width="2"/>
+  <text x="355" y="321" style="fill: #2980b9; font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle;">Dammam Group</text>
+
+  <rect x="290" y="331" width="55" height="18" fill="white" stroke="#3498db"/>
+  <text x="317" y="343" class="cell-text" style="font-size: 10px;">Layla</text>
+  <rect x="345" y="331" width="35" height="18" fill="white" stroke="#3498db"/>
+  <text x="362" y="343" class="cell-text" style="font-size: 10px;">82</text>
+
+  <!-- Arrow 2-3 -->
+  <path d="M 435 200 L 475 200" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="455" y="185" class="desc-text" style="text-anchor: middle; font-size: 10px;">APPLY</text>
+
+  <!-- Step 3: Apply Function -->
+  <circle cx="545" cy="90" r="18" fill="#e74c3c"/>
+  <text x="545" y="95" class="step-num">3</text>
+  <text x="575" y="95" class="step-label">Apply mean()</text>
+
+  <!-- Calculation boxes -->
+  <rect x="485" y="110" width="160" height="85" fill="#d5f5e3" rx="8" stroke="#27ae60" stroke-width="2"/>
+  <text x="565" y="130" style="fill: #27ae60; font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: middle;">Riyadh: mean(Grade)</text>
+  <text x="565" y="155" style="fill: #2c3e50; font-family: 'Courier New', monospace; font-size: 11px; text-anchor: middle;">(85 + 78 + 88) / 3</text>
+  <text x="565" y="180" style="fill: #27ae60; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle;">= 83.67</text>
+
+  <rect x="485" y="203" width="160" height="70" fill="#fdebd0" rx="8" stroke="#f39c12" stroke-width="2"/>
+  <text x="565" y="223" style="fill: #e67e22; font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: middle;">Jeddah: mean(Grade)</text>
+  <text x="565" y="248" style="fill: #2c3e50; font-family: 'Courier New', monospace; font-size: 11px; text-anchor: middle;">(92 + 95) / 2</text>
+  <text x="565" y="268" style="fill: #e67e22; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle;">= 93.50</text>
+
+  <rect x="485" y="281" width="160" height="70" fill="#d6eaf8" rx="8" stroke="#3498db" stroke-width="2"/>
+  <text x="565" y="301" style="fill: #2980b9; font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; text-anchor: middle;">Dammam: mean(Grade)</text>
+  <text x="565" y="326" style="fill: #2c3e50; font-family: 'Courier New', monospace; font-size: 11px; text-anchor: middle;">82 / 1</text>
+  <text x="565" y="346" style="fill: #2980b9; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle;">= 82.00</text>
+
+  <!-- Arrow 3-4 -->
+  <path d="M 650 200 L 690 200" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="670" y="185" class="desc-text" style="text-anchor: middle; font-size: 10px;">COMBINE</text>
+
+  <!-- Step 4: Result DataFrame -->
+  <circle cx="760" cy="90" r="18" fill="#27ae60"/>
+  <text x="760" y="95" class="step-num">4</text>
+  <text x="790" y="95" class="step-label">Result</text>
+
+  <rect x="700" y="110" width="180" height="150" fill="white" rx="8" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Result Headers -->
+  <rect x="710" y="120" width="80" height="28" fill="#9b59b6"/>
+  <text x="750" y="139" class="header-text">City</text>
+  <rect x="790" y="120" width="80" height="28" fill="#27ae60"/>
+  <text x="830" y="139" class="header-text">Avg Grade</text>
+
+  <!-- Result Rows -->
+  <rect x="710" y="148" width="80" height="30" fill="#d5f5e3" stroke="#27ae60"/>
+  <text x="750" y="168" class="cell-text">Riyadh</text>
+  <rect x="790" y="148" width="80" height="30" fill="#d5f5e3" stroke="#27ae60"/>
+  <text x="830" y="168" class="cell-text" style="font-weight: bold;">83.67</text>
+
+  <rect x="710" y="178" width="80" height="30" fill="#fdebd0" stroke="#f39c12"/>
+  <text x="750" y="198" class="cell-text">Jeddah</text>
+  <rect x="790" y="178" width="80" height="30" fill="#fdebd0" stroke="#f39c12"/>
+  <text x="830" y="198" class="cell-text" style="font-weight: bold;">93.50</text>
+
+  <rect x="710" y="208" width="80" height="30" fill="#d6eaf8" stroke="#3498db"/>
+  <text x="750" y="228" class="cell-text">Dammam</text>
+  <rect x="790" y="208" width="80" height="30" fill="#d6eaf8" stroke="#3498db"/>
+  <text x="830" y="228" class="cell-text" style="font-weight: bold;">82.00</text>
+
+  <text x="790" y="255" class="desc-text" style="text-anchor: middle; fill: #27ae60; font-weight: bold;">One row per group!</text>
+
+  <!-- Code Example Box -->
+  <rect x="30" y="380" width="450" height="180" fill="#2c3e50" rx="8"/>
+  <text x="50" y="405" class="code-text" style="fill: #7f8c8d;"># GroupBy Syntax</text>
+  <text x="50" y="430" class="code-text"><tspan fill="#3498db">grouped</tspan> = df.<tspan fill="#e74c3c">groupby</tspan>(<tspan fill="#27ae60">'City'</tspan>)</text>
+  <text x="50" y="455" class="code-text"><tspan fill="#3498db">result</tspan> = grouped[<tspan fill="#27ae60">'Grade'</tspan>].<tspan fill="#f39c12">mean</tspan>()</text>
+  <text x="50" y="485" class="code-text" style="fill: #7f8c8d;"># Or in one line:</text>
+  <text x="50" y="510" class="code-text"><tspan fill="#3498db">result</tspan> = df.<tspan fill="#e74c3c">groupby</tspan>(<tspan fill="#27ae60">'City'</tspan>)[<tspan fill="#27ae60">'Grade'</tspan>].<tspan fill="#f39c12">mean</tspan>()</text>
+  <text x="50" y="545" class="code-text" style="fill: #7f8c8d;"># Other functions: sum(), count(), min(), max(), std()</text>
+
+  <!-- Key Concepts Box -->
+  <rect x="520" y="380" width="450" height="180" fill="white" rx="8" stroke="#9b59b6" stroke-width="2"/>
+  <text x="745" y="405" style="fill: #9b59b6; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle;">Key Concepts</text>
+
+  <circle cx="540" cy="435" r="6" fill="#3498db"/>
+  <text x="555" y="440" style="fill: #2c3e50; font-family: Arial, sans-serif; font-size: 12px; text-anchor: start;"><tspan font-weight="bold">Split:</tspan> Divide data into groups based on column value</text>
+
+  <circle cx="540" cy="465" r="6" fill="#e74c3c"/>
+  <text x="555" y="470" style="fill: #2c3e50; font-family: Arial, sans-serif; font-size: 12px; text-anchor: start;"><tspan font-weight="bold">Apply:</tspan> Calculate statistic (mean, sum, etc.) for each group</text>
+
+  <circle cx="540" cy="495" r="6" fill="#27ae60"/>
+  <text x="555" y="500" style="fill: #2c3e50; font-family: Arial, sans-serif; font-size: 12px; text-anchor: start;"><tspan font-weight="bold">Combine:</tspan> Merge results into a new DataFrame</text>
+
+  <rect x="535" y="520" width="420" height="30" fill="#fff3cd" rx="5" stroke="#ffc107"/>
+  <text x="745" y="540" style="fill: #2c3e50; font-family: Arial, sans-serif; font-size: 11px; text-anchor: middle;"><tspan font-weight="bold">Result:</tspan> One row per unique value in the groupby column</text>
+</svg>

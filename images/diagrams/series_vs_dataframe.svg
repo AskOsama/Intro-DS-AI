@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" width="900" height="450">
+  <defs>
+    <style>
+      .title { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 22px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .panel-title { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle; }
+      .label { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; }
+      .cell-text { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .header-text { fill: white; font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; text-anchor: middle; }
+      .code-text { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 12px; }
+      .desc-text { fill: #7f8c8d; font-family: Arial, sans-serif; font-size: 11px; }
+      .formula { fill: #e74c3c; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="450" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="450" y="35" class="title">Series vs DataFrame</text>
+  <text x="450" y="55" class="subtitle">A Series is 1D (one column), a DataFrame is 2D (multiple columns)</text>
+
+  <!-- Left Panel: Series -->
+  <rect x="50" y="80" width="250" height="320" fill="white" rx="10" stroke="#9b59b6" stroke-width="3"/>
+  <text x="175" y="110" class="panel-title" style="fill: #9b59b6;">Series (1-Dimensional)</text>
+
+  <!-- Series Header -->
+  <rect x="80" y="130" width="50" height="30" fill="#9b59b6"/>
+  <text x="105" y="150" class="header-text" style="font-size: 11px;">Index</text>
+  <rect x="130" y="130" width="140" height="30" fill="#9b59b6"/>
+  <text x="200" y="150" class="header-text">Name (values)</text>
+
+  <!-- Series Data -->
+  <rect x="80" y="160" width="50" height="35" fill="#e8daef"/>
+  <text x="105" y="183" class="cell-text" style="font-weight: bold; fill: #9b59b6;">0</text>
+  <rect x="130" y="160" width="140" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="200" y="183" class="cell-text">Ahmed</text>
+
+  <rect x="80" y="195" width="50" height="35" fill="#e8daef"/>
+  <text x="105" y="218" class="cell-text" style="font-weight: bold; fill: #9b59b6;">1</text>
+  <rect x="130" y="195" width="140" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="200" y="218" class="cell-text">Sara</text>
+
+  <rect x="80" y="230" width="50" height="35" fill="#e8daef"/>
+  <text x="105" y="253" class="cell-text" style="font-weight: bold; fill: #9b59b6;">2</text>
+  <rect x="130" y="230" width="140" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="200" y="253" class="cell-text">Ali</text>
+
+  <rect x="80" y="265" width="50" height="35" fill="#e8daef"/>
+  <text x="105" y="288" class="cell-text" style="font-weight: bold; fill: #9b59b6;">3</text>
+  <rect x="130" y="265" width="140" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="200" y="288" class="cell-text">Norah</text>
+
+  <!-- Series Code -->
+  <rect x="70" y="315" width="210" height="55" fill="#2c3e50" rx="5"/>
+  <text x="85" y="335" class="code-text" style="fill: #7f8c8d;"># Extract one column</text>
+  <text x="85" y="355" class="code-text"><tspan fill="#3498db">names</tspan> = df[<tspan fill="#27ae60">'Name'</tspan>]</text>
+
+  <!-- Right Panel: DataFrame -->
+  <rect x="370" y="80" width="480" height="320" fill="white" rx="10" stroke="#f39c12" stroke-width="3"/>
+  <text x="610" y="110" class="panel-title" style="fill: #f39c12;">DataFrame (2-Dimensional)</text>
+
+  <!-- DataFrame Headers -->
+  <rect x="400" y="130" width="50" height="30" fill="#9b59b6"/>
+  <text x="425" y="150" class="header-text" style="font-size: 11px;">Index</text>
+  <rect x="450" y="130" width="90" height="30" fill="#3498db"/>
+  <text x="495" y="150" class="header-text">Name</text>
+  <rect x="540" y="130" width="70" height="30" fill="#3498db"/>
+  <text x="575" y="150" class="header-text">Age</text>
+  <rect x="610" y="130" width="70" height="30" fill="#3498db"/>
+  <text x="645" y="150" class="header-text">Grade</text>
+  <rect x="680" y="130" width="90" height="30" fill="#3498db"/>
+  <text x="725" y="150" class="header-text">City</text>
+
+  <!-- DataFrame Data -->
+  <rect x="400" y="160" width="50" height="35" fill="#e8daef"/>
+  <text x="425" y="183" class="cell-text" style="font-weight: bold; fill: #9b59b6;">0</text>
+  <rect x="450" y="160" width="90" height="35" fill="#fff9e6" stroke="#f39c12"/>
+  <text x="495" y="183" class="cell-text">Ahmed</text>
+  <rect x="540" y="160" width="70" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="575" y="183" class="cell-text">20</text>
+  <rect x="610" y="160" width="70" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="645" y="183" class="cell-text">85</text>
+  <rect x="680" y="160" width="90" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="725" y="183" class="cell-text">Riyadh</text>
+
+  <rect x="400" y="195" width="50" height="35" fill="#e8daef"/>
+  <text x="425" y="218" class="cell-text" style="font-weight: bold; fill: #9b59b6;">1</text>
+  <rect x="450" y="195" width="90" height="35" fill="#fff9e6" stroke="#f39c12"/>
+  <text x="495" y="218" class="cell-text">Sara</text>
+  <rect x="540" y="195" width="70" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="575" y="218" class="cell-text">22</text>
+  <rect x="610" y="195" width="70" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="645" y="218" class="cell-text">92</text>
+  <rect x="680" y="195" width="90" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="725" y="218" class="cell-text">Jeddah</text>
+
+  <rect x="400" y="230" width="50" height="35" fill="#e8daef"/>
+  <text x="425" y="253" class="cell-text" style="font-weight: bold; fill: #9b59b6;">2</text>
+  <rect x="450" y="230" width="90" height="35" fill="#fff9e6" stroke="#f39c12"/>
+  <text x="495" y="253" class="cell-text">Ali</text>
+  <rect x="540" y="230" width="70" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="575" y="253" class="cell-text">21</text>
+  <rect x="610" y="230" width="70" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="645" y="253" class="cell-text">78</text>
+  <rect x="680" y="230" width="90" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="725" y="253" class="cell-text">Dammam</text>
+
+  <rect x="400" y="265" width="50" height="35" fill="#e8daef"/>
+  <text x="425" y="288" class="cell-text" style="font-weight: bold; fill: #9b59b6;">3</text>
+  <rect x="450" y="265" width="90" height="35" fill="#fff9e6" stroke="#f39c12"/>
+  <text x="495" y="288" class="cell-text">Norah</text>
+  <rect x="540" y="265" width="70" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="575" y="288" class="cell-text">20</text>
+  <rect x="610" y="265" width="70" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="645" y="288" class="cell-text">95</text>
+  <rect x="680" y="265" width="90" height="35" fill="white" stroke="#bdc3c7"/>
+  <text x="725" y="288" class="cell-text">Mecca</text>
+
+  <!-- Highlight box around Name column -->
+  <rect x="448" y="128" width="94" height="177" fill="none" stroke="#f39c12" stroke-width="3" stroke-dasharray="5,3"/>
+
+  <!-- DataFrame Code -->
+  <rect x="390" y="315" width="230" height="55" fill="#2c3e50" rx="5"/>
+  <text x="405" y="335" class="code-text" style="fill: #7f8c8d;"># Multiple columns</text>
+  <text x="405" y="355" class="code-text"><tspan fill="#3498db">df</tspan> = pd.DataFrame(data)</text>
+
+  <!-- Connection Arrow -->
+  <path d="M 300 220 L 340 220" stroke="#e74c3c" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <text x="320" y="205" class="desc-text" style="text-anchor: middle; fill: #e74c3c; font-weight: bold;">extract</text>
+
+  <!-- Key Insight Box -->
+  <rect x="50" y="410" width="800" height="30" fill="#fff3cd" rx="5" stroke="#ffc107" stroke-width="2"/>
+  <text x="450" y="430" class="desc-text" style="text-anchor: middle; font-size: 13px; fill: #2c3e50;">
+    <tspan font-weight="bold">Key Insight:</tspan> Each column in a DataFrame IS a Series. A DataFrame = collection of Series with shared Index.
+  </text>
+</svg>

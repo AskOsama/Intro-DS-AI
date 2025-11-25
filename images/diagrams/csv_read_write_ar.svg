@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 480" width="950" height="480">
+  <defs>
+    <style>
+      .title { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 22px; font-weight: bold; text-anchor: middle; direction: rtl; }
+      .subtitle { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; text-anchor: middle; direction: rtl; }
+      .label-text { fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 13px; font-weight: bold; text-anchor: middle; direction: rtl; }
+      .code-text { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 11px; direction: ltr; text-anchor: start; }
+      .desc-text { fill: #7f8c8d; font-family: 'Cairo', Arial, sans-serif; font-size: 11px; direction: rtl; }
+      .file-text { fill: #2c3e50; font-family: 'Courier New', monospace; font-size: 10px; text-anchor: start; direction: ltr; }
+    </style>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#27ae60"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3498db"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="950" height="480" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="475" y="35" class="title">ملفات CSV: تنسيق تبادل البيانات</text>
+  <text x="475" y="55" class="subtitle">CSV (قيم مفصولة بفواصل) هو التنسيق العالمي لمشاركة البيانات الجدولية</text>
+
+  <!-- Right: CSV File (mirrored) -->
+  <rect x="660" y="90" width="250" height="230" fill="white" rx="10" stroke="#27ae60" stroke-width="3"/>
+  <rect x="660" y="90" width="250" height="35" fill="#27ae60" rx="10"/>
+  <rect x="660" y="110" width="250" height="15" fill="#27ae60"/>
+  <text x="785" y="113" style="fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle;">students.csv</text>
+
+  <!-- CSV Content -->
+  <rect x="675" y="140" width="220" height="130" fill="#f5f5f5" rx="3"/>
+  <text x="690" y="160" class="file-text">الاسم,العمر,الدرجة,المدينة</text>
+  <text x="690" y="178" class="file-text">أحمد,20,85,الرياض</text>
+  <text x="690" y="196" class="file-text">سارة,22,92,جدة</text>
+  <text x="690" y="214" class="file-text">علي,21,78,الدمام</text>
+  <text x="690" y="232" class="file-text">نورة,20,95,مكة</text>
+  <text x="785" y="260" class="desc-text" style="fill: #27ae60; text-anchor: middle;">نص عادي، مفصول بفواصل</text>
+
+  <!-- Center: Pandas DataFrame -->
+  <rect x="360" y="90" width="230" height="230" fill="white" rx="10" stroke="#f39c12" stroke-width="3"/>
+  <rect x="360" y="90" width="230" height="35" fill="#f39c12" rx="10"/>
+  <rect x="360" y="110" width="230" height="15" fill="#f39c12"/>
+  <text x="475" y="113" style="fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle;">DataFrame</text>
+
+  <!-- DataFrame Table -->
+  <rect x="375" y="140" width="30" height="20" fill="#9b59b6"/>
+  <rect x="405" y="140" width="50" height="20" fill="#3498db"/>
+  <rect x="455" y="140" width="35" height="20" fill="#3498db"/>
+  <rect x="490" y="140" width="40" height="20" fill="#3498db"/>
+  <rect x="530" y="140" width="45" height="20" fill="#3498db"/>
+
+  <text x="430" y="155" style="fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; font-weight: bold; text-anchor: middle;">الاسم</text>
+  <text x="472" y="155" style="fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; font-weight: bold; text-anchor: middle;">العمر</text>
+  <text x="510" y="155" style="fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; font-weight: bold; text-anchor: middle;">الدرجة</text>
+  <text x="552" y="155" style="fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; font-weight: bold; text-anchor: middle;">المدينة</text>
+
+  <!-- DataFrame rows -->
+  <rect x="375" y="160" width="30" height="22" fill="#e8daef"/>
+  <text x="390" y="175" style="fill: #9b59b6; font-family: Arial, sans-serif; font-size: 9px; font-weight: bold; text-anchor: middle;">0</text>
+  <rect x="405" y="160" width="50" height="22" fill="white" stroke="#bdc3c7"/>
+  <text x="430" y="175" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; text-anchor: middle;">أحمد</text>
+  <rect x="455" y="160" width="35" height="22" fill="white" stroke="#bdc3c7"/>
+  <text x="472" y="175" style="fill: #2c3e50; font-family: Arial, sans-serif; font-size: 9px; text-anchor: middle;">20</text>
+  <rect x="490" y="160" width="40" height="22" fill="white" stroke="#bdc3c7"/>
+  <text x="510" y="175" style="fill: #2c3e50; font-family: Arial, sans-serif; font-size: 9px; text-anchor: middle;">85</text>
+  <rect x="530" y="160" width="45" height="22" fill="white" stroke="#bdc3c7"/>
+  <text x="552" y="175" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; text-anchor: middle;">الرياض</text>
+
+  <rect x="375" y="182" width="30" height="22" fill="#e8daef"/>
+  <text x="390" y="197" style="fill: #9b59b6; font-family: Arial, sans-serif; font-size: 9px; font-weight: bold; text-anchor: middle;">1</text>
+  <rect x="405" y="182" width="50" height="22" fill="white" stroke="#bdc3c7"/>
+  <text x="430" y="197" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; text-anchor: middle;">سارة</text>
+  <rect x="455" y="182" width="35" height="22" fill="white" stroke="#bdc3c7"/>
+  <text x="472" y="197" style="fill: #2c3e50; font-family: Arial, sans-serif; font-size: 9px; text-anchor: middle;">22</text>
+  <rect x="490" y="182" width="40" height="22" fill="white" stroke="#bdc3c7"/>
+  <text x="510" y="197" style="fill: #2c3e50; font-family: Arial, sans-serif; font-size: 9px; text-anchor: middle;">92</text>
+  <rect x="530" y="182" width="45" height="22" fill="white" stroke="#bdc3c7"/>
+  <text x="552" y="197" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; text-anchor: middle;">جدة</text>
+
+  <rect x="375" y="204" width="30" height="22" fill="#e8daef"/>
+  <text x="390" y="219" style="fill: #9b59b6; font-family: Arial, sans-serif; font-size: 9px; font-weight: bold; text-anchor: middle;">2</text>
+  <rect x="405" y="204" width="50" height="22" fill="white" stroke="#bdc3c7"/>
+  <text x="430" y="219" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; text-anchor: middle;">علي</text>
+  <rect x="455" y="204" width="35" height="22" fill="white" stroke="#bdc3c7"/>
+  <text x="472" y="219" style="fill: #2c3e50; font-family: Arial, sans-serif; font-size: 9px; text-anchor: middle;">21</text>
+  <rect x="490" y="204" width="40" height="22" fill="white" stroke="#bdc3c7"/>
+  <text x="510" y="219" style="fill: #2c3e50; font-family: Arial, sans-serif; font-size: 9px; text-anchor: middle;">78</text>
+  <rect x="530" y="204" width="45" height="22" fill="white" stroke="#bdc3c7"/>
+  <text x="552" y="219" style="fill: #2c3e50; font-family: 'Cairo', Arial, sans-serif; font-size: 9px; text-anchor: middle;">الدمام</text>
+
+  <text x="475" y="260" class="desc-text" style="fill: #f39c12; text-anchor: middle;">منظم، مفهرس، محدد النوع</text>
+
+  <!-- Left: Output CSV -->
+  <rect x="40" y="90" width="250" height="230" fill="white" rx="10" stroke="#3498db" stroke-width="3"/>
+  <rect x="40" y="90" width="250" height="35" fill="#3498db" rx="10"/>
+  <rect x="40" y="110" width="250" height="15" fill="#3498db"/>
+  <text x="165" y="113" style="fill: white; font-family: 'Cairo', Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle;">results.csv</text>
+
+  <!-- Output CSV Content -->
+  <rect x="55" y="140" width="220" height="130" fill="#f5f5f5" rx="3"/>
+  <text x="70" y="160" class="file-text">,الاسم,العمر,الدرجة,المدينة</text>
+  <text x="70" y="178" class="file-text">0,أحمد,20,85,الرياض</text>
+  <text x="70" y="196" class="file-text">1,سارة,22,92,جدة</text>
+  <text x="70" y="214" class="file-text">2,علي,21,78,الدمام</text>
+  <text x="70" y="232" class="file-text">3,نورة,20,95,مكة</text>
+  <text x="165" y="260" class="desc-text" style="fill: #3498db; text-anchor: middle;">محفوظ للمشاركة/الأرشفة</text>
+
+  <!-- Arrows and Labels (mirrored) -->
+  <!-- Read arrow -->
+  <path d="M 650 180 L 600 180" stroke="#27ae60" stroke-width="3" fill="none" marker-end="url(#arrow-green)"/>
+  <rect x="585" y="135" width="80" height="35" fill="#d5f5e3" rx="5"/>
+  <text x="625" y="152" style="fill: #27ae60; font-family: 'Courier New', monospace; font-size: 10px; font-weight: bold; text-anchor: middle;">read_csv()</text>
+  <text x="625" y="165" class="desc-text" style="text-anchor: middle; font-size: 9px;">تحميل البيانات</text>
+
+  <!-- Write arrow -->
+  <path d="M 350 180 L 300 180" stroke="#3498db" stroke-width="3" fill="none" marker-end="url(#arrow-blue)"/>
+  <rect x="285" y="135" width="80" height="35" fill="#d6eaf8" rx="5"/>
+  <text x="325" y="152" style="fill: #3498db; font-family: 'Courier New', monospace; font-size: 10px; font-weight: bold; text-anchor: middle;">to_csv()</text>
+  <text x="325" y="165" class="desc-text" style="text-anchor: middle; font-size: 9px;">حفظ البيانات</text>
+
+  <!-- Code Examples -->
+  <rect x="500" y="340" width="410" height="120" fill="#2c3e50" rx="8"/>
+  <text x="520" y="365" class="code-text" style="fill: #7f8c8d;"># Reading CSV file</text>
+  <text x="520" y="385" class="code-text"><tspan fill="#f39c12">import</tspan> pandas <tspan fill="#f39c12">as</tspan> pd</text>
+  <text x="520" y="410" class="code-text"><tspan fill="#3498db">df</tspan> = pd.<tspan fill="#27ae60">read_csv</tspan>(<tspan fill="#e74c3c">'students.csv'</tspan>)</text>
+  <text x="520" y="435" class="code-text" style="fill: #7f8c8d;"># df is now a DataFrame ready to use!</text>
+
+  <rect x="40" y="340" width="410" height="120" fill="#2c3e50" rx="8"/>
+  <text x="60" y="365" class="code-text" style="fill: #7f8c8d;"># Save DataFrame to CSV</text>
+  <text x="60" y="390" class="code-text"><tspan fill="#3498db">df</tspan>.<tspan fill="#3498db">to_csv</tspan>(<tspan fill="#e74c3c">'results.csv'</tspan>)</text>
+  <text x="60" y="420" class="code-text" style="fill: #7f8c8d;"># Or without index column:</text>
+  <text x="60" y="440" class="code-text"><tspan fill="#3498db">df</tspan>.<tspan fill="#3498db">to_csv</tspan>(<tspan fill="#e74c3c">'results.csv'</tspan>, <tspan fill="#f39c12">index</tspan>=<tspan fill="#9b59b6">False</tspan>)</text>
+</svg>

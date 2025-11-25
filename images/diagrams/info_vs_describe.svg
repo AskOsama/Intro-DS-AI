@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" width="1000" height="520">
+  <defs>
+    <style>
+      .title { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 22px; font-weight: bold; text-anchor: middle; }
+      .subtitle { fill: #7f8c8d; font-family: Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+      .panel-title { fill: white; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle; }
+      .terminal-text { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 11px; }
+      .output-text { fill: #2ecc71; font-family: 'Courier New', monospace; font-size: 10px; }
+      .label-text { fill: #2c3e50; font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; }
+      .desc-text { fill: #7f8c8d; font-family: Arial, sans-serif; font-size: 11px; }
+      .annotation { fill: #e74c3c; font-family: Arial, sans-serif; font-size: 10px; font-weight: bold; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="520" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="500" y="35" class="title">info() vs describe(): Two Ways to Understand Your Data</text>
+  <text x="500" y="55" class="subtitle">info() shows STRUCTURE (what data types), describe() shows STATISTICS (numerical summary)</text>
+
+  <!-- Left Panel: info() -->
+  <rect x="30" y="75" width="450" height="420" fill="white" rx="10" stroke="#1abc9c" stroke-width="3"/>
+  <rect x="30" y="75" width="450" height="45" fill="#1abc9c" rx="10"/>
+  <rect x="30" y="105" width="450" height="15" fill="#1abc9c"/>
+  <text x="255" y="105" class="panel-title">df.info() - STRUCTURE</text>
+  <text x="255" y="135" class="label-text" style="fill: #1abc9c;">"What kind of data do I have?"</text>
+
+  <!-- info() Terminal Output -->
+  <rect x="50" y="150" width="410" height="240" fill="#2c3e50" rx="5"/>
+  <text x="65" y="170" class="terminal-text" style="fill: #9b59b6;">&gt;&gt;&gt; df.info()</text>
+  <text x="65" y="190" class="output-text">&lt;class 'pandas.core.frame.DataFrame'&gt;</text>
+  <text x="65" y="207" class="output-text">RangeIndex: 4 entries, 0 to 3</text>
+  <text x="65" y="224" class="output-text">Data columns (total 4 columns):</text>
+  <text x="65" y="241" class="output-text"> #   Column  Non-Null Count  Dtype</text>
+  <text x="65" y="258" class="output-text">---  ------  --------------  -----</text>
+  <text x="65" y="275" class="output-text"> 0   Name    4 non-null      object</text>
+  <text x="65" y="292" class="output-text"> 1   Age     4 non-null      int64</text>
+  <text x="65" y="309" class="output-text"> 2   Grade   3 non-null      float64</text>
+  <text x="65" y="326" class="output-text"> 3   City    4 non-null      object</text>
+  <text x="65" y="350" class="output-text">dtypes: float64(1), int64(1), object(2)</text>
+  <text x="65" y="367" class="output-text">memory usage: 256.0+ bytes</text>
+
+  <!-- info() Annotations -->
+  <line x1="340" y1="207" x2="470" y2="195" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="475" y="198" class="annotation" style="text-anchor: start;">Row count</text>
+
+  <line x1="340" y1="275" x2="470" y2="255" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="475" y="258" class="annotation" style="text-anchor: start;">Missing values?</text>
+  <text x="475" y="270" class="desc-text" style="text-anchor: start; font-size: 9px;">3 non-null = 1 missing!</text>
+
+  <line x1="380" y1="292" x2="470" y2="310" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="475" y="313" class="annotation" style="text-anchor: start;">Data types</text>
+  <text x="475" y="325" class="desc-text" style="text-anchor: start; font-size: 9px;">int64, float64, object</text>
+
+  <!-- info() Key Points Box -->
+  <rect x="50" y="400" width="410" height="80" fill="#e8f8f5" rx="5" stroke="#1abc9c" stroke-width="1"/>
+  <text x="255" y="420" class="label-text" style="fill: #1abc9c; text-anchor: middle;">info() tells you:</text>
+  <text x="70" y="440" class="desc-text" style="font-size: 10px;">- Number of rows and columns</text>
+  <text x="70" y="455" class="desc-text" style="font-size: 10px;">- Data types of each column (dtype)</text>
+  <text x="70" y="470" class="desc-text" style="font-size: 10px;">- Non-null counts (helps find missing data!)</text>
+
+  <!-- Right Panel: describe() -->
+  <rect x="520" y="75" width="450" height="420" fill="white" rx="10" stroke="#f39c12" stroke-width="3"/>
+  <rect x="520" y="75" width="450" height="45" fill="#f39c12" rx="10"/>
+  <rect x="520" y="105" width="450" height="15" fill="#f39c12"/>
+  <text x="745" y="105" class="panel-title">df.describe() - STATISTICS</text>
+  <text x="745" y="135" class="label-text" style="fill: #f39c12;">"What do my numbers look like?"</text>
+
+  <!-- describe() Terminal Output -->
+  <rect x="540" y="150" width="410" height="240" fill="#2c3e50" rx="5"/>
+  <text x="555" y="170" class="terminal-text" style="fill: #9b59b6;">&gt;&gt;&gt; df.describe()</text>
+  <text x="555" y="195" class="output-text">             Age       Grade</text>
+  <text x="555" y="212" class="output-text">count   4.000000    3.000000</text>
+  <text x="555" y="229" class="output-text">mean   20.750000   85.000000</text>
+  <text x="555" y="246" class="output-text">std     0.957427    7.000000</text>
+  <text x="555" y="263" class="output-text">min    20.000000   78.000000</text>
+  <text x="555" y="280" class="output-text">25%    20.000000   81.500000</text>
+  <text x="555" y="297" class="output-text">50%    20.500000   85.000000</text>
+  <text x="555" y="314" class="output-text">75%    21.250000   88.500000</text>
+  <text x="555" y="331" class="output-text">max    22.000000   92.000000</text>
+
+  <!-- describe() Annotations -->
+  <rect x="800" y="185" width="145" height="50" fill="#fff9e6" rx="3" stroke="#f39c12"/>
+  <text x="872" y="200" class="annotation" style="text-anchor: middle; fill: #f39c12;">Only numeric columns!</text>
+  <text x="872" y="215" class="desc-text" style="text-anchor: middle; font-size: 9px;">Name and City are text,</text>
+  <text x="872" y="227" class="desc-text" style="text-anchor: middle; font-size: 9px;">so they're not shown</text>
+
+  <rect x="800" y="245" width="145" height="40" fill="#fff9e6" rx="3" stroke="#f39c12"/>
+  <text x="872" y="260" class="annotation" style="text-anchor: middle; fill: #f39c12;">Statistical summary</text>
+  <text x="872" y="275" class="desc-text" style="text-anchor: middle; font-size: 9px;">mean, std, min, max</text>
+
+  <rect x="800" y="295" width="145" height="40" fill="#fff9e6" rx="3" stroke="#f39c12"/>
+  <text x="872" y="310" class="annotation" style="text-anchor: middle; fill: #f39c12;">Percentiles</text>
+  <text x="872" y="325" class="desc-text" style="text-anchor: middle; font-size: 9px;">25%, 50% (median), 75%</text>
+
+  <!-- describe() Key Points Box -->
+  <rect x="540" y="400" width="410" height="80" fill="#fef9e7" rx="5" stroke="#f39c12" stroke-width="1"/>
+  <text x="745" y="420" class="label-text" style="fill: #f39c12; text-anchor: middle;">describe() tells you:</text>
+  <text x="560" y="440" class="desc-text" style="font-size: 10px;">- Count, mean, standard deviation</text>
+  <text x="560" y="455" class="desc-text" style="font-size: 10px;">- Minimum, maximum values</text>
+  <text x="560" y="470" class="desc-text" style="font-size: 10px;">- Quartiles (25%, 50%, 75%)</text>
+</svg>
