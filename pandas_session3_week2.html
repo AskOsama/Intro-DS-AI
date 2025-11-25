@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pandas Fundamentals - Week 2 Session 3</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="pandas_session3_week2_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <header>
+        <h1>Pandas Fundamentals</h1>
+        <p class="subtitle">Week 2, Session 3: Working with Tabular Data</p>
+    </header>
+
+    <nav class="table-of-contents no-print">
+        <h2>Contents</h2>
+        <ul>
+            <li><a href="#overview">Learning Objectives</a></li>
+            <li><a href="#intro">Introduction: What is Pandas?</a></li>
+            <li><a href="#dataframes">1. DataFrames: The Heart of Pandas</a></li>
+            <li><a href="#series">2. Series vs DataFrame</a></li>
+            <li><a href="#info-describe">3. Understanding Data: info() vs describe()</a></li>
+            <li><a href="#iloc-loc">4. Accessing Data: iloc vs loc</a></li>
+            <li><a href="#adding-data">5. Adding New Data</a></li>
+            <li><a href="#csv">6. Working with CSV Files</a></li>
+            <li><a href="#missing-data">7. Handling Missing Data (NaN)</a></li>
+            <li><a href="#filtering">8. Basic Filtering and Analysis</a></li>
+            <li><a href="#pipeline">9. Pandas in the Data Science Pipeline</a></li>
+            <li><a href="#groupby">10. GroupBy: Aggregating Data by Groups</a></li>
+            <li><a href="#nql">11. Natural Query Language (NQL)</a></li>
+            <li><a href="#local-llm">12. Local LLMs for Data Privacy</a></li>
+            <li><a href="#llm-prompting">13. Prompting LLMs with Pandas Terminology</a></li>
+            <li><a href="#summary">Summary &amp; Practice</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="overview" class="learning-objectives">
+            <h2>Learning Objectives</h2>
+            <p>By the end of this session, students will be able to:</p>
+            <ul>
+                <li>Understand DataFrame as a labeled 2D table (rows and columns)</li>
+                <li>Create DataFrames from dictionaries and other sources</li>
+                <li>Distinguish between info() (structure) and describe() (statistics)</li>
+                <li>Access data using iloc (position) and loc (labels)</li>
+                <li>Handle missing data (NaN) using dropna() and fillna()</li>
+                <li>Save and load data using CSV files</li>
+                <li>Perform basic filtering and analysis</li>
+                <li>Use correct Pandas terminology when prompting LLMs</li>
+            </ul>
+        </section>
+
+        <!-- Introduction -->
+        <section id="intro" class="content-section">
+            <h2>Introduction: What is Pandas?</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> <em>Pandas</em> is a Python library for working with tabular data (data in rows and columns). The name comes from "Panel Data" - a term from econometrics. Pandas makes it easy to load, manipulate, and analyze data.</p>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Key Message:</strong> Pandas is the foundation of data science in Python. Just as you learned to use variables and lists in Python, you'll use DataFrames in Pandas. It's how data scientists work with real-world data.</p>
+            </div>
+
+            <!-- Pipeline Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/pandas_pipeline.svg" alt="Pandas role in the data science pipeline: from raw data through loading, cleaning, analysis, to visualization" class="content-image">
+                <figcaption>Pandas is essential in steps 2 and 3: Loading and Cleaning data</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>Why Learn Pandas?</h3>
+                <ul>
+                    <li><strong>Industry Standard:</strong> Used by data scientists worldwide</li>
+                    <li><strong>Data Preparation:</strong> 80% of data science work is preparing data</li>
+                    <li><strong>Gateway Tool:</strong> First step before machine learning</li>
+                    <li><strong>Works with Everything:</strong> Integrates with NumPy, Matplotlib, Scikit-learn</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>Code Example: Getting Started with Pandas</h3>
+                <pre><code># Import pandas (convention: use 'pd' as alias)
+import pandas as pd
+
+# Check version
+print(pd.__version__)
+
+# You're ready to create DataFrames!</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 1: DataFrames -->
+        <section id="dataframes" class="content-section">
+            <h2>1. DataFrames: The Heart of Pandas</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> A <em>DataFrame</em> is a 2-dimensional labeled data structure with columns of potentially different types. Think of it as a spreadsheet or SQL table in Python.</p>
+            </div>
+
+            <h3>From Spreadsheet to DataFrame</h3>
+            <p>If you've used Excel, you already understand the basic concept. A DataFrame is similar but more powerful:</p>
+
+            <!-- DataFrame Anatomy Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/dataframe_anatomy.svg" alt="Side-by-side comparison of Excel spreadsheet and Pandas DataFrame showing Index, Columns, and Values" class="content-image">
+                <figcaption>Mapping familiar spreadsheet concepts to DataFrame terminology</figcaption>
+            </figure>
+
+            <div class="key-pattern">
+                <h3>Key Terminology:</h3>
+                <ul>
+                    <li><strong>Index:</strong> Row labels (0, 1, 2... by default) - like row numbers in Excel</li>
+                    <li><strong>Columns:</strong> Named headers (Name, Age, Grade...) - like column headers in Excel</li>
+                    <li><strong>Values:</strong> The actual data in cells</li>
+                    <li><strong>dtype:</strong> Data type of each column (int64, float64, object)</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>Code Example: Creating a DataFrame</h3>
+                <pre><code>import pandas as pd
+
+# Creating DataFrame from a dictionary
+data = {
+    'Name': ['Ahmed', 'Sara', 'Ali', 'Norah'],
+    'Age': [20, 22, 21, 20],
+    'Grade': [85, 92, 78, 95],
+    'City': ['Riyadh', 'Jeddah', 'Dammam', 'Mecca']
+}
+
+df = pd.DataFrame(data)
+print(df)
+
+# Output:
+#     Name  Age  Grade    City
+# 0  Ahmed   20     85  Riyadh
+# 1   Sara   22     92  Jeddah
+# 2    Ali   21     78  Dammam
+# 3  Norah   20     95   Mecca</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Important:</strong> Notice how the Index starts at 0, not 1 like Excel row numbers. This is a key difference!</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Series vs DataFrame -->
+        <section id="series" class="content-section">
+            <h2>2. Series vs DataFrame</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> A <em>Series</em> is a 1-dimensional labeled array. It's like a single column from a DataFrame, or a Python list with labels (index).</p>
+            </div>
+
+            <!-- Series vs DataFrame Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/series_vs_dataframe.svg" alt="Visual comparison of 1D Series (single column) vs 2D DataFrame (multiple columns)" class="content-image">
+                <figcaption>A Series is 1D (one column), a DataFrame is 2D (multiple columns)</figcaption>
+            </figure>
+
+            <div class="key-pattern">
+                <h3>Key Insight:</h3>
+                <p>Each column in a DataFrame IS a Series. A DataFrame = collection of Series with a shared Index.</p>
+            </div>
+
+            <div class="example">
+                <h3>Code Example: Series vs DataFrame</h3>
+                <pre><code>import pandas as pd
+
+# Creating a DataFrame
+df = pd.DataFrame({
+    'Name': ['Ahmed', 'Sara', 'Ali', 'Norah'],
+    'Age': [20, 22, 21, 20],
+    'Grade': [85, 92, 78, 95]
+})
+
+# Extract ONE column = Series
+names = df['Name']
+print(type(names))  # &lt;class 'pandas.core.series.Series'&gt;
+
+# Extract MULTIPLE columns = DataFrame
+subset = df[['Name', 'Age']]
+print(type(subset))  # &lt;class 'pandas.core.frame.DataFrame'&gt;
+
+# Creating a Series directly
+ages = pd.Series([20, 22, 21, 20], name='Age')
+print(ages)</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Remember:</strong> Single brackets <code>df['Name']</code> return a Series. Double brackets <code>df[['Name']]</code> return a DataFrame with one column.</p>
+            </div>
+        </section>
+
+        <!-- Section 3: info() vs describe() -->
+        <section id="info-describe" class="content-section">
+            <h2>3. Understanding Data: info() vs describe()</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> These are two essential methods for exploring your data:</p>
+                <ul>
+                    <li><code>info()</code> - Shows STRUCTURE (data types, missing values)</li>
+                    <li><code>describe()</code> - Shows STATISTICS (count, mean, std, min, max)</li>
+                </ul>
+            </div>
+
+            <!-- info vs describe Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/info_vs_describe.svg" alt="Side-by-side comparison of info() showing structure and describe() showing statistics" class="content-image">
+                <figcaption>info() tells you WHAT kind of data you have; describe() tells you WHAT your numbers look like</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>Code Example: Exploring Your Data</h3>
+                <pre><code>import pandas as pd
+
+df = pd.DataFrame({
+    'Name': ['Ahmed', 'Sara', 'Ali', 'Norah'],
+    'Age': [20, 22, 21, 20],
+    'Grade': [85.0, 92.0, None, 95.0],  # Note: None = missing value
+    'City': ['Riyadh', 'Jeddah', 'Dammam', 'Mecca']
+})
+
+# info() - Structure information
+df.info()
+# Shows: column names, non-null counts, data types
+
+# describe() - Statistical summary
+df.describe()
+# Shows: count, mean, std, min, 25%, 50%, 75%, max
+# Note: Only for numeric columns!</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>When to Use Which:</h3>
+                <ul>
+                    <li><code>info()</code> - First thing to run on new data. Answers: "Do I have missing data? What are the data types?"</li>
+                    <li><code>describe()</code> - For numerical analysis. Answers: "What's the average? What's the range?"</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 4: iloc vs loc -->
+        <section id="iloc-loc" class="content-section">
+            <h2>4. Accessing Data: iloc vs loc</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> Pandas provides two ways to access data:</p>
+                <ul>
+                    <li><code>iloc</code> - <strong>i</strong>nteger <strong>loc</strong>ation - uses position numbers (0, 1, 2...)</li>
+                    <li><code>loc</code> - <strong>l</strong>abel <strong>loc</strong>ation - uses labels (row/column names)</li>
+                </ul>
+            </div>
+
+            <!-- iloc vs loc Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/iloc_vs_loc.svg" alt="Two data grids showing iloc using position numbers vs loc using label names" class="content-image">
+                <figcaption>iloc uses integer positions; loc uses labels. Same data, different access methods.</figcaption>
+            </figure>
+
+            <div class="key-pattern">
+                <h3>Memory Trick:</h3>
+                <ul>
+                    <li><code>iloc</code> = "i" for <strong>Integer</strong> position</li>
+                    <li><code>loc</code> = "L" for <strong>Label</strong> names</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>Code Example: iloc vs loc</h3>
+                <pre><code>import pandas as pd
+
+df = pd.DataFrame({
+    'Name': ['Ahmed', 'Sara', 'Ali', 'Norah'],
+    'Age': [20, 22, 21, 20],
+    'Grade': [85, 92, 78, 95]
+})
+
+# iloc - by POSITION (numbers)
+df.iloc[0]           # First row (position 0)
+df.iloc[1, 0]        # Row 1, Column 0 = "Sara"
+df.iloc[0:2]         # First 2 rows (positions 0-1)
+df.iloc[:, 0:2]      # All rows, first 2 columns
+
+# loc - by LABEL (names)
+df.loc[0]            # Row with label 0
+df.loc[1, 'Name']    # Label 1, column 'Name' = "Sara"
+df.loc[:, 'Age']     # All rows, 'Age' column
+df.loc[0:2, 'Name':'Age']  # Labels 0-2, columns Name to Age
+
+# Key difference: iloc excludes end, loc includes end!
+df.iloc[0:2]  # Rows 0, 1 (excludes 2)
+df.loc[0:2]   # Rows 0, 1, 2 (includes 2)</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Important:</strong> <code>iloc</code> slicing excludes the end (like Python lists), but <code>loc</code> slicing includes the end (because labels don't have a natural "next" value).</p>
+            </div>
+        </section>
+
+        <!-- Section 5: Adding New Data -->
+        <section id="adding-data" class="content-section">
+            <h2>5. Adding New Data</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> You can expand a DataFrame by adding new columns or new rows. Columns are added by assignment; rows are added using <code>loc</code> or <code>concat()</code>.</p>
+            </div>
+
+            <div class="example">
+                <h3>Code Example: Adding Columns and Rows</h3>
+                <pre><code>import pandas as pd
+
+df = pd.DataFrame({
+    'Name': ['Ahmed', 'Sara', 'Ali'],
+    'Age': [20, 22, 21],
+    'Grade': [85, 92, 78]
+})
+
+# Adding a NEW COLUMN
+df['Passed'] = df['Grade'] >= 60  # Boolean column
+df['Grade_Letter'] = ['B', 'A', 'C']  # From a list
+
+# Adding a NEW ROW using loc
+df.loc[3] = ['Norah', 20, 95, True, 'A']
+
+# Adding multiple rows using concat
+new_rows = pd.DataFrame({
+    'Name': ['Khalid', 'Fatima'],
+    'Age': [23, 21],
+    'Grade': [88, 91],
+    'Passed': [True, True],
+    'Grade_Letter': ['B', 'A']
+})
+df = pd.concat([df, new_rows], ignore_index=True)
+
+print(df)</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>Key Patterns:</h3>
+                <ul>
+                    <li><strong>New column:</strong> <code>df['new_col'] = values</code></li>
+                    <li><strong>New row:</strong> <code>df.loc[index] = values</code></li>
+                    <li><strong>Multiple rows:</strong> <code>pd.concat([df1, df2], ignore_index=True)</code></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 6: CSV Files -->
+        <section id="csv" class="content-section">
+            <h2>6. Working with CSV Files</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> <em>CSV (Comma-Separated Values)</em> is the most common format for sharing tabular data. It's a plain text file where each line is a row and values are separated by commas.</p>
+            </div>
+
+            <!-- CSV Read/Write Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/csv_read_write.svg" alt="Workflow showing CSV file being read into DataFrame and DataFrame being saved to CSV" class="content-image">
+                <figcaption>read_csv() loads data into Python; to_csv() saves it back to a file</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>Code Example: Reading and Writing CSV</h3>
+                <pre><code>import pandas as pd
+
+# Reading a CSV file
+df = pd.read_csv('students.csv')
+
+# Common parameters:
+df = pd.read_csv('students.csv',
+                 encoding='utf-8',      # Character encoding
+                 sep=',',               # Separator (default comma)
+                 header=0,              # Row to use as header
+                 index_col=None)        # Column to use as index
+
+# First look at your data
+print(df.head())    # First 5 rows
+print(df.tail())    # Last 5 rows
+print(df.shape)     # (rows, columns)
+
+# Saving to CSV
+df.to_csv('output.csv', index=False)  # index=False prevents extra column
+
+# Why index=False?
+# Without it, you get: ,Name,Age,Grade (extra column)
+# With it, you get: Name,Age,Grade (clean)</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Tip:</strong> Always use <code>index=False</code> when saving CSV unless you specifically need the index as a column.</p>
+            </div>
+        </section>
+
+        <!-- Section 7: Missing Data -->
+        <section id="missing-data" class="content-section">
+            <h2>7. Handling Missing Data (NaN)</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> <em>NaN (Not a Number)</em> is how Pandas represents missing values. Real-world data often has gaps - surveys not completed, sensors that failed, etc.</p>
+            </div>
+
+            <!-- Missing Data Strategies Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/missing_data_strategies.svg" alt="Flowchart showing three strategies for handling NaN: remove with dropna, fill with fillna, or smart fill with mean" class="content-image">
+                <figcaption>Three strategies for handling missing data: Remove, Fill, or Smart Fill</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>Code Example: Detecting and Handling NaN</h3>
+                <pre><code>import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({
+    'Name': ['Ahmed', 'Sara', 'Ali', 'Norah'],
+    'Age': [20, np.nan, 21, 20],
+    'Grade': [85, 92, np.nan, 95],
+    'City': ['Riyadh', 'Jeddah', 'Dammam', np.nan]
+})
+
+# Detecting missing values
+print(df.isnull())       # True where NaN
+print(df.isnull().sum()) # Count NaN per column
+
+# Strategy 1: Remove rows with NaN
+df_clean = df.dropna()   # Only keeps complete rows
+
+# Strategy 2: Fill with a specific value
+df['Age'].fillna(0, inplace=True)
+df['City'].fillna('Unknown', inplace=True)
+
+# Strategy 3: Fill with mean (for numeric columns)
+mean_grade = df['Grade'].mean()
+df['Grade'].fillna(mean_grade, inplace=True)
+
+# Or in one line:
+df['Grade'] = df['Grade'].fillna(df['Grade'].mean())</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>Which Strategy to Use:</h3>
+                <ul>
+                    <li><strong>dropna():</strong> When you have lots of data and few missing values</li>
+                    <li><strong>fillna(value):</strong> When you have a sensible default value</li>
+                    <li><strong>fillna(mean()):</strong> When you want to preserve statistical properties</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 8: Filtering -->
+        <section id="filtering" class="content-section">
+            <h2>8. Basic Filtering and Analysis</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> <em>Boolean Indexing</em> is selecting rows based on conditions. You create a True/False mask and use it to filter the DataFrame.</p>
+            </div>
+
+            <div class="example">
+                <h3>Code Example: Filtering Data</h3>
+                <pre><code>import pandas as pd
+
+df = pd.DataFrame({
+    'Name': ['Ahmed', 'Sara', 'Ali', 'Norah', 'Khalid'],
+    'Age': [20, 22, 21, 20, 23],
+    'Grade': [85, 92, 78, 95, 88],
+    'City': ['Riyadh', 'Jeddah', 'Dammam', 'Mecca', 'Riyadh']
+})
+
+# Simple filter: students with grade > 85
+high_achievers = df[df['Grade'] > 85]
+
+# Multiple conditions: use & (and), | (or)
+riyadh_high = df[(df['City'] == 'Riyadh') & (df['Grade'] > 80)]
+
+# Using isin() for multiple values
+main_cities = df[df['City'].isin(['Riyadh', 'Jeddah'])]
+
+# String methods
+names_with_a = df[df['Name'].str.startswith('A')]
+
+# Summary statistics by group
+avg_by_city = df.groupby('City')['Grade'].mean()
+
+# Multiple aggregations
+summary = df.groupby('City').agg({
+    'Grade': ['mean', 'max'],
+    'Age': 'mean'
+})</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>Essential Operations:</h3>
+                <ul>
+                    <li><code>df[condition]</code> - Filter rows</li>
+                    <li><code>&amp;</code> (and), <code>|</code> (or) - Combine conditions</li>
+                    <li><code>groupby()</code> - Group data for aggregation</li>
+                    <li><code>agg()</code> - Apply multiple functions</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 9: Pipeline -->
+        <section id="pipeline" class="content-section">
+            <h2>9. Pandas in the Data Science Pipeline</h2>
+
+            <div class="key-message">
+                <p><strong>Key Message:</strong> Pandas is not an isolated tool - it's the central hub that connects raw data to analysis and visualization. Understanding where Pandas fits helps you understand the whole data science workflow.</p>
+            </div>
+
+            <div class="example">
+                <h3>A Typical Data Science Workflow:</h3>
+                <ol>
+                    <li><strong>Load:</strong> <code>pd.read_csv()</code> - Get data into Python</li>
+                    <li><strong>Explore:</strong> <code>df.info(), df.describe(), df.head()</code> - Understand what you have</li>
+                    <li><strong>Clean:</strong> <code>dropna(), fillna(), astype()</code> - Fix problems</li>
+                    <li><strong>Transform:</strong> <code>groupby(), merge(), apply()</code> - Reshape data</li>
+                    <li><strong>Analyze:</strong> Pass clean DataFrame to NumPy, Scikit-learn</li>
+                    <li><strong>Visualize:</strong> Pass data to Matplotlib, Seaborn</li>
+                </ol>
+            </div>
+
+            <div class="example">
+                <h3>Code Example: Complete Mini-Pipeline</h3>
+                <pre><code>import pandas as pd
+
+# 1. Load
+df = pd.read_csv('raw_students.csv')
+
+# 2. Explore
+print(df.info())
+print(df.describe())
+
+# 3. Clean
+df = df.dropna()  # Remove missing values
+df['Age'] = df['Age'].astype(int)  # Fix data type
+
+# 4. Transform
+avg_grades = df.groupby('City')['Grade'].mean()
+
+# 5. Ready for analysis or visualization!
+print(avg_grades)</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 10: GroupBy Concept -->
+        <section id="groupby" class="content-section">
+            <h2>10. GroupBy: Aggregating Data by Groups</h2>
+
+            <div class="key-message">
+                <p><strong>Key Concept:</strong> <code>groupby()</code> lets you split your data into groups based on a column value, apply a calculation to each group, and combine the results. This is called the <em>Split-Apply-Combine</em> pattern.</p>
+            </div>
+
+            <figure class="diagram">
+                <img src="images/diagrams/groupby_concept.svg" alt="GroupBy Split-Apply-Combine concept showing how data is grouped and aggregated">
+                <figcaption>The GroupBy Split-Apply-Combine pattern: dividing data by category and computing statistics for each group</figcaption>
+            </figure>
+
+            <div class="terminology">
+                <h3>GroupBy Terminology</h3>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Term</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>groupby(column)</code></td>
+                            <td>Groups rows by unique values in a column</td>
+                            <td><code>df.groupby('City')</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>.mean()</code></td>
+                            <td>Calculate average for each group</td>
+                            <td><code>df.groupby('City')['Grade'].mean()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>.sum()</code></td>
+                            <td>Calculate total for each group</td>
+                            <td><code>df.groupby('City')['Sales'].sum()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>.count()</code></td>
+                            <td>Count items in each group</td>
+                            <td><code>df.groupby('City')['Name'].count()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>.min()</code> / <code>.max()</code></td>
+                            <td>Find minimum/maximum in each group</td>
+                            <td><code>df.groupby('City')['Grade'].max()</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="example">
+                <h3>Code Example: GroupBy Operations</h3>
+                <pre><code># Basic groupby - average grade per city
+avg_by_city = df.groupby('City')['Grade'].mean()
+print(avg_by_city)
+
+# Multiple aggregations at once
+summary = df.groupby('City')['Grade'].agg(['mean', 'min', 'max', 'count'])
+print(summary)
+
+# Group by multiple columns
+multi_group = df.groupby(['City', 'Gender'])['Grade'].mean()
+print(multi_group)</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Remember:</strong> The result of <code>groupby()</code> + aggregation has <em>one row per unique group value</em>. If you group by City and have 3 unique cities, your result will have 3 rows.</p>
+            </div>
+        </section>
+
+        <!-- Section 11: Natural Query Language (NQL) -->
+        <section id="nql" class="content-section">
+            <h2>11. Natural Query Language (NQL) to Pandas</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> <em>Natural Query Language (NQL)</em> is a paradigm where users describe their data manipulation needs in plain English, and an LLM (Large Language Model) translates these requests into executable code. This bridges the gap between human intent and pandas operations.</p>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Key Insight:</strong> When you learn to phrase your data questions clearly, LLMs can generate accurate pandas code. The examples below show how natural language maps to pandas operations.</p>
+            </div>
+
+            <div class="example">
+                <h3>Sample DataFrame for Examples</h3>
+                <pre><code>import pandas as pd
+
+# Create sample DataFrame
+df = pd.DataFrame({
+    'employee_id': [101, 102, 103, 104, 105, 106, 107, 108],
+    'name': ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank', 'Grace', 'Henry'],
+    'department': ['Engineering', 'Sales', 'Engineering', 'HR', 'Sales', 'Engineering', 'HR', 'Sales'],
+    'salary': [75000, 55000, 82000, 48000, 62000, 91000, 52000, 58000],
+    'years_experience': [5, 3, 7, 2, 4, 10, 3, 4],
+    'performance_score': [4.2, 3.8, 4.5, 4.0, 3.5, 4.8, 4.1, 3.9]
+})
+
+print(df)</code></pre>
+            </div>
+
+            <h3>Providing DataFrame Context to LLMs</h3>
+            <div class="key-pattern">
+                <p>Before asking an LLM to generate pandas code, <strong>provide the DataFrame structure</strong>. This helps the LLM understand your data without seeing the actual values:</p>
+            </div>
+
+            <div class="example">
+                <h4>Option 1: Using df.info()</h4>
+                <pre><code>df.info()
+
+# Output:
+# &lt;class 'pandas.core.frame.DataFrame'&gt;
+# RangeIndex: 8 entries, 0 to 7
+# Data columns (total 6 columns):
+#  #   Column             Non-Null Count  Dtype
+# ---  ------             --------------  -----
+#  0   employee_id        8 non-null      int64
+#  1   name               8 non-null      object
+#  2   department         8 non-null      object
+#  3   salary             8 non-null      int64
+#  4   years_experience   8 non-null      int64
+#  5   performance_score  8 non-null      float64</code></pre>
+            </div>
+
+            <div class="example">
+                <h4>Option 2: Using df.dtypes (minimal)</h4>
+                <pre><code>print(df.dtypes)
+
+# Output:
+# employee_id            int64
+# name                  object
+# department            object
+# salary                 int64
+# years_experience       int64
+# performance_score    float64</code></pre>
+            </div>
+
+            <div class="example">
+                <h4>Option 3: Column list with sample (privacy-conscious)</h4>
+                <pre><code>print("Columns:", df.columns.tolist())
+print("Sample row:", df.iloc[0].to_dict())
+
+# Provides structure without exposing full dataset</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Best Practice:</strong> When prompting an LLM, include the <code>df.info()</code> output in your prompt. Example: <em>"Given this DataFrame structure: [paste info output], write code to calculate the average salary by department."</em></p>
+            </div>
+
+            <h3>Example 1: Simple Filtering</h3>
+            <div class="example">
+                <p><strong>NQL Query:</strong> <em>"Show me all employees who work in the Engineering department"</em></p>
+                <pre><code>result = df[df['department'] == 'Engineering']
+print(result)</code></pre>
+                <p><strong>Explanation:</strong> The LLM identifies the target column (<code>department</code>), the condition (equals <code>'Engineering'</code>), and uses Boolean indexing.</p>
+            </div>
+
+            <h3>Example 2: Aggregation with Grouping</h3>
+            <div class="example">
+                <p><strong>NQL Query:</strong> <em>"What is the average salary for each department?"</em></p>
+                <pre><code>result = df.groupby('department')['salary'].mean().reset_index()
+result.columns = ['department', 'average_salary']
+print(result)</code></pre>
+                <p><strong>Explanation:</strong> The LLM maps "average" to <code>mean()</code>, identifies the grouping key (<code>department</code>), and the target column (<code>salary</code>).</p>
+            </div>
+
+            <h3>Example 3: Sorting with Column Selection</h3>
+            <div class="example">
+                <p><strong>NQL Query:</strong> <em>"List employees sorted by performance score from highest to lowest, and show only their name and score"</em></p>
+                <pre><code>result = df[['name', 'performance_score']].sort_values(
+    by='performance_score',
+    ascending=False
+)
+print(result)</code></pre>
+                <p><strong>Explanation:</strong> The LLM extracts column selection, sort column, and derives <code>ascending=False</code> from "highest to lowest".</p>
+            </div>
+
+            <h3>Example 4: Complex Filtering with Multiple Conditions</h3>
+            <div class="example">
+                <p><strong>NQL Query:</strong> <em>"Find employees with more than 4 years of experience AND a salary above 60000"</em></p>
+                <pre><code>result = df[(df['years_experience'] > 4) & (df['salary'] > 60000)]
+print(result)</code></pre>
+                <p><strong>Explanation:</strong> The LLM parses the logical "AND" into the <code>&</code> operator, with each condition wrapped in parentheses.</p>
+            </div>
+
+            <h3>Example 5: Creating Derived Columns</h3>
+            <div class="example">
+                <p><strong>NQL Query:</strong> <em>"Add a new column that shows the salary per year of experience for each employee"</em></p>
+                <pre><code>df['salary_per_year_exp'] = df['salary'] / df['years_experience']
+result = df[['name', 'salary', 'years_experience', 'salary_per_year_exp']]
+print(result.round(2))</code></pre>
+                <p><strong>Explanation:</strong> The LLM creates a new column name from the description and performs the division calculation.</p>
+            </div>
+
+            <h3>Example 6: De-identified Metadata (Column Index Reference)</h3>
+            <div class="example">
+                <p><strong>Context:</strong> For privacy, you may hide column names from the LLM and reference by position instead.</p>
+                <p><strong>NQL Query:</strong> <em>"Calculate the sum of the values in column index 3"</em></p>
+                <pre><code># Using column index instead of column name
+target_column_index = 3
+result = df.iloc[:, target_column_index].sum()
+print(f"Sum of column at index {target_column_index}: {result}")</code></pre>
+                <p><strong>Explanation:</strong> <code>iloc[:, 3]</code> selects all rows and the 4th column (index 3). The LLM operates without knowing the actual column name.</p>
+            </div>
+
+            <h3>Example 7: Statistical Summary</h3>
+            <div class="example">
+                <p><strong>NQL Query:</strong> <em>"Give me a statistical summary of the salary column including count, mean, min, and max"</em></p>
+                <pre><code>result = df['salary'].agg(['count', 'mean', 'min', 'max'])
+print(result)</code></pre>
+                <p><strong>Explanation:</strong> The LLM maps natural language statistics terms directly to pandas aggregation methods.</p>
+            </div>
+
+            <div class="key-pattern">
+                <h3>NQL Pattern Reference</h3>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>NQL Pattern</th>
+                            <th>Pandas Operation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>"Show me all X where Y"</td>
+                            <td><code>df[df['column'] == value]</code></td>
+                        </tr>
+                        <tr>
+                            <td>"Average/Sum/Count of X by Y"</td>
+                            <td><code>df.groupby('Y')['X'].agg()</code></td>
+                        </tr>
+                        <tr>
+                            <td>"Sort by X"</td>
+                            <td><code>df.sort_values(by='X')</code></td>
+                        </tr>
+                        <tr>
+                            <td>"X AND Y"</td>
+                            <td><code>(condition1) & (condition2)</code></td>
+                        </tr>
+                        <tr>
+                            <td>"X OR Y"</td>
+                            <td><code>(condition1) | (condition2)</code></td>
+                        </tr>
+                        <tr>
+                            <td>"Add column"</td>
+                            <td><code>df['new'] = calculation</code></td>
+                        </tr>
+                        <tr>
+                            <td>"Column index N"</td>
+                            <td><code>df.iloc[:, N]</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Best Practices for NQL:</strong></p>
+                <ul>
+                    <li><strong>Be specific:</strong> "average salary" is clearer than "salary information"</li>
+                    <li><strong>Use explicit operators:</strong> "AND" and "OR" help the LLM understand logic</li>
+                    <li><strong>Mention column names:</strong> When privacy isn't a concern, use actual names</li>
+                    <li><strong>Use indices for privacy:</strong> When metadata must be hidden, reference by position</li>
+                    <li><strong>Specify output format:</strong> "show only name and salary" guides column selection</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 12: Local LLMs for Data Privacy -->
+        <section id="local-llm" class="content-section">
+            <h2>12. Local LLMs for Pandas &amp; Data Privacy</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> <em>Local LLMs</em> are language models that run entirely on your own machine. Your data never leaves your computer — critical for sensitive datasets, proprietary analysis, and compliance requirements.</p>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Why Run LLMs Locally?</strong> When working with confidential data (financial records, medical data, personal information), sending data to cloud APIs may violate privacy policies. Local models keep everything on your machine.</p>
+            </div>
+
+            <h3>Model Comparison for Pandas Work</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Size</th>
+                        <th>Best For</th>
+                        <th>Hardware Needed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Qwen2.5-Coder:7b</strong></td>
+                        <td>6.3 GB</td>
+                        <td>Pandas code, data manipulation</td>
+                        <td>8–16 GB VRAM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DeepSeek-Coder-V2:16b</strong></td>
+                        <td>~14 GB</td>
+                        <td>Complex analysis, long context (128K)</td>
+                        <td>16–24 GB VRAM</td>
+                    </tr>
+                    <tr>
+                        <td>CodeLlama:7b</td>
+                        <td>~7 GB</td>
+                        <td>Basic pandas, legacy support</td>
+                        <td>8 GB VRAM</td>
+                    </tr>
+                    <tr>
+                        <td>Mistral:7b</td>
+                        <td>~7 GB</td>
+                        <td>General purpose (not optimized for data)</td>
+                        <td>8 GB VRAM</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Top Pick: Qwen2.5-Coder:7b</h3>
+            <div class="example">
+                <ul>
+                    <li><strong>88.4% on HumanEval</strong> — outperforms many larger models</li>
+                    <li>Best performance-to-size ratio</li>
+                    <li>Ideal for typical pandas workflows (shorter code snippets)</li>
+                </ul>
+                <pre><code># Install with Ollama
+ollama pull qwen2.5-coder:7b</code></pre>
+            </div>
+
+            <h3>Runner-Up: DeepSeek-Coder-V2:16b</h3>
+            <div class="example">
+                <ul>
+                    <li>128K context window for larger datasets</li>
+                    <li>MoE architecture — only 2.4B params active during inference</li>
+                    <li>Best for multi-file or complex analysis</li>
+                </ul>
+                <pre><code># Install with Ollama
+ollama pull deepseek-coder-v2:16b</code></pre>
+            </div>
+
+            <h3>Integration with PandasAI</h3>
+            <div class="example">
+                <p>Both models work seamlessly with PandasAI for natural language queries on your dataframes — all processed locally:</p>
+                <pre><code>from pandasai import SmartDataframe
+from pandasai.llm.local_llm import LocalLLM
+
+# Connect to local Ollama instance
+llm = LocalLLM(api_base="http://localhost:11434/v1", model="qwen2.5-coder:7b")
+
+# Create smart dataframe
+df = SmartDataframe(your_dataframe, config={"llm": llm})
+
+# Query in natural language - processed locally!
+df.chat("What's the average sales by region?")</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>Recommendation Summary</h3>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Use Case</th>
+                            <th>Recommended Model</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Best overall for pandas</strong></td>
+                            <td>Qwen2.5-Coder:7b</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Complex/large context</strong></td>
+                            <td>DeepSeek-Coder-V2:16b</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Avoid for pandas work</strong></td>
+                            <td>Mistral:7b, CodeLlama:7b</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 13: LLM Prompting -->
+        <section id="llm-prompting" class="content-section">
+            <h2>13. Prompting LLMs with Pandas Terminology</h2>
+
+            <div class="key-message">
+                <p><strong>Connection to Session 2:</strong> In AI-Assisted Development, we learned that <em>correct terminology</em> is essential for effective prompting. The Pandas terms you learned today are exactly the vocabulary LLMs understand!</p>
+            </div>
+
+            <div class="example">
+                <h3>Good vs Bad Prompts:</h3>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Bad Prompt (Vague)</th>
+                            <th>Good Prompt (Uses Terminology)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>"How do I get the first 5 lines?"</td>
+                            <td>"How do I use <code>df.head(5)</code> to show the first 5 rows of my DataFrame?"</td>
+                        </tr>
+                        <tr>
+                            <td>"How do I see what's in my table?"</td>
+                            <td>"How do I use <code>df.info()</code> to check data types and missing values?"</td>
+                        </tr>
+                        <tr>
+                            <td>"Get the second row"</td>
+                            <td>"How do I use <code>df.iloc[1]</code> to access row at position 1?"</td>
+                        </tr>
+                        <tr>
+                            <td>"Delete empty cells"</td>
+                            <td>"How do I use <code>df.dropna()</code> to remove rows with NaN values?"</td>
+                        </tr>
+                        <tr>
+                            <td>"Get average by group"</td>
+                            <td>"How do I use <code>df.groupby('City')['Grade'].mean()</code> to calculate average Grade per City?"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="key-pattern">
+                <h3>Pandas Terminology Quick Reference for Prompting:</h3>
+                <ul>
+                    <li>Say "DataFrame" not "table" or "spreadsheet"</li>
+                    <li>Say "Series" not "column" when referring to extracted data</li>
+                    <li>Say "Index" not "row number"</li>
+                    <li>Say "NaN" not "empty" or "blank"</li>
+                    <li>Say "iloc" for position access, "loc" for label access</li>
+                    <li>Say "dropna/fillna" not "delete/replace empty"</li>
+                </ul>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Remember:</strong> The terms you learned in this session aren't just academic - they're the vocabulary LLMs understand. Using "DataFrame" instead of "table", "iloc" instead of "position", and "NaN" instead of "empty" will get you better AI assistance.</p>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section id="summary" class="content-section">
+            <h2>Summary &amp; Practice</h2>
+
+            <h3>Key Concepts Covered:</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Concept</th>
+                        <th>Term</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2D Data Structure</td>
+                        <td>DataFrame</td>
+                        <td>Rows and columns with labels</td>
+                    </tr>
+                    <tr>
+                        <td>1D Data Structure</td>
+                        <td>Series</td>
+                        <td>Single column with index</td>
+                    </tr>
+                    <tr>
+                        <td>Row Labels</td>
+                        <td>Index</td>
+                        <td>Labels for each row (0, 1, 2...)</td>
+                    </tr>
+                    <tr>
+                        <td>Structure Info</td>
+                        <td>info()</td>
+                        <td>Data types, missing values</td>
+                    </tr>
+                    <tr>
+                        <td>Statistics</td>
+                        <td>describe()</td>
+                        <td>Count, mean, std, min, max</td>
+                    </tr>
+                    <tr>
+                        <td>Position Access</td>
+                        <td>iloc</td>
+                        <td>Access by integer position</td>
+                    </tr>
+                    <tr>
+                        <td>Label Access</td>
+                        <td>loc</td>
+                        <td>Access by label names</td>
+                    </tr>
+                    <tr>
+                        <td>Missing Value</td>
+                        <td>NaN</td>
+                        <td>Not a Number</td>
+                    </tr>
+                    <tr>
+                        <td>Remove Missing</td>
+                        <td>dropna()</td>
+                        <td>Delete rows with NaN</td>
+                    </tr>
+                    <tr>
+                        <td>Fill Missing</td>
+                        <td>fillna()</td>
+                        <td>Replace NaN with a value</td>
+                    </tr>
+                    <tr>
+                        <td>Load Data</td>
+                        <td>read_csv()</td>
+                        <td>Import CSV into DataFrame</td>
+                    </tr>
+                    <tr>
+                        <td>Save Data</td>
+                        <td>to_csv()</td>
+                        <td>Export DataFrame to CSV</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Practice Exercise:</h3>
+            <div class="example">
+                <p>Try this mini-project with any CSV dataset:</p>
+                <pre><code>import pandas as pd
+
+# 1. Load a CSV file
+df = pd.read_csv('your_data.csv')
+
+# 2. Explore
+print("Shape:", df.shape)
+print("\nInfo:")
+df.info()
+print("\nFirst rows:")
+print(df.head())
+print("\nStatistics:")
+print(df.describe())
+
+# 3. Check for missing values
+print("\nMissing values:")
+print(df.isnull().sum())
+
+# 4. Basic analysis
+# - Filter rows based on a condition
+# - Calculate group averages using groupby
+
+# 5. Save your clean data
+df.to_csv('clean_data.csv', index=False)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><a href="index.html">&larr; Back to Course Overview</a></p>
+        <p>Data Science &amp; AI Course - Week 2, Session 3</p>
+    </footer>
+</body>
+</html>

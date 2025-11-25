@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="Arabic">
+    <meta name="direction" content="rtl">
+    <title>أساسيات Pandas - الأسبوع الثاني الجلسة الثالثة</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="pandas_session3_week2.html" class="lang-button" title="Switch to English">English</a>
+    </div>
+
+    <header>
+        <h1>أساسيات Pandas</h1>
+        <p class="subtitle">الأسبوع الثاني، الجلسة الثالثة: العمل مع البيانات الجدولية</p>
+    </header>
+
+    <nav class="table-of-contents no-print">
+        <h2>المحتويات</h2>
+        <ul>
+            <li><a href="#overview">أهداف التعلم</a></li>
+            <li><a href="#intro">مقدمة: ما هي Pandas؟</a></li>
+            <li><a href="#dataframes">١. إطارات البيانات: قلب Pandas</a></li>
+            <li><a href="#series">٢. السلسلة مقابل إطار البيانات</a></li>
+            <li><a href="#info-describe">٣. فهم البيانات: ()info مقابل ()describe</a></li>
+            <li><a href="#iloc-loc">٤. الوصول للبيانات: iloc مقابل loc</a></li>
+            <li><a href="#adding-data">٥. إضافة بيانات جديدة</a></li>
+            <li><a href="#csv">٦. العمل مع ملفات CSV</a></li>
+            <li><a href="#missing-data">٧. معالجة البيانات المفقودة (NaN)</a></li>
+            <li><a href="#filtering">٨. التصفية والتحليل الأساسي</a></li>
+            <li><a href="#pipeline">٩. Pandas في خط أنابيب علم البيانات</a></li>
+            <li><a href="#groupby">١٠. GroupBy: تجميع البيانات حسب المجموعات</a></li>
+            <li><a href="#nql">١١. لغة الاستعلام الطبيعية (NQL)</a></li>
+            <li><a href="#local-llm">١٢. نماذج الذكاء الاصطناعي المحلية لخصوصية البيانات</a></li>
+            <li><a href="#llm-prompting">١٣. استخدام مصطلحات Pandas مع نماذج الذكاء الاصطناعي</a></li>
+            <li><a href="#summary">الملخص والتمارين</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="overview" class="learning-objectives">
+            <h2>أهداف التعلم</h2>
+            <p>بنهاية هذه الجلسة، سيكون الطلاب قادرين على:</p>
+            <ul>
+                <li>فهم إطار البيانات كجدول ثنائي الأبعاد مُسمى (صفوف وأعمدة)</li>
+                <li>إنشاء إطارات البيانات من القواميس ومصادر أخرى</li>
+                <li>التمييز بين ()info (الهيكل) و ()describe (الإحصائيات)</li>
+                <li>الوصول للبيانات باستخدام iloc (الموقع) و loc (التسميات)</li>
+                <li>معالجة البيانات المفقودة (NaN) باستخدام ()dropna و ()fillna</li>
+                <li>حفظ وتحميل البيانات باستخدام ملفات CSV</li>
+                <li>إجراء التصفية والتحليل الأساسي</li>
+                <li>استخدام المصطلحات الصحيحة عند التعامل مع نماذج الذكاء الاصطناعي</li>
+            </ul>
+        </section>
+
+        <!-- Introduction -->
+        <section id="intro" class="content-section">
+            <h2>مقدمة: ما هي Pandas؟</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>Pandas</em> هي مكتبة بايثون للعمل مع البيانات الجدولية (البيانات في صفوف وأعمدة). الاسم مشتق من "Panel Data" - مصطلح من الاقتصاد القياسي. Pandas تسهل تحميل البيانات ومعالجتها وتحليلها.</p>
+            </div>
+
+            <div class="key-message">
+                <p><strong>الرسالة الأساسية:</strong> Pandas هي أساس علم البيانات في بايثون. كما تعلمت استخدام المتغيرات والقوائم في بايثون، ستستخدم إطارات البيانات في Pandas. هذه هي الطريقة التي يعمل بها علماء البيانات مع البيانات الحقيقية.</p>
+            </div>
+
+            <!-- Pipeline Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/pandas_pipeline_ar.svg" alt="دور Pandas في خط أنابيب علم البيانات: من البيانات الخام عبر التحميل والتنظيف والتحليل إلى التصور" class="content-image">
+                <figcaption>Pandas ضرورية في الخطوتين 2 و 3: تحميل وتنظيف البيانات</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>لماذا نتعلم Pandas؟</h3>
+                <ul>
+                    <li><strong>المعيار الصناعي:</strong> يستخدمها علماء البيانات حول العالم</li>
+                    <li><strong>تحضير البيانات:</strong> 80% من عمل علم البيانات هو تحضير البيانات</li>
+                    <li><strong>أداة البوابة:</strong> الخطوة الأولى قبل تعلم الآلة</li>
+                    <li><strong>تتكامل مع كل شيء:</strong> تعمل مع NumPy و Matplotlib و Scikit-learn</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>مثال الكود: البدء مع Pandas</h3>
+                <pre dir="ltr" align="left"><code dir="ltr"># استيراد pandas (الاصطلاح: استخدم 'pd' كاختصار)
+import pandas as pd
+
+# التحقق من الإصدار
+print(pd.__version__)
+
+# أنت جاهز لإنشاء إطارات البيانات!</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 1: DataFrames -->
+        <section id="dataframes" class="content-section">
+            <h2>١. إطارات البيانات: قلب Pandas</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>إطار البيانات (DataFrame)</em> هو هيكل بيانات ثنائي الأبعاد مُسمى مع أعمدة من أنواع مختلفة محتملة. فكر فيه كجدول بيانات Excel أو جدول SQL في بايثون.</p>
+            </div>
+
+            <h3>من جدول Excel إلى إطار البيانات</h3>
+            <p>إذا استخدمت Excel من قبل، فأنت تفهم المفهوم الأساسي بالفعل. إطار البيانات مشابه ولكنه أقوى:</p>
+
+            <!-- DataFrame Anatomy Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/dataframe_anatomy.svg" alt="مقارنة جنباً إلى جنب بين جدول Excel وإطار بيانات Pandas تُظهر الفهرس والأعمدة والقيم" class="content-image">
+                <figcaption>ربط مفاهيم الجداول المألوفة بمصطلحات إطار البيانات</figcaption>
+            </figure>
+
+            <div class="key-pattern">
+                <h3>المصطلحات الأساسية:</h3>
+                <ul>
+                    <li><strong>الفهرس (Index):</strong> تسميات الصفوف (0، 1، 2... افتراضياً) - مثل أرقام الصفوف في Excel</li>
+                    <li><strong>الأعمدة (Columns):</strong> رؤوس مسماة (الاسم، العمر، الدرجة...) - مثل رؤوس الأعمدة في Excel</li>
+                    <li><strong>القيم (Values):</strong> البيانات الفعلية في الخلايا</li>
+                    <li><strong>نوع البيانات (dtype):</strong> نوع بيانات كل عمود (int64, float64, object)</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>مثال الكود: إنشاء إطار بيانات</h3>
+                <pre dir="ltr" align="left"><code dir="ltr">import pandas as pd
+
+# إنشاء إطار بيانات من قاموس
+data = {
+    'Name': ['أحمد', 'سارة', 'علي', 'نورة'],
+    'Age': [20, 22, 21, 20],
+    'Grade': [85, 92, 78, 95],
+    'City': ['الرياض', 'جدة', 'الدمام', 'مكة']
+}
+
+df = pd.DataFrame(data)
+print(df)
+
+# المخرجات:
+#     Name  Age  Grade    City
+# 0   أحمد   20     85  الرياض
+# 1   سارة   22     92    جدة
+# 2    علي   21     78  الدمام
+# 3   نورة   20     95    مكة</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>مهم:</strong> لاحظ أن الفهرس يبدأ من 0، وليس 1 مثل أرقام صفوف Excel. هذا فرق أساسي!</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Series vs DataFrame -->
+        <section id="series" class="content-section">
+            <h2>٢. السلسلة مقابل إطار البيانات</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>السلسلة (Series)</em> هي مصفوفة مُسماة أحادية البعد. إنها مثل عمود واحد من إطار البيانات، أو قائمة بايثون مع تسميات (فهرس).</p>
+            </div>
+
+            <!-- Series vs DataFrame Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/series_vs_dataframe_ar.svg" alt="مقارنة بصرية للسلسلة أحادية البعد (عمود واحد) مقابل إطار البيانات ثنائي البعد (أعمدة متعددة)" class="content-image">
+                <figcaption>السلسلة أحادية البعد (عمود واحد)، إطار البيانات ثنائي البعد (أعمدة متعددة)</figcaption>
+            </figure>
+
+            <div class="key-pattern">
+                <h3>فكرة أساسية:</h3>
+                <p>كل عمود في إطار البيانات هو سلسلة. إطار البيانات = مجموعة سلاسل بفهرس مشترك.</p>
+            </div>
+
+            <div class="example">
+                <h3>مثال الكود: السلسلة مقابل إطار البيانات</h3>
+                <pre dir="ltr" align="left"><code dir="ltr">import pandas as pd
+
+# إنشاء إطار بيانات
+df = pd.DataFrame({
+    'Name': ['أحمد', 'سارة', 'علي', 'نورة'],
+    'Age': [20, 22, 21, 20],
+    'Grade': [85, 92, 78, 95]
+})
+
+# استخراج عمود واحد = سلسلة
+names = df['Name']
+print(type(names))  # &lt;class 'pandas.core.series.Series'&gt;
+
+# استخراج أعمدة متعددة = إطار بيانات
+subset = df[['Name', 'Age']]
+print(type(subset))  # &lt;class 'pandas.core.frame.DataFrame'&gt;
+
+# إنشاء سلسلة مباشرة
+ages = pd.Series([20, 22, 21, 20], name='Age')
+print(ages)</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>تذكر:</strong> الأقواس المفردة <code dir="ltr">df['Name']</code> تُرجع سلسلة. الأقواس المزدوجة <code dir="ltr">df[['Name']]</code> تُرجع إطار بيانات بعمود واحد.</p>
+            </div>
+        </section>
+
+        <!-- Section 3: info() vs describe() -->
+        <section id="info-describe" class="content-section">
+            <h2>٣. فهم البيانات: ()info مقابل ()describe</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> هاتان طريقتان أساسيتان لاستكشاف بياناتك:</p>
+                <ul>
+                    <li><code dir="ltr">info()</code> - تُظهر الهيكل (أنواع البيانات، القيم المفقودة)</li>
+                    <li><code dir="ltr">describe()</code> - تُظهر الإحصائيات (العدد، المتوسط، الانحراف المعياري، الحد الأدنى، الحد الأقصى)</li>
+                </ul>
+            </div>
+
+            <!-- info vs describe Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/info_vs_describe.svg" alt="مقارنة جنباً إلى جنب لـ info() التي تُظهر الهيكل و describe() التي تُظهر الإحصائيات" class="content-image">
+                <figcaption>()info تخبرك ما نوع البيانات لديك؛ ()describe تخبرك كيف تبدو أرقامك</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>مثال الكود: استكشاف بياناتك</h3>
+                <pre dir="ltr" align="left"><code dir="ltr">import pandas as pd
+
+df = pd.DataFrame({
+    'Name': ['أحمد', 'سارة', 'علي', 'نورة'],
+    'Age': [20, 22, 21, 20],
+    'Grade': [85.0, 92.0, None, 95.0],  # ملاحظة: None = قيمة مفقودة
+    'City': ['الرياض', 'جدة', 'الدمام', 'مكة']
+})
+
+# info() - معلومات الهيكل
+df.info()
+# تُظهر: أسماء الأعمدة، عدد القيم غير الفارغة، أنواع البيانات
+
+# describe() - ملخص إحصائي
+df.describe()
+# تُظهر: العدد، المتوسط، الانحراف المعياري، الحد الأدنى، 25%، 50%، 75%، الحد الأقصى
+# ملاحظة: فقط للأعمدة الرقمية!</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>متى تستخدم أيهما:</h3>
+                <ul>
+                    <li><code dir="ltr">info()</code> - أول شيء تنفذه على بيانات جديدة. تجيب: "هل لدي بيانات مفقودة؟ ما هي أنواع البيانات؟"</li>
+                    <li><code dir="ltr">describe()</code> - للتحليل الرقمي. تجيب: "ما المتوسط؟ ما النطاق؟"</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 4: iloc vs loc -->
+        <section id="iloc-loc" class="content-section">
+            <h2>٤. الوصول للبيانات: iloc مقابل loc</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> توفر Pandas طريقتين للوصول للبيانات:</p>
+                <ul>
+                    <li><code dir="ltr">iloc</code> - <strong>i</strong>nteger <strong>loc</strong>ation - يستخدم أرقام المواقع (0، 1، 2...)</li>
+                    <li><code dir="ltr">loc</code> - <strong>l</strong>abel <strong>loc</strong>ation - يستخدم التسميات (أسماء الصفوف/الأعمدة)</li>
+                </ul>
+            </div>
+
+            <!-- iloc vs loc Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/iloc_vs_loc_ar.svg" alt="شبكتان للبيانات تُظهران iloc باستخدام أرقام المواقع مقابل loc باستخدام أسماء التسميات" class="content-image">
+                <figcaption>iloc يستخدم مواقع الأعداد الصحيحة؛ loc يستخدم التسميات. نفس البيانات، طرق وصول مختلفة.</figcaption>
+            </figure>
+
+            <div class="key-pattern">
+                <h3>حيلة للتذكر:</h3>
+                <ul>
+                    <li><code dir="ltr">iloc</code> = "i" للأعداد الصحيحة (Integer)</li>
+                    <li><code dir="ltr">loc</code> = "L" للتسميات (Labels)</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>مثال الكود: iloc مقابل loc</h3>
+                <pre dir="ltr" align="left"><code dir="ltr">import pandas as pd
+
+df = pd.DataFrame({
+    'Name': ['أحمد', 'سارة', 'علي', 'نورة'],
+    'Age': [20, 22, 21, 20],
+    'Grade': [85, 92, 78, 95]
+})
+
+# iloc - بالموقع (أرقام)
+df.iloc[0]           # الصف الأول (موقع 0)
+df.iloc[1, 0]        # صف 1، عمود 0 = "سارة"
+df.iloc[0:2]         # أول صفين (مواقع 0-1)
+df.iloc[:, 0:2]      # كل الصفوف، أول عمودين
+
+# loc - بالتسمية (أسماء)
+df.loc[0]            # الصف بتسمية 0
+df.loc[1, 'Name']    # تسمية 1، عمود 'Name' = "سارة"
+df.loc[:, 'Age']     # كل الصفوف، عمود 'Age'
+df.loc[0:2, 'Name':'Age']  # تسميات 0-2، أعمدة Name إلى Age
+
+# الفرق الأساسي: iloc يستثني النهاية، loc يشملها!
+df.iloc[0:2]  # صفوف 0، 1 (يستثني 2)
+df.loc[0:2]   # صفوف 0، 1، 2 (يشمل 2)</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>مهم:</strong> تقطيع <code dir="ltr">iloc</code> يستثني النهاية (مثل قوائم بايثون)، لكن تقطيع <code dir="ltr">loc</code> يشمل النهاية (لأن التسميات ليس لها قيمة "تالية" طبيعية).</p>
+            </div>
+        </section>
+
+        <!-- Section 5: Adding New Data -->
+        <section id="adding-data" class="content-section">
+            <h2>٥. إضافة بيانات جديدة</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> يمكنك توسيع إطار البيانات بإضافة أعمدة أو صفوف جديدة. الأعمدة تُضاف بالتعيين؛ الصفوف تُضاف باستخدام <code dir="ltr">loc</code> أو <code dir="ltr">concat()</code>.</p>
+            </div>
+
+            <div class="example">
+                <h3>مثال الكود: إضافة أعمدة وصفوف</h3>
+                <pre dir="ltr" align="left"><code dir="ltr">import pandas as pd
+
+df = pd.DataFrame({
+    'Name': ['أحمد', 'سارة', 'علي'],
+    'Age': [20, 22, 21],
+    'Grade': [85, 92, 78]
+})
+
+# إضافة عمود جديد
+df['Passed'] = df['Grade'] >= 60  # عمود منطقي
+df['Grade_Letter'] = ['B', 'A', 'C']  # من قائمة
+
+# إضافة صف جديد باستخدام loc
+df.loc[3] = ['نورة', 20, 95, True, 'A']
+
+# إضافة صفوف متعددة باستخدام concat
+new_rows = pd.DataFrame({
+    'Name': ['خالد', 'فاطمة'],
+    'Age': [23, 21],
+    'Grade': [88, 91],
+    'Passed': [True, True],
+    'Grade_Letter': ['B', 'A']
+})
+df = pd.concat([df, new_rows], ignore_index=True)
+
+print(df)</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>الأنماط الأساسية:</h3>
+                <ul>
+                    <li><strong>عمود جديد:</strong> <code dir="ltr">df['new_col'] = values</code></li>
+                    <li><strong>صف جديد:</strong> <code dir="ltr">df.loc[index] = values</code></li>
+                    <li><strong>صفوف متعددة:</strong> <code dir="ltr">pd.concat([df1, df2], ignore_index=True)</code></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 6: CSV Files -->
+        <section id="csv" class="content-section">
+            <h2>٦. العمل مع ملفات CSV</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>CSV (قيم مفصولة بفواصل)</em> هو أكثر تنسيق شيوعاً لمشاركة البيانات الجدولية. إنه ملف نصي عادي حيث كل سطر هو صف والقيم مفصولة بفواصل.</p>
+            </div>
+
+            <!-- CSV Read/Write Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/csv_read_write_ar.svg" alt="سير العمل يُظهر قراءة ملف CSV إلى إطار بيانات وحفظ إطار البيانات إلى CSV" class="content-image">
+                <figcaption>()read_csv تحمّل البيانات إلى بايثون؛ ()to_csv تحفظها إلى ملف</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>مثال الكود: قراءة وكتابة CSV</h3>
+                <pre dir="ltr" align="left"><code dir="ltr">import pandas as pd
+
+# قراءة ملف CSV
+df = pd.read_csv('students.csv')
+
+# المعاملات الشائعة:
+df = pd.read_csv('students.csv',
+                 encoding='utf-8',      # ترميز الحروف
+                 sep=',',               # الفاصل (الفاصلة افتراضياً)
+                 header=0,              # الصف المستخدم كرأس
+                 index_col=None)        # العمود المستخدم كفهرس
+
+# إلقاء نظرة أولى على بياناتك
+print(df.head())    # أول 5 صفوف
+print(df.tail())    # آخر 5 صفوف
+print(df.shape)     # (صفوف، أعمدة)
+
+# الحفظ إلى CSV
+df.to_csv('output.csv', index=False)  # index=False يمنع العمود الإضافي
+
+# لماذا index=False؟
+# بدونها تحصل على: ,Name,Age,Grade (عمود إضافي)
+# معها تحصل على: Name,Age,Grade (نظيف)</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>نصيحة:</strong> استخدم دائماً <code dir="ltr">index=False</code> عند حفظ CSV إلا إذا كنت تحتاج الفهرس كعمود تحديداً.</p>
+            </div>
+        </section>
+
+        <!-- Section 7: Missing Data -->
+        <section id="missing-data" class="content-section">
+            <h2>٧. معالجة البيانات المفقودة (NaN)</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>NaN (ليس رقماً)</em> هي طريقة Pandas لتمثيل القيم المفقودة. البيانات الحقيقية غالباً بها فجوات - استطلاعات لم تُكمل، أجهزة استشعار فشلت، إلخ.</p>
+            </div>
+
+            <!-- Missing Data Strategies Diagram -->
+            <figure class="diagram-container">
+                <img src="images/diagrams/missing_data_strategies_ar.svg" alt="مخطط انسيابي يُظهر ثلاث استراتيجيات للتعامل مع NaN: الحذف مع dropna، الملء مع fillna، أو الملء الذكي بالمتوسط" class="content-image">
+                <figcaption>ثلاث استراتيجيات للتعامل مع البيانات المفقودة: الحذف، الملء، أو الملء الذكي</figcaption>
+            </figure>
+
+            <div class="example">
+                <h3>مثال الكود: اكتشاف ومعالجة NaN</h3>
+                <pre dir="ltr" align="left"><code dir="ltr">import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({
+    'Name': ['أحمد', 'سارة', 'علي', 'نورة'],
+    'Age': [20, np.nan, 21, 20],
+    'Grade': [85, 92, np.nan, 95],
+    'City': ['الرياض', 'جدة', 'الدمام', np.nan]
+})
+
+# اكتشاف القيم المفقودة
+print(df.isnull())       # True حيث يوجد NaN
+print(df.isnull().sum()) # عدد NaN لكل عمود
+
+# الاستراتيجية 1: حذف الصفوف مع NaN
+df_clean = df.dropna()   # يحتفظ فقط بالصفوف الكاملة
+
+# الاستراتيجية 2: الملء بقيمة محددة
+df['Age'].fillna(0, inplace=True)
+df['City'].fillna('غير معروف', inplace=True)
+
+# الاستراتيجية 3: الملء بالمتوسط (للأعمدة الرقمية)
+mean_grade = df['Grade'].mean()
+df['Grade'].fillna(mean_grade, inplace=True)
+
+# أو في سطر واحد:
+df['Grade'] = df['Grade'].fillna(df['Grade'].mean())</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>أي استراتيجية تستخدم:</h3>
+                <ul>
+                    <li><strong>()dropna:</strong> عندما يكون لديك الكثير من البيانات وقليل من القيم المفقودة</li>
+                    <li><strong>fillna(value):</strong> عندما يكون لديك قيمة افتراضية منطقية</li>
+                    <li><strong>fillna(mean()):</strong> عندما تريد الحفاظ على الخصائص الإحصائية</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 8: Filtering -->
+        <section id="filtering" class="content-section">
+            <h2>٨. التصفية والتحليل الأساسي</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>الفهرسة المنطقية (Boolean Indexing)</em> هي اختيار الصفوف بناءً على شروط. تُنشئ قناع صح/خطأ وتستخدمه لتصفية إطار البيانات.</p>
+            </div>
+
+            <div class="example">
+                <h3>مثال الكود: تصفية البيانات</h3>
+                <pre dir="ltr" align="left"><code dir="ltr">import pandas as pd
+
+df = pd.DataFrame({
+    'Name': ['أحمد', 'سارة', 'علي', 'نورة', 'خالد'],
+    'Age': [20, 22, 21, 20, 23],
+    'Grade': [85, 92, 78, 95, 88],
+    'City': ['الرياض', 'جدة', 'الدمام', 'مكة', 'الرياض']
+})
+
+# تصفية بسيطة: الطلاب بدرجة أعلى من 85
+high_achievers = df[df['Grade'] > 85]
+
+# شروط متعددة: استخدم & (و)، | (أو)
+riyadh_high = df[(df['City'] == 'الرياض') & (df['Grade'] > 80)]
+
+# استخدام isin() لقيم متعددة
+main_cities = df[df['City'].isin(['الرياض', 'جدة'])]
+
+# دوال النصوص
+names_with_a = df[df['Name'].str.startswith('أ')]
+
+# إحصائيات ملخصة حسب المجموعة
+avg_by_city = df.groupby('City')['Grade'].mean()
+
+# تجميعات متعددة
+summary = df.groupby('City').agg({
+    'Grade': ['mean', 'max'],
+    'Age': 'mean'
+})</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>العمليات الأساسية:</h3>
+                <ul>
+                    <li><code dir="ltr">df[condition]</code> - تصفية الصفوف</li>
+                    <li><code dir="ltr">&amp;</code> (و)، <code dir="ltr">|</code> (أو) - دمج الشروط</li>
+                    <li><code dir="ltr">groupby()</code> - تجميع البيانات للتجميع</li>
+                    <li><code dir="ltr">agg()</code> - تطبيق دوال متعددة</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 9: Pipeline -->
+        <section id="pipeline" class="content-section">
+            <h2>٩. Pandas في خط أنابيب علم البيانات</h2>
+
+            <div class="key-message">
+                <p><strong>الرسالة الأساسية:</strong> Pandas ليست أداة معزولة - إنها المحور المركزي الذي يربط البيانات الخام بالتحليل والتصور. فهم موقع Pandas يساعدك على فهم سير عمل علم البيانات بالكامل.</p>
+            </div>
+
+            <div class="example">
+                <h3>سير عمل علم البيانات النموذجي:</h3>
+                <ol>
+                    <li><strong>التحميل:</strong> <code dir="ltr">()pd.read_csv</code> - إدخال البيانات إلى بايثون</li>
+                    <li><strong>الاستكشاف:</strong> <code dir="ltr">()df.info(), df.describe(), df.head</code> - فهم ما لديك</li>
+                    <li><strong>التنظيف:</strong> <code dir="ltr">()dropna(), fillna(), astype</code> - إصلاح المشاكل</li>
+                    <li><strong>التحويل:</strong> <code dir="ltr">()groupby(), merge(), apply</code> - إعادة تشكيل البيانات</li>
+                    <li><strong>التحليل:</strong> تمرير إطار البيانات النظيف إلى NumPy، Scikit-learn</li>
+                    <li><strong>التصور:</strong> تمرير البيانات إلى Matplotlib، Seaborn</li>
+                </ol>
+            </div>
+
+            <div class="example">
+                <h3>مثال الكود: خط أنابيب مصغر كامل</h3>
+                <pre dir="ltr" align="left"><code dir="ltr">import pandas as pd
+
+# 1. التحميل
+df = pd.read_csv('raw_students.csv')
+
+# 2. الاستكشاف
+print(df.info())
+print(df.describe())
+
+# 3. التنظيف
+df = df.dropna()  # إزالة القيم المفقودة
+df['Age'] = df['Age'].astype(int)  # إصلاح نوع البيانات
+
+# 4. التحويل
+avg_grades = df.groupby('City')['Grade'].mean()
+
+# 5. جاهز للتحليل أو التصور!
+print(avg_grades)</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 10: GroupBy Concept -->
+        <section id="groupby" class="content-section">
+            <h2>١٠. GroupBy: تجميع البيانات حسب المجموعات</h2>
+
+            <div class="key-message">
+                <p><strong>المفهوم الأساسي:</strong> <code dir="ltr">()groupby</code> يتيح لك تقسيم بياناتك إلى مجموعات بناءً على قيمة عمود، ثم تطبيق حساب على كل مجموعة، ودمج النتائج. هذا يسمى نمط <em>تقسيم-تطبيق-دمج</em>.</p>
+            </div>
+
+            <figure class="diagram">
+                <img src="images/diagrams/groupby_concept.svg" alt="مفهوم GroupBy: تقسيم-تطبيق-دمج يوضح كيفية تجميع البيانات وحسابها">
+                <figcaption>نمط GroupBy: تقسيم-تطبيق-دمج: تقسيم البيانات حسب الفئة وحساب الإحصائيات لكل مجموعة</figcaption>
+            </figure>
+
+            <div class="terminology">
+                <h3>مصطلحات GroupBy</h3>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>المصطلح</th>
+                            <th>الوصف</th>
+                            <th>مثال</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code dir="ltr">groupby(column)</code></td>
+                            <td>يجمع الصفوف حسب القيم الفريدة في عمود</td>
+                            <td><code dir="ltr">df.groupby('City')</code></td>
+                        </tr>
+                        <tr>
+                            <td><code dir="ltr">.mean()</code></td>
+                            <td>حساب المتوسط لكل مجموعة</td>
+                            <td><code dir="ltr">df.groupby('City')['Grade'].mean()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code dir="ltr">.sum()</code></td>
+                            <td>حساب المجموع لكل مجموعة</td>
+                            <td><code dir="ltr">df.groupby('City')['Sales'].sum()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code dir="ltr">.count()</code></td>
+                            <td>عد العناصر في كل مجموعة</td>
+                            <td><code dir="ltr">df.groupby('City')['Name'].count()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code dir="ltr">.min()</code> / <code dir="ltr">.max()</code></td>
+                            <td>إيجاد الحد الأدنى/الأقصى في كل مجموعة</td>
+                            <td><code dir="ltr">df.groupby('City')['Grade'].max()</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="example">
+                <h3>مثال الكود: عمليات GroupBy</h3>
+                <pre dir="ltr" align="left"><code dir="ltr"># تجميع بسيط - متوسط الدرجة لكل مدينة
+avg_by_city = df.groupby('City')['Grade'].mean()
+print(avg_by_city)
+
+# تجميعات متعددة في وقت واحد
+summary = df.groupby('City')['Grade'].agg(['mean', 'min', 'max', 'count'])
+print(summary)
+
+# التجميع حسب أعمدة متعددة
+multi_group = df.groupby(['City', 'Gender'])['Grade'].mean()
+print(multi_group)</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>تذكر:</strong> نتيجة <code dir="ltr">groupby()</code> + التجميع لها <em>صف واحد لكل قيمة مجموعة فريدة</em>. إذا قمت بالتجميع حسب المدينة ولديك 3 مدن فريدة، ستكون نتيجتك 3 صفوف.</p>
+            </div>
+        </section>
+
+        <!-- Section 11: Natural Query Language (NQL) -->
+        <section id="nql" class="content-section">
+            <h2>١١. لغة الاستعلام الطبيعية (NQL) إلى Pandas</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>لغة الاستعلام الطبيعية (NQL)</em> هي نموذج يصف فيه المستخدمون احتياجاتهم لمعالجة البيانات بلغة طبيعية، ثم يترجم نموذج اللغة الكبير (LLM) هذه الطلبات إلى كود قابل للتنفيذ. هذا يسد الفجوة بين نية الإنسان وعمليات pandas.</p>
+            </div>
+
+            <div class="key-message">
+                <p><strong>فكرة أساسية:</strong> عندما تتعلم صياغة أسئلة البيانات بوضوح، يمكن لنماذج الذكاء الاصطناعي توليد كود pandas دقيق. الأمثلة أدناه توضح كيفية ربط اللغة الطبيعية بعمليات pandas.</p>
+            </div>
+
+            <div class="example">
+                <h3>إطار البيانات النموذجي للأمثلة</h3>
+                <pre dir="ltr" align="left"><code dir="ltr">import pandas as pd
+
+# Create sample DataFrame
+df = pd.DataFrame({
+    'employee_id': [101, 102, 103, 104, 105, 106, 107, 108],
+    'name': ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank', 'Grace',
+          	'Henry'],
+    'department': ['Engineering', 'Sales', 'Engineering', 'HR', 'Sales',
+	        'Engineering', 'HR', 'Sales'],
+    'salary': [75000, 55000, 82000, 48000, 62000, 91000, 52000, 58000],
+    'years_experience': [5, 3, 7, 2, 4, 10, 3, 4],
+    'performance_score': [4.2, 3.8, 4.5, 4.0, 3.5, 4.8, 4.1, 3.9]
+})
+
+print(df)</code></pre>
+            </div>
+
+            <h3>تزويد نماذج الذكاء الاصطناعي بسياق إطار البيانات</h3>
+            <div class="key-pattern">
+                <p>قبل طلب كود pandas من نموذج الذكاء الاصطناعي، <strong>قدم هيكل إطار البيانات</strong>. هذا يساعد النموذج على فهم بياناتك دون رؤية القيم الفعلية:</p>
+            </div>
+
+            <div class="example">
+                <h4>الخيار ١: استخدام ()df.info</h4>
+                <pre dir="ltr" align="left"><code dir="ltr">df.info()
+
+# Output:
+# &lt;class 'pandas.core.frame.DataFrame'&gt;
+# RangeIndex: 8 entries, 0 to 7
+# Data columns (total 6 columns):
+#  #   Column             Non-Null Count  Dtype
+# ---  ------             --------------  -----
+#  0   employee_id        8 non-null      int64
+#  1   name               8 non-null      object
+#  2   department         8 non-null      object
+#  3   salary             8 non-null      int64
+#  4   years_experience   8 non-null      int64
+#  5   performance_score  8 non-null      float64</code></pre>
+            </div>
+
+            <div class="example">
+                <h4>الخيار ٢: استخدام df.dtypes (الحد الأدنى)</h4>
+                <pre dir="ltr" align="left"><code dir="ltr">print(df.dtypes)
+
+# Output:
+# employee_id            int64
+# name                  object
+# department            object
+# salary                 int64
+# years_experience       int64
+# performance_score    float64</code></pre>
+            </div>
+
+            <div class="example">
+                <h4>الخيار ٣: قائمة الأعمدة مع عينة (مراعٍ للخصوصية)</h4>
+                <pre dir="ltr" align="left"><code dir="ltr">print("Columns:", df.columns.tolist())
+print("Sample row:", df.iloc[0].to_dict())
+
+# Provides structure without exposing full dataset</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>أفضل ممارسة:</strong> عند التعامل مع نموذج ذكاء اصطناعي، ضمّن مخرجات <code dir="ltr">df.info()</code> في طلبك. مثال: <em>"بالنظر إلى هيكل إطار البيانات هذا: [الصق مخرجات info]، اكتب كوداً لحساب متوسط الراتب حسب القسم."</em></p>
+            </div>
+
+            <h3>مثال ١: التصفية البسيطة</h3>
+            <div class="example">
+                <p><strong>استعلام NQL:</strong> <em>"أرني جميع الموظفين الذين يعملون في قسم الهندسة"</em></p>
+                <pre dir="ltr" align="left"><code dir="ltr">result = df[df['department'] == 'Engineering']
+print(result)</code></pre>
+                <p><strong>الشرح:</strong> يحدد النموذج العمود المستهدف (<code dir="ltr">department</code>)، والشرط (يساوي <code dir="ltr">'Engineering'</code>)، ويستخدم الفهرسة المنطقية.</p>
+            </div>
+
+            <h3>مثال ٢: التجميع مع التصنيف</h3>
+            <div class="example">
+                <p><strong>استعلام NQL:</strong> <em>"ما هو متوسط الراتب لكل قسم؟"</em></p>
+                <pre dir="ltr" align="left"><code dir="ltr">result = df.groupby('department')['salary'].mean().reset_index()
+result.columns = ['department', 'average_salary']
+print(result)</code></pre>
+                <p><strong>الشرح:</strong> يربط النموذج "متوسط" بـ <code dir="ltr">mean()</code>، ويحدد مفتاح التصنيف (<code dir="ltr">department</code>)، والعمود المستهدف (<code dir="ltr">salary</code>).</p>
+            </div>
+
+            <h3>مثال ٣: الترتيب مع اختيار الأعمدة</h3>
+            <div class="example">
+                <p><strong>استعلام NQL:</strong> <em>"قائمة الموظفين مرتبة حسب درجة الأداء من الأعلى إلى الأدنى، وأظهر فقط أسماءهم ودرجاتهم"</em></p>
+                <pre dir="ltr" align="left"><code dir="ltr">result = df[['name', 'performance_score']].sort_values(
+    by='performance_score',
+    ascending=False
+)
+print(result)</code></pre>
+                <p><strong>الشرح:</strong> يستخرج النموذج اختيار الأعمدة، وعمود الترتيب، ويستنتج <code dir="ltr">ascending=False</code> من "من الأعلى إلى الأدنى".</p>
+            </div>
+
+            <h3>مثال ٤: التصفية المعقدة بشروط متعددة</h3>
+            <div class="example">
+                <p><strong>استعلام NQL:</strong> <em>"ابحث عن الموظفين الذين لديهم أكثر من 4 سنوات خبرة وراتب أعلى من 60000"</em></p>
+                <pre dir="ltr" align="left"><code dir="ltr">result = df[(df['years_experience'] > 4) & (df['salary'] > 60000)]
+print(result)</code></pre>
+                <p><strong>الشرح:</strong> يحلل النموذج "و" المنطقية إلى العامل <code dir="ltr">&</code>، مع وضع كل شرط بين أقواس.</p>
+            </div>
+
+            <h3>مثال ٥: إنشاء أعمدة مشتقة</h3>
+            <div class="example">
+                <p><strong>استعلام NQL:</strong> <em>"أضف عموداً جديداً يُظهر الراتب لكل سنة خبرة لكل موظف"</em></p>
+                <pre dir="ltr" align="left"><code dir="ltr">df['salary_per_year_exp'] = df['salary'] / df['years_experience']
+result = df[['name', 'salary', 'years_experience', 'salary_per_year_exp']]
+print(result.round(2))</code></pre>
+                <p><strong>الشرح:</strong> يُنشئ النموذج اسم عمود جديد من الوصف ويُجري حساب القسمة.</p>
+            </div>
+
+            <h3>مثال ٦: البيانات الوصفية المجهولة (مرجع فهرس العمود)</h3>
+            <div class="example">
+                <p><strong>السياق:</strong> للخصوصية، يمكنك إخفاء أسماء الأعمدة من النموذج والإشارة إليها بالموقع بدلاً من ذلك.</p>
+                <p><strong>استعلام NQL:</strong> <em>"احسب مجموع القيم في فهرس العمود 3"</em></p>
+                <pre dir="ltr" align="left"><code dir="ltr"># Using column index instead of column name
+target_column_index = 3
+result = df.iloc[:, target_column_index].sum()
+print(f"Sum of column at index {target_column_index}: {result}")</code></pre>
+                <p><strong>الشرح:</strong> <code dir="ltr">iloc[:, 3]</code> يختار جميع الصفوف والعمود الرابع (فهرس 3). يعمل النموذج دون معرفة اسم العمود الفعلي.</p>
+            </div>
+
+            <h3>مثال ٧: الملخص الإحصائي</h3>
+            <div class="example">
+                <p><strong>استعلام NQL:</strong> <em>"أعطني ملخصاً إحصائياً لعمود الراتب يتضمن العدد والمتوسط والحد الأدنى والحد الأقصى"</em></p>
+                <pre dir="ltr" align="left"><code dir="ltr">result = df['salary'].agg(['count', 'mean', 'min', 'max'])
+print(result)</code></pre>
+                <p><strong>الشرح:</strong> يربط النموذج مصطلحات الإحصاء باللغة الطبيعية مباشرة بطرق التجميع في pandas.</p>
+            </div>
+
+            <div class="key-pattern">
+                <h3>مرجع أنماط NQL</h3>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>نمط NQL</th>
+                            <th>عملية Pandas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>"أرني جميع X حيث Y"</td>
+                            <td><code dir="ltr">df[df['column'] == value]</code></td>
+                        </tr>
+                        <tr>
+                            <td>"متوسط/مجموع/عدد X حسب Y"</td>
+                            <td><code dir="ltr">df.groupby('Y')['X'].agg()</code></td>
+                        </tr>
+                        <tr>
+                            <td>"رتب حسب X"</td>
+                            <td><code dir="ltr">df.sort_values(by='X')</code></td>
+                        </tr>
+                        <tr>
+                            <td>"X و Y"</td>
+                            <td><code dir="ltr">(condition1) & (condition2)</code></td>
+                        </tr>
+                        <tr>
+                            <td>"X أو Y"</td>
+                            <td><code dir="ltr">(condition1) | (condition2)</code></td>
+                        </tr>
+                        <tr>
+                            <td>"أضف عموداً"</td>
+                            <td><code dir="ltr">df['new'] = calculation</code></td>
+                        </tr>
+                        <tr>
+                            <td>"فهرس العمود N"</td>
+                            <td><code dir="ltr">df.iloc[:, N]</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="key-message">
+                <p><strong>أفضل الممارسات لـ NQL:</strong></p>
+                <ul>
+                    <li><strong>كن محدداً:</strong> "متوسط الراتب" أوضح من "معلومات الراتب"</li>
+                    <li><strong>استخدم العوامل الصريحة:</strong> "و" و "أو" تساعد النموذج على فهم المنطق</li>
+                    <li><strong>اذكر أسماء الأعمدة:</strong> عندما لا تكون الخصوصية مصدر قلق، استخدم الأسماء الفعلية</li>
+                    <li><strong>استخدم الفهارس للخصوصية:</strong> عندما يجب إخفاء البيانات الوصفية، أشر بالموقع</li>
+                    <li><strong>حدد تنسيق الإخراج:</strong> "أظهر فقط الاسم والراتب" يوجه اختيار الأعمدة</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 12: Local LLMs for Data Privacy -->
+        <section id="local-llm" class="content-section">
+            <h2>١٢. نماذج الذكاء الاصطناعي المحلية لـ Pandas وخصوصية البيانات</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <em>النماذج المحلية (Local LLMs)</em> هي نماذج لغوية تعمل بالكامل على جهازك الخاص. بياناتك لا تغادر حاسوبك أبداً — وهذا أمر حاسم للبيانات الحساسة والتحليلات الخاصة ومتطلبات الامتثال.</p>
+            </div>
+
+            <div class="key-message">
+                <p><strong>لماذا تشغيل النماذج محلياً؟</strong> عند العمل مع بيانات سرية (سجلات مالية، بيانات طبية، معلومات شخصية)، قد يُخالف إرسال البيانات إلى واجهات برمجة التطبيقات السحابية سياسات الخصوصية. النماذج المحلية تحتفظ بكل شيء على جهازك.</p>
+            </div>
+
+            <h3>مقارنة النماذج لعمل Pandas</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>النموذج</th>
+                        <th>الحجم</th>
+                        <th>الأفضل لـ</th>
+                        <th>العتاد المطلوب</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Qwen2.5-Coder:7b</strong></td>
+                        <td>6.3 GB</td>
+                        <td>كود Pandas، معالجة البيانات</td>
+                        <td>8-16 GB VRAM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DeepSeek-Coder-V2:16b</strong></td>
+                        <td>~14 GB</td>
+                        <td>التحليل المعقد، السياق الطويل (128K)</td>
+                        <td>16-24 GB VRAM</td>
+                    </tr>
+                    <tr>
+                        <td>CodeLlama:7b</td>
+                        <td>~7 GB</td>
+                        <td>pandas أساسي، دعم قديم</td>
+                        <td>8 GB VRAM</td>
+                    </tr>
+                    <tr>
+                        <td>Mistral:7b</td>
+                        <td>~7 GB</td>
+                        <td>أغراض عامة (غير محسن للبيانات)</td>
+                        <td>8 GB VRAM</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>الاختيار الأفضل: Qwen2.5-Coder:7b</h3>
+            <div class="example">
+                <ul>
+                    <li><strong>88.4% على HumanEval</strong> — يتفوق على العديد من النماذج الأكبر</li>
+                    <li>أفضل نسبة أداء إلى حجم</li>
+                    <li>مثالي لسير عمل pandas النموذجي (مقاطع كود قصيرة)</li>
+                </ul>
+                <pre dir="ltr" align="left"><code dir="ltr"># Install with Ollama
+ollama pull qwen2.5-coder:7b</code></pre>
+            </div>
+
+            <h3>الخيار الثاني: DeepSeek-Coder-V2:16b</h3>
+            <div class="example">
+                <ul>
+                    <li>نافذة سياق 128K لمجموعات البيانات الأكبر</li>
+                    <li>بنية MoE — فقط 2.4B معامل نشط أثناء الاستدلال</li>
+                    <li>الأفضل للتحليل المتعدد الملفات أو المعقد</li>
+                </ul>
+                <pre dir="ltr" align="left"><code dir="ltr"># Install with Ollama
+ollama pull deepseek-coder-v2:16b</code></pre>
+            </div>
+
+            <h3>التكامل مع PandasAI</h3>
+            <div class="example">
+                <p>كلا النموذجين يعملان بسلاسة مع PandasAI للاستعلامات بلغة طبيعية على إطارات البيانات — كل شيء يُعالج محلياً:</p>
+                <pre dir="ltr" align="left"><code dir="ltr">from pandasai import SmartDataframe
+from pandasai.llm.local_llm import LocalLLM
+
+# Connect to local Ollama instance
+llm = LocalLLM(api_base="http://localhost:11434/v1", model="qwen2.5-coder:7b")
+
+# Create smart dataframe
+df = SmartDataframe(your_dataframe, config={"llm": llm})
+
+# Query in natural language - processed locally!
+df.chat("What's the average sales by region?")</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>ملخص التوصيات</h3>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>حالة الاستخدام</th>
+                            <th>النموذج الموصى به</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>الأفضل عموماً لـ pandas</strong></td>
+                            <td>Qwen2.5-Coder:7b</td>
+                        </tr>
+                        <tr>
+                            <td><strong>المعقد/السياق الكبير</strong></td>
+                            <td>DeepSeek-Coder-V2:16b</td>
+                        </tr>
+                        <tr>
+                            <td><strong>تجنب لعمل pandas</strong></td>
+                            <td>Mistral:7b, CodeLlama:7b</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 13: LLM Prompting -->
+        <section id="llm-prompting" class="content-section">
+            <h2>١٣. استخدام مصطلحات Pandas مع نماذج الذكاء الاصطناعي</h2>
+
+            <div class="key-message">
+                <p><strong>الربط بالجلسة الثانية:</strong> في التطوير بمساعدة الذكاء الاصطناعي، تعلمنا أن <em>المصطلحات الصحيحة</em> ضرورية للتعامل الفعال. مصطلحات Pandas التي تعلمتها اليوم هي بالضبط المفردات التي تفهمها نماذج الذكاء الاصطناعي!</p>
+            </div>
+
+            <div class="example">
+                <h3>أسئلة جيدة مقابل سيئة:</h3>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>سؤال سيء (غامض)</th>
+                            <th>سؤال جيد (يستخدم المصطلحات)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>"كيف أحصل على أول 5 أسطر؟"</td>
+                            <td>"كيف أستخدم <code dir="ltr">df.head(5)</code> لعرض أول 5 صفوف من إطار البيانات؟"</td>
+                        </tr>
+                        <tr>
+                            <td>"كيف أرى ما في جدولي؟"</td>
+                            <td>"كيف أستخدم <code dir="ltr">df.info()</code> للتحقق من أنواع البيانات والقيم المفقودة؟"</td>
+                        </tr>
+                        <tr>
+                            <td>"أحصل على الصف الثاني"</td>
+                            <td>"كيف أستخدم <code dir="ltr">df.iloc[1]</code> للوصول للصف في الموقع 1؟"</td>
+                        </tr>
+                        <tr>
+                            <td>"احذف الخلايا الفارغة"</td>
+                            <td>"كيف أستخدم <code dir="ltr">df.dropna()</code> لإزالة الصفوف ذات قيم NaN؟"</td>
+                        </tr>
+                        <tr>
+                            <td>"احصل على المتوسط حسب المجموعة"</td>
+                            <td>"كيف أستخدم <code dir="ltr">df.groupby('City')['Grade'].mean()</code> لحساب متوسط الدرجة لكل مدينة؟"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="key-pattern">
+                <h3>مرجع سريع لمصطلحات Pandas للأسئلة:</h3>
+                <ul>
+                    <li>قل "DataFrame" وليس "جدول" أو "ورقة بيانات"</li>
+                    <li>قل "Series" وليس "عمود" عند الإشارة للبيانات المستخرجة</li>
+                    <li>قل "Index" وليس "رقم الصف"</li>
+                    <li>قل "NaN" وليس "فارغ" أو "خالي"</li>
+                    <li>قل "iloc" للوصول بالموقع، "loc" للوصول بالتسمية</li>
+                    <li>قل "dropna/fillna" وليس "احذف/استبدل الفارغ"</li>
+                </ul>
+            </div>
+
+            <div class="key-message">
+                <p><strong>تذكر:</strong> المصطلحات التي تعلمتها في هذه الجلسة ليست أكاديمية فقط - إنها المفردات التي تفهمها نماذج الذكاء الاصطناعي. استخدام "DataFrame" بدلاً من "جدول"، و "iloc" بدلاً من "موقع"، و "NaN" بدلاً من "فارغ" سيحصل لك على مساعدة أفضل من الذكاء الاصطناعي.</p>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section id="summary" class="content-section">
+            <h2>الملخص والتمارين</h2>
+
+            <h3>المفاهيم الأساسية المغطاة:</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>المفهوم</th>
+                        <th>المصطلح</th>
+                        <th>الوصف</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>هيكل بيانات ثنائي البعد</td>
+                        <td>DataFrame</td>
+                        <td>صفوف وأعمدة مع تسميات</td>
+                    </tr>
+                    <tr>
+                        <td>هيكل بيانات أحادي البعد</td>
+                        <td>Series</td>
+                        <td>عمود واحد مع فهرس</td>
+                    </tr>
+                    <tr>
+                        <td>تسميات الصفوف</td>
+                        <td>Index</td>
+                        <td>تسميات لكل صف (0، 1، 2...)</td>
+                    </tr>
+                    <tr>
+                        <td>معلومات الهيكل</td>
+                        <td dir="ltr">info()</td>
+                        <td>أنواع البيانات، القيم المفقودة</td>
+                    </tr>
+                    <tr>
+                        <td>الإحصائيات</td>
+                        <td dir="ltr">describe()</td>
+                        <td>العدد، المتوسط، الانحراف المعياري، الحد الأدنى، الحد الأقصى</td>
+                    </tr>
+                    <tr>
+                        <td>الوصول بالموقع</td>
+                        <td>iloc</td>
+                        <td>الوصول بموقع العدد الصحيح</td>
+                    </tr>
+                    <tr>
+                        <td>الوصول بالتسمية</td>
+                        <td>loc</td>
+                        <td>الوصول بأسماء التسميات</td>
+                    </tr>
+                    <tr>
+                        <td>قيمة مفقودة</td>
+                        <td>NaN</td>
+                        <td>ليس رقماً</td>
+                    </tr>
+                    <tr>
+                        <td>إزالة المفقود</td>
+                        <td dir="ltr">dropna()</td>
+                        <td>حذف الصفوف مع NaN</td>
+                    </tr>
+                    <tr>
+                        <td>ملء المفقود</td>
+                        <td dir="ltr">fillna()</td>
+                        <td>استبدال NaN بقيمة</td>
+                    </tr>
+                    <tr>
+                        <td>تحميل البيانات</td>
+                        <td dir="ltr">read_csv()</td>
+                        <td>استيراد CSV إلى إطار بيانات</td>
+                    </tr>
+                    <tr>
+                        <td>حفظ البيانات</td>
+                        <td dir="ltr">to_csv()</td>
+                        <td>تصدير إطار البيانات إلى CSV</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>تمرين عملي:</h3>
+            <div class="example">
+                <p>جرب هذا المشروع المصغر مع أي مجموعة بيانات CSV:</p>
+                <pre dir="ltr" align="left"><code dir="ltr">import pandas as pd
+
+# 1. تحميل ملف CSV
+df = pd.read_csv('your_data.csv')
+
+# 2. الاستكشاف
+print("الشكل:", df.shape)
+print("\nالمعلومات:")
+df.info()
+print("\nالصفوف الأولى:")
+print(df.head())
+print("\nالإحصائيات:")
+print(df.describe())
+
+# 3. التحقق من القيم المفقودة
+print("\nالقيم المفقودة:")
+print(df.isnull().sum())
+
+# 4. التحليل الأساسي
+# - تصفية الصفوف بناءً على شرط
+# - حساب متوسطات المجموعات باستخدام groupby
+
+# 5. حفظ بياناتك النظيفة
+df.to_csv('clean_data.csv', index=False)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><a href="index_ar.html">&rarr; العودة لنظرة عامة على المقرر</a></p>
+        <p>مقرر علم البيانات والذكاء الاصطناعي - الأسبوع الثاني، الجلسة الثالثة</p>
+    </footer>
+</body>
+</html>

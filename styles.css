@@ -364,6 +364,95 @@ figcaption {
     font-size: 1.05em;
 }
 
+/* === TABLES === */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-md) 0;
+    background: white;
+    font-size: 0.95em;
+}
+
+table, th, td {
+    border: 1px solid var(--border-color);
+}
+
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+th {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+td {
+    background: white;
+}
+
+/* Alternating row colors */
+tbody tr:nth-child(even) td {
+    background: var(--light-gray);
+}
+
+/* Summary table specific styling */
+.summary-table {
+    border: 2px solid var(--secondary-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.summary-table th {
+    background: var(--secondary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.summary-table td {
+    min-width: 100px;
+    max-width: 350px;
+}
+
+.summary-table code {
+    background: #e3e3e3;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+/* RTL table support */
+[dir="rtl"] th,
+[dir="rtl"] td {
+    text-align: right;
+}
+
+[dir="rtl"] .summary-table {
+    direction: rtl;
+}
+
+/* Responsive tables */
+@media screen and (max-width: 768px) {
+    table {
+        font-size: 0.85em;
+    }
+
+    th, td {
+        padding: 0.5rem;
+    }
+
+    .summary-table td {
+        min-width: 80px;
+        max-width: 200px;
+    }
+}
+
 /* === FOOTER === */
 footer {
     margin-top: var(--spacing-xl);
@@ -1275,6 +1364,34 @@ a:hover {
     .example-image figcaption {
         background: white !important;
         border-top: 1pt solid #ccc;
+    }
+
+    /* === TABLES === */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        page-break-inside: avoid;
+        margin: 0.3cm 0;
+    }
+
+    table, th, td {
+        border: 1pt solid #000;
+    }
+
+    th, td {
+        padding: 0.2cm 0.3cm;
+        font-size: 9pt;
+        word-wrap: break-word;
+    }
+
+    th {
+        background: #e0e0e0 !important;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .summary-table {
+        border: 2pt solid #000;
     }
 
     /* === LISTS === */
