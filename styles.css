@@ -323,6 +323,17 @@ figcaption {
     font-size: 0.9em;
 }
 
+/* Content images - ensure diagrams fit within margins */
+.content-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem auto;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 .image-credit {
     display: block;
     font-size: 0.8em;
@@ -1071,6 +1082,12 @@ a:hover {
         margin: 1rem 0;
     }
 
+    /* Content images - Responsive */
+    .content-image {
+        max-width: 100%;
+        margin: 1rem auto;
+    }
+
     /* AI Examples Gallery - Responsive */
     .ai-examples-gallery {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1101,6 +1118,12 @@ a:hover {
 
 /* Additional breakpoint for very small screens */
 @media screen and (max-width: 480px) {
+    /* Content images - Very small screens */
+    .content-image {
+        max-width: 100%;
+        margin: 0.75rem auto;
+    }
+
     .venn-container {
         transform: scale(0.5);
     }
@@ -1330,6 +1353,16 @@ a:hover {
         color: #000;
         font-size: 9pt;
         margin-top: 0.2cm;
+    }
+
+    /* Content images - print */
+    .content-image {
+        max-width: 100%;
+        height: auto;
+        page-break-inside: avoid;
+        border: 1pt solid #000;
+        margin: 0.5cm auto;
+        box-shadow: none !important;
     }
 
     .image-credit {

@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Data & Parallel Processing - Week 3 Session 1</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="session1_week3_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <header>
+        <h1>Big Data Analysis with Parallel Data Processing</h1>
+        <p class="subtitle">Week 3, Session 1: Understanding How AI Systems Process Massive Datasets</p>
+    </header>
+
+    <nav class="table-of-contents no-print">
+        <h2>Contents</h2>
+        <ul>
+            <li><a href="#overview">Learning Objectives</a></li>
+            <li><a href="#motivation">The Big Warehouse Story</a></li>
+            <li><a href="#why-parallel">1. Why Parallel Processing?</a></li>
+            <li><a href="#scaling">2. Scaling Strategies</a></li>
+            <li><a href="#partitioning">3. Data Partitioning</a></li>
+            <li><a href="#cpu-gpu">4. CPU vs GPU</a></li>
+            <li><a href="#master-worker">5. Master-Worker Architecture</a></li>
+            <li><a href="#data-locality">6. Data Locality</a></li>
+            <li><a href="#fault-tolerance">7. Fault Tolerance</a></li>
+            <li><a href="#summary">Summary</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="overview" class="learning-objectives">
+            <h2>Learning Objectives</h2>
+            <p>By the end of this session, students will be able to:</p>
+            <ul>
+                <li><strong>Explain</strong> why parallel processing is essential for big data and AI</li>
+                <li><strong>Compare</strong> sequential vs. parallel processing using analogies</li>
+                <li><strong>Distinguish</strong> between scaling up (vertical) and scaling out (horizontal)</li>
+                <li><strong>Understand</strong> the data locality principle</li>
+                <li><strong>Describe</strong> the Master-Worker architecture pattern</li>
+                <li><strong>Connect</strong> these concepts to AI applications (model training, inference)</li>
+            </ul>
+        </section>
+
+        <!-- Block 0: Motivation Story -->
+        <section id="motivation" class="content-section">
+            <h2>The Big Warehouse Story</h2>
+
+            <div class="key-message">
+                <p><strong>Scenario:</strong> Imagine a massive warehouse with <strong>1 million products</strong> that needs a complete inventory count before the end of the day!</p>
+            </div>
+
+            <img src="images/diagrams/warehouse_parallel.svg" alt="Sequential vs Parallel Processing: Ahmed working alone (4 hours) vs Sarah's team of 4 workers (1.25 hours) - achieving 3.2x speedup" class="content-image">
+
+            <h3>The Sequential Approach</h3>
+            <p><strong>Ahmed</strong> works alone...</p>
+
+            <div class="example">
+                <pre><code>Ahmed starts from Shelf 1 → Shelf 2 → ... → Last Shelf
+⏱️ Time Required: 4 hours! 😫</code></pre>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Worker</th>
+                        <th>Task</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ahmed</td>
+                        <td>Count all products</td>
+                        <td>4 hours</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="limitations-box">
+                <p><strong>Problem:</strong> Impossible! Cannot finish the work in one day.</p>
+            </div>
+
+            <h3>The Parallel Approach</h3>
+            <p><strong>Sarah</strong> the manager decides to hire a team:</p>
+
+            <div class="example">
+                <pre><code>Sarah (Manager)
+      ↓ Distributes Work
+   ┌──────────────────┐
+   ↓      ↓      ↓      ↓
+Mohammed  Fatima  Omar   Nour
+Section A  Section B  Section C  Section D</code></pre>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Worker</th>
+                        <th>Task</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mohammed</td>
+                        <td>Section A (500 products)</td>
+                        <td>1 hour</td>
+                    </tr>
+                    <tr>
+                        <td>Fatima</td>
+                        <td>Section B (500 products)</td>
+                        <td>1 hour</td>
+                    </tr>
+                    <tr>
+                        <td>Omar</td>
+                        <td>Section C (500 products)</td>
+                        <td>1 hour</td>
+                    </tr>
+                    <tr>
+                        <td>Nour</td>
+                        <td>Section D (500 products)</td>
+                        <td>1 hour</td>
+                    </tr>
+                    <tr>
+                        <td>Sarah</td>
+                        <td>Combine results</td>
+                        <td>15 minutes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-message">
+                <p><strong>Total Time: 1.25 hours only!</strong> ✅</p>
+            </div>
+
+            <h3>The Lesson Learned</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Approach</th>
+                        <th>Workers</th>
+                        <th>Time</th>
+                        <th>Speedup</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sequential</td>
+                        <td>1</td>
+                        <td>4 hours</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>Parallel</td>
+                        <td>4 + 1 manager</td>
+                        <td>1.25 hours</td>
+                        <td><strong>~3.2x faster!</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-pattern">
+                <h3>This is exactly what computers do!</h3>
+                <ul>
+                    <li>🖥️ One computer = Ahmed working alone</li>
+                    <li>🖥️🖥️🖥️🖥️ Four computers = The team working together</li>
+                </ul>
+            </div>
+
+            <div class="key-message">
+                <p><strong>AI Connection:</strong></p>
+                <ul>
+                    <li>Training GPT-4 on a single computer? ⏱️ <strong>Would take over 100 years!</strong></li>
+                    <li>Training it on thousands of GPUs together? ⏱️ <strong>Just months!</strong></li>
+                </ul>
+            </div>
+
+            <div class="key-pattern">
+                <h3>Questions to Think About:</h3>
+                <ol>
+                    <li>Why did we need Sarah (the manager)? What is her role?</li>
+                    <li>What if Mohammed got sick in the middle of the day?</li>
+                    <li>How does Sarah collect results from everyone?</li>
+                </ol>
+                <p><em>We'll answer these questions throughout this session!</em></p>
+            </div>
+        </section>
+
+        <!-- Block 1: Why Parallel Processing -->
+        <section id="why-parallel" class="content-section">
+            <h2>1. Why Parallel Processing?</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> <em>Parallel Processing</em> is when multiple computations are carried out simultaneously. Instead of doing tasks one after another (sequential), we do them at the same time (parallel).</p>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Key Insight:</strong> The amount of data in the world is growing exponentially. A single computer, no matter how powerful, simply cannot keep up.</p>
+            </div>
+
+            <h3>The Data Explosion</h3>
+            <div class="limitations-box">
+                <p><strong>Did you know?</strong> <em>90% of all data worldwide has been produced in just the last two years!</em></p>
+            </div>
+
+            <p>This explosion of data creates a fundamental problem: traditional single-computer processing simply cannot keep up. The solution? <strong>Parallel processing</strong> — using multiple computers working together!</p>
+
+            <h3>Where Parallel Processing Powers Our World</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Application</th>
+                        <th>How Parallel Processing Helps</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Search Engines</strong></td>
+                        <td>Google processes billions of queries daily using MapReduce across thousands of servers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI/ML Training</strong></td>
+                        <td>Training GPT models requires thousands of GPUs working in parallel for months</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cloud Computing</strong></td>
+                        <td>AWS, Azure, and Google Cloud run millions of parallel tasks 24/7</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scientific Research</strong></td>
+                        <td>Genome sequencing, climate modeling, and physics simulations rely on supercomputers</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Real-World Scale</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Daily Processing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Google</td>
+                        <td>8.5 billion searches per day</td>
+                    </tr>
+                    <tr>
+                        <td>YouTube</td>
+                        <td>500+ hours of video uploaded per minute</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT</td>
+                        <td>100+ million users daily</td>
+                    </tr>
+                    <tr>
+                        <td>Netflix</td>
+                        <td>230+ million subscribers (not all streaming simultaneously, but massive concurrent users during peak times)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="limitations-box">
+                <p><strong>The Problem:</strong> One computer simply cannot handle this volume. Even the fastest single machine would be overwhelmed.</p>
+            </div>
+
+            <h3>AI and Parallel Processing</h3>
+            <div class="key-pattern">
+                <ul>
+                    <li><strong>Training GPT-4</strong> required thousands of GPUs working together</li>
+                    <li><strong>Your phone's AI features</strong> use parallel processing</li>
+                    <li><strong>Image recognition, voice assistants</strong> — all parallel</li>
+                </ul>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Discussion Point:</strong> "What would happen if we tried to train a large AI model on a single laptop?"</p>
+            </div>
+        </section>
+
+        <!-- Block 2: Scaling Strategies -->
+        <section id="scaling" class="content-section">
+            <h2>2. Scaling Strategies</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> <em>Scaling</em> is how we increase our system's capacity to handle more work. There are two fundamental approaches.</p>
+            </div>
+
+            <img src="images/diagrams/scaling_comparison.svg" alt="Scale Up (Vertical): Add more floors to ONE building - simple but expensive with physical limits. Scale Out (Horizontal): Build MORE buildings - unlimited growth but needs coordination" class="content-image">
+
+            <h3>Two Ways to Handle More Work</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Strategy</th>
+                        <th>Analogy</th>
+                        <th>Pros</th>
+                        <th>Cons</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Scale Up</strong> (Vertical)</td>
+                        <td>Add more floors to ONE building</td>
+                        <td>Simple, no coordination needed</td>
+                        <td>Expensive, has physical limits</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scale Out</strong> (Horizontal)</td>
+                        <td>Build MORE buildings</td>
+                        <td>Unlimited growth, cheaper per unit</td>
+                        <td>Needs coordination, more complex</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Vertical Scaling (Scale Up)</h3>
+            <div class="example">
+                <pre><code>Before:  [Small Server: 8 GB RAM, 4 cores]
+              ↓
+After:   [Big Server: 256 GB RAM, 64 cores]
+
+Same machine, just more powerful!</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <p><strong>When to use:</strong></p>
+                <ul>
+                    <li>Small to medium workloads</li>
+                    <li>Simple applications</li>
+                    <li>When you need simplicity over scale</li>
+                </ul>
+            </div>
+
+            <h3>Horizontal Scaling (Scale Out)</h3>
+            <div class="example">
+                <pre><code>Before:  [Server 1]
+              ↓
+After:   [Server 1] [Server 2] [Server 3] [Server 4] ...
+
+More machines working together!</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <p><strong>When to use:</strong></p>
+                <ul>
+                    <li>Big Data workloads</li>
+                    <li>AI/ML training</li>
+                    <li>When you need unlimited growth potential</li>
+                </ul>
+            </div>
+
+            <h3>AI Connection</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Workload</th>
+                        <th>Scaling Strategy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Small ML model (scikit-learn)</td>
+                        <td>One powerful GPU (scale up)</td>
+                    </tr>
+                    <tr>
+                        <td>Large Language Model (GPT, Claude)</td>
+                        <td>Thousands of GPUs (scale out)</td>
+                    </tr>
+                    <tr>
+                        <td>OpenAI, Google, Meta</td>
+                        <td>Massive scale out for AI training</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-message">
+                <p><strong>Discussion Point:</strong> "Why can't we just build one super-computer for all AI training?"</p>
+                <p><em>Answer: Physics has limits! Heat dissipation, signal speed, power consumption. Beyond a point, it's more efficient to add more machines than to make one machine bigger.</em></p>
+            </div>
+        </section>
+
+        <!-- Block 3: Data Partitioning -->
+        <section id="partitioning" class="content-section">
+            <h2>3. Dividing the Work: Data Partitioning</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> <em>Data Partitioning</em> is the process of dividing a large dataset into smaller chunks that can be processed independently by different machines.</p>
+            </div>
+
+            <h3>The Bottleneck Problem</h3>
+            <div class="key-pattern">
+                <p><strong>Analogy:</strong> Think of a stadium with one entrance vs. multiple entrances.</p>
+                <ul>
+                    <li><strong>Single door</strong> = All 50,000 fans enter through one gate = Very slow</li>
+                    <li><strong>Multiple doors</strong> = Fans distributed across 10 gates = Much faster!</li>
+                </ul>
+            </div>
+
+            <p>The same applies to data:</p>
+            <ul>
+                <li><strong>Single disk</strong> = All data flows through one pipe = Bottleneck</li>
+                <li><strong>Multiple disks</strong> = Data flows through multiple pipes = Fast</li>
+            </ul>
+
+            <h3>How Partitioning Works</h3>
+            <img src="images/diagrams/data_partitioning.svg" alt="Data Partitioning: 1 GB file split into 4x 256 MB chunks, distributed to 4 machines for simultaneous processing, then results combined" class="content-image">
+
+            <h3>Parallel vs Sequential Example</h3>
+            <p><strong>Scenario:</strong> Process 1 GB of data</p>
+
+            <img src="images/diagrams/ParallelVsSequential.svg" alt="Detailed parallel vs sequential processing comparison with timing breakdown" class="content-image">
+
+            <h4>The Comparison</h4>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Sequential</th>
+                        <th>Parallel</th>
+                        <th>Improvement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Machines</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>Data per machine</td>
+                        <td>1 GB</td>
+                        <td>256 MB each</td>
+                        <td>4x less each</td>
+                    </tr>
+                    <tr>
+                        <td>Transfer pipes</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>4x more</td>
+                    </tr>
+                    <tr>
+                        <td>Time</td>
+                        <td>~30 seconds</td>
+                        <td>~5 seconds</td>
+                        <td><strong>~6x faster!</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-message">
+                <p><strong>Wait... Why 6x faster instead of 4x?</strong></p>
+                <p>With 4 machines, you might expect 4x speedup (30 ÷ 4 = 7.5 seconds)</p>
+                <p>But we got ~5 seconds! Why?</p>
+
+                <p><strong>The Secret: Transfer Delay + Parallel Disks</strong></p>
+
+                <p><strong>Sequential Processing (1 machine):</strong></p>
+                <ul>
+                    <li><strong>Transfer delay:</strong> 10 seconds to load 1 GB from disk (at 100 MB/sec)</li>
+                    <li><strong>Processing time:</strong> 20 seconds to process 1 GB (at 50 MB/sec)</li>
+                    <li><strong>Total:</strong> 10s + 20s = <strong>30 seconds</strong></li>
+                </ul>
+
+                <p><strong>Parallel Processing (4 machines):</strong></p>
+                <ul>
+                    <li>Each machine processes only 256 MB (1/4 of the data)</li>
+                    <li><strong>Transfer delay per machine:</strong> 2.5 seconds (256 MB ÷ 100 MB/sec)</li>
+                    <li><strong>Processing time per machine:</strong> 5 seconds (256 MB ÷ 50 MB/sec)</li>
+                    <li>Since machines work <em>simultaneously</em>, total time = 2.5s + 5s = <strong>~5 seconds</strong></li>
+                    <li><strong>PLUS:</strong> 4 separate disks = 4 parallel transfer streams!</li>
+                </ul>
+
+                <p><strong>Speedup:</strong> 30 seconds ÷ 5 seconds = <strong>6x faster!</strong></p>
+            </div>
+
+            <div class="key-pattern">
+                <h3>Key Insights</h3>
+                <ul>
+                    <li><strong>Parallelism compounds:</strong> More machines = more CPUs + more disks + more network bandwidth</li>
+                    <li><strong>Transfer overhead matters:</strong> Moving data takes time, but parallel transfers help dramatically</li>
+                    <li><strong>The bottleneck shifts:</strong> With parallel disks, processing time becomes the limiting factor, not transfer</li>
+                </ul>
+            </div>
+
+            <h3>AI Application: Machine Learning Model Training</h3>
+
+            <div class="key-pattern">
+                <p><strong>Simple Example:</strong> Training a neural network on a dataset</p>
+
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Approach</th>
+                            <th>Processing Time</th>
+                            <th>Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1 Machine</strong> (Sequential)</td>
+                            <td>1 hour</td>
+                            <td>Single GPU processes entire dataset sequentially</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4 Machines</strong> (Parallel)</td>
+                            <td>15-20 minutes</td>
+                            <td>Dataset split across 4 GPUs, each processes 1/4 of data simultaneously. Communication overhead adds ~3-8 minutes.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Real-World Impact:</strong></p>
+                <ul>
+                    <li><strong>Training GPT-4:</strong> Would take 100+ years on 1 GPU → Months on thousands of GPUs working together!</li>
+                    <li><strong>Daily Experiments:</strong> Researchers can test multiple models simultaneously instead of waiting days for each experiment</li>
+                    <li><strong>Faster Innovation:</strong> What once took weeks now takes hours</li>
+                </ul>
+            </div>
+
+            <p><em>This is why companies like OpenAI, Google, and Meta use massive GPU clusters with thousands of machines!</em></p>
+        </section>
+
+        <!-- Block 4: CPU vs GPU -->
+        <section id="cpu-gpu" class="content-section">
+            <h2>4. CPU vs GPU — Why AI Needs GPUs</h2>
+
+            <div class="definition">
+                <p><strong>Definitions:</strong></p>
+                <ul>
+                    <li><strong>CPU (Central Processing Unit):</strong> The brain of the computer. Few powerful cores that can do complex tasks.</li>
+                    <li><strong>GPU (Graphics Processing Unit):</strong> Originally for graphics, now used for AI. Thousands of simple cores for parallel work.</li>
+                </ul>
+            </div>
+
+            <h3>The Chef Analogy</h3>
+            <div class="key-pattern">
+                <ul>
+                    <li><strong>CPU:</strong> One expert chef who can cook any dish perfectly — complex recipes, creative dishes, anything!</li>
+                    <li><strong>GPU:</strong> 1,000 line cooks who can each do simple tasks very fast — chop, stir, fry — but all the same task!</li>
+                </ul>
+            </div>
+
+            <h3>Architecture Comparison</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>CPU</th>
+                        <th>GPU</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cores</td>
+                        <td>4-64 powerful cores</td>
+                        <td>Thousands of simple cores</td>
+                    </tr>
+                    <tr>
+                        <td>Cache</td>
+                        <td>Large (fast memory)</td>
+                        <td>Small</td>
+                    </tr>
+                    <tr>
+                        <td>Control logic</td>
+                        <td>Complex (can do anything)</td>
+                        <td>Simple (specialized)</td>
+                    </tr>
+                    <tr>
+                        <td>Best for</td>
+                        <td>Complex, varied tasks</td>
+                        <td>Same operation on many data</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Why GPUs for AI?</h3>
+            <div class="key-message">
+                <p>AI training = Millions of simple math operations</p>
+                <p>Same operation on different data = <strong>Perfect for GPU!</strong></p>
+                <p>Matrix multiplication = GPU's specialty</p>
+            </div>
+
+            <h3>Matrix Parallel Processing Example</h3>
+            <p><strong>The Problem:</strong> Multiply every element in a large matrix by 2</p>
+
+            <img src="images/diagrams/gpu_parallel_matrix.svg" alt="GPU Parallel Matrix Processing: CPU with 4 cores takes 4 steps, GPU with 16+ cores completes in 1 step - demonstrating why AI needs GPUs" class="content-image">
+
+            <div class="example">
+                <pre><code>Matrix A (1000 x 1000 = 1,000,000 elements)
+┌─────────────────────────────┐
+│  1   2   3   4   5  ...     │
+│  6   7   8   9   10 ...     │
+│  11  12  13  14  15 ...     │
+│  ...                        │
+└─────────────────────────────┘</code></pre>
+            </div>
+
+            <h4>CPU Approach (Sequential)</h4>
+            <div class="example">
+                <pre><code>CPU (4 cores) processes elements ONE BY ONE (or 4 at a time):
+
+Step 1: Process element [0,0] → 1 × 2 = 2
+Step 2: Process element [0,1] → 2 × 2 = 4
+Step 3: Process element [0,2] → 3 × 2 = 6
+...
+Step 1,000,000: Process element [999,999]
+
+⏱️ Total: 1,000,000 operations ÷ 4 cores = 250,000 steps</code></pre>
+            </div>
+
+            <h4>GPU Approach (Parallel)</h4>
+            <div class="example">
+                <pre><code>GPU (1000 cores) processes MANY elements AT ONCE:
+
+        Core 1    Core 2    Core 3   ...   Core 1000
+           ↓         ↓         ↓              ↓
+        [0,0]     [0,1]     [0,2]    ...    [0,999]
+        1 × 2     2 × 2     3 × 2    ...    1000 × 2
+           ↓         ↓         ↓              ↓
+           2         4         6     ...     2000
+
+⏱️ Total: 1,000,000 elements ÷ 1000 cores = 1,000 steps!</code></pre>
+            </div>
+
+            <h4>Visual Diagram — GPU Parallel Matrix Processing</h4>
+            <div class="example">
+                <pre><code>┌─────────────────────────────────────────────────────────┐
+│                    INPUT MATRIX                          │
+│    ┌───┬───┬───┬───┬───┬───┬───┬───┐                    │
+│    │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │  ← Row 1           │
+│    └───┴───┴───┴───┴───┴───┴───┴───┘                    │
+└─────────────────────────────────────────────────────────┘
+                         ↓
+                   Split to GPU Cores
+                         ↓
+┌─────────────────────────────────────────────────────────┐
+│                    GPU CORES                             │
+│  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐            │
+│  │ Core 1 │ │ Core 2 │ │ Core 3 │ │ Core 4 │  ...       │
+│  │  1→2   │ │  2→4   │ │  3→6   │ │  4→8   │            │
+│  │  ×2    │ │  ×2    │ │  ×2    │ │  ×2    │            │
+│  └────────┘ └────────┘ └────────┘ └────────┘            │
+│       ↓          ↓          ↓          ↓                 │
+│       2          4          6          8                 │
+└─────────────────────────────────────────────────────────┘
+                         ↓
+                   Combine Results
+                         ↓
+┌─────────────────────────────────────────────────────────┐
+│                   OUTPUT MATRIX                          │
+│    ┌───┬───┬───┬───┬───┬────┬────┬────┐                 │
+│    │ 2 │ 4 │ 6 │ 8 │10 │ 12 │ 14 │ 16 │  ← Row 1 × 2    │
+│    └───┴───┴───┴───┴───┴────┴────┴────┘                 │
+└─────────────────────────────────────────────────────────┘</code></pre>
+            </div>
+
+            <h4>The Key Insight</h4>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Approach</th>
+                        <th>Cores</th>
+                        <th>Steps for 1M elements</th>
+                        <th>Speed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CPU</td>
+                        <td>4</td>
+                        <td>250,000 steps</td>
+                        <td>Slow</td>
+                    </tr>
+                    <tr>
+                        <td>GPU</td>
+                        <td>1000</td>
+                        <td>1,000 steps</td>
+                        <td><strong>250x Faster!</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-message">
+                <p><strong>Why is this important for AI?</strong></p>
+                <p>Neural Networks = Millions of matrix multiplications!</p>
+                <p>This is why NVIDIA has become one of the most valuable companies in the world.</p>
+            </div>
+
+            <h3>Real Performance</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>On CPU</th>
+                        <th>On GPU</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Training a small model</td>
+                        <td>Days to weeks</td>
+                        <td>Hours to days</td>
+                    </tr>
+                    <tr>
+                        <td>Image processing</td>
+                        <td>Seconds per image</td>
+                        <td>Milliseconds per image</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Block 5: Master-Worker Architecture -->
+        <section id="master-worker" class="content-section">
+            <h2>5. Master-Worker Architecture</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> The <em>Master-Worker</em> pattern is a distributed computing architecture where one node (the Master) coordinates work among multiple nodes (Workers). Workers do the actual computation; the Master manages and combines results.</p>
+            </div>
+
+            <img src="images/diagrams/MasterWorker.png" alt="Master-Worker Architecture: Master node coordinates and distributes work to multiple Worker nodes" class="content-image" style="max-width: 500px; width: 100%;">
+
+            <h3>The Manager Analogy</h3>
+            <div class="key-pattern">
+                <p>Remember Sarah from our warehouse story?</p>
+                <ul>
+                    <li><strong>Sarah (Master):</strong> Assigns work, tracks progress, collects results</li>
+                    <li><strong>Mohammed, Fatima, Omar, Nour (Workers):</strong> Execute the actual counting</li>
+                </ul>
+            </div>
+
+            <h3>Master Responsibilities</h3>
+            <div class="example">
+                <ol>
+                    <li><strong>Divide:</strong> Split data into chunks</li>
+                    <li><strong>Assign:</strong> Send chunks to workers</li>
+                    <li><strong>Track:</strong> Monitor who is doing what</li>
+                    <li><strong>Collect:</strong> Gather results from workers</li>
+                    <li><strong>Combine:</strong> Merge all results into final output</li>
+                </ol>
+            </div>
+
+            <h3>Architecture Diagram</h3>
+            <img src="images/diagrams/master_worker_architecture.svg" alt="Master-Worker Architecture: Master distributes tasks to workers and collects results" class="content-image">
+
+            <div class="key-pattern">
+                <p><strong>Key Point:</strong> Workers don't talk to each other — only to the Master!</p>
+            </div>
+
+            <h3>AI Connection</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Concept</th>
+                        <th>In Distributed Training</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Master</td>
+                        <td>Parameter Server</td>
+                    </tr>
+                    <tr>
+                        <td>Workers</td>
+                        <td>GPU nodes training on data portions</td>
+                    </tr>
+                    <tr>
+                        <td>Results</td>
+                        <td>Gradients (how to update the model)</td>
+                    </tr>
+                    <tr>
+                        <td>Combine</td>
+                        <td>Gradient synchronization</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-message">
+                <p><strong>Key Insight:</strong> "The master doesn't do the heavy work — it coordinates. Like a conductor doesn't play instruments but makes the orchestra work together."</p>
+            </div>
+        </section>
+
+        <!-- Block 6: Data Locality -->
+        <section id="data-locality" class="content-section">
+            <h2>6. Data Locality — The Golden Rule</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> <em>Data Locality</em> is the principle that computation should happen as close to the data as possible. Moving data is expensive; moving computation is cheap.</p>
+            </div>
+
+            <div class="key-message">
+                <h3>The Golden Rule</h3>
+                <p><strong>"Move computation to data, not data to computation"</strong></p>
+            </div>
+
+            <h3>Speed Hierarchy</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>Speed</th>
+                        <th>Analogy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>RAM (local memory)</td>
+                        <td>Instant</td>
+                        <td>Reading from your desk</td>
+                    </tr>
+                    <tr>
+                        <td>Local disk</td>
+                        <td>Fast</td>
+                        <td>Walking to your bookshelf</td>
+                    </tr>
+                    <tr>
+                        <td>Network (same building)</td>
+                        <td>Slow</td>
+                        <td>Waiting for mail delivery</td>
+                    </tr>
+                    <tr>
+                        <td>Internet (another country)</td>
+                        <td>Very slow</td>
+                        <td>International shipping</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>The Library Analogy</h3>
+            <div class="key-pattern">
+                <p>Imagine you need to read a 1000-page book:</p>
+                <ul>
+                    <li><strong>Bad approach:</strong> Photocopy the entire book and carry it home = Moving data to computation</li>
+                    <li><strong>Good approach:</strong> Go to the library and read it there = Moving computation to data</li>
+                </ul>
+                <p>In distributed systems, sending the small "program" to where the big "data" lives is much faster than moving huge datasets across the network!</p>
+            </div>
+
+            <h3>AI Connection</h3>
+            <div class="key-pattern">
+                <ul>
+                    <li><strong>Why data centers matter for AI training:</strong> Data and GPUs must be close together</li>
+                    <li><strong>Why companies build GPUs close to storage:</strong> Minimize data transfer time</li>
+                    <li><strong>Cloud regions:</strong> Choose the region closest to your data</li>
+                </ul>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Discussion Point:</strong> "Why does it matter where your training data is stored?"</p>
+            </div>
+        </section>
+
+        <!-- Block 7: Fault Tolerance -->
+        <section id="fault-tolerance" class="content-section">
+            <h2>7. When Things Go Wrong — Fault Tolerance</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> <em>Fault Tolerance</em> is the ability of a system to continue operating properly in the event of the failure of some of its components.</p>
+            </div>
+
+            <h3>The Reality</h3>
+            <div class="limitations-box">
+                <p><strong>In a system with 1,000 machines, something WILL fail.</strong></p>
+                <ul>
+                    <li>Hard drives die</li>
+                    <li>Networks disconnect</li>
+                    <li>Power goes out</li>
+                    <li>Software crashes</li>
+                </ul>
+                <p>Question: How do we keep working despite failures?</p>
+            </div>
+
+            <h3>Detection — How Do We Know Something Failed?</h3>
+            <div class="example">
+                <pre><code>Every few seconds, Master asks each Worker:
+
+Master: "Worker 1, are you alive?"
+Worker 1: "Yes, still working!"
+
+Master: "Worker 2, are you alive?"
+Worker 2: "Yes, still working!"
+
+Master: "Worker 3, are you alive?"
+Worker 3: ... (no response)
+
+Master: "Worker 3 failed! Reassigning its task..."</code></pre>
+            </div>
+
+            <h3>Recovery — What Happens Next?</h3>
+            <div class="key-pattern">
+                <ol>
+                    <li><strong>Failed worker's task</strong> → Assigned to another worker</li>
+                    <li><strong>Data on failed machine</strong> → Restored from backup copy</li>
+                    <li><strong>Key principle:</strong> Design assumes failure will happen</li>
+                </ol>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Strategy</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Redundancy</td>
+                        <td>Keep copies of data on multiple machines</td>
+                    </tr>
+                    <tr>
+                        <td>Health checks</td>
+                        <td>Regularly ping workers to detect failures</td>
+                    </tr>
+                    <tr>
+                        <td>Task re-execution</td>
+                        <td>Failed tasks get reassigned to healthy workers</td>
+                    </tr>
+                    <tr>
+                        <td>Checkpointing</td>
+                        <td>Save progress periodically to resume after failures</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-message">
+                <p><strong>Key Insight:</strong> "Good distributed systems don't prevent failures — they survive them."</p>
+            </div>
+
+            <div class="key-pattern">
+                <p><strong>Discussion Point:</strong> "Netflix has thousands of servers. How do they stay online 24/7?"</p>
+                <p><em>Answer: They designed their entire system assuming failures happen constantly. When one server dies, traffic immediately routes to others. They even deliberately cause failures (Chaos Monkey) to test their resilience!</em></p>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section id="summary" class="content-section">
+            <h2>Summary</h2>
+
+            <h3>Core Concepts Covered</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Concept</th>
+                        <th>Key Point</th>
+                        <th>Real-World Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Parallel Processing</strong></td>
+                        <td>Divide work among many workers</td>
+                        <td>Sarah's team vs Ahmed working alone</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Partitioning</strong></td>
+                        <td>Split data across machines</td>
+                        <td>Dividing 1 GB into 4× 256 MB chunks</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scale Up vs Scale Out</strong></td>
+                        <td>Bigger machine vs More machines</td>
+                        <td>Skyscraper (vertical) vs Campus (horizontal)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CPU vs GPU</strong></td>
+                        <td>Few powerful cores vs Many simple cores</td>
+                        <td>Expert chef vs Assembly line workers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Master-Worker</strong></td>
+                        <td>One coordinator, many executors</td>
+                        <td>Manager distributing tasks to team members</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Locality</strong></td>
+                        <td>Move compute to data, not vice versa</td>
+                        <td>Process data where it's stored to avoid transfer delays</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fault Tolerance</strong></td>
+                        <td>Design for failure, recover gracefully</td>
+                        <td>Reassign failed worker's task to another machine</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Key Takeaways</h3>
+            <div class="key-message">
+                <ol>
+                    <li><strong>AI at scale is impossible without parallel processing</strong></li>
+                    <li><strong>The architecture patterns we learned power every major AI system</strong></li>
+                    <li><strong>These concepts apply whether you're using Google Cloud, AWS, or local clusters</strong></li>
+                </ol>
+            </div>
+
+            <h3>Glossary of Key Terms</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>English</th>
+                        <th>Arabic</th>
+                        <th>Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Parallel Processing</td>
+                        <td>المعالجة المتوازية</td>
+                        <td>Running multiple computations simultaneously</td>
+                    </tr>
+                    <tr>
+                        <td>Sequential Processing</td>
+                        <td>المعالجة التسلسلية</td>
+                        <td>Running computations one after another</td>
+                    </tr>
+                    <tr>
+                        <td>Data Partitioning</td>
+                        <td>تقسيم البيانات</td>
+                        <td>Splitting data into chunks for distribution</td>
+                    </tr>
+                    <tr>
+                        <td>Vertical Scaling</td>
+                        <td>التوسع الرأسي</td>
+                        <td>Making one machine more powerful</td>
+                    </tr>
+                    <tr>
+                        <td>Horizontal Scaling</td>
+                        <td>التوسع الأفقي</td>
+                        <td>Adding more machines</td>
+                    </tr>
+                    <tr>
+                        <td>Master Node</td>
+                        <td>العقدة الرئيسية</td>
+                        <td>The coordinator in a distributed system</td>
+                    </tr>
+                    <tr>
+                        <td>Worker Node</td>
+                        <td>عقدة العامل</td>
+                        <td>A machine that executes tasks</td>
+                    </tr>
+                    <tr>
+                        <td>Data Locality</td>
+                        <td>موقعية البيانات</td>
+                        <td>Keeping computation close to data</td>
+                    </tr>
+                    <tr>
+                        <td>Fault Tolerance</td>
+                        <td>التسامح مع الأخطاء</td>
+                        <td>Ability to continue despite failures</td>
+                    </tr>
+                    <tr>
+                        <td>GPU</td>
+                        <td>وحدة معالجة الرسوميات</td>
+                        <td>Processor optimized for parallel math</td>
+                    </tr>
+                    <tr>
+                        <td>Bottleneck</td>
+                        <td>عنق الزجاجة</td>
+                        <td>Point that limits overall performance</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-pattern">
+                <h3>Bridge to Session 2</h3>
+                <p>We've talked about how data is processed across many machines — potentially in different countries, managed by different companies. But what happens to <strong>YOUR</strong> data when it's spread across systems you don't control?</p>
+                <p>In the next session, we'll explore a critical question: <strong>How much can be learned about YOU from 'anonymous' data?</strong></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><a href="index.html">&larr; Back to Course Overview</a></p>
+        <p>Data Science &amp; AI Course - Week 3, Session 1</p>
+    </footer>
+</body>
+</html>
