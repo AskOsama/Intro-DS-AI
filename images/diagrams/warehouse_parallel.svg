@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="Arial, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="500" fill="white"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-size="18" font-weight="bold">Sequential vs Parallel Inventory Counting Process</text>
+  
+  <!-- Dividing line -->
+  <line x1="350" y1="50" x2="350" y2="480" stroke="black" stroke-dasharray="5,5" stroke-width="1"/>
+  
+  <!-- LEFT SIDE: Sequential Process -->
+  <text x="175" y="60" text-anchor="middle" font-size="14" font-weight="bold">Sequential Process (Single Worker)</text>
+  
+  <!-- Aisle 1 Box -->
+  <rect x="75" y="80" width="200" height="50" fill="white" stroke="black" stroke-width="1"/>
+  <text x="175" y="100" text-anchor="middle" font-size="12">Aisle 1: 2,500 SAR</text>
+  <text x="175" y="118" text-anchor="middle" font-size="12">(Ahmed counts 1 hour)</text>
+  
+  <!-- Arrow 1 -->
+  <line x1="175" y1="130" x2="175" y2="150" stroke="black" stroke-width="1"/>
+  <polygon points="175,155 170,145 180,145" fill="black"/>
+  
+  <!-- Aisle 2 Box -->
+  <rect x="75" y="160" width="200" height="50" fill="white" stroke="black" stroke-width="1"/>
+  <text x="175" y="180" text-anchor="middle" font-size="12">Aisle 2: 2,500 SAR</text>
+  <text x="175" y="198" text-anchor="middle" font-size="12">(Ahmed counts 1 hour)</text>
+  
+  <!-- Arrow 2 -->
+  <line x1="175" y1="210" x2="175" y2="230" stroke="black" stroke-width="1"/>
+  <polygon points="175,235 170,225 180,225" fill="black"/>
+  
+  <!-- Aisle 3 Box -->
+  <rect x="75" y="240" width="200" height="50" fill="white" stroke="black" stroke-width="1"/>
+  <text x="175" y="260" text-anchor="middle" font-size="12">Aisle 3: 2,500 SAR</text>
+  <text x="175" y="278" text-anchor="middle" font-size="12">(Ahmed counts 1 hour)</text>
+  
+  <!-- Arrow 3 -->
+  <line x1="175" y1="290" x2="175" y2="310" stroke="black" stroke-width="1"/>
+  <polygon points="175,315 170,305 180,305" fill="black"/>
+  
+  <!-- Aisle 4 Box -->
+  <rect x="75" y="320" width="200" height="50" fill="white" stroke="black" stroke-width="1"/>
+  <text x="175" y="340" text-anchor="middle" font-size="12">Aisle 4: 2,500 SAR</text>
+  <text x="175" y="358" text-anchor="middle" font-size="12">(Ahmed counts 1 hour)</text>
+  
+  <!-- Total Time Sequential -->
+  <text x="175" y="400" text-anchor="middle" font-size="12" font-style="italic" font-weight="bold">Total Time: 4 hours</text>
+  <text x="175" y="420" text-anchor="middle" font-size="12" font-style="italic" font-weight="bold">Inventory Verified: 10,000 SAR</text>
+  
+  <!-- RIGHT SIDE: Parallel Implementation -->
+  <text x="625" y="60" text-anchor="middle" font-size="14" font-weight="bold">Parallel Implementation (Team of Four + Manager)</text>
+  
+  <!-- Thomas Box -->
+  <rect x="390" y="80" width="100" height="70" fill="white" stroke="black" stroke-width="1"/>
+  <text x="440" y="98" text-anchor="middle" font-size="11">Ahmed</text>
+  <text x="440" y="113" text-anchor="middle" font-size="11">(Aisle 1)</text>
+  <text x="440" y="128" text-anchor="middle" font-size="11">2,500 SAR</text>
+  <text x="440" y="143" text-anchor="middle" font-size="11">Count: 1 hour</text>
+  
+  <!-- Priya Box -->
+  <rect x="500" y="80" width="100" height="70" fill="white" stroke="black" stroke-width="1"/>
+  <text x="550" y="98" text-anchor="middle" font-size="11">Ali</text>
+  <text x="550" y="113" text-anchor="middle" font-size="11">(Aisle 2)</text>
+  <text x="550" y="128" text-anchor="middle" font-size="11">2,500 SAR</text>
+  <text x="550" y="143" text-anchor="middle" font-size="11">Count: 1 hour</text>
+  
+  <!-- Jackson Box -->
+  <rect x="610" y="80" width="100" height="70" fill="white" stroke="black" stroke-width="1"/>
+  <text x="660" y="98" text-anchor="middle" font-size="11">Omar</text>
+  <text x="660" y="113" text-anchor="middle" font-size="11">(Aisle 3)</text>
+  <text x="660" y="128" text-anchor="middle" font-size="11">2,500 SAR</text>
+  <text x="660" y="143" text-anchor="middle" font-size="11">Count: 1 hour</text>
+  
+  <!-- Elena Box -->
+  <rect x="720" y="80" width="100" height="70" fill="white" stroke="black" stroke-width="1"/>
+  <text x="770" y="98" text-anchor="middle" font-size="11">Nora</text>
+  <text x="770" y="113" text-anchor="middle" font-size="11">(Aisle 4)</text>
+  <text x="770" y="128" text-anchor="middle" font-size="11">2,500 SAR</text>
+  <text x="770" y="143" text-anchor="middle" font-size="11">Count: 1 hour</text>
+  
+  <!-- Arrows from workers to manager -->
+  <line x1="440" y1="150" x2="440" y2="200" stroke="black" stroke-width="1"/>
+  <line x1="440" y1="200" x2="605" y2="200" stroke="black" stroke-width="1"/>
+  
+  <line x1="550" y1="150" x2="550" y2="190" stroke="black" stroke-width="1"/>
+  <line x1="550" y1="190" x2="605" y2="190" stroke="black" stroke-width="1"/>
+  <line x1="605" y1="190" x2="605" y2="220" stroke="black" stroke-width="1"/>
+  
+  <line x1="660" y1="150" x2="660" y2="190" stroke="black" stroke-width="1"/>
+  <line x1="660" y1="190" x2="605" y2="190" stroke="black" stroke-width="1"/>
+  
+  <line x1="770" y1="150" x2="770" y2="200" stroke="black" stroke-width="1"/>
+  <line x1="770" y1="200" x2="605" y2="200" stroke="black" stroke-width="1"/>
+  
+  <!-- Central arrow down -->
+  <polygon points="605,225 600,215 610,215" fill="black"/>
+  
+  <!-- Carlos Manager Box -->
+  <rect x="505" y="230" width="200" height="50" fill="white" stroke="black" stroke-width="1"/>
+  <text x="605" y="252" text-anchor="middle" font-size="12">Sara (Manager)</text>
+  <text x="605" y="270" text-anchor="middle" font-size="12">Aggregates in 15 minutes</text>
+  
+  <!-- Total Time Parallel -->
+  <text x="605" y="310" text-anchor="middle" font-size="12" font-weight="bold">Total Time: 1 hour for parallel counting + 15 minutes for aggregation</text>
+  <text x="605" y="330" text-anchor="middle" font-size="12" font-weight="bold">= 1 hour 15 minutes</text>
+  <text x="605" y="360" text-anchor="middle" font-size="12" font-weight="bold">Inventory Verified: 10,000 SAR</text>
+</svg>

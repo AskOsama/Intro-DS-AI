@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 650">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 22px; font-weight: bold; fill: #2c3e50; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 14px; fill: #7f8c8d; }
+      .section-title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #fff; }
+      .label { font-family: Arial, sans-serif; font-size: 12px; fill: #34495e; }
+      .small-label { font-family: Arial, sans-serif; font-size: 10px; fill: #7f8c8d; }
+      .time-label { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; }
+      .data-label { font-family: Arial, sans-serif; font-size: 11px; fill: #fff; font-weight: bold; }
+      .highlight { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; }
+      .speedup { font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #27ae60; }
+    </style>
+    <linearGradient id="dataGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="processGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <linearGradient id="transferGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#60a5fa"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+    <marker id="arrowGray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="525" y="35" text-anchor="middle" class="title">Parallel vs Sequential Processing</text>
+  <text x="525" y="55" text-anchor="middle" class="subtitle">Scenario: Process 1 GB of data</text>
+
+  <!-- Sequential Section - Top -->
+  <rect x="30" y="75" width="990" height="240" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="2"/>
+  <rect x="30" y="75" width="990" height="35" rx="10" fill="#ef4444"/>
+  <text x="525" y="100" text-anchor="middle" class="section-title">Sequential Processing (One Machine)</text>
+
+  <!-- Single Machine for Sequential -->
+  <g transform="translate(100, 130)">
+    <!-- Computer case -->
+    <rect x="0" y="0" width="120" height="90" rx="8" fill="#475569" stroke="#334155" stroke-width="2"/>
+    <!-- Screen area -->
+    <rect x="10" y="10" width="100" height="55" rx="4" fill="#1e293b"/>
+    <!-- Screen content - single processor -->
+    <rect x="20" y="20" width="80" height="35" rx="3" fill="url(#processGrad)"/>
+    <text x="60" y="42" text-anchor="middle" class="data-label">1 CPU</text>
+    <!-- Base -->
+    <rect x="35" y="92" width="50" height="8" rx="2" fill="#334155"/>
+    <text x="60" y="115" text-anchor="middle" class="label">Single Machine</text>
+  </g>
+
+  <!-- Data block for sequential -->
+  <g transform="translate(280, 145)">
+    <rect x="0" y="0" width="100" height="60" rx="5" fill="url(#dataGrad)"/>
+    <text x="50" y="35" text-anchor="middle" class="data-label">1 GB Data</text>
+  </g>
+
+  <!-- Arrow from data to timeline -->
+  <path d="M 385 175 L 425 175" stroke="#64748b" stroke-width="3" fill="none" marker-end="url(#arrowGray)"/>
+
+  <!-- Processing timeline for sequential - TWO PHASES -->
+  <g transform="translate(440, 130)">
+    <text x="0" y="15" class="label">Processing Timeline:</text>
+
+    <!-- Transfer phase -->
+    <rect x="0" y="25" width="120" height="40" rx="4" fill="url(#transferGrad)" stroke="#3b82f6" stroke-width="2"/>
+    <text x="60" y="50" text-anchor="middle" class="data-label" style="fill: #1e3a8a;">Transfer: 10s</text>
+
+    <!-- Processing phase -->
+    <rect x="125" y="25" width="245" height="40" rx="4" fill="#fca5a5" stroke="#ef4444" stroke-width="2"/>
+    <text x="247" y="50" text-anchor="middle" class="data-label" style="fill: #7f1d1d;">Processing: 20s</text>
+
+    <!-- Time markers -->
+    <text x="0" y="85" class="small-label">0s</text>
+    <text x="60" y="85" text-anchor="middle" class="small-label">10s</text>
+    <text x="185" y="85" text-anchor="middle" class="small-label">20s</text>
+    <text x="370" y="85" text-anchor="end" class="small-label">30s</text>
+  </g>
+
+  <!-- Total time for sequential -->
+  <g transform="translate(850, 170)">
+    <text x="0" y="0" class="time-label" style="fill: #ef4444;">Total: ~30 seconds</text>
+    <text x="0" y="20" class="small-label">(10s transfer + 20s processing)</text>
+  </g>
+
+  <!-- Parallel Section - Bottom -->
+  <rect x="30" y="335" width="990" height="300" rx="10" fill="#ecfdf5" stroke="#86efac" stroke-width="2"/>
+  <rect x="30" y="335" width="990" height="35" rx="10" fill="#22c55e"/>
+  <text x="525" y="360" text-anchor="middle" class="section-title">Parallel Processing (Four Machines)</text>
+
+  <!-- Four Machines for Parallel -->
+  <g transform="translate(60, 390)">
+    <!-- Machine 1 -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="70" height="55" rx="5" fill="#475569" stroke="#334155" stroke-width="1.5"/>
+      <rect x="5" y="5" width="60" height="32" rx="3" fill="#1e293b"/>
+      <rect x="10" y="10" width="50" height="22" rx="2" fill="url(#processGrad)"/>
+      <text x="35" y="25" text-anchor="middle" class="small-label" style="fill: #fff; font-weight: bold;">CPU</text>
+      <rect x="22" y="56" width="26" height="5" rx="1" fill="#334155"/>
+      <text x="35" y="75" text-anchor="middle" class="small-label">Machine 1</text>
+    </g>
+    <!-- Machine 2 -->
+    <g transform="translate(0, 75)">
+      <rect x="0" y="0" width="70" height="55" rx="5" fill="#475569" stroke="#334155" stroke-width="1.5"/>
+      <rect x="5" y="5" width="60" height="32" rx="3" fill="#1e293b"/>
+      <rect x="10" y="10" width="50" height="22" rx="2" fill="url(#processGrad)"/>
+      <text x="35" y="25" text-anchor="middle" class="small-label" style="fill: #fff; font-weight: bold;">CPU</text>
+      <rect x="22" y="56" width="26" height="5" rx="1" fill="#334155"/>
+      <text x="35" y="75" text-anchor="middle" class="small-label">Machine 2</text>
+    </g>
+    <!-- Machine 3 -->
+    <g transform="translate(0, 150)">
+      <rect x="0" y="0" width="70" height="55" rx="5" fill="#475569" stroke="#334155" stroke-width="1.5"/>
+      <rect x="5" y="5" width="60" height="32" rx="3" fill="#1e293b"/>
+      <rect x="10" y="10" width="50" height="22" rx="2" fill="url(#processGrad)"/>
+      <text x="35" y="25" text-anchor="middle" class="small-label" style="fill: #fff; font-weight: bold;">CPU</text>
+      <rect x="22" y="56" width="26" height="5" rx="1" fill="#334155"/>
+      <text x="35" y="75" text-anchor="middle" class="small-label">Machine 3</text>
+    </g>
+    <!-- Machine 4 -->
+    <g transform="translate(0, 225)">
+      <rect x="0" y="0" width="70" height="55" rx="5" fill="#475569" stroke="#334155" stroke-width="1.5"/>
+      <rect x="5" y="5" width="60" height="32" rx="3" fill="#1e293b"/>
+      <rect x="10" y="10" width="50" height="22" rx="2" fill="url(#processGrad)"/>
+      <text x="35" y="25" text-anchor="middle" class="small-label" style="fill: #fff; font-weight: bold;">CPU</text>
+      <rect x="22" y="56" width="26" height="5" rx="1" fill="#334155"/>
+      <text x="35" y="75" text-anchor="middle" class="small-label">Machine 4</text>
+    </g>
+  </g>
+
+  <!-- Data blocks for parallel (split) -->
+  <g transform="translate(160, 400)">
+    <rect x="0" y="0" width="70" height="30" rx="3" fill="url(#dataGrad)"/>
+    <text x="35" y="20" text-anchor="middle" class="small-label" style="fill: #fff; font-weight: bold;">256 MB</text>
+  </g>
+  <g transform="translate(160, 475)">
+    <rect x="0" y="0" width="70" height="30" rx="3" fill="url(#dataGrad)"/>
+    <text x="35" y="20" text-anchor="middle" class="small-label" style="fill: #fff; font-weight: bold;">256 MB</text>
+  </g>
+  <g transform="translate(160, 550)">
+    <rect x="0" y="0" width="70" height="30" rx="3" fill="url(#dataGrad)"/>
+    <text x="35" y="20" text-anchor="middle" class="small-label" style="fill: #fff; font-weight: bold;">256 MB</text>
+  </g>
+  <g transform="translate(160, 625)">
+    <rect x="0" y="0" width="70" height="30" rx="3" fill="url(#dataGrad)"/>
+    <text x="35" y="20" text-anchor="middle" class="small-label" style="fill: #fff; font-weight: bold;">256 MB</text>
+  </g>
+
+  <!-- Arrows from data to machines -->
+  <path d="M 235 415 L 260 415" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrowGray)"/>
+  <path d="M 235 490 L 260 490" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrowGray)"/>
+  <path d="M 235 565 L 260 565" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrowGray)"/>
+  <path d="M 235 640 L 260 640" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrowGray)"/>
+
+  <!-- Processing timeline for parallel - showing BOTH transfer and processing for each machine -->
+  <g transform="translate(280, 390)">
+    <text x="0" y="15" class="label">Timeline (all machines run simultaneously):</text>
+
+    <!-- Machine 1 timeline -->
+    <g transform="translate(0, 25)">
+      <rect x="0" y="0" width="30" height="20" rx="3" fill="url(#transferGrad)" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="15" y="14" text-anchor="middle" class="small-label" style="fill: #1e3a8a; font-size: 9px; font-weight: bold;">T: 2.5s</text>
+      <rect x="35" y="0" width="60" height="20" rx="3" fill="#86efac" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="65" y="14" text-anchor="middle" class="small-label" style="fill: #166534; font-weight: bold;">P: 5s</text>
+    </g>
+
+    <!-- Machine 2 timeline -->
+    <g transform="translate(0, 100)">
+      <rect x="0" y="0" width="30" height="20" rx="3" fill="url(#transferGrad)" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="15" y="14" text-anchor="middle" class="small-label" style="fill: #1e3a8a; font-size: 9px; font-weight: bold;">T: 2.5s</text>
+      <rect x="35" y="0" width="60" height="20" rx="3" fill="#86efac" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="65" y="14" text-anchor="middle" class="small-label" style="fill: #166534; font-weight: bold;">P: 5s</text>
+    </g>
+
+    <!-- Machine 3 timeline -->
+    <g transform="translate(0, 175)">
+      <rect x="0" y="0" width="30" height="20" rx="3" fill="url(#transferGrad)" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="15" y="14" text-anchor="middle" class="small-label" style="fill: #1e3a8a; font-size: 9px; font-weight: bold;">T: 2.5s</text>
+      <rect x="35" y="0" width="60" height="20" rx="3" fill="#86efac" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="65" y="14" text-anchor="middle" class="small-label" style="fill: #166534; font-weight: bold;">P: 5s</text>
+    </g>
+
+    <!-- Machine 4 timeline -->
+    <g transform="translate(0, 250)">
+      <rect x="0" y="0" width="30" height="20" rx="3" fill="url(#transferGrad)" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="15" y="14" text-anchor="middle" class="small-label" style="fill: #1e3a8a; font-size: 9px; font-weight: bold;">T: 2.5s</text>
+      <rect x="35" y="0" width="60" height="20" rx="3" fill="#86efac" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="65" y="14" text-anchor="middle" class="small-label" style="fill: #166534; font-weight: bold;">P: 5s</text>
+    </g>
+
+    <!-- Parallel bracket -->
+    <path d="M 105 25 L 115 25 L 115 265 L 105 265" stroke="#22c55e" stroke-width="2" fill="none"/>
+    <text x="125" y="150" class="label" style="fill: #166534; font-weight: bold;">All complete in ~5s</text>
+  </g>
+
+  <!-- Time markers -->
+  <g transform="translate(280, 665)">
+    <text x="0" y="0" class="small-label">0s</text>
+    <text x="47" y="0" text-anchor="middle" class="small-label">2.5s</text>
+    <text x="95" y="0" text-anchor="end" class="small-label">~5s</text>
+  </g>
+
+  <!-- Total time for parallel -->
+  <g transform="translate(850, 530)">
+    <text x="0" y="0" class="time-label" style="fill: #22c55e;">Total: ~5 seconds</text>
+    <text x="0" y="20" class="small-label">(Transfer & processing overlap)</text>
+  </g>
+
+  <!-- Speedup callout -->
+  <g transform="translate(720, 410)">
+    <rect x="0" y="0" width="260" height="100" rx="10" fill="#fff" stroke="#22c55e" stroke-width="3"/>
+    <text x="130" y="30" text-anchor="middle" class="label">Speedup:</text>
+    <text x="130" y="60" text-anchor="middle" class="speedup">6x Faster!</text>
+    <text x="130" y="85" text-anchor="middle" class="small-label">30s ÷ 5s = 6x</text>
+  </g>
+
+</svg>

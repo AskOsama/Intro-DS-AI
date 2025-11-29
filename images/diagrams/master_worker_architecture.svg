@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 450">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #2c3e50; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 12px; fill: #7f8c8d; }
+      .node-label { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #fff; }
+      .small-label { font-family: Arial, sans-serif; font-size: 11px; fill: #34495e; }
+      .arrow-label { font-family: Arial, sans-serif; font-size: 10px; fill: #7f8c8d; }
+      .phase-label { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #2c3e50; }
+    </style>
+    <!-- Arrow marker -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#9b59b6"/>
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="350" y="30" text-anchor="middle" class="title">Master-Worker Architecture</text>
+  <text x="350" y="50" text-anchor="middle" class="subtitle">Coordinated Parallel Task Distribution</text>
+
+  <!-- Phase 1: Task Distribution -->
+  <rect x="30" y="70" width="200" height="25" rx="5" fill="#e8f4fd"/>
+  <text x="130" y="88" text-anchor="middle" class="phase-label">1. Task Distribution</text>
+
+  <!-- Phase 2: Parallel Execution -->
+  <rect x="250" y="70" width="200" height="25" rx="5" fill="#fef3c7"/>
+  <text x="350" y="88" text-anchor="middle" class="phase-label">2. Parallel Execution</text>
+
+  <!-- Phase 3: Result Aggregation -->
+  <rect x="470" y="70" width="200" height="25" rx="5" fill="#d1fae5"/>
+  <text x="570" y="88" text-anchor="middle" class="phase-label">3. Result Aggregation</text>
+
+  <!-- MASTER NODE -->
+  <rect x="275" y="120" width="150" height="60" rx="10" fill="#9b59b6" stroke="#7d3c98" stroke-width="2"/>
+  <text x="350" y="145" text-anchor="middle" class="node-label">MASTER</text>
+  <text x="350" y="165" text-anchor="middle" class="node-label" style="font-size: 11px; font-weight: normal;">Coordinator</text>
+
+  <!-- Distribution arrows from Master -->
+  <line x1="295" y1="180" x2="120" y2="240" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="330" y1="180" x2="270" y2="240" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="370" y1="180" x2="430" y2="240" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="405" y1="180" x2="580" y2="240" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Task labels on arrows -->
+  <text x="190" y="205" text-anchor="middle" class="arrow-label">Task 1</text>
+  <text x="290" y="205" text-anchor="middle" class="arrow-label">Task 2</text>
+  <text x="410" y="205" text-anchor="middle" class="arrow-label">Task 3</text>
+  <text x="510" y="205" text-anchor="middle" class="arrow-label">Task 4</text>
+
+  <!-- WORKER NODES -->
+  <!-- Worker 1 -->
+  <rect x="60" y="250" width="120" height="80" rx="8" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="120" y="280" text-anchor="middle" class="node-label">Worker 1</text>
+  <text x="120" y="300" text-anchor="middle" class="node-label" style="font-size: 10px; font-weight: normal;">Processing...</text>
+  <rect x="75" y="310" width="90" height="8" rx="4" fill="#2980b9"/>
+  <rect x="75" y="310" width="70" height="8" rx="4" fill="#1abc9c"/>
+
+  <!-- Worker 2 -->
+  <rect x="210" y="250" width="120" height="80" rx="8" fill="#e91e63" stroke="#c2185b" stroke-width="2"/>
+  <text x="270" y="280" text-anchor="middle" class="node-label">Worker 2</text>
+  <text x="270" y="300" text-anchor="middle" class="node-label" style="font-size: 10px; font-weight: normal;">Processing...</text>
+  <rect x="225" y="310" width="90" height="8" rx="4" fill="#c2185b"/>
+  <rect x="225" y="310" width="50" height="8" rx="4" fill="#1abc9c"/>
+
+  <!-- Worker 3 -->
+  <rect x="370" y="250" width="120" height="80" rx="8" fill="#ff9800" stroke="#f57c00" stroke-width="2"/>
+  <text x="430" y="280" text-anchor="middle" class="node-label">Worker 3</text>
+  <text x="430" y="300" text-anchor="middle" class="node-label" style="font-size: 10px; font-weight: normal;">Processing...</text>
+  <rect x="385" y="310" width="90" height="8" rx="4" fill="#f57c00"/>
+  <rect x="385" y="310" width="85" height="8" rx="4" fill="#1abc9c"/>
+
+  <!-- Worker 4 -->
+  <rect x="520" y="250" width="120" height="80" rx="8" fill="#4caf50" stroke="#388e3c" stroke-width="2"/>
+  <text x="580" y="280" text-anchor="middle" class="node-label">Worker 4</text>
+  <text x="580" y="300" text-anchor="middle" class="node-label" style="font-size: 10px; font-weight: normal;">Processing...</text>
+  <rect x="535" y="310" width="90" height="8" rx="4" fill="#388e3c"/>
+  <rect x="535" y="310" width="60" height="8" rx="4" fill="#1abc9c"/>
+
+  <!-- Result arrows back to Master -->
+  <line x1="120" y1="330" x2="295" y2="390" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+  <line x1="270" y1="330" x2="330" y2="390" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+  <line x1="430" y1="330" x2="370" y2="390" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+  <line x1="580" y1="330" x2="405" y2="390" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+
+  <!-- Result labels -->
+  <text x="190" y="370" text-anchor="middle" class="arrow-label" style="fill: #27ae60;">Result 1</text>
+  <text x="290" y="370" text-anchor="middle" class="arrow-label" style="fill: #27ae60;">Result 2</text>
+  <text x="410" y="370" text-anchor="middle" class="arrow-label" style="fill: #27ae60;">Result 3</text>
+  <text x="510" y="370" text-anchor="middle" class="arrow-label" style="fill: #27ae60;">Result 4</text>
+
+  <!-- Final Result Box -->
+  <rect x="275" y="395" width="150" height="45" rx="8" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="350" y="418" text-anchor="middle" class="node-label" style="font-size: 12px;">FINAL RESULT</text>
+  <text x="350" y="433" text-anchor="middle" class="node-label" style="font-size: 10px; font-weight: normal;">Aggregated</text>
+
+</svg>

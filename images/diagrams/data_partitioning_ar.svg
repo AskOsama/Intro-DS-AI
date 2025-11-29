@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <style>
+      .title { font-family: 'Cairo', Arial, sans-serif; font-size: 22px; font-weight: bold; fill: #2c3e50; }
+      .subtitle { font-family: 'Cairo', Arial, sans-serif; font-size: 14px; fill: #7f8c8d; }
+      .label { font-family: 'Cairo', Arial, sans-serif; font-size: 13px; fill: #34495e; font-weight: 600; }
+      .small-label { font-family: 'Cairo', Arial, sans-serif; font-size: 11px; fill: #fff; font-weight: bold; }
+      .process-label { font-family: 'Cairo', Arial, sans-serif; font-size: 12px; fill: #7f8c8d; }
+    </style>
+    <linearGradient id="dataBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="processGreen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <linearGradient id="resultPurple" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6"/>
+      <stop offset="100%" style="stop-color:#6d28d9"/>
+    </linearGradient>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#10b981"/>
+    </marker>
+  </defs>
+
+  <!-- Title (Arabic) -->
+  <text x="400" y="35" text-anchor="middle" class="title">كيفية عمل تقسيم البيانات</text>
+  <text x="400" y="55" text-anchor="middle" class="subtitle">تقسيم البيانات للمعالجة المتوازية</text>
+
+  <!-- Step 1: Original Data -->
+  <text x="400" y="95" text-anchor="middle" class="label">البيانات الأصلية</text>
+  <rect x="275" y="105" width="250" height="70" rx="8" fill="url(#dataBlue)" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="400" y="145" text-anchor="middle" class="small-label" style="font-size: 18px;">ملف 1 جيجابايت</text>
+  <text x="400" y="165" text-anchor="middle" class="small-label" style="font-size: 12px;">جميع البيانات في موقع واحد</text>
+
+  <!-- Arrow down -->
+  <path d="M 400 180 L 400 215" stroke="#3b82f6" stroke-width="3" fill="none" marker-end="url(#arrowBlue)"/>
+
+  <!-- Step 2: Split Operation -->
+  <text x="400" y="235" text-anchor="middle" class="process-label">تقسيم إلى أجزاء</text>
+
+  <!-- Arrow down -->
+  <path d="M 400 245 L 400 280" stroke="#3b82f6" stroke-width="3" fill="none" marker-end="url(#arrowBlue)"/>
+
+  <!-- Step 3: Partitioned Data (4 chunks) -->
+  <text x="400" y="300" text-anchor="middle" class="label">البيانات موزعة على الأجهزة</text>
+
+  <!-- Machine 1 (right-to-left positioning for Arabic) -->
+  <g transform="translate(530, 315)">
+    <rect x="0" y="0" width="140" height="80" rx="6" fill="url(#dataBlue)" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="70" y="30" text-anchor="middle" class="small-label" style="font-size: 16px;">256 ميجابايت</text>
+    <line x1="10" y1="45" x2="130" y2="45" stroke="#93c5fd" stroke-width="1"/>
+    <text x="70" y="65" text-anchor="middle" class="small-label" style="font-size: 12px;">جهاز 1</text>
+  </g>
+
+  <!-- Machine 2 -->
+  <g transform="translate(370, 315)">
+    <rect x="0" y="0" width="140" height="80" rx="6" fill="url(#dataBlue)" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="70" y="30" text-anchor="middle" class="small-label" style="font-size: 16px;">256 ميجابايت</text>
+    <line x1="10" y1="45" x2="130" y2="45" stroke="#93c5fd" stroke-width="1"/>
+    <text x="70" y="65" text-anchor="middle" class="small-label" style="font-size: 12px;">جهاز 2</text>
+  </g>
+
+  <!-- Machine 3 -->
+  <g transform="translate(210, 315)">
+    <rect x="0" y="0" width="140" height="80" rx="6" fill="url(#dataBlue)" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="70" y="30" text-anchor="middle" class="small-label" style="font-size: 16px;">256 ميجابايت</text>
+    <line x1="10" y1="45" x2="130" y2="45" stroke="#93c5fd" stroke-width="1"/>
+    <text x="70" y="65" text-anchor="middle" class="small-label" style="font-size: 12px;">جهاز 3</text>
+  </g>
+
+  <!-- Machine 4 -->
+  <g transform="translate(50, 315)">
+    <rect x="0" y="0" width="140" height="80" rx="6" fill="url(#dataBlue)" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="70" y="30" text-anchor="middle" class="small-label" style="font-size: 16px;">256 ميجابايت</text>
+    <line x1="10" y1="45" x2="130" y2="45" stroke="#93c5fd" stroke-width="1"/>
+    <text x="70" y="65" text-anchor="middle" class="small-label" style="font-size: 12px;">جهاز 4</text>
+  </g>
+
+  <!-- Arrows down from each machine -->
+  <path d="M 600 400 L 600 430" stroke="#10b981" stroke-width="2.5" fill="none" marker-end="url(#arrowGreen)"/>
+  <path d="M 440 400 L 440 430" stroke="#10b981" stroke-width="2.5" fill="none" marker-end="url(#arrowGreen)"/>
+  <path d="M 280 400 L 280 430" stroke="#10b981" stroke-width="2.5" fill="none" marker-end="url(#arrowGreen)"/>
+  <path d="M 120 400 L 120 430" stroke="#10b981" stroke-width="2.5" fill="none" marker-end="url(#arrowGreen)"/>
+
+  <!-- Step 4: Parallel Processing -->
+  <text x="400" y="455" text-anchor="middle" class="label">المعالجة المتزامنة</text>
+
+  <!-- Processing visualization (4 parallel operations) -->
+  <g transform="translate(530, 465)">
+    <rect x="0" y="0" width="140" height="50" rx="5" fill="url(#processGreen)" stroke="#059669" stroke-width="2"/>
+    <text x="70" y="30" text-anchor="middle" class="small-label">جاري المعالجة...</text>
+  </g>
+  <g transform="translate(370, 465)">
+    <rect x="0" y="0" width="140" height="50" rx="5" fill="url(#processGreen)" stroke="#059669" stroke-width="2"/>
+    <text x="70" y="30" text-anchor="middle" class="small-label">جاري المعالجة...</text>
+  </g>
+  <g transform="translate(210, 465)">
+    <rect x="0" y="0" width="140" height="50" rx="5" fill="url(#processGreen)" stroke="#059669" stroke-width="2"/>
+    <text x="70" y="30" text-anchor="middle" class="small-label">جاري المعالجة...</text>
+  </g>
+  <g transform="translate(50, 465)">
+    <rect x="0" y="0" width="140" height="50" rx="5" fill="url(#processGreen)" stroke="#059669" stroke-width="2"/>
+    <text x="70" y="30" text-anchor="middle" class="small-label">جاري المعالجة...</text>
+  </g>
+
+  <!-- Arrows converging to final result -->
+  <path d="M 600 520 L 450 545" stroke="#8b5cf6" stroke-width="2.5" fill="none"/>
+  <path d="M 440 520 L 440 545" stroke="#8b5cf6" stroke-width="2.5" fill="none"/>
+  <path d="M 280 520 L 360 545" stroke="#8b5cf6" stroke-width="2.5" fill="none"/>
+  <path d="M 120 520 L 350 545" stroke="#8b5cf6" stroke-width="2.5" fill="none"/>
+
+  <!-- Step 5: Combined Results -->
+  <text x="400" y="565" text-anchor="middle" class="label">دمج النتائج</text>
+  <rect x="325" y="570" width="150" height="20" rx="4" fill="url(#resultPurple)" stroke="#6d28d9" stroke-width="2"/>
+  <text x="400" y="585" text-anchor="middle" class="small-label" style="font-size: 11px;">النتيجة النهائية</text>
+
+</svg>

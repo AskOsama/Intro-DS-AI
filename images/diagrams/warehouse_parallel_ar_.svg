@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 550">
+  <defs>
+    <style>
+      .title { font-family: 'Cairo', Arial, sans-serif; font-size: 22px; font-weight: bold; fill: #2c3e50; direction: rtl; }
+      .subtitle { font-family: 'Cairo', Arial, sans-serif; font-size: 14px; fill: #7f8c8d; direction: rtl; }
+      .section-title { font-family: 'Cairo', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #2c3e50; direction: rtl; }
+      .label { font-family: 'Cairo', Arial, sans-serif; font-size: 12px; fill: #34495e; direction: rtl; }
+      .small-label { font-family: 'Cairo', Arial, sans-serif; font-size: 10px; fill: #7f8c8d; direction: rtl; }
+      .time-label { font-family: 'Cairo', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #e74c3c; direction: rtl; }
+      .result-label { font-family: 'Cairo', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #27ae60; direction: rtl; }
+      .worker-name { font-family: 'Cairo', Arial, sans-serif; font-size: 11px; font-weight: bold; fill: #fff; direction: rtl; }
+      .aisle-label { font-family: 'Cairo', Arial, sans-serif; font-size: 10px; font-weight: bold; fill: #8b4513; direction: rtl; }
+      .money { font-family: Arial, sans-serif; font-size: 9px; fill: #2e7d32; direction: ltr; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="550" y="30" text-anchor="middle" class="title">جرد المخزون: التسلسلي مقابل المتوازي</text>
+  <text x="550" y="50" text-anchor="middle" class="subtitle">مقارنة بين العمل الفردي والعمل الجماعي</text>
+
+  <!-- PARALLEL SECTION (Right - RTL) -->
+  <rect x="20" y="70" width="520" height="220" rx="10" fill="#d1fae5" stroke="#6ee7b7" stroke-width="2"/>
+  <text x="280" y="95" text-anchor="middle" class="section-title">الطريقة المتوازية</text>
+
+  <!-- Sarah (Manager) at top -->
+  <circle cx="280" cy="125" r="20" fill="#9b59b6"/>
+  <text x="280" y="130" text-anchor="middle" class="worker-name" style="font-size: 9px;">سارة</text>
+  <text x="280" y="110" text-anchor="middle" class="small-label">المديرة</text>
+
+  <!-- Lines from Sarah to workers (RTL) -->
+  <line x1="300" y1="140" x2="440" y2="175" stroke="#9b59b6" stroke-width="2"/>
+  <line x1="290" y1="145" x2="350" y2="175" stroke="#9b59b6" stroke-width="2"/>
+  <line x1="270" y1="145" x2="210" y2="175" stroke="#9b59b6" stroke-width="2"/>
+  <line x1="260" y1="140" x2="120" y2="175" stroke="#9b59b6" stroke-width="2"/>
+
+  <!-- 4 Workers with their aisles (RTL order) -->
+  <g transform="translate(420, 180)">
+    <circle cx="20" cy="15" r="15" fill="#3498db"/>
+    <text x="20" y="19" text-anchor="middle" class="worker-name" style="font-size: 8px;">محمد</text>
+    <rect x="0" y="40" width="40" height="35" fill="#d4a574" rx="2" stroke="#8b4513"/>
+    <text x="20" y="55" text-anchor="middle" class="aisle-label" style="font-size: 8px;">رف 1</text>
+    <text x="20" y="68" text-anchor="middle" class="money" style="font-size: 7px;">500</text>
+  </g>
+  <g transform="translate(330, 180)">
+    <circle cx="20" cy="15" r="15" fill="#e91e63"/>
+    <text x="20" y="19" text-anchor="middle" class="worker-name" style="font-size: 8px;">فاطمة</text>
+    <rect x="0" y="40" width="40" height="35" fill="#d4a574" rx="2" stroke="#8b4513"/>
+    <text x="20" y="55" text-anchor="middle" class="aisle-label" style="font-size: 8px;">رف 2</text>
+    <text x="20" y="68" text-anchor="middle" class="money" style="font-size: 7px;">500</text>
+  </g>
+  <g transform="translate(190, 180)">
+    <circle cx="20" cy="15" r="15" fill="#ff9800"/>
+    <text x="20" y="19" text-anchor="middle" class="worker-name" style="font-size: 8px;">عمر</text>
+    <rect x="0" y="40" width="40" height="35" fill="#d4a574" rx="2" stroke="#8b4513"/>
+    <text x="20" y="55" text-anchor="middle" class="aisle-label" style="font-size: 8px;">رف 3</text>
+    <text x="20" y="68" text-anchor="middle" class="money" style="font-size: 7px;">500</text>
+  </g>
+  <g transform="translate(100, 180)">
+    <circle cx="20" cy="15" r="15" fill="#4caf50"/>
+    <text x="20" y="19" text-anchor="middle" class="worker-name" style="font-size: 8px;">نور</text>
+    <rect x="0" y="40" width="40" height="35" fill="#d4a574" rx="2" stroke="#8b4513"/>
+    <text x="20" y="55" text-anchor="middle" class="aisle-label" style="font-size: 8px;">رف 4</text>
+    <text x="20" y="68" text-anchor="middle" class="money" style="font-size: 7px;">500</text>
+  </g>
+
+  <text x="280" y="265" text-anchor="middle" class="label">4 عمال يقومون بالجرد بشكل متزامن (ساعة واحدة لكل منهم)</text>
+  <text x="280" y="283" text-anchor="middle" class="label">سارة تجمع النتائج (15 دقيقة)</text>
+  <text x="280" y="245" text-anchor="middle" class="result-label">الوقت الإجمالي: ساعة و15 دقيقة</text>
+
+  <!-- SEQUENTIAL SECTION (Left - RTL) -->
+  <rect x="560" y="70" width="480" height="220" rx="10" fill="#fee2e2" stroke="#fca5a5" stroke-width="2"/>
+  <text x="800" y="95" text-anchor="middle" class="section-title">الطريقة التسلسلية</text>
+
+  <!-- Ahmed working alone -->
+  <circle cx="1020" cy="150" r="22" fill="#3498db"/>
+  <text x="1020" y="155" text-anchor="middle" class="worker-name">أحمد</text>
+  <text x="1020" y="130" text-anchor="middle" class="small-label">(عامل واحد)</text>
+
+  <!-- Arrow showing sequential path (RTL) -->
+  <path d="M 990 150 L 710 150" stroke="#95a5a6" stroke-width="2" stroke-dasharray="5,5" fill="none"/>
+
+  <!-- 4 Aisles (RTL order) -->
+  <g transform="translate(895, 125)">
+    <rect x="0" y="0" width="55" height="50" fill="#d4a574" rx="3" stroke="#8b4513"/>
+    <text x="27" y="20" text-anchor="middle" class="aisle-label">رف 1</text>
+    <text x="27" y="35" text-anchor="middle" class="money">500</text>
+    <text x="27" y="60" text-anchor="middle" class="small-label">1 ساعة</text>
+  </g>
+  <g transform="translate(820, 125)">
+    <rect x="0" y="0" width="55" height="50" fill="#d4a574" rx="3" stroke="#8b4513"/>
+    <text x="27" y="20" text-anchor="middle" class="aisle-label">رف 2</text>
+    <text x="27" y="35" text-anchor="middle" class="money">500</text>
+    <text x="27" y="60" text-anchor="middle" class="small-label">1 ساعة</text>
+  </g>
+  <g transform="translate(745, 125)">
+    <rect x="0" y="0" width="55" height="50" fill="#d4a574" rx="3" stroke="#8b4513"/>
+    <text x="27" y="20" text-anchor="middle" class="aisle-label">رف 3</text>
+    <text x="27" y="35" text-anchor="middle" class="money">500</text>
+    <text x="27" y="60" text-anchor="middle" class="small-label">1 ساعة</text>
+  </g>
+  <g transform="translate(670, 125)">
+    <rect x="0" y="0" width="55" height="50" fill="#d4a574" rx="3" stroke="#8b4513"/>
+    <text x="27" y="20" text-anchor="middle" class="aisle-label">رف 4</text>
+    <text x="27" y="35" text-anchor="middle" class="money">500</text>
+    <text x="27" y="60" text-anchor="middle" class="small-label">1 ساعة</text>
+  </g>
+
+  <!-- Sequential arrows between aisles (RTL) -->
+  <text x="915" y="155" text-anchor="middle" class="label">←</text>
+  <text x="850" y="155" text-anchor="middle" class="label">←</text>
+  <text x="785" y="155" text-anchor="middle" class="label">←</text>
+
+  <text x="800" y="220" text-anchor="middle" class="label">عامل واحد يجرد جميع الرفوف واحدًا تلو الآخر</text>
+  <text x="800" y="243" text-anchor="middle" class="label">الإجمالي: 2,000 منتج</text>
+  <text x="800" y="273" text-anchor="middle" class="time-label">الوقت الإجمالي: 4 ساعات</text>
+
+  <!-- COMPARISON BOX -->
+  <rect x="200" y="310" width="700" height="220" rx="10" fill="#f0f9ff" stroke="#bae6fd" stroke-width="2"/>
+  <text x="550" y="340" text-anchor="middle" class="section-title">المقارنة</text>
+
+  <!-- Comparison table -->
+  <g transform="translate(220, 360)">
+    <!-- Headers -->
+    <text x="560" y="0" text-anchor="middle" class="label" style="font-weight: bold;">الطريقة</text>
+    <text x="400" y="0" text-anchor="middle" class="label" style="font-weight: bold;">العمال</text>
+    <text x="250" y="0" text-anchor="middle" class="label" style="font-weight: bold;">الوقت</text>
+    <text x="100" y="0" text-anchor="middle" class="label" style="font-weight: bold;">المخزون</text>
+
+    <!-- Sequential row -->
+    <rect x="10" y="15" width="620" height="42" fill="#fee2e2" rx="5"/>
+    <text x="560" y="41" text-anchor="middle" class="label">تسلسلي</text>
+    <text x="400" y="41" text-anchor="middle" class="label">1 (أحمد)</text>
+    <text x="250" y="41" text-anchor="middle" class="time-label">4 ساعات</text>
+    <text x="100" y="41" text-anchor="middle" class="label">2,000 منتج</text>
+
+    <!-- Parallel row -->
+    <rect x="10" y="65" width="620" height="42" fill="#d1fae5" rx="5"/>
+    <text x="560" y="91" text-anchor="middle" class="label">متوازي</text>
+    <text x="400" y="91" text-anchor="middle" class="label">4 + 1 مديرة</text>
+    <text x="250" y="91" text-anchor="middle" class="result-label">1.25 ساعة</text>
+    <text x="100" y="91" text-anchor="middle" class="label">2,000 منتج</text>
+  </g>
+
+  <!-- Speedup highlight -->
+  <rect x="400" y="470" width="300" height="50" rx="10" fill="#2563eb"/>
+  <text x="550" y="502" text-anchor="middle" style="font-family: 'Cairo', Arial; font-size: 20px; font-weight: bold; fill: white;">أسرع بـ 3.2 مرة!</text>
+
+  <!-- Key insight -->
+  <text x="550" y="540" text-anchor="middle" class="subtitle">نفس العمل، نفس الدقة — ولكن أسرع بكثير مع العمل الجماعي!</text>
+</svg>

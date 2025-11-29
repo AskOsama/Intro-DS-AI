@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 12px; fill: #7f8c8d; }
+      .section-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #2c3e50; }
+      .label { font-family: Arial, sans-serif; font-size: 11px; fill: #34495e; }
+      .small-label { font-family: Arial, sans-serif; font-size: 9px; fill: #fff; }
+      .cell-value { font-family: 'Courier New', monospace; font-size: 12px; font-weight: bold; fill: #fff; }
+      .operation { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #8b5cf6; }
+      .time { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; }
+      .fast { fill: #22c55e; }
+      .slow { fill: #ef4444; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="25" text-anchor="middle" class="title">GPU Parallel Matrix Processing</text>
+  <text x="400" y="45" text-anchor="middle" class="subtitle">Multiply every element by 2</text>
+
+  <!-- Input Matrix -->
+  <text x="200" y="75" text-anchor="middle" class="section-title">Input Matrix</text>
+
+  <!-- Matrix cells (4x4 grid) -->
+  <g transform="translate(100, 85)">
+    <!-- Row 1 -->
+    <rect x="0" y="0" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="22" y="20" text-anchor="middle" class="cell-value">1</text>
+    <rect x="50" y="0" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="72" y="20" text-anchor="middle" class="cell-value">2</text>
+    <rect x="100" y="0" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="122" y="20" text-anchor="middle" class="cell-value">3</text>
+    <rect x="150" y="0" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="172" y="20" text-anchor="middle" class="cell-value">4</text>
+    <!-- Row 2 -->
+    <rect x="0" y="35" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="22" y="55" text-anchor="middle" class="cell-value">5</text>
+    <rect x="50" y="35" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="72" y="55" text-anchor="middle" class="cell-value">6</text>
+    <rect x="100" y="35" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="122" y="55" text-anchor="middle" class="cell-value">7</text>
+    <rect x="150" y="35" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="172" y="55" text-anchor="middle" class="cell-value">8</text>
+    <!-- Row 3 -->
+    <rect x="0" y="70" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="22" y="90" text-anchor="middle" class="cell-value">9</text>
+    <rect x="50" y="70" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="72" y="90" text-anchor="middle" class="cell-value">10</text>
+    <rect x="100" y="70" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="122" y="90" text-anchor="middle" class="cell-value">11</text>
+    <rect x="150" y="70" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="172" y="90" text-anchor="middle" class="cell-value">12</text>
+    <!-- Row 4 -->
+    <rect x="0" y="105" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="22" y="125" text-anchor="middle" class="cell-value">13</text>
+    <rect x="50" y="105" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="72" y="125" text-anchor="middle" class="cell-value">14</text>
+    <rect x="100" y="105" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="122" y="125" text-anchor="middle" class="cell-value">15</text>
+    <rect x="150" y="105" width="45" height="30" fill="#3b82f6" rx="3"/>
+    <text x="172" y="125" text-anchor="middle" class="cell-value">16</text>
+  </g>
+
+  <!-- CPU Section -->
+  <rect x="320" y="70" width="200" height="165" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="2"/>
+  <text x="420" y="95" text-anchor="middle" class="section-title">CPU (4 cores)</text>
+
+  <!-- CPU processes sequentially -->
+  <text x="420" y="115" text-anchor="middle" class="label">One by one...</text>
+
+  <!-- Sequential processing visualization -->
+  <g transform="translate(340, 125)">
+    <rect x="0" y="0" width="25" height="20" fill="#ef4444" rx="2"/>
+    <text x="12" y="14" text-anchor="middle" class="small-label">1</text>
+    <text x="30" y="14" class="operation">→</text>
+    <rect x="40" y="0" width="25" height="20" fill="#22c55e" rx="2"/>
+    <text x="52" y="14" text-anchor="middle" class="small-label">2</text>
+
+    <rect x="80" y="0" width="25" height="20" fill="#ef4444" rx="2"/>
+    <text x="92" y="14" text-anchor="middle" class="small-label">2</text>
+    <text x="110" y="14" class="operation">→</text>
+    <rect x="120" y="0" width="25" height="20" fill="#22c55e" rx="2"/>
+    <text x="132" y="14" text-anchor="middle" class="small-label">4</text>
+  </g>
+
+  <text x="420" y="165" text-anchor="middle" class="label">Step 1, Step 2, Step 3...</text>
+  <text x="420" y="185" text-anchor="middle" class="label">16 elements ÷ 4 cores</text>
+  <text x="420" y="210" text-anchor="middle" class="time slow">= 4 steps</text>
+
+  <!-- GPU Section -->
+  <rect x="545" y="70" width="230" height="165" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="2"/>
+  <text x="660" y="95" text-anchor="middle" class="section-title">GPU (16+ cores)</text>
+
+  <text x="660" y="115" text-anchor="middle" class="label">All at once!</text>
+
+  <!-- Parallel processing visualization - 4x4 grid of cores -->
+  <g transform="translate(565, 125)">
+    <!-- All 16 cores processing simultaneously -->
+    <rect x="0" y="0" width="40" height="25" fill="#8b5cf6" rx="2"/>
+    <text x="20" y="17" text-anchor="middle" class="small-label">1→2</text>
+    <rect x="45" y="0" width="40" height="25" fill="#8b5cf6" rx="2"/>
+    <text x="65" y="17" text-anchor="middle" class="small-label">2→4</text>
+    <rect x="90" y="0" width="40" height="25" fill="#8b5cf6" rx="2"/>
+    <text x="110" y="17" text-anchor="middle" class="small-label">3→6</text>
+    <rect x="135" y="0" width="40" height="25" fill="#8b5cf6" rx="2"/>
+    <text x="155" y="17" text-anchor="middle" class="small-label">4→8</text>
+
+    <rect x="0" y="30" width="40" height="25" fill="#8b5cf6" rx="2"/>
+    <text x="20" y="47" text-anchor="middle" class="small-label">5→10</text>
+    <rect x="45" y="30" width="40" height="25" fill="#8b5cf6" rx="2"/>
+    <text x="65" y="47" text-anchor="middle" class="small-label">6→12</text>
+    <rect x="90" y="30" width="40" height="25" fill="#8b5cf6" rx="2"/>
+    <text x="110" y="47" text-anchor="middle" class="small-label">7→14</text>
+    <rect x="135" y="30" width="40" height="25" fill="#8b5cf6" rx="2"/>
+    <text x="155" y="47" text-anchor="middle" class="small-label">8→16</text>
+  </g>
+
+  <text x="660" y="210" text-anchor="middle" class="time fast">= 1 step!</text>
+
+  <!-- Output Matrix -->
+  <text x="600" y="265" text-anchor="middle" class="section-title">Output Matrix</text>
+
+  <g transform="translate(500, 275)">
+    <!-- Row 1 -->
+    <rect x="0" y="0" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="22" y="20" text-anchor="middle" class="cell-value">2</text>
+    <rect x="50" y="0" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="72" y="20" text-anchor="middle" class="cell-value">4</text>
+    <rect x="100" y="0" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="122" y="20" text-anchor="middle" class="cell-value">6</text>
+    <rect x="150" y="0" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="172" y="20" text-anchor="middle" class="cell-value">8</text>
+    <!-- Row 2 -->
+    <rect x="0" y="35" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="22" y="55" text-anchor="middle" class="cell-value">10</text>
+    <rect x="50" y="35" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="72" y="55" text-anchor="middle" class="cell-value">12</text>
+    <rect x="100" y="35" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="122" y="55" text-anchor="middle" class="cell-value">14</text>
+    <rect x="150" y="35" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="172" y="55" text-anchor="middle" class="cell-value">16</text>
+    <!-- Row 3 -->
+    <rect x="0" y="70" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="22" y="90" text-anchor="middle" class="cell-value">18</text>
+    <rect x="50" y="70" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="72" y="90" text-anchor="middle" class="cell-value">20</text>
+    <rect x="100" y="70" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="122" y="90" text-anchor="middle" class="cell-value">22</text>
+    <rect x="150" y="70" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="172" y="90" text-anchor="middle" class="cell-value">24</text>
+    <!-- Row 4 -->
+    <rect x="0" y="105" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="22" y="125" text-anchor="middle" class="cell-value">26</text>
+    <rect x="50" y="105" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="72" y="125" text-anchor="middle" class="cell-value">28</text>
+    <rect x="100" y="105" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="122" y="125" text-anchor="middle" class="cell-value">30</text>
+    <rect x="150" y="105" width="45" height="30" fill="#22c55e" rx="3"/>
+    <text x="172" y="125" text-anchor="middle" class="cell-value">32</text>
+  </g>
+
+  <!-- Why AI needs GPUs box -->
+  <rect x="40" y="420" width="720" height="65" rx="8" fill="#ede9fe" stroke="#c4b5fd" stroke-width="2"/>
+  <text x="400" y="445" text-anchor="middle" class="section-title">Why AI Needs GPUs</text>
+  <text x="400" y="470" text-anchor="middle" class="label">Neural networks = Millions of matrix multiplications = Perfect for GPU parallel processing!</text>
+
+  <!-- Arrows -->
+  <path d="M 295 155 L 315 155" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 525 155 L 540 155" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 600 235 L 600 260" stroke="#22c55e" stroke-width="2" fill="none" marker-end="url(#greenarrow)"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+    <marker id="greenarrow" markerWidth="10" markerHeight="7" refX="3.5" refY="9" orient="auto">
+      <polygon points="0 0, 3.5 10, 7 0" fill="#22c55e"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 650">
+  <defs>
+    <style>
+      .title { font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #2c3e50; }
+      .subtitle { font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif; font-size: 14px; fill: #7f8c8d; }
+      .section-title { font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #fff; }
+      .label { font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif; font-size: 12px; fill: #34495e; }
+      .small-label { font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif; font-size: 10px; fill: #7f8c8d; }
+      .floor-label { font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif; font-size: 9px; fill: #475569; font-weight: bold; }
+      .highlight { font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif; font-size: 14px; font-weight: bold; }
+      .pro { fill: #27ae60; }
+      .con { fill: #e74c3c; }
+    </style>
+    <!-- RTL arrows (pointing left) -->
+    <marker id="orangearrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="10 0, 0 3.5, 10 7" fill="#f59e0b"/>
+    </marker>
+    <marker id="bluearrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="10 0, 0 3.5, 10 7" fill="#3b82f6"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="title">استراتيجيات التوسع</text>
+  <text x="400" y="50" text-anchor="middle" class="subtitle">كيف نتعامل مع المزيد من العمل؟</text>
+
+  <!-- Vertical Scaling (Scale Up) - Right Side for RTL -->
+  <rect x="420" y="70" width="350" height="560" rx="10" fill="#fef3c7" stroke="#fcd34d" stroke-width="2"/>
+  <rect x="420" y="70" width="350" height="40" rx="10" fill="#f59e0b"/>
+  <text x="595" y="97" text-anchor="middle" class="section-title">التوسع الرأسي (Scale UP)</text>
+
+  <!-- Ground for vertical section -->
+  <rect x="440" y="440" width="310" height="8" fill="#86efac" rx="2"/>
+
+  <!-- Small Building (Before) - Right side -->
+  <g transform="translate(660, 350)">
+    <!-- Building body -->
+    <rect x="0" y="0" width="50" height="90" fill="#94a3b8" stroke="#64748b" stroke-width="2"/>
+    <!-- Roof -->
+    <polygon points="-5,0 25,-15 55,0" fill="#64748b"/>
+    <!-- Windows Floor 2 -->
+    <rect x="8" y="10" width="12" height="15" fill="#60a5fa" rx="1"/>
+    <rect x="30" y="10" width="12" height="15" fill="#60a5fa" rx="1"/>
+    <!-- Windows Floor 1 -->
+    <rect x="8" y="45" width="12" height="15" fill="#60a5fa" rx="1"/>
+    <rect x="30" y="45" width="12" height="15" fill="#60a5fa" rx="1"/>
+    <!-- Door -->
+    <rect x="18" y="70" width="14" height="20" fill="#475569" rx="1"/>
+    <!-- Floor labels -->
+    <text x="55" y="22" class="floor-label">2</text>
+    <text x="55" y="57" class="floor-label">1</text>
+  </g>
+  <text x="685" y="465" text-anchor="middle" class="small-label">مبنى من</text>
+  <text x="685" y="478" text-anchor="middle" class="small-label">طابقين</text>
+
+  <!-- Arrow (RTL direction - horizontal) -->
+  <path d="M 598 400 L 645 400" stroke="#f59e0b" stroke-width="4" fill="none" marker-start="url(#orangearrow)"/>
+
+  <!-- Tall Building (After) - Skyscraper -->
+  <g transform="translate(500, 220)">
+    <!-- Building body - taller and slightly wider -->
+    <rect x="0" y="0" width="70" height="200" fill="#94a3b8" stroke="#64748b" stroke-width="2"/>
+    <!-- Spire on top -->
+    <polygon points="35,-25 30,0 40,0" fill="#64748b"/>
+    <!-- Windows - 6 floors -->
+    <!-- Floor 6 -->
+    <rect x="10" y="10" width="15" height="18" fill="#60a5fa" rx="1"/>
+    <rect x="45" y="10" width="15" height="18" fill="#60a5fa" rx="1"/>
+    <!-- Floor 5 -->
+    <rect x="10" y="40" width="15" height="18" fill="#60a5fa" rx="1"/>
+    <rect x="45" y="40" width="15" height="18" fill="#60a5fa" rx="1"/>
+    <!-- Floor 4 -->
+    <rect x="10" y="70" width="15" height="18" fill="#60a5fa" rx="1"/>
+    <rect x="45" y="70" width="15" height="18" fill="#60a5fa" rx="1"/>
+    <!-- Floor 3 -->
+    <rect x="10" y="100" width="15" height="18" fill="#60a5fa" rx="1"/>
+    <rect x="45" y="100" width="15" height="18" fill="#60a5fa" rx="1"/>
+    <!-- Floor 2 -->
+    <rect x="10" y="130" width="15" height="18" fill="#60a5fa" rx="1"/>
+    <rect x="45" y="130" width="15" height="18" fill="#60a5fa" rx="1"/>
+    <!-- Floor 1 -->
+    <rect x="10" y="160" width="15" height="18" fill="#60a5fa" rx="1"/>
+    <rect x="45" y="160" width="15" height="18" fill="#60a5fa" rx="1"/>
+    <!-- Door -->
+    <rect x="25" y="180" width="20" height="20" fill="#475569" rx="1"/>
+    <!-- Floor labels on left side for RTL -->
+    <text x="-10" y="24" class="floor-label" text-anchor="end">6</text>
+    <text x="-10" y="54" class="floor-label" text-anchor="end">5</text>
+    <text x="-10" y="84" class="floor-label" text-anchor="end">4</text>
+    <text x="-10" y="114" class="floor-label" text-anchor="end">3</text>
+    <text x="-10" y="144" class="floor-label" text-anchor="end">2</text>
+    <text x="-10" y="174" class="floor-label" text-anchor="end">1</text>
+  </g>
+  <text x="535" y="465" text-anchor="middle" class="small-label">زيادة الطوابق</text>
+  <text x="535" y="478" text-anchor="middle" class="small-label">مبنا من 6 طوابق</text>
+
+  <text x="595" y="505" text-anchor="middle" class="label">"إضافة المزيد من الطوابق لمبنى واحد"</text>
+
+  <!-- Pros/Cons for Vertical -->
+  <text x="740" y="535" text-anchor="end" class="highlight pro">المزايا:</text>
+  <text x="740" y="553" text-anchor="end" class="label">بسيط - مبنى واحد فقط للإدارة</text>
+  <text x="740" y="570" text-anchor="end" class="label">كل شيء في مكان واحد</text>
+
+  <text x="740" y="595" text-anchor="end" class="highlight con">العيوب:</text>
+  <text x="740" y="613" text-anchor="end" class="label"> (له حد أعلى) مكلف - يحتاج أساس أقوى</text>
+
+  <!-- Horizontal Scaling (Scale Out) - Left Side for RTL -->
+  <rect x="30" y="70" width="350" height="560" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="2"/>
+  <rect x="30" y="70" width="350" height="40" rx="10" fill="#3b82f6"/>
+  <text x="205" y="97" text-anchor="middle" class="section-title">التوسع الأفقي (Scale OUT)</text>
+
+  <!-- Ground for horizontal section -->
+  <rect x="50" y="440" width="310" height="8" fill="#86efac" rx="2"/>
+
+  <!-- Single Building (Before) - Right side of left panel -->
+  <g transform="translate(290, 350)">
+    <rect x="0" y="0" width="50" height="90" fill="#94a3b8" stroke="#64748b" stroke-width="2"/>
+    <polygon points="-5,0 25,-15 55,0" fill="#64748b"/>
+    <rect x="8" y="10" width="12" height="15" fill="#60a5fa" rx="1"/>
+    <rect x="30" y="10" width="12" height="15" fill="#60a5fa" rx="1"/>
+    <rect x="8" y="45" width="12" height="15" fill="#60a5fa" rx="1"/>
+    <rect x="30" y="45" width="12" height="15" fill="#60a5fa" rx="1"/>
+    <rect x="18" y="70" width="14" height="20" fill="#475569" rx="1"/>
+  </g>
+  <text x="315" y="465" text-anchor="middle" class="small-label">مبنى واحد</text>
+
+  <!-- Arrow (RTL direction - horizontal) -->
+  <path d="M 228 400 L 275 400" stroke="#3b82f6" stroke-width="4" fill="none" marker-start="url(#bluearrow)"/>
+
+  <!-- Multiple Buildings (After) - Campus -->
+  <!-- Building 1 (rightmost) -->
+  <g transform="translate(175, 365)">
+    <rect x="0" y="0" width="40" height="75" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+    <polygon points="-3,0 20,-10 43,0" fill="#64748b"/>
+    <rect x="6" y="8" width="10" height="12" fill="#60a5fa" rx="1"/>
+    <rect x="24" y="8" width="10" height="12" fill="#60a5fa" rx="1"/>
+    <rect x="6" y="35" width="10" height="12" fill="#60a5fa" rx="1"/>
+    <rect x="24" y="35" width="10" height="12" fill="#60a5fa" rx="1"/>
+    <rect x="14" y="58" width="12" height="17" fill="#475569" rx="1"/>
+  </g>
+  <!-- Building 2 -->
+  <g transform="translate(120, 365)">
+    <rect x="0" y="0" width="40" height="75" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+    <polygon points="-3,0 20,-10 43,0" fill="#64748b"/>
+    <rect x="6" y="8" width="10" height="12" fill="#60a5fa" rx="1"/>
+    <rect x="24" y="8" width="10" height="12" fill="#60a5fa" rx="1"/>
+    <rect x="6" y="35" width="10" height="12" fill="#60a5fa" rx="1"/>
+    <rect x="24" y="35" width="10" height="12" fill="#60a5fa" rx="1"/>
+    <rect x="14" y="58" width="12" height="17" fill="#475569" rx="1"/>
+  </g>
+  <!-- Building 3 (leftmost) -->
+  <g transform="translate(65, 365)">
+    <rect x="0" y="0" width="40" height="75" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+    <polygon points="-3,0 20,-10 43,0" fill="#64748b"/>
+    <rect x="6" y="8" width="10" height="12" fill="#60a5fa" rx="1"/>
+    <rect x="24" y="8" width="10" height="12" fill="#60a5fa" rx="1"/>
+    <rect x="6" y="35" width="10" height="12" fill="#60a5fa" rx="1"/>
+    <rect x="24" y="35" width="10" height="12" fill="#60a5fa" rx="1"/>
+    <rect x="14" y="58" width="12" height="17" fill="#475569" rx="1"/>
+  </g>
+
+  <!-- Connecting roads (network) -->
+  <line x1="175" y1="445" x2="160" y2="445" stroke="#475569" stroke-width="3" stroke-dasharray="4,2"/>
+  <line x1="120" y1="445" x2="105" y2="445" stroke="#475569" stroke-width="3" stroke-dasharray="4,2"/>
+
+  <text x="130" y="470" text-anchor="middle" class="small-label">مباني متعددة</text>
+  <text x="130" y="483" text-anchor="middle" class="small-label">(لرفع الطاقة الأستعابية)</text>
+
+  <text x="205" y="505" text-anchor="middle" class="label">"بناء المزيد من المباني"</text>
+
+  <!-- Pros/Cons for Horizontal -->
+  <text x="350" y="535" text-anchor="end" class="highlight pro">المزايا:</text>
+  <text x="350" y="553" text-anchor="end" class="label">نمو غير محدود - يمكن إضافة المزيد</text>
+  <text x="350" y="570" text-anchor="end" class="label">أرخص لكل مبنى</text>
+
+  <text x="350" y="595" text-anchor="end" class="highlight con">العيوب:</text>
+  <text x="350" y="613" text-anchor="end" class="label">يحتاج تنسيق (طرق بين المباني)</text>
+
+</svg>

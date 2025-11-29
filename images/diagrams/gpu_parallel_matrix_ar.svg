@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 820">
+  <defs>
+    <style>
+      .title { font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #1e293b; }
+      .subtitle { font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif; font-size: 14px; fill: #64748b; }
+      .section-title { font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #1e293b; }
+      .label { font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif; font-size: 12px; fill: #475569; }
+      .cell-value { font-family: 'Courier New', monospace; font-size: 14px; font-weight: bold; fill: #fff; }
+      .core-label { font-family: 'Courier New', monospace; font-size: 9px; fill: #fff; }
+      .time-label { font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif; font-size: 14px; font-weight: bold; }
+      .fast { fill: #16a34a; }
+      .slow { fill: #dc2626; }
+      .box-title { font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #fff; }
+    </style>
+    <!-- Arrow pointing down - using marker-start so we reverse the path -->
+    <marker id="arrow-down-gray" markerWidth="12" markerHeight="10" refX="6" refY="0" orient="auto">
+      <polygon points="0 0, 6 10, 12 0" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-down-green" markerWidth="12" markerHeight="10" refX="6" refY="0" orient="auto">
+      <polygon points="0 0, 6 10, 12 0" fill="#16a34a"/>
+    </marker>
+    <marker id="arrow-down-red" markerWidth="12" markerHeight="10" refX="6" refY="0" orient="auto">
+      <polygon points="0 0, 6 10, 12 0" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="950" height="820" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="475" y="35" text-anchor="middle" class="title">مقارنة معالجة المصفوفات: CPU مقابل GPU</text>
+  <text x="475" y="58" text-anchor="middle" class="subtitle">مثال: ضرب كل عنصر × 2</text>
+
+  <!-- ==================== CPU SECTION (Right side for RTL) ==================== -->
+  <g transform="translate(500, 75)">
+    <!-- CPU Column Background -->
+    <rect x="0" y="0" width="420" height="720" rx="15" fill="#fef2f2" stroke="#fca5a5" stroke-width="2"/>
+    
+    <!-- CPU Header -->
+    <rect x="0" y="0" width="420" height="45" rx="15" fill="#ef4444"/>
+    <rect x="0" y="25" width="420" height="20" fill="#ef4444"/>
+    <text x="210" y="30" text-anchor="middle" class="box-title" style="font-size: 16px;">CPU (4 أنوية) 🐢</text>
+    
+    <!-- Input Matrix Label -->
+    <text x="210" y="80" text-anchor="middle" class="section-title">مصفوفة الإدخال</text>
+    
+    <!-- CPU Input Matrix -->
+    <g transform="translate(115, 95)">
+      <rect x="0" y="0" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="22" y="24" text-anchor="middle" class="cell-value">1</text>
+      <rect x="49" y="0" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="71" y="24" text-anchor="middle" class="cell-value">2</text>
+      <rect x="98" y="0" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="120" y="24" text-anchor="middle" class="cell-value">3</text>
+      <rect x="147" y="0" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="169" y="24" text-anchor="middle" class="cell-value">4</text>
+      
+      <rect x="0" y="41" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="22" y="65" text-anchor="middle" class="cell-value">5</text>
+      <rect x="49" y="41" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="71" y="65" text-anchor="middle" class="cell-value">6</text>
+      <rect x="98" y="41" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="120" y="65" text-anchor="middle" class="cell-value">7</text>
+      <rect x="147" y="41" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="169" y="65" text-anchor="middle" class="cell-value">8</text>
+      
+      <rect x="0" y="82" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="22" y="106" text-anchor="middle" class="cell-value">9</text>
+      <rect x="49" y="82" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="71" y="106" text-anchor="middle" class="cell-value">10</text>
+      <rect x="98" y="82" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="120" y="106" text-anchor="middle" class="cell-value">11</text>
+      <rect x="147" y="82" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="169" y="106" text-anchor="middle" class="cell-value">12</text>
+      
+      <rect x="0" y="123" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="22" y="147" text-anchor="middle" class="cell-value">13</text>
+      <rect x="49" y="123" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="71" y="147" text-anchor="middle" class="cell-value">14</text>
+      <rect x="98" y="123" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="120" y="147" text-anchor="middle" class="cell-value">15</text>
+      <rect x="147" y="123" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="169" y="147" text-anchor="middle" class="cell-value">16</text>
+    </g>
+    
+    <!-- Arrow down to CPU processing -->
+    <path d="M 210 270 L 210 255" stroke="#64748b" stroke-width="3" fill="none" marker-start="url(#arrow-down-gray)"/>
+    
+    <!-- CPU Processing Box -->
+    <rect x="40" y="290" width="340" height="160" rx="10" fill="#fff" stroke="#fca5a5" stroke-width="2"/>
+    <text x="210" y="320" text-anchor="middle" class="label" style="font-weight: bold;">المعالجة التسلسلية</text>
+    
+    <!-- Sequential steps -->
+    <g transform="translate(60, 335)">
+      <rect x="0" y="0" width="55" height="28" fill="#94a3b8" rx="4"/>
+      <text x="27" y="19" text-anchor="middle" class="core-label">1→2</text>
+      <text x="65" y="19" fill="#64748b" font-size="14">←</text>
+      <text x="90" y="19" class="label" font-size="11">خطوة 1</text>
+      
+      <rect x="0" y="35" width="55" height="28" fill="#94a3b8" rx="4"/>
+      <text x="27" y="54" text-anchor="middle" class="core-label">2→4</text>
+      <text x="65" y="54" fill="#64748b" font-size="14">←</text>
+      <text x="90" y="54" class="label" font-size="11">خطوة 2</text>
+      
+      <rect x="0" y="70" width="55" height="28" fill="#94a3b8" rx="4"/>
+      <text x="27" y="89" text-anchor="middle" class="core-label">3→6</text>
+      <text x="65" y="89" fill="#64748b" font-size="14">←</text>
+      <text x="90" y="89" class="label" font-size="11">خطوة 3 ...</text>
+    </g>
+    
+    <!-- CPU Time badge -->
+    <g transform="translate(220, 340)">
+      <rect x="0" y="0" width="105" height="85" rx="10" fill="#fee2e2" stroke="#fca5a5" stroke-width="1"/>
+      <text x="52" y="28" text-anchor="middle" class="time-label slow">4 خطوات</text>
+      <text x="52" y="50" text-anchor="middle" class="label">16 ÷ 4 = 4</text>
+      <text x="52" y="75" text-anchor="middle" font-size="24">🐢</text>
+    </g>
+    
+    <!-- Arrow down to CPU output -->
+    <path d="M 210 475 L 210 460" stroke="#ef4444" stroke-width="3" fill="none" marker-start="url(#arrow-down-red)"/>
+    
+    <!-- Output Matrix Label -->
+    <text x="210" y="510" text-anchor="middle" class="section-title">مصفوفة الإخراج</text>
+    
+    <!-- CPU Output Matrix -->
+    <g transform="translate(115, 525)">
+      <rect x="0" y="0" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="22" y="24" text-anchor="middle" class="cell-value">2</text>
+      <rect x="49" y="0" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="71" y="24" text-anchor="middle" class="cell-value">4</text>
+      <rect x="98" y="0" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="120" y="24" text-anchor="middle" class="cell-value">6</text>
+      <rect x="147" y="0" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="169" y="24" text-anchor="middle" class="cell-value">8</text>
+      
+      <rect x="0" y="41" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="22" y="65" text-anchor="middle" class="cell-value">10</text>
+      <rect x="49" y="41" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="71" y="65" text-anchor="middle" class="cell-value">12</text>
+      <rect x="98" y="41" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="120" y="65" text-anchor="middle" class="cell-value">14</text>
+      <rect x="147" y="41" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="169" y="65" text-anchor="middle" class="cell-value">16</text>
+      
+      <rect x="0" y="82" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="22" y="106" text-anchor="middle" class="cell-value">18</text>
+      <rect x="49" y="82" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="71" y="106" text-anchor="middle" class="cell-value">20</text>
+      <rect x="98" y="82" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="120" y="106" text-anchor="middle" class="cell-value">22</text>
+      <rect x="147" y="82" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="169" y="106" text-anchor="middle" class="cell-value">24</text>
+      
+      <rect x="0" y="123" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="22" y="147" text-anchor="middle" class="cell-value">26</text>
+      <rect x="49" y="123" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="71" y="147" text-anchor="middle" class="cell-value">28</text>
+      <rect x="98" y="123" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="120" y="147" text-anchor="middle" class="cell-value">30</text>
+      <rect x="147" y="123" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="169" y="147" text-anchor="middle" class="cell-value">32</text>
+    </g>
+  </g>
+
+  <!-- ==================== GPU SECTION (Left side for RTL) ==================== -->
+  <g transform="translate(30, 75)">
+    <!-- GPU Column Background -->
+    <rect x="0" y="0" width="420" height="720" rx="15" fill="#f0fdf4" stroke="#86efac" stroke-width="2"/>
+    
+    <!-- GPU Header -->
+    <rect x="0" y="0" width="420" height="45" rx="15" fill="#16a34a"/>
+    <rect x="0" y="25" width="420" height="20" fill="#16a34a"/>
+    <text x="210" y="30" text-anchor="middle" class="box-title" style="font-size: 16px;">GPU (آلاف الأنوية) 🚀</text>
+    
+    <!-- Input Matrix Label -->
+    <text x="210" y="80" text-anchor="middle" class="section-title">مصفوفة الإدخال</text>
+    
+    <!-- GPU Input Matrix -->
+    <g transform="translate(115, 95)">
+      <rect x="0" y="0" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="22" y="24" text-anchor="middle" class="cell-value">1</text>
+      <rect x="49" y="0" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="71" y="24" text-anchor="middle" class="cell-value">2</text>
+      <rect x="98" y="0" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="120" y="24" text-anchor="middle" class="cell-value">3</text>
+      <rect x="147" y="0" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="169" y="24" text-anchor="middle" class="cell-value">4</text>
+      
+      <rect x="0" y="41" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="22" y="65" text-anchor="middle" class="cell-value">5</text>
+      <rect x="49" y="41" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="71" y="65" text-anchor="middle" class="cell-value">6</text>
+      <rect x="98" y="41" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="120" y="65" text-anchor="middle" class="cell-value">7</text>
+      <rect x="147" y="41" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="169" y="65" text-anchor="middle" class="cell-value">8</text>
+      
+      <rect x="0" y="82" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="22" y="106" text-anchor="middle" class="cell-value">9</text>
+      <rect x="49" y="82" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="71" y="106" text-anchor="middle" class="cell-value">10</text>
+      <rect x="98" y="82" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="120" y="106" text-anchor="middle" class="cell-value">11</text>
+      <rect x="147" y="82" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="169" y="106" text-anchor="middle" class="cell-value">12</text>
+      
+      <rect x="0" y="123" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="22" y="147" text-anchor="middle" class="cell-value">13</text>
+      <rect x="49" y="123" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="71" y="147" text-anchor="middle" class="cell-value">14</text>
+      <rect x="98" y="123" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="120" y="147" text-anchor="middle" class="cell-value">15</text>
+      <rect x="147" y="123" width="44" height="36" fill="#3b82f6" rx="4"/>
+      <text x="169" y="147" text-anchor="middle" class="cell-value">16</text>
+    </g>
+    
+    <!-- Arrow down to GPU processing -->
+    <path d="M 210 270 L 210 255" stroke="#64748b" stroke-width="3" fill="none" marker-start="url(#arrow-down-gray)"/>
+    
+    <!-- GPU Processing Box -->
+    <rect x="40" y="290" width="340" height="160" rx="10" fill="#fff" stroke="#86efac" stroke-width="2"/>
+    <text x="210" y="320" text-anchor="middle" class="label" style="font-weight: bold;">المعالجة المتوازية - الكل معاً!</text>
+    
+    <!-- Parallel processing grid -->
+    <g transform="translate(55, 335)">
+      <rect x="0" y="0" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="22" y="16" text-anchor="middle" class="core-label">1→2</text>
+      <rect x="48" y="0" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="70" y="16" text-anchor="middle" class="core-label">2→4</text>
+      <rect x="96" y="0" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="118" y="16" text-anchor="middle" class="core-label">3→6</text>
+      <rect x="144" y="0" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="166" y="16" text-anchor="middle" class="core-label">4→8</text>
+      
+      <rect x="0" y="28" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="22" y="44" text-anchor="middle" class="core-label">5→10</text>
+      <rect x="48" y="28" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="70" y="44" text-anchor="middle" class="core-label">6→12</text>
+      <rect x="96" y="28" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="118" y="44" text-anchor="middle" class="core-label">7→14</text>
+      <rect x="144" y="28" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="166" y="44" text-anchor="middle" class="core-label">8→16</text>
+      
+      <rect x="0" y="56" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="22" y="72" text-anchor="middle" class="core-label">9→18</text>
+      <rect x="48" y="56" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="70" y="72" text-anchor="middle" class="core-label">10→20</text>
+      <rect x="96" y="56" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="118" y="72" text-anchor="middle" class="core-label">11→22</text>
+      <rect x="144" y="56" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="166" y="72" text-anchor="middle" class="core-label">12→24</text>
+      
+      <rect x="0" y="84" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="22" y="100" text-anchor="middle" class="core-label">13→26</text>
+      <rect x="48" y="84" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="70" y="100" text-anchor="middle" class="core-label">14→28</text>
+      <rect x="96" y="84" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="118" y="100" text-anchor="middle" class="core-label">15→30</text>
+      <rect x="144" y="84" width="44" height="24" fill="#8b5cf6" rx="3"/>
+      <text x="166" y="100" text-anchor="middle" class="core-label">16→32</text>
+    </g>
+    
+    <!-- GPU Time badge -->
+    <g transform="translate(255, 340)">
+      <rect x="0" y="0" width="105" height="85" rx="10" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
+      <text x="52" y="28" text-anchor="middle" class="time-label fast">خطوة واحدة!</text>
+      <text x="52" y="50" text-anchor="middle" class="label">16 عملية معاً</text>
+      <text x="52" y="75" text-anchor="middle" font-size="24">🚀</text>
+    </g>
+    
+    <!-- Arrow down to GPU output -->
+    <path d="M 210 475 L 210 460" stroke="#16a34a" stroke-width="3" fill="none" marker-start="url(#arrow-down-green)"/>
+    
+    <!-- Output Matrix Label -->
+    <text x="210" y="510" text-anchor="middle" class="section-title">مصفوفة الإخراج</text>
+    
+    <!-- GPU Output Matrix -->
+    <g transform="translate(115, 525)">
+      <rect x="0" y="0" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="22" y="24" text-anchor="middle" class="cell-value">2</text>
+      <rect x="49" y="0" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="71" y="24" text-anchor="middle" class="cell-value">4</text>
+      <rect x="98" y="0" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="120" y="24" text-anchor="middle" class="cell-value">6</text>
+      <rect x="147" y="0" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="169" y="24" text-anchor="middle" class="cell-value">8</text>
+      
+      <rect x="0" y="41" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="22" y="65" text-anchor="middle" class="cell-value">10</text>
+      <rect x="49" y="41" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="71" y="65" text-anchor="middle" class="cell-value">12</text>
+      <rect x="98" y="41" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="120" y="65" text-anchor="middle" class="cell-value">14</text>
+      <rect x="147" y="41" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="169" y="65" text-anchor="middle" class="cell-value">16</text>
+      
+      <rect x="0" y="82" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="22" y="106" text-anchor="middle" class="cell-value">18</text>
+      <rect x="49" y="82" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="71" y="106" text-anchor="middle" class="cell-value">20</text>
+      <rect x="98" y="82" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="120" y="106" text-anchor="middle" class="cell-value">22</text>
+      <rect x="147" y="82" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="169" y="106" text-anchor="middle" class="cell-value">24</text>
+      
+      <rect x="0" y="123" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="22" y="147" text-anchor="middle" class="cell-value">26</text>
+      <rect x="49" y="123" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="71" y="147" text-anchor="middle" class="cell-value">28</text>
+      <rect x="98" y="123" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="120" y="147" text-anchor="middle" class="cell-value">30</text>
+      <rect x="147" y="123" width="44" height="36" fill="#16a34a" rx="4"/>
+      <text x="169" y="147" text-anchor="middle" class="cell-value">32</text>
+    </g>
+  </g>
+
+  <!-- VS Divider -->
+  <g transform="translate(450, 420)">
+    <circle cx="25" cy="25" r="35" fill="#fff" stroke="#cbd5e1" stroke-width="3"/>
+    <text x="25" y="33" text-anchor="middle" style="font-family: Arial; font-size: 20px; font-weight: bold; fill: #64748b;">VS</text>
+  </g>
+
+</svg>
