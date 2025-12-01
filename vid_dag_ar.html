@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خط أنابيب معالجة الفيديو DAG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .lang-button {
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-button:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .dag-container {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 1400px;
+            width: 100%;
+            position: relative;
+        }
+
+        .pipeline {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 150px 60px;
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .node {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .node:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .node-id {
+            font-weight: bold;
+            font-size: 1.5em;
+            margin-bottom: 8px;
+            color: #ffd700;
+        }
+
+        .node-label {
+            font-size: 0.95em;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        .node-desc {
+            font-size: 0.75em;
+            margin-top: 6px;
+            opacity: 0.9;
+            line-height: 1.3;
+        }
+
+        /* Audio Processing Nodes */
+        .node.audio {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        /* Visual Processing Nodes */
+        .node.visual {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        /* Merge/Output Nodes */
+        .node.merge {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: #1a1a2e;
+        }
+
+        .node.merge .node-id {
+            color: #065f46;
+        }
+
+        /* Source Node */
+        .node.source {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: #1a1a2e;
+        }
+
+        .node.source .node-id {
+            color: #7c2d12;
+        }
+
+        /* Grid positioning */
+        .node-A { grid-column: 3; grid-row: 1; }
+        .node-B { grid-column: 2; grid-row: 3; }
+        .node-C { grid-column: 4; grid-row: 3; }
+        .node-D { grid-column: 2; grid-row: 4; }
+        .node-E { grid-column: 4; grid-row: 4; }
+        .node-F { grid-column: 2; grid-row: 5; }
+        .node-G { grid-column: 4; grid-row: 5; }
+        .node-H { grid-column: 2; grid-row: 6; }
+        .node-I { grid-column: 4; grid-row: 6; }
+        .node-J { grid-column: 3; grid-row: 7; }
+        .node-K { grid-column: 3; grid-row: 8; }
+
+        /* SVG for arrows */
+        .arrows-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .arrow-line {
+            stroke: #9333ea;
+            stroke-width: 3;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        .arrow-line.audio {
+            stroke: #f5576c;
+        }
+
+        .arrow-line.visual {
+            stroke: #00b4d8;
+        }
+
+        .arrow-line.merge {
+            stroke: #22c55e;
+        }
+
+        .arrow-line.source {
+            stroke: #f97316;
+        }
+
+        .edge-label {
+            position: absolute;
+            background: rgba(255,255,255,0.95);
+            color: #374151;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.7em;
+            white-space: nowrap;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 5;
+            border: 1px solid #e5e7eb;
+        }
+
+        .legend {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-color {
+            width: 40px;
+            height: 25px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .legend-color.source {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .legend-color.audio {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .legend-color.visual {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .legend-color.merge {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .legend-text {
+            font-size: 14px;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        /* Technical Section Styles */
+        .tech-section {
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .tech-section h2 {
+            text-align: center;
+            color: #1f2937;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+
+        .func-card {
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-right: 5px solid #667eea;
+            border-left: none;
+        }
+
+        .func-card.source {
+            border-right-color: #f97316;
+        }
+
+        .func-card.audio {
+            border-right-color: #ec4899;
+        }
+
+        .func-card.visual {
+            border-right-color: #06b6d4;
+        }
+
+        .func-card.merge {
+            border-right-color: #22c55e;
+        }
+
+        .func-header {
+            background: #f9fafb;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .func-id {
+            background: #667eea;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .func-card.source .func-id {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: #7c2d12;
+        }
+
+        .func-card.audio .func-id {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .func-card.visual .func-id {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .func-card.merge .func-id {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: #065f46;
+        }
+
+        .func-name {
+            font-weight: 600;
+            font-size: 1.2em;
+            color: #1f2937;
+            flex-grow: 1;
+        }
+
+        .func-type {
+            background: #e5e7eb;
+            color: #4b5563;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+
+        .func-body {
+            padding: 20px;
+        }
+
+        .func-desc {
+            color: #4b5563;
+            line-height: 1.8;
+        }
+
+        .func-desc p {
+            margin-bottom: 10px;
+        }
+
+        .func-desc strong {
+            color: #1f2937;
+        }
+
+        .branch-label {
+            position: absolute;
+            font-weight: 700;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #6b7280;
+            z-index: 2;
+        }
+
+        .branch-label.audio {
+            color: #db2777;
+        }
+
+        .branch-label.visual {
+            color: #0891b2;
+        }
+
+        /* Edge tuple list */
+        .edge-list {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .edge-list h3 {
+            margin-bottom: 15px;
+            color: #374151;
+        }
+
+        .edge-list pre {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #4b5563;
+            line-height: 1.6;
+            direction: ltr;
+            text-align: left;
+        }
+
+        @media (max-width: 1200px) {
+            .pipeline {
+                gap: 120px 40px;
+            }
+
+            .dag-container {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .pipeline {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 80px 20px;
+            }
+
+            .node-A { grid-column: 2; grid-row: 1; }
+            .node-B { grid-column: 1; grid-row: 3; }
+            .node-C { grid-column: 3; grid-row: 3; }
+            .node-D { grid-column: 1; grid-row: 4; }
+            .node-E { grid-column: 3; grid-row: 4; }
+            .node-F { grid-column: 1; grid-row: 5; }
+            .node-G { grid-column: 3; grid-row: 5; }
+            .node-H { grid-column: 1; grid-row: 6; }
+            .node-I { grid-column: 3; grid-row: 6; }
+            .node-J { grid-column: 2; grid-row: 7; }
+            .node-K { grid-column: 2; grid-row: 8; }
+
+            .dag-container {
+                padding: 20px;
+            }
+
+            .edge-label {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="vid_dag.html" class="lang-button" title="Switch to English">English</a>
+    </div>
+
+    <h1>خط أنابيب تحليل الفيديو DAG</h1>
+    <p class="subtitle">بنية الاستدلال بالذكاء الاصطناعي المتوازية باستخدام مبادئ MapReduce/DAG</p>
+
+    <div class="dag-container">
+        <!-- Branch Labels -->
+        <div class="branch-label audio" style="top: 280px; right: 80px;">فرع الصوت</div>
+        <div class="branch-label visual" style="top: 280px; left: 80px;">فرع الفيديو</div>
+
+        <div class="pipeline">
+            <!-- Source Node -->
+            <div class="node source node-A" data-node="A">
+                <div class="node-id">A</div>
+                <div class="node-label">الفيديوهات الخام</div>
+                <div class="node-desc">دفعة من ملفات الفيديو للمعالجة</div>
+            </div>
+
+            <!-- Audio Branch -->
+            <div class="node audio node-B" data-node="B">
+                <div class="node-id">B</div>
+                <div class="node-label">استخراج الصوت</div>
+                <div class="node-desc">فصل تدفق الصوت باستخدام FFmpeg</div>
+            </div>
+
+            <div class="node audio node-D" data-node="D">
+                <div class="node-id">D</div>
+                <div class="node-label">فصل المتحدثين</div>
+                <div class="node-desc">حل مشكلة حفلة الكوكتيل<br>(Conv-TasNet, SepFormer)</div>
+            </div>
+
+            <div class="node audio node-F" data-node="F">
+                <div class="node-id">F</div>
+                <div class="node-label">تحويل الكلام إلى نص</div>
+                <div class="node-desc">نسخ ASR باستخدام Whisper</div>
+            </div>
+
+            <div class="node audio node-H" data-node="H">
+                <div class="node-id">H</div>
+                <div class="node-label">تلخيص الآراء</div>
+                <div class="node-desc">تلخيص LLM لكل متحدث<br>(Llama, GPT)</div>
+            </div>
+
+            <!-- Visual Branch -->
+            <div class="node visual node-C" data-node="C">
+                <div class="node-id">C</div>
+                <div class="node-label">استخراج الإطارات</div>
+                <div class="node-desc">أخذ عينات من الإطارات باستخدام OpenCV</div>
+            </div>
+
+            <div class="node visual node-E" data-node="E">
+                <div class="node-id">E</div>
+                <div class="node-label">اكتشاف الأشخاص</div>
+                <div class="node-desc">اكتشاف وتحديد موقع الأشخاص<br>(YOLO, Faster R-CNN)</div>
+            </div>
+
+            <div class="node visual node-G" data-node="G">
+                <div class="node-id">G</div>
+                <div class="node-label">وصف الأشخاص</div>
+                <div class="node-desc">نموذج الرؤية-اللغة<br>(BLIP-2, LLaVA)</div>
+            </div>
+
+            <div class="node visual node-I" data-node="I">
+                <div class="node-id">I</div>
+                <div class="node-label">جمع المعلومات المرئية</div>
+                <div class="node-desc">تجميع أوصاف الأشخاص</div>
+            </div>
+
+            <!-- Merge Nodes -->
+            <div class="node merge node-J" data-node="J">
+                <div class="node-id">J</div>
+                <div class="node-label">دمج جميع النتائج</div>
+                <div class="node-desc">ربط الصوت والمرئي باستخدام الطوابع الزمنية</div>
+            </div>
+
+            <div class="node merge node-K" data-node="K">
+                <div class="node-id">K</div>
+                <div class="node-label">حفظ التقرير النهائي</div>
+                <div class="node-desc">التخزين في نظام ملفات مشترك</div>
+            </div>
+        </div>
+
+        <!-- Edge Labels (positioned via JS) -->
+        <div class="edge-label" id="label-A-B">ملفات الفيديو</div>
+        <div class="edge-label" id="label-A-C">ملفات الفيديو</div>
+        <div class="edge-label" id="label-B-D">صوت مختلط</div>
+        <div class="edge-label" id="label-C-E">إطارات + طوابع زمنية</div>
+        <div class="edge-label" id="label-D-F">مسارات صوت المتحدثين</div>
+        <div class="edge-label" id="label-E-G">صور أشخاص مقصوصة</div>
+        <div class="edge-label" id="label-F-H">نصوص + طوابع زمنية</div>
+        <div class="edge-label" id="label-G-I">أوصاف الأشخاص</div>
+        <div class="edge-label" id="label-H-J">ملخصات الآراء</div>
+        <div class="edge-label" id="label-I-J">الأوصاف المرئية</div>
+        <div class="edge-label" id="label-J-K">التقرير الموحد النهائي</div>
+
+        <svg class="arrows-svg" id="arrows">
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#9333ea" />
+                </marker>
+                <marker id="arrowhead-audio" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#f5576c" />
+                </marker>
+                <marker id="arrowhead-visual" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#00b4d8" />
+                </marker>
+                <marker id="arrowhead-merge" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#22c55e" />
+                </marker>
+                <marker id="arrowhead-source" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#f97316" />
+                </marker>
+            </defs>
+        </svg>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color source"></div>
+                <div class="legend-text">مصدر الإدخال</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color audio"></div>
+                <div class="legend-text">معالجة الصوت</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color visual"></div>
+                <div class="legend-text">المعالجة المرئية</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color merge"></div>
+                <div class="legend-text">الدمج والإخراج</div>
+            </div>
+        </div>
+
+        <!-- Edge Tuple List -->
+        <div class="edge-list">
+            <h3>قائمة الحواف: (المصدر، الهدف، وصف_البيانات)</h3>
+            <pre>
+(A, B, "video files")
+(A, C, "video files")
+(B, D, "mixed audio with overlapping voices")
+(C, E, "extracted frames with timestamps")
+(D, F, "isolated speaker audio tracks")
+(E, G, "cropped person images with bounding boxes")
+(F, H, "speaker transcripts with timestamps")
+(G, I, "person descriptions with timestamps")
+(H, J, "opinion summaries per speaker")
+(I, J, "aggregated visual descriptions")
+(J, K, "final unified multimodal report")
+            </pre>
+        </div>
+
+        <!-- Technical Function Descriptions -->
+        <div class="tech-section">
+            <h2>مواصفات وظائف العقد</h2>
+
+            <!-- Node A -->
+            <div class="func-card source">
+                <div class="func-header">
+                    <span class="func-id">A</span>
+                    <span class="func-name">الفيديوهات الخام (Raw Videos)</span>
+                    <span class="func-type">مصدر</span>
+                </div>
+                <div class="func-body">
+                    <div class="func-desc">
+                        <p><strong>الغرض:</strong> نقطة الدخول التي تحمّل دفعة من ملفات الفيديو من التخزين المشترك للمعالجة.</p>
+                        <p><strong>المدخلات:</strong> مسار المجلد الذي يحتوي على ملفات الفيديو (.mp4, .avi, .mkv, .mov)</p>
+                        <p><strong>المخرجات:</strong> مجموعة من ملفات الفيديو مع البيانات الوصفية (المدة، الدقة، معدل الإطارات)</p>
+                        <p><strong>التوازي:</strong> يمكن معالجة كل فيديو بشكل مستقل — مثالي للتوزيع المتوازي للبيانات عبر العمال.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Node B -->
+            <div class="func-card audio">
+                <div class="func-header">
+                    <span class="func-id">B</span>
+                    <span class="func-name">استخراج الصوت (Extract Audio)</span>
+                    <span class="func-type">تحويل</span>
+                </div>
+                <div class="func-body">
+                    <div class="func-desc">
+                        <p><strong>الغرض:</strong> فصل مسار الصوت من كل ملف فيديو باستخدام فك تعدد الإرسال FFmpeg.</p>
+                        <p><strong>المدخلات:</strong> ملف فيديو</p>
+                        <p><strong>المخرجات:</strong> تدفق صوتي بتنسيق WAV (معدل عينات 16kHz، قناة أحادية للتوافق مع ASR)</p>
+                        <p><strong>الأدوات:</strong> FFmpeg — إطار العمل القياسي لمعالجة الصوت/الفيديو</p>
+                        <p><strong>التوازي:</strong> عملية بدون حالة — استخراج الصوت لكل فيديو يعمل بشكل مستقل.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Node C -->
+            <div class="func-card visual">
+                <div class="func-header">
+                    <span class="func-id">C</span>
+                    <span class="func-name">استخراج الإطارات (Extract Frames)</span>
+                    <span class="func-type">تحويل</span>
+                </div>
+                <div class="func-body">
+                    <div class="func-desc">
+                        <p><strong>الغرض:</strong> أخذ عينات من الإطارات من الفيديو على فترات قابلة للتكوين (مثل إطار واحد في الثانية).</p>
+                        <p><strong>المدخلات:</strong> ملف فيديو + معدل أخذ العينات (إطارات في الثانية)</p>
+                        <p><strong>المخرجات:</strong> مجموعة من إطارات الصور مع الطوابع الزمنية</p>
+                        <p><strong>الأدوات:</strong> OpenCV — مكتبة رؤية حاسوبية مفتوحة المصدر</p>
+                        <p><strong>التوازي:</strong> عملية بدون حالة — استخراج الإطارات لكل فيديو يعمل بشكل مستقل.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Node D -->
+            <div class="func-card audio">
+                <div class="func-header">
+                    <span class="func-id">D</span>
+                    <span class="func-name">فصل المتحدثين (Separate Speakers)</span>
+                    <span class="func-type">نموذج AI</span>
+                </div>
+                <div class="func-body">
+                    <div class="func-desc">
+                        <p><strong>الغرض:</strong> حل "مشكلة حفلة الكوكتيل" — عزل أصوات المتحدثين الفرديين من الصوت المختلط/المتداخل باستخدام فصل المصادر الأعمى.</p>
+                        <p><strong>المدخلات:</strong> تدفق صوتي مختلط مع متحدثين متداخلين متعددين</p>
+                        <p><strong>المخرجات:</strong> مسارات صوتية منفصلة، واحد لكل متحدث مكتشف</p>
+                        <p><strong>نماذج AI:</strong> SepFormer، Conv-TasNet، DPRNN — نماذج تعلم عميق مدربة على مهام فصل الكلام</p>
+                        <p><strong>التوازي:</strong> استدلال مكثف على GPU — يستفيد من تجميع ملفات صوتية متعددة لكل GPU.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Node E -->
+            <div class="func-card visual">
+                <div class="func-header">
+                    <span class="func-id">E</span>
+                    <span class="func-name">اكتشاف الأشخاص (Detect People)</span>
+                    <span class="func-type">نموذج AI</span>
+                </div>
+                <div class="func-body">
+                    <div class="func-desc">
+                        <p><strong>الغرض:</strong> اكتشاف وتحديد موقع الأشخاص في كل إطار، رسم مربعات الإحاطة وقص الأفراد المكتشفين.</p>
+                        <p><strong>المدخلات:</strong> إطار صورة</p>
+                        <p><strong>المخرجات:</strong> قائمة صور الأشخاص المقصوصة مع إحداثيات مربع الإحاطة ودرجات الثقة</p>
+                        <p><strong>نماذج AI:</strong> YOLOv8، Faster R-CNN، DETR — نماذج اكتشاف الكائنات في الوقت الفعلي</p>
+                        <p><strong>التوازي:</strong> قابل للتوازي بشكل كبير — كل إطار يُعالج بشكل مستقل؛ استدلال دفعي على GPU.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Node F -->
+            <div class="func-card audio">
+                <div class="func-header">
+                    <span class="func-id">F</span>
+                    <span class="func-name">تحويل الكلام إلى نص (Speech to Text)</span>
+                    <span class="func-type">نموذج AI</span>
+                </div>
+                <div class="func-body">
+                    <div class="func-desc">
+                        <p><strong>الغرض:</strong> تحويل صوت المتحدث المعزول إلى نصوص مكتوبة مع طوابع زمنية على مستوى الكلمة.</p>
+                        <p><strong>المدخلات:</strong> مسار صوتي لمتحدث واحد</p>
+                        <p><strong>المخرجات:</strong> نص مع النص والطوابع الزمنية وتوقيت الكلمات</p>
+                        <p><strong>نماذج AI:</strong> OpenAI Whisper (base/medium/large)، Faster-Whisper — أحدث ما توصل إليه التعرف التلقائي على الكلام</p>
+                        <p><strong>التوازي:</strong> نسخ صوت كل متحدث بشكل مستقل — يتوسع خطياً مع عدد GPUs.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Node G -->
+            <div class="func-card visual">
+                <div class="func-header">
+                    <span class="func-id">G</span>
+                    <span class="func-name">وصف الأشخاص (Describe People)</span>
+                    <span class="func-type">نموذج AI</span>
+                </div>
+                <div class="func-body">
+                    <div class="func-desc">
+                        <p><strong>الغرض:</strong> إنشاء أوصاف لغوية طبيعية للأفراد المكتشفين (المظهر، الملابس، الأفعال، التعبيرات).</p>
+                        <p><strong>المدخلات:</strong> صورة شخص مقصوصة</p>
+                        <p><strong>المخرجات:</strong> وصف نصي للشخص مع طابع زمني</p>
+                        <p><strong>نماذج AI:</strong> BLIP-2، LLaVA، InstructBLIP — نماذج الرؤية-اللغة التي تفهم الصور وتصفها</p>
+                        <p><strong>التوازي:</strong> كل صورة مقصوصة تُعالج بشكل مستقل — مثالي للتجميع على GPU.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Node H -->
+            <div class="func-card audio">
+                <div class="func-header">
+                    <span class="func-id">H</span>
+                    <span class="func-name">تلخيص الآراء (Summarize Opinions)</span>
+                    <span class="func-type">نموذج AI</span>
+                </div>
+                <div class="func-body">
+                    <div class="func-desc">
+                        <p><strong>الغرض:</strong> تحليل نص كل متحدث لاستخراج الآراء الرئيسية والحجج والنقاط الأساسية مع مراجع زمنية.</p>
+                        <p><strong>المدخلات:</strong> نص المتحدث مع الطوابع الزمنية</p>
+                        <p><strong>المخرجات:</strong> ملخص منظم يحتوي على الآراء الرئيسية والحجج الأساسية والمراجع الزمنية</p>
+                        <p><strong>نماذج AI:</strong> Llama-3، GPT-4، Mistral، Claude — نماذج لغوية كبيرة لفهم النص وتلخيصه</p>
+                        <p><strong>التوازي:</strong> تلخيص نص كل متحدث بشكل مستقل.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Node I -->
+            <div class="func-card visual">
+                <div class="func-header">
+                    <span class="func-id">I</span>
+                    <span class="func-name">جمع المعلومات المرئية (Collect Visual Info)</span>
+                    <span class="func-type">مخفض</span>
+                </div>
+                <div class="func-body">
+                    <div class="func-desc">
+                        <p><strong>الغرض:</strong> تجميع جميع أوصاف الأشخاص من فرع الفيديو، تجميعهم حسب الهوية الفردية، وبناء جداول زمنية للمظهر.</p>
+                        <p><strong>المدخلات:</strong> جميع أوصاف الأشخاص من جميع الإطارات</p>
+                        <p><strong>المخرجات:</strong> ملخص مرئي مع الأفراد الفريدين وأوصافهم ومتى ظهروا</p>
+                        <p><strong>المعالجة:</strong> التجميع حسب القرب الزمني والتشابه المرئي لتجميع نفس الشخص عبر الإطارات</p>
+                        <p><strong>التوازي:</strong> عقدة مخفض — تجمع المخرجات المتوازية في نتيجة مجمعة واحدة.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Node J -->
+            <div class="func-card merge">
+                <div class="func-header">
+                    <span class="func-id">J</span>
+                    <span class="func-name">دمج جميع النتائج (Combine All Results)</span>
+                    <span class="func-type">مخفض</span>
+                </div>
+                <div class="func-body">
+                    <div class="func-desc">
+                        <p><strong>الغرض:</strong> دمج تحليل الصوت والمرئي من خلال ربط المتحدثين بالأفراد المرئيين باستخدام المحاذاة الزمنية.</p>
+                        <p><strong>المدخلات:</strong> ملخصات المتحدثين (من فرع الصوت) + الملخص المرئي (من فرع الفيديو)</p>
+                        <p><strong>المخرجات:</strong> تحليل مدمج مع مطابقة المتحدث-الشخص ودرجات الثقة</p>
+                        <p><strong>المعالجة:</strong> تحليل التداخل الزمني — مطابقة المتحدثين مع الأشخاص المرئيين خلال فترات كلامهم</p>
+                        <p><strong>التوازي:</strong> عقدة تجميع — حاجز التزامن حيث يجب إكمال كلا الفرعين قبل الدمج.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Node K -->
+            <div class="func-card merge">
+                <div class="func-header">
+                    <span class="func-id">K</span>
+                    <span class="func-name">حفظ التقرير النهائي (Save Final Report)</span>
+                    <span class="func-type">مصب</span>
+                </div>
+                <div class="func-body">
+                    <div class="func-desc">
+                        <p><strong>الغرض:</strong> تسلسل التحليل المدمج إلى تنسيقات ملفات منظمة وحفظها في نظام ملفات مشترك.</p>
+                        <p><strong>المدخلات:</strong> كائن التحليل المدمج</p>
+                        <p><strong>المخرجات:</strong> ملفات التقرير (JSON للبيانات، HTML/PDF للتنسيق القابل للقراءة) في التخزين المشترك</p>
+                        <p><strong>التخزين:</strong> نظام ملفات مشترك يمكن الوصول إليه من جميع عمال خط الأنابيب والمستهلكين اللاحقين</p>
+                        <p><strong>التوازي:</strong> عقدة مصب — مرحلة الإخراج النهائية؛ كتابة واحدة لكل دفعة فيديو.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const edges = [
+            {from: "A", to: "B", type: "source"},
+            {from: "A", to: "C", type: "source"},
+            {from: "B", to: "D", type: "audio"},
+            {from: "C", to: "E", type: "visual"},
+            {from: "D", to: "F", type: "audio"},
+            {from: "E", to: "G", type: "visual"},
+            {from: "F", to: "H", type: "audio"},
+            {from: "G", to: "I", type: "visual"},
+            {from: "H", to: "J", type: "merge"},
+            {from: "I", to: "J", type: "merge"},
+            {from: "J", to: "K", type: "merge"}
+        ];
+
+        function drawArrows() {
+            const svg = document.getElementById('arrows');
+            const container = document.querySelector('.dag-container');
+            const containerRect = container.getBoundingClientRect();
+
+            // Keep defs
+            const defs = svg.querySelector('defs').outerHTML;
+            svg.innerHTML = defs;
+
+            edges.forEach(edge => {
+                const fromNode = document.querySelector(`.node-${edge.from}`);
+                const toNode = document.querySelector(`.node-${edge.to}`);
+
+                if (!fromNode || !toNode) return;
+
+                const fromRect = fromNode.getBoundingClientRect();
+                const toRect = toNode.getBoundingClientRect();
+
+                const x1 = fromRect.left - containerRect.left + fromRect.width / 2;
+                const y1 = fromRect.bottom - containerRect.top;
+                const x2 = toRect.left - containerRect.left + toRect.width / 2;
+                const y2 = toRect.top - containerRect.top;
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+                const verticalDistance = y2 - y1;
+                const controlPointOffset = Math.min(verticalDistance * 0.4, 60);
+
+                const d = `M ${x1} ${y1} C ${x1} ${y1 + controlPointOffset}, ${x2} ${y2 - controlPointOffset}, ${x2} ${y2}`;
+                path.setAttribute('d', d);
+                path.setAttribute('class', `arrow-line ${edge.type}`);
+                path.setAttribute('marker-end', `url(#arrowhead-${edge.type})`);
+
+                svg.appendChild(path);
+
+                // Position edge label
+                const label = document.getElementById(`label-${edge.from}-${edge.to}`);
+                if (label) {
+                    const midX = (x1 + x2) / 2;
+                    const midY = (y1 + y2) / 2;
+                    label.style.left = `${midX}px`;
+                    label.style.top = `${midY - 10}px`;
+                    label.style.transform = 'translate(-50%, -50%)';
+                }
+            });
+        }
+
+        window.addEventListener('load', drawArrows);
+        window.addEventListener('resize', drawArrows);
+        setTimeout(drawArrows, 100);
+    </script>
+</body>
+</html>

@@ -790,6 +790,26 @@ Step 1,000,000: Process element [999,999]
             <div class="key-message">
                 <p><strong>Key Insight:</strong> "The master doesn't do the heavy work — it coordinates. Like a conductor doesn't play instruments but makes the orchestra work together."</p>
             </div>
+
+            <h3>Real-World Example: Video Analysis Pipeline</h3>
+            <p>Here's how the Master-Worker pattern works in a real AI video analysis system. The Master distributes video files to workers, and each worker processes their video through a complete pipeline of AI functions:</p>
+
+            <img src="images/diagrams/video_pipeline_workers.svg" alt="Video Pipeline Task Distribution: Master distributes videos to 4 workers, each processing through functions A→K (Audio: B,D,F,H and Visual: C,E,G,I branches, then merge J and save K)" class="content-image">
+
+            <div class="key-pattern">
+                <p><strong>Each letter represents a processing function:</strong></p>
+                <ul>
+                    <li><strong>A:</strong> Load raw video file</li>
+                    <li><strong>B, D, F, H:</strong> Audio branch (extract audio → separate speakers → transcribe → summarize opinions)</li>
+                    <li><strong>C, E, G, I:</strong> Visual branch (extract frames → detect people → describe people → collect visual info)</li>
+                    <li><strong>J:</strong> Combine audio + visual results using timestamps</li>
+                    <li><strong>K:</strong> Save final multimodal report</li>
+                </ul>
+            </div>
+
+            <div class="key-message">
+                <p><strong>See the full interactive pipeline:</strong> <a href="vid_dag.html" target="_blank">Video Analysis Pipeline DAG (Detailed Diagram)</a></p>
+            </div>
         </section>
 
         <!-- Block 6: Data Locality -->
