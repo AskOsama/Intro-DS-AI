@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 11px; fill: #7f8c8d; }
+      .node-label { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #fff; }
+      .small-label { font-family: Arial, sans-serif; font-size: 11px; fill: #fff; }
+      .func-letter { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #fff; }
+      .worker-title { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #fff; }
+      .queue-label { font-family: Arial, sans-serif; font-size: 10px; fill: #7f8c8d; }
+
+      /* Animation duration: 12 seconds total cycle */
+      /* Each function takes ~1s to move, staggered by ~1s */
+
+      /* Function badges in queue - fade out when dispatched */
+      @keyframes fadeOutA { 0%, 7% { opacity: 1; } 8%, 100% { opacity: 0.2; } }
+      @keyframes fadeOutB { 0%, 15% { opacity: 1; } 16%, 100% { opacity: 0.2; } }
+      @keyframes fadeOutC { 0%, 23% { opacity: 1; } 24%, 100% { opacity: 0.2; } }
+      @keyframes fadeOutD { 0%, 31% { opacity: 1; } 32%, 100% { opacity: 0.2; } }
+      @keyframes fadeOutE { 0%, 39% { opacity: 1; } 40%, 100% { opacity: 0.2; } }
+      @keyframes fadeOutF { 0%, 47% { opacity: 1; } 48%, 100% { opacity: 0.2; } }
+      @keyframes fadeOutG { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0.2; } }
+      @keyframes fadeOutH { 0%, 63% { opacity: 1; } 64%, 100% { opacity: 0.2; } }
+      @keyframes fadeOutI { 0%, 71% { opacity: 1; } 72%, 100% { opacity: 0.2; } }
+      @keyframes fadeOutJ { 0%, 79% { opacity: 1; } 80%, 100% { opacity: 0.2; } }
+      @keyframes fadeOutK { 0%, 87% { opacity: 1; } 88%, 100% { opacity: 0.2; } }
+
+      .queue-A { animation: fadeOutA 12s infinite; }
+      .queue-B { animation: fadeOutB 12s infinite; }
+      .queue-C { animation: fadeOutC 12s infinite; }
+      .queue-D { animation: fadeOutD 12s infinite; }
+      .queue-E { animation: fadeOutE 12s infinite; }
+      .queue-F { animation: fadeOutF 12s infinite; }
+      .queue-G { animation: fadeOutG 12s infinite; }
+      .queue-H { animation: fadeOutH 12s infinite; }
+      .queue-I { animation: fadeOutI 12s infinite; }
+      .queue-J { animation: fadeOutJ 12s infinite; }
+      .queue-K { animation: fadeOutK 12s infinite; }
+
+      /* Moving function badges */
+      @keyframes moveA { 0%, 7% { transform: translate(0, 0); opacity: 0; } 8% { opacity: 1; } 15%, 100% { transform: translate(-230px, 210px); opacity: 1; } }
+      @keyframes moveB { 0%, 15% { transform: translate(0, 0); opacity: 0; } 16% { opacity: 1; } 23%, 100% { transform: translate(-80px, 210px); opacity: 1; } }
+      @keyframes moveC { 0%, 23% { transform: translate(0, 0); opacity: 0; } 24% { opacity: 1; } 31%, 100% { transform: translate(70px, 210px); opacity: 1; } }
+      @keyframes moveD { 0%, 31% { transform: translate(0, 0); opacity: 0; } 32% { opacity: 1; } 39%, 100% { transform: translate(220px, 210px); opacity: 1; } }
+      @keyframes moveE { 0%, 39% { transform: translate(0, 0); opacity: 0; } 40% { opacity: 1; } 47%, 100% { transform: translate(-230px, 210px); opacity: 1; } }
+      @keyframes moveF { 0%, 47% { transform: translate(0, 0); opacity: 0; } 48% { opacity: 1; } 55%, 100% { transform: translate(-80px, 210px); opacity: 1; } }
+      @keyframes moveG { 0%, 55% { transform: translate(0, 0); opacity: 0; } 56% { opacity: 1; } 63%, 100% { transform: translate(70px, 210px); opacity: 1; } }
+      @keyframes moveH { 0%, 63% { transform: translate(0, 0); opacity: 0; } 64% { opacity: 1; } 71%, 100% { transform: translate(220px, 210px); opacity: 1; } }
+      @keyframes moveI { 0%, 71% { transform: translate(0, 0); opacity: 0; } 72% { opacity: 1; } 79%, 100% { transform: translate(-230px, 210px); opacity: 1; } }
+      @keyframes moveJ { 0%, 79% { transform: translate(0, 0); opacity: 0; } 80% { opacity: 1; } 87%, 100% { transform: translate(-80px, 210px); opacity: 1; } }
+      @keyframes moveK { 0%, 87% { transform: translate(0, 0); opacity: 0; } 88% { opacity: 1; } 95%, 100% { transform: translate(70px, 210px); opacity: 1; } }
+
+      .move-A { animation: moveA 12s infinite; }
+      .move-B { animation: moveB 12s infinite; }
+      .move-C { animation: moveC 12s infinite; }
+      .move-D { animation: moveD 12s infinite; }
+      .move-E { animation: moveE 12s infinite; }
+      .move-F { animation: moveF 12s infinite; }
+      .move-G { animation: moveG 12s infinite; }
+      .move-H { animation: moveH 12s infinite; }
+      .move-I { animation: moveI 12s infinite; }
+      .move-J { animation: moveJ 12s infinite; }
+      .move-K { animation: moveK 12s infinite; }
+
+      /* Worker slot fade-in animations */
+      @keyframes slotA1 { 0%, 14% { opacity: 0; } 15%, 100% { opacity: 1; } }
+      @keyframes slotB2 { 0%, 22% { opacity: 0; } 23%, 100% { opacity: 1; } }
+      @keyframes slotC3 { 0%, 30% { opacity: 0; } 31%, 100% { opacity: 1; } }
+      @keyframes slotD4 { 0%, 38% { opacity: 0; } 39%, 100% { opacity: 1; } }
+      @keyframes slotE1 { 0%, 46% { opacity: 0; } 47%, 100% { opacity: 1; } }
+      @keyframes slotF2 { 0%, 54% { opacity: 0; } 55%, 100% { opacity: 1; } }
+      @keyframes slotG3 { 0%, 62% { opacity: 0; } 63%, 100% { opacity: 1; } }
+      @keyframes slotH4 { 0%, 70% { opacity: 0; } 71%, 100% { opacity: 1; } }
+      @keyframes slotI1 { 0%, 78% { opacity: 0; } 79%, 100% { opacity: 1; } }
+      @keyframes slotJ2 { 0%, 86% { opacity: 0; } 87%, 100% { opacity: 1; } }
+      @keyframes slotK3 { 0%, 94% { opacity: 0; } 95%, 100% { opacity: 1; } }
+
+      .slot-A1 { animation: slotA1 12s infinite; }
+      .slot-B2 { animation: slotB2 12s infinite; }
+      .slot-C3 { animation: slotC3 12s infinite; }
+      .slot-D4 { animation: slotD4 12s infinite; }
+      .slot-E1 { animation: slotE1 12s infinite; }
+      .slot-F2 { animation: slotF2 12s infinite; }
+      .slot-G3 { animation: slotG3 12s infinite; }
+      .slot-H4 { animation: slotH4 12s infinite; }
+      .slot-I1 { animation: slotI1 12s infinite; }
+      .slot-J2 { animation: slotJ2 12s infinite; }
+      .slot-K3 { animation: slotK3 12s infinite; }
+
+      /* Pulse animation for active dispatching */
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+      }
+
+      .master-box {
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      /* Arrow animations */
+      @keyframes arrowPulse {
+        0%, 100% { stroke-opacity: 0.3; }
+        50% { stroke-opacity: 1; }
+      }
+
+      .dispatch-arrow {
+        animation: arrowPulse 1s ease-in-out infinite;
+      }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="25" text-anchor="middle" class="title">Round-Robin Task Distribution</text>
+  <text x="400" y="42" text-anchor="middle" class="subtitle">Master distributes functions A→K to Workers in round-robin fashion</text>
+
+  <!-- MASTER NODE with Queue -->
+  <g class="master-box">
+    <rect x="120" y="60" width="560" height="90" rx="12" fill="#9b59b6" stroke="#7d3c98" stroke-width="2"/>
+    <text x="400" y="85" text-anchor="middle" class="node-label">MASTER - Task Queue</text>
+
+    <!-- Queue container -->
+    <rect x="135" y="100" width="530" height="40" rx="6" fill="rgba(255,255,255,0.2)"/>
+    <text x="145" y="95" class="queue-label">Queue:</text>
+
+    <!-- Queue slots (11 functions) -->
+    <!-- A - Source (orange) -->
+    <g class="queue-A">
+      <rect x="145" y="105" width="40" height="30" rx="4" fill="#f97316"/>
+      <text x="165" y="125" text-anchor="middle" class="func-letter">A</text>
+    </g>
+
+    <!-- B - Audio (pink) -->
+    <g class="queue-B">
+      <rect x="190" y="105" width="40" height="30" rx="4" fill="#ec4899"/>
+      <text x="210" y="125" text-anchor="middle" class="func-letter">B</text>
+    </g>
+
+    <!-- C - Visual (cyan) -->
+    <g class="queue-C">
+      <rect x="235" y="105" width="40" height="30" rx="4" fill="#06b6d4"/>
+      <text x="255" y="125" text-anchor="middle" class="func-letter">C</text>
+    </g>
+
+    <!-- D - Audio (pink) -->
+    <g class="queue-D">
+      <rect x="280" y="105" width="40" height="30" rx="4" fill="#ec4899"/>
+      <text x="300" y="125" text-anchor="middle" class="func-letter">D</text>
+    </g>
+
+    <!-- E - Visual (cyan) -->
+    <g class="queue-E">
+      <rect x="325" y="105" width="40" height="30" rx="4" fill="#06b6d4"/>
+      <text x="345" y="125" text-anchor="middle" class="func-letter">E</text>
+    </g>
+
+    <!-- F - Audio (pink) -->
+    <g class="queue-F">
+      <rect x="370" y="105" width="40" height="30" rx="4" fill="#ec4899"/>
+      <text x="390" y="125" text-anchor="middle" class="func-letter">F</text>
+    </g>
+
+    <!-- G - Visual (cyan) -->
+    <g class="queue-G">
+      <rect x="415" y="105" width="40" height="30" rx="4" fill="#06b6d4"/>
+      <text x="435" y="125" text-anchor="middle" class="func-letter">G</text>
+    </g>
+
+    <!-- H - Audio (pink) -->
+    <g class="queue-H">
+      <rect x="460" y="105" width="40" height="30" rx="4" fill="#ec4899"/>
+      <text x="480" y="125" text-anchor="middle" class="func-letter">H</text>
+    </g>
+
+    <!-- I - Visual (cyan) -->
+    <g class="queue-I">
+      <rect x="505" y="105" width="40" height="30" rx="4" fill="#06b6d4"/>
+      <text x="525" y="125" text-anchor="middle" class="func-letter">I</text>
+    </g>
+
+    <!-- J - Merge (green) -->
+    <g class="queue-J">
+      <rect x="550" y="105" width="40" height="30" rx="4" fill="#22c55e"/>
+      <text x="570" y="125" text-anchor="middle" class="func-letter">J</text>
+    </g>
+
+    <!-- K - Merge (green) -->
+    <g class="queue-K">
+      <rect x="595" y="105" width="40" height="30" rx="4" fill="#22c55e"/>
+      <text x="615" y="125" text-anchor="middle" class="func-letter">K</text>
+    </g>
+  </g>
+
+  <!-- Moving function badges (animated from queue to workers) -->
+  <g class="move-A"><rect x="145" y="105" width="40" height="30" rx="4" fill="#f97316"/><text x="165" y="125" text-anchor="middle" class="func-letter">A</text></g>
+  <g class="move-B"><rect x="190" y="105" width="40" height="30" rx="4" fill="#ec4899"/><text x="210" y="125" text-anchor="middle" class="func-letter">B</text></g>
+  <g class="move-C"><rect x="235" y="105" width="40" height="30" rx="4" fill="#06b6d4"/><text x="255" y="125" text-anchor="middle" class="func-letter">C</text></g>
+  <g class="move-D"><rect x="280" y="105" width="40" height="30" rx="4" fill="#ec4899"/><text x="300" y="125" text-anchor="middle" class="func-letter">D</text></g>
+  <g class="move-E"><rect x="325" y="105" width="40" height="30" rx="4" fill="#06b6d4"/><text x="345" y="125" text-anchor="middle" class="func-letter">E</text></g>
+  <g class="move-F"><rect x="370" y="105" width="40" height="30" rx="4" fill="#ec4899"/><text x="390" y="125" text-anchor="middle" class="func-letter">F</text></g>
+  <g class="move-G"><rect x="415" y="105" width="40" height="30" rx="4" fill="#06b6d4"/><text x="435" y="125" text-anchor="middle" class="func-letter">G</text></g>
+  <g class="move-H"><rect x="460" y="105" width="40" height="30" rx="4" fill="#ec4899"/><text x="480" y="125" text-anchor="middle" class="func-letter">H</text></g>
+  <g class="move-I"><rect x="505" y="105" width="40" height="30" rx="4" fill="#06b6d4"/><text x="525" y="125" text-anchor="middle" class="func-letter">I</text></g>
+  <g class="move-J"><rect x="550" y="105" width="40" height="30" rx="4" fill="#22c55e"/><text x="570" y="125" text-anchor="middle" class="func-letter">J</text></g>
+  <g class="move-K"><rect x="595" y="105" width="40" height="30" rx="4" fill="#22c55e"/><text x="615" y="125" text-anchor="middle" class="func-letter">K</text></g>
+
+  <!-- Dispatch arrows -->
+  <line x1="180" y1="150" x2="130" y2="195" stroke="#9b59b6" stroke-width="2" stroke-dasharray="5,3" class="dispatch-arrow"/>
+  <line x1="320" y1="150" x2="290" y2="195" stroke="#9b59b6" stroke-width="2" stroke-dasharray="5,3" class="dispatch-arrow"/>
+  <line x1="480" y1="150" x2="510" y2="195" stroke="#9b59b6" stroke-width="2" stroke-dasharray="5,3" class="dispatch-arrow"/>
+  <line x1="620" y1="150" x2="670" y2="195" stroke="#9b59b6" stroke-width="2" stroke-dasharray="5,3" class="dispatch-arrow"/>
+
+  <!-- WORKER NODES -->
+  <!-- Worker 1: Gets A, E, I -->
+  <g>
+    <rect x="40" y="200" width="160" height="150" rx="10" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+    <text x="120" y="225" text-anchor="middle" class="worker-title">Worker 1</text>
+
+    <!-- Slots for functions -->
+    <rect x="55" y="240" width="130" height="100" rx="6" fill="rgba(255,255,255,0.15)"/>
+
+    <!-- Function A slot -->
+    <g class="slot-A1">
+      <rect x="65" y="250" width="35" height="28" rx="4" fill="#f97316"/>
+      <text x="82" y="269" text-anchor="middle" class="func-letter">A</text>
+    </g>
+
+    <!-- Function E slot -->
+    <g class="slot-E1">
+      <rect x="105" y="250" width="35" height="28" rx="4" fill="#06b6d4"/>
+      <text x="122" y="269" text-anchor="middle" class="func-letter">E</text>
+    </g>
+
+    <!-- Function I slot -->
+    <g class="slot-I1">
+      <rect x="145" y="250" width="35" height="28" rx="4" fill="#06b6d4"/>
+      <text x="162" y="269" text-anchor="middle" class="func-letter">I</text>
+    </g>
+
+    <text x="120" y="310" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.8)">A, E, I</text>
+  </g>
+
+  <!-- Worker 2: Gets B, F, J -->
+  <g>
+    <rect x="220" y="200" width="160" height="150" rx="10" fill="#e91e63" stroke="#c2185b" stroke-width="2"/>
+    <text x="300" y="225" text-anchor="middle" class="worker-title">Worker 2</text>
+
+    <rect x="235" y="240" width="130" height="100" rx="6" fill="rgba(255,255,255,0.15)"/>
+
+    <g class="slot-B2">
+      <rect x="245" y="250" width="35" height="28" rx="4" fill="#ec4899"/>
+      <text x="262" y="269" text-anchor="middle" class="func-letter">B</text>
+    </g>
+
+    <g class="slot-F2">
+      <rect x="285" y="250" width="35" height="28" rx="4" fill="#ec4899"/>
+      <text x="302" y="269" text-anchor="middle" class="func-letter">F</text>
+    </g>
+
+    <g class="slot-J2">
+      <rect x="325" y="250" width="35" height="28" rx="4" fill="#22c55e"/>
+      <text x="342" y="269" text-anchor="middle" class="func-letter">J</text>
+    </g>
+
+    <text x="300" y="310" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.8)">B, F, J</text>
+  </g>
+
+  <!-- Worker 3: Gets C, G, K -->
+  <g>
+    <rect x="400" y="200" width="160" height="150" rx="10" fill="#ff9800" stroke="#f57c00" stroke-width="2"/>
+    <text x="480" y="225" text-anchor="middle" class="worker-title">Worker 3</text>
+
+    <rect x="415" y="240" width="130" height="100" rx="6" fill="rgba(255,255,255,0.15)"/>
+
+    <g class="slot-C3">
+      <rect x="425" y="250" width="35" height="28" rx="4" fill="#06b6d4"/>
+      <text x="442" y="269" text-anchor="middle" class="func-letter">C</text>
+    </g>
+
+    <g class="slot-G3">
+      <rect x="465" y="250" width="35" height="28" rx="4" fill="#06b6d4"/>
+      <text x="482" y="269" text-anchor="middle" class="func-letter">G</text>
+    </g>
+
+    <g class="slot-K3">
+      <rect x="505" y="250" width="35" height="28" rx="4" fill="#22c55e"/>
+      <text x="522" y="269" text-anchor="middle" class="func-letter">K</text>
+    </g>
+
+    <text x="480" y="310" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.8)">C, G, K</text>
+  </g>
+
+  <!-- Worker 4: Gets D, H -->
+  <g>
+    <rect x="580" y="200" width="160" height="150" rx="10" fill="#4caf50" stroke="#388e3c" stroke-width="2"/>
+    <text x="660" y="225" text-anchor="middle" class="worker-title">Worker 4</text>
+
+    <rect x="595" y="240" width="130" height="100" rx="6" fill="rgba(255,255,255,0.15)"/>
+
+    <g class="slot-D4">
+      <rect x="615" y="250" width="35" height="28" rx="4" fill="#ec4899"/>
+      <text x="632" y="269" text-anchor="middle" class="func-letter">D</text>
+    </g>
+
+    <g class="slot-H4">
+      <rect x="665" y="250" width="35" height="28" rx="4" fill="#ec4899"/>
+      <text x="682" y="269" text-anchor="middle" class="func-letter">H</text>
+    </g>
+
+    <text x="660" y="310" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.8)">D, H</text>
+  </g>
+
+  <!-- Results flow arrows -->
+  <line x1="120" y1="350" x2="300" y2="390" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3"/>
+  <line x1="300" y1="350" x2="350" y2="390" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3"/>
+  <line x1="480" y1="350" x2="450" y2="390" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3"/>
+  <line x1="660" y1="350" x2="500" y2="390" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3"/>
+
+  <!-- Results collected box -->
+  <rect x="250" y="395" width="300" height="40" rx="8" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="400" y="420" text-anchor="middle" class="node-label" style="font-size: 13px;">Results Collected</text>
+
+  <!-- Legend -->
+  <g transform="translate(50, 445)">
+    <rect width="700" height="30" rx="5" fill="#f8f9fa" stroke="#dee2e6"/>
+    <text x="15" y="20" font-size="10" font-weight="bold" fill="#2c3e50">Legend:</text>
+    <rect x="70" y="8" width="20" height="14" rx="3" fill="#f97316"/><text x="95" y="19" font-size="9" fill="#2c3e50">A: Source</text>
+    <rect x="160" y="8" width="20" height="14" rx="3" fill="#ec4899"/><text x="185" y="19" font-size="9" fill="#2c3e50">B,D,F,H: Audio</text>
+    <rect x="280" y="8" width="20" height="14" rx="3" fill="#06b6d4"/><text x="305" y="19" font-size="9" fill="#2c3e50">C,E,G,I: Visual</text>
+    <rect x="400" y="8" width="20" height="14" rx="3" fill="#22c55e"/><text x="425" y="19" font-size="9" fill="#2c3e50">J,K: Merge/Save</text>
+    <text x="550" y="19" font-size="9" fill="#7f8c8d">Round-robin: 1→2→3→4→1→...</text>
+  </g>
+</svg>
