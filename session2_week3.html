@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Engineering & Data Privacy - Week 3 Session 2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="session2_week3_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <header>
+        <h1>Feature Engineering & Data Privacy</h1>
+        <p class="subtitle">Week 3, Session 2: What Can Data Reveal About You?</p>
+    </header>
+
+    <nav class="table-of-contents no-print">
+        <h2>Contents</h2>
+        <ul>
+            <li><a href="#overview">Learning Objectives</a></li>
+            <li><a href="#detective">1. The Detective Story</a></li>
+            <li><a href="#explicit-implicit">2. Explicit vs Implicit Data</a></li>
+            <li><a href="#taxonomy">3. Feature Engineering Taxonomy</a></li>
+            <li><a href="#imputation">4. Filling the Gaps: Inference & Imputation</a></li>
+            <li><a href="#privacy">5. The Privacy Reckoning</a></li>
+            <li><a href="#applications">6. Real-World Applications</a></li>
+            <li><a href="#tools">7. Tools Summary</a></li>
+            <li><a href="#datasets">8. Practice Datasets</a></li>
+            <li><a href="#summary">Summary & Glossary</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="overview" class="learning-objectives">
+            <h2>Learning Objectives</h2>
+            <p>By the end of this session, students will be able to:</p>
+            <ul>
+                <li><strong>Distinguish</strong> between explicit data (directly recorded) and implicit data (derived)</li>
+                <li><strong>Explain</strong> the types of feature engineering: manual, relational, and automated</li>
+                <li><strong>Understand</strong> how missing values can be inferred from other data</li>
+                <li><strong>Recognize</strong> privacy risks in "de-identified" datasets</li>
+                <li><strong>Connect</strong> feature engineering to real-world AI applications</li>
+                <li><strong>Evaluate</strong> the ethical implications of data inference</li>
+            </ul>
+        </section>
+
+        <!-- Section 1: The Detective Story -->
+        <section id="detective" class="content-section">
+            <h2>1. The Detective Story</h2>
+
+            <div class="key-message">
+                <p><strong>Scenario:</strong> Imagine you're a detective. You walk into a room and see:</p>
+                <ul>
+                    <li>A half-eaten birthday cake with 7 candles</li>
+                    <li>Colorful balloons</li>
+                    <li>A small bicycle with training wheels</li>
+                    <li>Drawings of dinosaurs on the fridge</li>
+                </ul>
+                <p><strong>Question:</strong> Without anyone telling you, what do you know about who lives here?</p>
+            </div>
+
+            <p>Without being told directly, you've probably inferred:</p>
+            <ul>
+                <li>A child around 7 years old lives here</li>
+                <li>The child recently had a birthday</li>
+                <li>They're learning to ride a bike</li>
+                <li>They probably like dinosaurs</li>
+            </ul>
+
+            <div class="key-pattern">
+                <h3>This is Feature Engineering in Action!</h3>
+                <p>You took <strong>explicit data</strong> (cake, candles, bike) and derived <strong>implicit information</strong> (age, interests, development stage).</p>
+                <p>AI systems do exactly the same thing with your data — often revealing far more than you intended to share.</p>
+            </div>
+
+            <div class="limitations-box">
+                <p><strong>The Privacy Question:</strong> If a detective can figure this out from a few clues, imagine what AI can infer from your entire digital footprint — purchases, searches, locations, clicks, and connections.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Explicit vs Implicit Data -->
+        <section id="explicit-implicit" class="content-section">
+            <h2>2. Explicit vs Implicit Data</h2>
+
+            <img src="images/diagrams/explicit_implicit_data.svg" alt="Explicit Data (forms, databases, sensors) transforms through Feature Engineering into Implicit Data (risk scores, patterns, hidden attributes)" class="content-image">
+
+            <div class="definition">
+                <p><strong>Explicit Data:</strong> Information directly recorded in the dataset — what you consciously provide or what sensors directly measure.</p>
+                <p><strong>Implicit Data:</strong> Information derived or inferred from explicit data — patterns, ratios, predictions, and hidden attributes.</p>
+            </div>
+
+            <h3>Examples Across Domains</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Domain</th>
+                        <th>Explicit Data (Given)</th>
+                        <th>Implicit Data (Derived)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Education</strong></td>
+                        <td>Enrollment date, Birth date</td>
+                        <td>Age at enrollment, Dropout risk score</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Insurance</strong></td>
+                        <td>Claims filed, Annual income</td>
+                        <td>Claims-per-income ratio, Risk category</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Healthcare</strong></td>
+                        <td>Medications, Procedure codes</td>
+                        <td>Likely conditions, Gender inference</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Banking</strong></td>
+                        <td>Transactions, Credit limit</td>
+                        <td>Utilization ratio, Spending patterns</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Retail</strong></td>
+                        <td>Purchase history, Time of purchase</td>
+                        <td>Life stage, Pregnancy prediction</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-message">
+                <p><strong>The Privacy Hook:</strong> The power to derive information is also the power to expose individuals. Every implicit attribute you create could be used to help — or harm — someone.</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Feature Engineering Taxonomy -->
+        <section id="taxonomy" class="content-section">
+            <h2>3. Feature Engineering Taxonomy</h2>
+
+            <img src="images/diagrams/feature_engineering_tree.svg" alt="Feature Engineering Taxonomy: Data Preprocessing branches into Missing Value Handling (Simple, Inference-Based, Model-Based Imputation) and Feature Engineering (Manual, Relational, Automated, with Attribute Inference as privacy risk)" class="content-image">
+
+            <h3>3.1 Manual Feature Engineering</h3>
+            <div class="definition">
+                <p><strong>Definition:</strong> Human-designed transformations that convert raw data into new, meaningful variables (features) to improve analysis or modeling.</p>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Transformation</th>
+                        <th>Example</th>
+                        <th>Why It's Useful</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ratios</td>
+                        <td>BMI = weight ÷ height²</td>
+                        <td>Single metric combines two measurements</td>
+                    </tr>
+                    <tr>
+                        <td>Date Calculations</td>
+                        <td>Age = today - birth_date</td>
+                        <td>Extract meaningful time information</td>
+                    </tr>
+                    <tr>
+                        <td>Binning/Grouping</td>
+                        <td>Age Groups (0-20, 21-40, 41-60, 60+)</td>
+                        <td>Convert continuous to categorical</td>
+                    </tr>
+                    <tr>
+                        <td>Domain Formulas</td>
+                        <td>Claim Ratio = claims ÷ premium paid</td>
+                        <td>Business-specific risk indicator</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-pattern">
+                <p><strong>Key Point:</strong> Manual feature engineering requires <strong>domain knowledge</strong> — understanding what combinations of data make sense in your field.</p>
+            </div>
+
+            <h3>3.2 Relational Feature Engineering</h3>
+            <div class="definition">
+                <p><strong>Definition:</strong> Creating new features using information from <strong>related records</strong> in other tables (multi-table data).</p>
+            </div>
+
+            <p><strong>Example Scenarios:</strong></p>
+            <ul>
+                <li><strong>Student + Siblings table:</strong> Number of siblings, Average sibling age, Oldest sibling's graduation status</li>
+                <li><strong>Customer + Transactions table:</strong> Total purchases last month, Average order value, Days since last purchase</li>
+                <li><strong>Patient + Visits table:</strong> Visit frequency, Time since last visit, Number of different specialists seen</li>
+            </ul>
+
+            <div class="key-message">
+                <p><strong>Privacy Hook:</strong> Relational features are powerful because they use information about your <em>connections</em> — your family, your purchases, your social network. This is often more revealing than your direct data.</p>
+            </div>
+
+            <h3>3.3 Automated Feature Engineering</h3>
+            <div class="definition">
+                <p><strong>Definition:</strong> Automatically generating many derived features by systematically combining and transforming variables using algorithms.</p>
+            </div>
+
+            <p><strong>Types of Automated Feature Engineering:</strong></p>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>What It Does</th>
+                        <th>Example Features Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mathematical Synthesis</strong></td>
+                        <td>Tries products, ratios, logs, squares</td>
+                        <td>x₁ × x₂, x₁ ÷ x₂, log(x₁), √x₂</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Time-Series Extraction</strong></td>
+                        <td>Extracts patterns from sequential data</td>
+                        <td>Rolling mean, Trend, Peak frequency, Volatility</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="limitations-box">
+                <p><strong>Warning:</strong> Automated methods can create <em>thousands</em> of features. More isn't always better — many will be noise. <strong>Feature selection</strong> is crucial.</p>
+            </div>
+        </section>
+
+        <!-- Section 4: Inference & Imputation -->
+        <section id="imputation" class="content-section">
+            <h2>4. Filling the Gaps: Inference & Imputation</h2>
+
+            <div class="key-message">
+                <p><strong>The Problem:</strong> Real-world data is messy. Values are missing. What do you do?</p>
+                <ul>
+                    <li>Delete the row? (Loses information)</li>
+                    <li>Guess randomly? (Introduces noise)</li>
+                    <li>Something smarter? (Inference!)</li>
+                </ul>
+            </div>
+
+            <h3>4.1 Inference-Based Imputation</h3>
+            <div class="definition">
+                <p><strong>Definition:</strong> Filling missing values using logical rules or statistical patterns derived from available data.</p>
+            </div>
+
+            <p><strong>Simple Examples:</strong></p>
+            <ul>
+                <li>Missing <strong>city</strong>? → Often inferred from ZIP code</li>
+                <li>Missing <strong>age</strong>? → Estimated from enrollment year + typical entry age</li>
+                <li>Missing <strong>income</strong>? → Approximated from occupation + education level</li>
+            </ul>
+
+            <h3>4.2 Model-Based Imputation</h3>
+            <div class="definition">
+                <p><strong>Definition:</strong> Using machine learning models to predict missing values based on patterns in complete records.</p>
+            </div>
+
+            <div class="key-pattern">
+                <p>Think of it as "teaching the computer to guess intelligently" — if people with similar characteristics tend to have similar values, the model can predict what's missing.</p>
+            </div>
+
+            <h3>4.3 The Student-Sibling Age Example</h3>
+            <p>This flagship example demonstrates how inference works in practice:</p>
+
+            <img src="images/diagrams/student_sibling_inference.svg" alt="Student-Sibling Inference: Student A's missing age can be estimated from sibling B's known age (20), their enrollment years (2023 vs 2025), and the typical university entry age of 18" class="content-image">
+
+            <div class="key-message">
+                <p><strong>The Scenario:</strong></p>
+                <ul>
+                    <li>Student A is missing their age</li>
+                    <li>Student B is their sibling, currently 20 years old</li>
+                    <li>Both attend the same university</li>
+                    <li>Student A enrolled in 2025, Student B enrolled in 2023</li>
+                    <li>Typical university entry age is ~18</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h3>The Inference Logic:</h3>
+                <p><strong>Step 1:</strong> Student B enrolled in 2023 and is now 20 (in 2025) → B was ~18 when enrolled</p>
+                <p><strong>Step 2:</strong> Student A enrolled in 2025 as a first-year student → Likely ~18</p>
+                <p><strong>Step 3:</strong> A is the younger sibling of B (who is 20) → A must be ≤20, probably 18-19</p>
+                <p><strong>Conclusion:</strong> Student A is probably around <strong>18 years old</strong></p>
+            </div>
+
+            <div class="key-pattern">
+                <h3>What This Example Demonstrates:</h3>
+                <ul>
+                    <li><strong>Inference-based imputation:</strong> Using logical rules to fill gaps</li>
+                    <li><strong>Relational feature engineering:</strong> Using sibling data</li>
+                    <li><strong>Attribute inference:</strong> Deriving age that wasn't recorded</li>
+                    <li><strong>Uncertainty:</strong> This is an <em>estimate</em>, not certainty!</li>
+                </ul>
+            </div>
+
+            <div class="limitations-box">
+                <p><strong>Important:</strong> This inference gives a <strong>probability</strong>, not a guarantee. Student A might be 25 and returning to school! Always treat inferred values with appropriate uncertainty.</p>
+            </div>
+
+            <div class="key-message">
+                <p><strong>The Privacy Hook:</strong> If YOU can infer missing age from enrollment dates and sibling relationships, so can anyone with access to this "anonymous" dataset. <strong>Every imputation technique is also a potential inference attack.</strong></p>
+            </div>
+        </section>
+
+        <!-- Section 5: Privacy Reckoning -->
+        <section id="privacy" class="content-section">
+            <h2>5. The Privacy Reckoning: When Data Reveals Too Much</h2>
+
+            <div class="limitations-box">
+                <p><strong>The Uncomfortable Question:</strong> If feature engineering can fill in missing data, what can it reveal about YOU from "anonymous" datasets?</p>
+            </div>
+
+            <h3>5.1 Quasi-identifiers: The Silent Identifiers</h3>
+            <div class="definition">
+                <p><strong>Quasi-identifiers:</strong> Attributes that aren't direct identifiers (like name or SSN) but can help identify or profile individuals when combined.</p>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Combination</th>
+                        <th>Identification Power</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ZIP code + Birthdate + Gender</td>
+                        <td><strong>87% of Americans</strong> uniquely identified!</td>
+                    </tr>
+                    <tr>
+                        <td>Detailed location + Timestamps</td>
+                        <td>Can reveal home address, workplace, relationships</td>
+                    </tr>
+                    <tr>
+                        <td>Purchase patterns over time</td>
+                        <td>Can reveal life events (pregnancy, illness, divorce)</td>
+                    </tr>
+                    <tr>
+                        <td>Movie ratings + Timestamps</td>
+                        <td>Can be matched to public reviews to identify</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>5.2 How "Anonymous" Data Fails</h3>
+
+            <img src="images/diagrams/privacy_reidentification.svg" alt="Re-identification: Combining innocent-looking data points (ZIP code, birthday, purchases, searches, ratings, location, job) around an anonymous profile converges to identify the individual. 87% of Americans can be identified by just ZIP + DOB + Gender." class="content-image">
+
+            <div class="key-message">
+                <p><strong>What Can Be Inferred from "Anonymous" Data:</strong></p>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Available Data</th>
+                        <th>What Can Be Inferred</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Medical procedures</td>
+                        <td>Gender, age range, chronic conditions</td>
+                    </tr>
+                    <tr>
+                        <td>ZIP code + Property values</td>
+                        <td>Income bracket, socioeconomic status</td>
+                    </tr>
+                    <tr>
+                        <td>Purchase history</td>
+                        <td>Age, gender, life stage, pregnancy</td>
+                    </tr>
+                    <tr>
+                        <td>Movie/Music ratings</td>
+                        <td>Political views, religious beliefs, preferences</td>
+                    </tr>
+                    <tr>
+                        <td>Location data</td>
+                        <td>Home address, workplace, relationships, habits</td>
+                    </tr>
+                    <tr>
+                        <td>Search queries</td>
+                        <td>Health concerns, financial situation, secrets</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>5.3 Famous Re-identification Disasters</h3>
+
+            <div class="key-message">
+                <h4>Netflix Prize (2006)</h4>
+                <p>Netflix released "anonymous" movie ratings for a competition. Researchers matched them with public IMDB reviews to identify individuals — revealing their political views and personal preferences that they thought were private.</p>
+            </div>
+
+            <div class="key-message">
+                <h4>AOL Search Data (2006)</h4>
+                <p>AOL released "anonymous" search queries for research. A New York Times reporter identified a 62-year-old woman just from her searches: "numb fingers," "60 single men," "dog that urinates on everything." Her searches painted an intimate portrait of her life.</p>
+            </div>
+
+            <div class="key-message">
+                <h4>Governor Weld (1997)</h4>
+                <p>Researcher Latanya Sweeney paid $20 for public voter registration data and matched it with "anonymous" hospital records to identify the Governor of Massachusetts — proving that <strong>87% of Americans</strong> can be uniquely identified by just ZIP code + birthdate + gender.</p>
+            </div>
+
+            <div class="key-message">
+                <h4>NYC Taxi Data (2014)</h4>
+                <p>Someone matched taxi pickup/dropoff times with paparazzi photos to identify which celebrities used which taxi — and where they went, including sensitive locations.</p>
+            </div>
+
+            <h3>5.4 The $5 Attack</h3>
+
+            <img src="images/diagrams/five_dollar_attack.svg" alt="The $5 Attack: Anonymous hospital records + Public voter data (costs $5-$20) = Identified individual with medical history exposed" class="content-image">
+
+            <div class="definition">
+                <p><strong>The "$5 Attack":</strong> With just a few dollars, anyone can buy auxiliary data (voter records, social media profiles, public databases) that makes "anonymous" data identifiable.</p>
+            </div>
+
+            <div class="limitations-box">
+                <p><strong>The Uncomfortable Truth:</strong> Most "de-identified" data can be re-identified by someone motivated enough. The question isn't "Is this data anonymous?" but "How much effort would it take to identify someone?"</p>
+            </div>
+
+            <div class="key-pattern">
+                <h3>De-identification vs Anonymization</h3>
+                <ul>
+                    <li><strong>De-identification:</strong> Removing obvious identifiers (name, SSN). Still potentially linkable.</li>
+                    <li><strong>Anonymization:</strong> Mathematically impossible to re-identify. Much harder to achieve.</li>
+                </ul>
+                <p><em>De-identification is NOT the same as anonymization!</em></p>
+            </div>
+
+            <div class="example" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 5px solid #ff9800; padding: 1.5rem; margin: 2rem 0; border-radius: 8px;">
+                <h3 style="color: #e65100; margin-top: 0;">The Real Story Behind the $5 Attack</h3>
+                <p>Yes, this is a real and well-documented privacy vulnerability! This diagram illustrates the famous <strong>re-identification attack</strong> demonstrated by Dr. Latanya Sweeney in the late 1990s.</p>
+
+                <h4 style="color: #f57c00;">What Happened</h4>
+                <p>Dr. Sweeney, then a graduate student at MIT, showed that supposedly "anonymized" health records could be easily re-identified. In a famous demonstration, she purchased voter registration data for Cambridge, Massachusetts for about $20 and matched it against anonymized hospital discharge records. She was able to identify the medical records of then-Governor William Weld using just three data points: <strong>ZIP code, birthdate, and gender</strong>.</p>
+
+                <h4 style="color: #f57c00;">Is It Still Possible?</h4>
+                <p><strong>Yes, in principle.</strong> Her research found that approximately 87% of the U.S. population can be uniquely identified using just those three quasi-identifiers. Public records like voter registrations, property records, and other datasets are still widely available—sometimes free, sometimes for small fees depending on the state.</p>
+
+                <h4 style="color: #f57c00;">What's Changed Since Then?</h4>
+                <ul>
+                    <li><strong>HIPAA Safe Harbor</strong> rules now require removing more identifying information (including full ZIP codes in some cases)</li>
+                    <li>Many states have restricted access to voter data</li>
+                    <li>Organizations are more aware of "quasi-identifier" risks</li>
+                </ul>
+                <p>But the core lesson remains: simply removing names from data doesn't make it truly anonymous. This is why modern data privacy focuses on techniques like <strong>k-anonymity</strong>, <strong>differential privacy</strong>, and <strong>synthetic data</strong>.</p>
+
+                <p style="margin-bottom: 0; font-style: italic; color: #e65100;"><strong>So yes—this attack concept is very real and foundational to the field of data privacy.</strong></p>
+            </div>
+        </section>
+
+        <!-- Section 6: Real-World Applications -->
+        <section id="applications" class="content-section">
+            <h2>6. Real-World Applications (With Privacy Considerations)</h2>
+
+            <h3>6.1 Insurance Risk Scoring — Helpful or Discriminatory?</h3>
+
+            <img src="images/diagrams/insurance_risk_pipeline.svg" alt="Insurance Risk Pipeline: Raw Data (speed, age, claims) → Feature Engineering (speeding score, night driving %, claim ratio) → Risk Score (0-100 gauge) → Decision (deny, high premium, approve). Privacy warning about location surveillance." class="content-image">
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Explicit Data</th>
+                        <th>Engineered Feature</th>
+                        <th>Used For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Age, Gender, ZIP</td>
+                        <td>Life expectancy cohort</td>
+                        <td>Premium calculation</td>
+                    </tr>
+                    <tr>
+                        <td>Occupation</td>
+                        <td>Risk index (desk job vs construction)</td>
+                        <td>Eligibility decisions</td>
+                    </tr>
+                    <tr>
+                        <td>GPS speed data</td>
+                        <td>Speeding score</td>
+                        <td>Driving risk assessment</td>
+                    </tr>
+                    <tr>
+                        <td>Time of driving</td>
+                        <td>Night driving percentage</td>
+                        <td>Lifestyle risk indicator</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="limitations-box">
+                <p><strong>Privacy Warning:</strong> Insurance telematics knows where you go, when, and how you drive. Your "driving score" reveals your lifestyle: late-night trips, frequent hospital visits, time at bars. Is this risk assessment or surveillance?</p>
+            </div>
+
+            <h3>6.2 Healthcare — Life-Saving or Privacy-Invading?</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Explicit Data</th>
+                        <th>Engineered Feature</th>
+                        <th>Application</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lab results over time</td>
+                        <td>Trend indicators</td>
+                        <td>Disease progression prediction</td>
+                    </tr>
+                    <tr>
+                        <td>Visit frequency</td>
+                        <td>Utilization index</td>
+                        <td>Cost prediction</td>
+                    </tr>
+                    <tr>
+                        <td>Medications prescribed</td>
+                        <td>Chronic disease risk score</td>
+                        <td>Care planning</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="limitations-box">
+                <p><strong>Privacy Warning:</strong> Healthcare feature engineering can predict conditions you don't know you have yet. What happens when your insurance company or employer infers your future health from your current data?</p>
+            </div>
+
+            <h3>6.3 Banking & Finance — Fraud Prevention vs Surveillance?</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Explicit Data</th>
+                        <th>Engineered Feature</th>
+                        <th>Application</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Transactions</td>
+                        <td>Spending pattern clusters</td>
+                        <td>Fraud detection</td>
+                    </tr>
+                    <tr>
+                        <td>Balance + Loans</td>
+                        <td>Debt-to-income ratio</td>
+                        <td>Credit scoring</td>
+                    </tr>
+                    <tr>
+                        <td>Payment history</td>
+                        <td>On-time payment score</td>
+                        <td>Loan approval</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="limitations-box">
+                <p><strong>Privacy Warning:</strong> Your transaction history reveals your religion (halal groceries), politics (donations), health (pharmacy visits), and relationships (who you send money to). Banks know more about you than your family does.</p>
+            </div>
+
+            <h3>6.4 Ethical Guidelines for Practitioners</h3>
+
+            <div class="key-pattern">
+                <h3>The Practitioner's Checklist</h3>
+                <ol>
+                    <li><strong>Necessity Test:</strong> Do I really need to derive this feature, or am I just curious?</li>
+                    <li><strong>Proportionality Test:</strong> Is the privacy cost worth the analytical benefit?</li>
+                    <li><strong>Reversibility Test:</strong> Could this derived feature be used to identify individuals?</li>
+                    <li><strong>Consent Test:</strong> Would users be surprised to learn this is being derived?</li>
+                    <li><strong>Harm Test:</strong> Could this feature be used to discriminate or harm someone?</li>
+                </ol>
+            </div>
+
+            <div class="key-message">
+                <p><strong>"With great power comes great responsibility."</strong> Feature engineering gives you the power to see what others can't. Use it wisely.</p>
+            </div>
+
+            <div class="key-pattern">
+                <h3>Discussion Questions</h3>
+                <ul>
+                    <li>Should insurance companies be allowed to use telematics data for pricing?</li>
+                    <li>Should healthcare AI be able to predict diseases you haven't been diagnosed with?</li>
+                    <li>Who owns the insights derived from YOUR data?</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 7: Tools Summary -->
+        <section id="tools" class="content-section">
+            <h2>7. Tools Summary (What They Do, Not How to Code Them)</h2>
+
+            <img src="images/diagrams/tools_overview.svg" alt="Tools Overview: Manual FE (pandas, feature-engine), Relational FE (Featuretools), Automated FE (Autofeat for math, tsfresh for time-series), Imputation (sklearn for basic, fancyimpute for advanced)" class="content-image">
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Tool</th>
+                        <th>What It Does</th>
+                        <th>When to Use</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Manual FE</strong></td>
+                        <td>pandas</td>
+                        <td>Create custom calculations: ratios, date differences, groupings</td>
+                        <td>When you know exactly what features you need</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Manual FE</strong></td>
+                        <td>feature-engine</td>
+                        <td>Ready-made transformations: binning, encoding, scaling</td>
+                        <td>When you want pre-built building blocks</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Relational FE</strong></td>
+                        <td>Featuretools</td>
+                        <td>Automatically creates features from linked tables</td>
+                        <td>When data spans multiple related tables</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mathematical FE</strong></td>
+                        <td>Autofeat</td>
+                        <td>Automatically tries combinations: multiply, divide, log</td>
+                        <td>When exploring which math transforms help</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Time-Series FE</strong></td>
+                        <td>tsfresh</td>
+                        <td>Extracts patterns from sequential data</td>
+                        <td>When analyzing sensor data, stocks, events over time</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Time-Series FE</strong></td>
+                        <td>kats</td>
+                        <td>Facebook's toolkit for time patterns</td>
+                        <td>When doing advanced time-series analysis</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Imputation</strong></td>
+                        <td>sklearn</td>
+                        <td>Fill missing values with simple statistics</td>
+                        <td>When missing data is random</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Imputation</strong></td>
+                        <td>fancyimpute</td>
+                        <td>Smart missing value prediction using patterns</td>
+                        <td>When missing data has structure</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 8: Practice Datasets -->
+        <section id="datasets" class="content-section">
+            <h2>8. Practice Datasets</h2>
+
+            <div class="key-message">
+                <p><strong>Where to Practice Feature Engineering:</strong></p>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Dataset</th>
+                        <th>Source</th>
+                        <th>What You Can Learn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>UCI Adult (Census Income)</strong></td>
+                        <td>UCI ML Repository</td>
+                        <td>Income prediction from demographic features — practice creating age groups, education levels, work-status indicators</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bank Marketing</strong></td>
+                        <td>UCI ML Repository</td>
+                        <td>Customer conversion prediction — practice contact features, economic indicators, campaign engagement metrics</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NYC Taxi Trips</strong></td>
+                        <td>NYC TLC</td>
+                        <td>Trip analysis — practice time features (rush hour, weekday), location clustering, fare patterns</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MIMIC-IV (Healthcare)</strong></td>
+                        <td>PhysioNet (requires registration)</td>
+                        <td>Clinical risk scoring — practice lab value trends, visit frequency, medication patterns</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="limitations-box">
+                <p><strong>Privacy Exercise:</strong> As you practice with these datasets, ask yourself: <em>"What could I infer about a person from this data that wasn't explicitly collected?"</em> This awareness is the first step toward responsible data science.</p>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section id="summary" class="content-section">
+            <h2>Summary</h2>
+
+            <h3>Key Takeaways</h3>
+            <div class="key-message">
+                <ol>
+                    <li><strong>Feature engineering is powerful AND dangerous</strong> — the same techniques that help AI can expose individuals</li>
+                    <li><strong>Explicit data is just the beginning</strong> — implicit/derived data often reveals more than what was collected</li>
+                    <li><strong>"Anonymous" data is a myth</strong> — with enough auxiliary data, identities can often be recovered</li>
+                    <li><strong>If you can infer it, so can attackers</strong> — every imputation technique is also an inference attack</li>
+                    <li><strong>Privacy must be designed in, not bolted on</strong> — consider re-identification risk at every step</li>
+                    <li><strong>Ethical responsibility falls on practitioners</strong> — just because you CAN derive something doesn't mean you SHOULD</li>
+                </ol>
+            </div>
+
+            <h3>Glossary of Key Terms</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>English</th>
+                        <th>Arabic</th>
+                        <th>Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Feature Engineering</td>
+                        <td>هندسة الميزات</td>
+                        <td>Creating new variables from raw data to improve analysis</td>
+                    </tr>
+                    <tr>
+                        <td>Imputation</td>
+                        <td>الاستبدال/التعويض</td>
+                        <td>Filling in missing values using logic or models</td>
+                    </tr>
+                    <tr>
+                        <td>Explicit Data</td>
+                        <td>بيانات صريحة</td>
+                        <td>Information directly recorded in the dataset</td>
+                    </tr>
+                    <tr>
+                        <td>Implicit Data</td>
+                        <td>بيانات ضمنية</td>
+                        <td>Information derived or inferred from explicit data</td>
+                    </tr>
+                    <tr>
+                        <td>Quasi-identifier</td>
+                        <td>شبه معرّف</td>
+                        <td>Attributes that can help identify individuals when combined</td>
+                    </tr>
+                    <tr>
+                        <td>Attribute Inference</td>
+                        <td>استنتاج السمات</td>
+                        <td>Deriving sensitive information from other attributes</td>
+                    </tr>
+                    <tr>
+                        <td>De-identification</td>
+                        <td>إزالة التعريف</td>
+                        <td>Removing direct identifiers (names, IDs) from data</td>
+                    </tr>
+                    <tr>
+                        <td>Re-identification</td>
+                        <td>إعادة التعريف</td>
+                        <td>Recovering identity from "anonymous" data</td>
+                    </tr>
+                    <tr>
+                        <td>Risk Scoring</td>
+                        <td>تقييم المخاطر</td>
+                        <td>Computing numeric score for likelihood of an event</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-pattern">
+                <h3>Looking Back: Connection to Session 1</h3>
+                <p>In Session 1, we learned how data is processed across many machines — potentially in different countries, managed by different companies. Now we see the privacy implications: when your data is spread across systems you don't control, feature engineering can reveal far more about you than you ever intended to share.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><a href="index.html">&larr; Back to Course Overview</a></p>
+        <p>Data Science &amp; AI Course - Week 3, Session 2</p>
+    </footer>
+</body>
+</html>
