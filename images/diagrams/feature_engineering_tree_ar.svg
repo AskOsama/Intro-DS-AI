@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" direction="rtl">
+  <defs>
+    <linearGradient id="blueGradAr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="greenGradAr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#229954;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="purpleGradAr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8e44ad;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f8f9fa" rx="10"/>
+
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#2c3e50">هندسة الميزات ومعالجة البيانات</text>
+
+  <!-- Root Node -->
+  <rect x="300" y="55" width="200" height="45" rx="22" fill="url(#blueGradAr)"/>
+  <text x="400" y="83" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">معالجة البيانات</text>
+
+  <!-- Connecting lines -->
+  <line x1="350" y1="100" x2="200" y2="150" stroke="#bdc3c8" stroke-width="3"/>
+  <line x1="450" y1="100" x2="600" y2="150" stroke="#bdc3c8" stroke-width="3"/>
+
+  <!-- Branch 1: Missing Value Handling -->
+  <rect x="70" y="150" width="200" height="40" rx="20" fill="url(#greenGradAr)"/>
+  <text x="170" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">معالجة القيم المفقودة</text>
+
+  <!-- Sub-branches -->
+  <line x1="120" y1="190" x2="80" y2="235" stroke="#a8d5ba" stroke-width="2"/>
+  <line x1="170" y1="190" x2="170" y2="235" stroke="#a8d5ba" stroke-width="2"/>
+  <line x1="220" y1="190" x2="260" y2="235" stroke="#a8d5ba" stroke-width="2"/>
+
+  <!-- Simple Imputation -->
+  <rect x="20" y="235" width="120" height="55" rx="10" fill="#d4edda"/>
+  <text x="80" y="257" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#155724">بسيط</text>
+  <text x="80" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#155724">وسيط/متوسط</text>
+
+  <!-- Inference-Based -->
+  <rect x="110" y="235" width="120" height="55" rx="10" fill="#d4edda"/>
+  <text x="170" y="257" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#155724">قائم على الاستدلال</text>
+  <text x="170" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#155724">قواعد منطقية</text>
+
+  <!-- Model-Based -->
+  <rect x="200" y="235" width="120" height="55" rx="10" fill="#d4edda"/>
+  <text x="260" y="257" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#155724">قائم على النماذج</text>
+  <text x="260" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#155724">تعلم آلي</text>
+
+  <!-- Branch 2: Feature Engineering -->
+  <rect x="480" y="150" width="200" height="40" rx="20" fill="url(#purpleGradAr)"/>
+  <text x="580" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">هندسة الميزات</text>
+
+  <!-- Sub-branches -->
+  <line x1="510" y1="190" x2="430" y2="235" stroke="#d8bfd8" stroke-width="2"/>
+  <line x1="555" y1="190" x2="540" y2="235" stroke="#d8bfd8" stroke-width="2"/>
+  <line x1="605" y1="190" x2="650" y2="235" stroke="#d8bfd8" stroke-width="2"/>
+  <line x1="650" y1="190" x2="760" y2="235" stroke="#d8bfd8" stroke-width="2"/>
+
+  <!-- Manual FE -->
+  <rect x="370" y="235" width="120" height="55" rx="10" fill="#e8daef"/>
+  <text x="430" y="252" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">🔧</text>
+  <text x="430" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#6c3483">يدوي</text>
+  <text x="430" y="284" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6c3483">تحويلات بشرية</text>
+
+  <!-- Relational FE -->
+  <rect x="480" y="235" width="120" height="55" rx="10" fill="#e8daef"/>
+  <text x="540" y="252" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">🔗</text>
+  <text x="540" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#6c3483">علائقي</text>
+  <text x="540" y="284" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6c3483">جداول متعددة</text>
+
+  <!-- Automated FE -->
+  <rect x="590" y="235" width="120" height="55" rx="10" fill="#e8daef"/>
+  <text x="650" y="252" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">🤖</text>
+  <text x="650" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#6c3483">آلي</text>
+  <text x="650" y="284" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6c3483">توليد خوارزمي</text>
+
+  <!-- Attribute Inference -->
+  <rect x="700" y="235" width="95" height="55" rx="10" fill="#fadbd8"/>
+  <text x="747" y="252" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">👁</text>
+  <text x="747" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#922b21">استنتاج السمات</text>
+  <text x="747" y="284" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#c0392b">(خطر الخصوصية!)</text>
+
+  <!-- Sub-branches under Automated -->
+  <line x1="620" y1="290" x2="580" y2="330" stroke="#d8bfd8" stroke-width="2"/>
+  <line x1="680" y1="290" x2="720" y2="330" stroke="#d8bfd8" stroke-width="2"/>
+
+  <!-- Mathematical Synthesis -->
+  <rect x="510" y="330" width="140" height="50" rx="8" fill="#f5eef8"/>
+  <text x="580" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">➗✖️</text>
+  <text x="580" y="368" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#6c3483">رياضي</text>
+
+  <!-- Time-Series -->
+  <rect x="650" y="330" width="140" height="50" rx="8" fill="#f5eef8"/>
+  <text x="720" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">📈</text>
+  <text x="720" y="368" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#6c3483">سلاسل زمنية</text>
+
+  <!-- Legend -->
+  <rect x="20" y="410" width="760" height="80" rx="10" fill="white" stroke="#e1e4e8"/>
+  <text x="740" y="435" text-anchor="end" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">دليل الألوان:</text>
+
+  <rect x="600" y="445" width="20" height="20" rx="4" fill="url(#greenGradAr)"/>
+  <text x="540" y="460" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#555">تنظيف البيانات</text>
+
+  <rect x="440" y="445" width="20" height="20" rx="4" fill="url(#purpleGradAr)"/>
+  <text x="385" y="460" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#555">إنشاء الميزات</text>
+
+  <rect x="280" y="445" width="20" height="20" rx="4" fill="#fadbd8" stroke="#e74c3c"/>
+  <text x="213" y="460" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#555">خطر الخصوصية</text>
+</svg>

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <linearGradient id="manualGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="relGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8e44ad;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="autoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#229954;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="impGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e67e22;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d35400;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="#f8f9fa" rx="10"/>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">Feature Engineering Tools Overview</text>
+  <text x="400" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">(What they do, not how to code them)</text>
+
+  <!-- Row 1: Manual FE Tools -->
+  <rect x="20" y="70" width="370" height="140" rx="10" fill="#e3f2fd" stroke="#3498db" stroke-width="2"/>
+  <rect x="20" y="70" width="370" height="30" rx="10" fill="url(#manualGrad)"/>
+  <text x="40" y="90" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">🔧 Manual Feature Engineering</text>
+
+  <!-- Pandas -->
+  <rect x="35" y="115" width="160" height="80" rx="8" fill="white" stroke="#bdc3c8"/>
+  <text x="115" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">🐼</text>
+  <text x="115" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">pandas</text>
+  <text x="115" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">Ratios, dates, groupings</text>
+  <text x="115" y="188" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">When you know what you need</text>
+
+  <!-- Feature-engine -->
+  <rect x="210" y="115" width="160" height="80" rx="8" fill="white" stroke="#bdc3c8"/>
+  <text x="290" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">⚙️</text>
+  <text x="290" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">feature-engine</text>
+  <text x="290" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">Binning, encoding, scaling</text>
+  <text x="290" y="188" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">Pre-built building blocks</text>
+
+  <!-- Row 1: Relational FE Tools -->
+  <rect x="410" y="70" width="370" height="140" rx="10" fill="#e8daef" stroke="#9b59b6" stroke-width="2"/>
+  <rect x="410" y="70" width="370" height="30" rx="10" fill="url(#relGrad)"/>
+  <text x="430" y="90" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">🔗 Relational Feature Engineering</text>
+
+  <!-- Featuretools -->
+  <rect x="425" y="115" width="340" height="80" rx="8" fill="white" stroke="#bdc3c8"/>
+  <text x="595" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">🔗🤖</text>
+  <text x="595" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">Featuretools (Deep Feature Synthesis)</text>
+  <text x="595" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">Automatically creates features from linked tables</text>
+  <text x="595" y="188" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">When data spans multiple related tables</text>
+
+  <!-- Row 2: Automated FE Tools -->
+  <rect x="20" y="225" width="370" height="160" rx="10" fill="#d4edda" stroke="#27ae60" stroke-width="2"/>
+  <rect x="20" y="225" width="370" height="30" rx="10" fill="url(#autoGrad)"/>
+  <text x="40" y="245" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">🤖 Automated Feature Engineering</text>
+
+  <!-- Autofeat -->
+  <rect x="35" y="270" width="160" height="100" rx="8" fill="white" stroke="#bdc3c8"/>
+  <text x="115" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">🔢✖️</text>
+  <text x="115" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">Autofeat</text>
+  <text x="115" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">Multiply, divide, log, sqrt</text>
+  <text x="115" y="343" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">Auto tries math combinations</text>
+  <text x="115" y="358" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28a745">Mathematical synthesis</text>
+
+  <!-- tsfresh -->
+  <rect x="210" y="270" width="160" height="100" rx="8" fill="white" stroke="#bdc3c8"/>
+  <text x="290" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">📈⏱️</text>
+  <text x="290" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">tsfresh</text>
+  <text x="290" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">Rolling means, trends, peaks</text>
+  <text x="290" y="343" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">Extracts time patterns</text>
+  <text x="290" y="358" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28a745">Time-series extraction</text>
+
+  <!-- Row 2: Imputation Tools -->
+  <rect x="410" y="225" width="370" height="160" rx="10" fill="#fef3e2" stroke="#e67e22" stroke-width="2"/>
+  <rect x="410" y="225" width="370" height="30" rx="10" fill="url(#impGrad)"/>
+  <text x="430" y="245" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">🔮 Missing Value Imputation</text>
+
+  <!-- sklearn -->
+  <rect x="425" y="270" width="160" height="100" rx="8" fill="white" stroke="#bdc3c8"/>
+  <text x="505" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">🧩</text>
+  <text x="505" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">sklearn</text>
+  <text x="505" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">Mean, median, mode</text>
+  <text x="505" y="343" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">Simple statistical filling</text>
+  <text x="505" y="358" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e67e22">Basic imputation</text>
+
+  <!-- fancyimpute -->
+  <rect x="600" y="270" width="160" height="100" rx="8" fill="white" stroke="#bdc3c8"/>
+  <text x="680" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">🧠✨</text>
+  <text x="680" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">fancyimpute</text>
+  <text x="680" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">MICE, KNN, matrix methods</text>
+  <text x="680" y="343" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">Smart pattern-based filling</text>
+  <text x="680" y="358" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e67e22">Advanced imputation</text>
+</svg>

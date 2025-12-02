@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" direction="rtl">
+  <defs>
+    <linearGradient id="dataGradAr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="feGradAr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#8e44ad;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="scoreGradAr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f39c12;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#e67e22;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="decisionGradAr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#229954;stop-opacity:1"/>
+    </linearGradient>
+    <marker id="arrowAr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#7f8c8d"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="320" fill="#f8f9fa" rx="10"/>
+
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">خط أنابيب تقييم مخاطر التأمين</text>
+
+  <!-- Stage 4: Raw Data (Right in RTL) -->
+  <rect x="710" y="60" width="160" height="140" rx="15" fill="#e3f2fd" stroke="#3498db" stroke-width="2"/>
+  <rect x="710" y="60" width="160" height="35" rx="15" fill="url(#dataGradAr)"/>
+  <text x="790" y="83" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">البيانات الخام</text>
+
+  <text x="800" y="118" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#555">السرعة، الموقع</text>
+  <text x="750" y="120" font-family="Arial, sans-serif" font-size="22">🚗</text>
+
+  <text x="805" y="148" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#555">العمر، المهنة</text>
+  <text x="750" y="150" font-family="Arial, sans-serif" font-size="22">👤</text>
+
+  <text x="800" y="178" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#555">سجل المطالبات</text>
+  <text x="750" y="180" font-family="Arial, sans-serif" font-size="22">📋</text>
+
+  <!-- Arrow 1 -->
+  <path d="M 700 130 L 655 130" stroke="#7f8c8d" stroke-width="3" fill="none" marker-end="url(#arrowAr)"/>
+
+  <!-- Stage 3: Feature Engineering -->
+  <rect x="460" y="60" width="180" height="140" rx="15" fill="#e8daef" stroke="#9b59b6" stroke-width="2"/>
+  <rect x="460" y="60" width="180" height="35" rx="15" fill="url(#feGradAr)"/>
+  <text x="550" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">هندسة الميزات</text>
+  <text x="550" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">⚙️ تحويل</text>
+
+  <text x="560" y="123" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#555">درجة السرعة الزائدة</text>
+  <text x="500" y="125" font-family="Arial, sans-serif" font-size="18">📊</text>
+
+  <text x="570" y="148" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#555">نسبة القيادة الليلية</text>
+  <text x="500" y="150" font-family="Arial, sans-serif" font-size="18">📈</text>
+
+  <text x="575" y="173" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#555">نسبة المطالبات</text>
+  <text x="500" y="175" font-family="Arial, sans-serif" font-size="18">🔢</text>
+
+  <!-- Arrow 2 -->
+  <path d="M 450 130 L 405 130" stroke="#7f8c8d" stroke-width="3" fill="none" marker-end="url(#arrowAr)"/>
+
+  <!-- Stage 2: Risk Score -->
+  <rect x="240" y="60" width="150" height="140" rx="15" fill="#fef3e2" stroke="#f39c12" stroke-width="2"/>
+  <rect x="240" y="60" width="150" height="35" rx="15" fill="url(#scoreGradAr)"/>
+  <text x="315" y="83" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">درجة المخاطر</text>
+
+  <circle cx="315" cy="140" r="40" fill="none" stroke="#e1e4e8" stroke-width="8"/>
+  <path d="M 275 140 A 40 40 0 0 1 335 105" fill="none" stroke="#e74c3c" stroke-width="8" stroke-linecap="round"/>
+  <text x="315" y="148" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e74c3c">72</text>
+  <text x="315" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#555">خطر عالي</text>
+
+  <!-- Arrow 3 -->
+  <path d="M 230 130 L 185 130" stroke="#7f8c8d" stroke-width="3" fill="none" marker-end="url(#arrowAr)"/>
+
+  <!-- Stage 1: Decision -->
+  <rect x="30" y="60" width="140" height="140" rx="15" fill="#d4edda" stroke="#27ae60" stroke-width="2"/>
+  <rect x="30" y="60" width="140" height="35" rx="15" fill="url(#decisionGradAr)"/>
+  <text x="100" y="83" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">القرار</text>
+
+  <rect x="50" y="105" width="100" height="30" rx="5" fill="#fadbd8" stroke="#e74c3c"/>
+  <text x="100" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#922b21">👎 رفض</text>
+
+  <rect x="50" y="140" width="100" height="30" rx="5" fill="#fef3e2" stroke="#f39c12"/>
+  <text x="100" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#856404">💰 قسط مرتفع</text>
+
+  <rect x="50" y="175" width="100" height="20" rx="5" fill="#d4edda" stroke="#27ae60" opacity="0.5"/>
+  <text x="100" y="189" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#155724">👍 موافقة</text>
+
+  <!-- Privacy Warning -->
+  <rect x="30" y="220" width="840" height="90" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+  <text x="450" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#856404">⚠️ اعتبارات الخصوصية</text>
+
+  <text x="720" y="275" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    <tspan font-weight="bold">📍 بيانات الموقع</tspan> تكشف أين تذهب
+  </text>
+  <text x="540" y="275" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    <tspan font-weight="bold">🌙 القيادة الليلية</tspan> تشير لنمط حياتك
+  </text>
+  <text x="340" y="275" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    <tspan font-weight="bold">🏥 توقفات متكررة</tspan> عند المستشفيات؟
+  </text>
+  <text x="120" y="275" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    <tspan font-weight="bold">🍺 زيارات الحانات؟</tspan>
+  </text>
+
+  <text x="450" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-style="italic" fill="#856404">هل هذا تقييم للمخاطر أم مراقبة؟</text>
+</svg>

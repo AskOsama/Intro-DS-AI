@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 300" direction="rtl">
+  <defs>
+    <linearGradient id="alertGradAr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c0392b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="300" fill="#f8f9fa" rx="10"/>
+
+  <!-- Warning frame -->
+  <rect x="5" y="5" width="690" height="290" rx="12" fill="none" stroke="#e74c3c" stroke-width="3"/>
+
+  <!-- Title -->
+  <text x="350" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#c0392b">هجوم الـ 5 دولارات - إعادة التعريف سهلة</text>
+
+  <!-- Dataset A: Anonymous Hospital Data (Right in RTL) -->
+  <rect x="530" y="60" width="140" height="130" rx="10" fill="#e3f2fd" stroke="#3498db" stroke-width="2"/>
+  <text x="600" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">مجموعة أ</text>
+  <text x="600" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="28">🏥</text>
+  <text x="600" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#555">"مجهولة"</text>
+  <text x="600" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#555">سجلات المستشفى</text>
+  <text x="570" y="165" text-anchor="end" font-family="Arial, sans-serif" font-size="8" fill="#777">الرمز البريدي: 90210</text>
+  <text x="573" y="178" text-anchor="end" font-family="Arial, sans-serif" font-size="8" fill="#777">تاريخ الميلاد: 15 يناير</text>
+
+  <!-- Plus sign 1 -->
+  <text x="510" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#7f8c8d">+</text>
+
+  <!-- Dataset B: Public Voter Records -->
+  <rect x="340" y="60" width="140" height="130" rx="10" fill="#d4edda" stroke="#27ae60" stroke-width="2"/>
+  <text x="410" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">مجموعة ب</text>
+  <text x="410" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="28">🗳️</text>
+  <text x="410" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#555">عامة</text>
+  <text x="410" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#555">سجلات الناخبين</text>
+  <text x="400" y="165" text-anchor="end" font-family="Arial, sans-serif" font-size="8" fill="#777">الاسم: جون دو</text>
+  <text x="370" y="178" text-anchor="end" font-family="Arial, sans-serif" font-size="8" fill="#777">الرمز البريدي: 90210...</text>
+
+  <!-- Plus sign 2 -->
+  <text x="320" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#7f8c8d">+</text>
+
+  <!-- $5 -->
+  <rect x="210" y="80" width="80" height="90" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="3"/>
+  <text x="250" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#856404">$5</text>
+  <text x="250" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#856404">لشراء البيانات</text>
+
+  <!-- Equals sign -->
+  <text x="180" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#7f8c8d">=</text>
+
+  <!-- Result: Identified Person -->
+  <rect x="30" y="60" width="130" height="130" rx="10" fill="url(#alertGradAr)"/>
+  <text x="95" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="40">👤</text>
+  <text x="95" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">تم التعرف!</text>
+  <text x="95" y="148" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">جون دو</text>
+  <text x="95" y="163" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">90210</text>
+  <text x="95" y="178" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">+ التاريخ الطبي</text>
+
+  <!-- Bottom explanation -->
+  <rect x="30" y="210" width="640" height="75" rx="8" fill="white" stroke="#e74c3c" stroke-width="2"/>
+
+  <text x="600" y="235" text-anchor="end" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#c0392b">كيف يعمل:</text>
+
+  <text x="400" y="255" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#555">1. المستشفى يزيل الأسماء من السجلات (إزالة التعريف)</text>
+  <text x="407" y="270" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#555">2. المهاجم يشتري سجلات الناخبين العامة ($5-$20)</text>
+
+  <text x="100" y="255" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#555">3. المطابقة على الرمز البريدي + الميلاد + الجنس</text>
+  <text x="140" y="270" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#c0392b" font-weight="bold">4. الهوية + السجلات الطبية مكشوفة!</text>
+
+  <!-- Warning icon -->
+  <text x="80" y="250" font-family="Arial, sans-serif" font-size="30">⚠️</text>
+</svg>

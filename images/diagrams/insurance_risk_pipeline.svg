@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320">
+  <defs>
+    <linearGradient id="dataGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="feGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8e44ad;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f39c12;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e67e22;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="decisionGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#229954;stop-opacity:1" />
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#7f8c8d" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="320" fill="#f8f9fa" rx="10"/>
+
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">Insurance Risk Assessment Pipeline</text>
+
+  <!-- Stage 1: Raw Data -->
+  <rect x="30" y="60" width="160" height="140" rx="15" fill="#e3f2fd" stroke="#3498db" stroke-width="2"/>
+  <rect x="30" y="60" width="160" height="35" rx="15" fill="url(#dataGrad)"/>
+  <text x="110" y="83" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">RAW DATA</text>
+
+  <!-- Raw data icons -->
+  <text x="55" y="120" font-family="Arial, sans-serif" font-size="22">🚗</text>
+  <text x="90" y="118" font-family="Arial, sans-serif" font-size="11" fill="#555">Speed, location</text>
+
+  <text x="55" y="150" font-family="Arial, sans-serif" font-size="22">👤</text>
+  <text x="90" y="148" font-family="Arial, sans-serif" font-size="11" fill="#555">Age, occupation</text>
+
+  <text x="55" y="180" font-family="Arial, sans-serif" font-size="22">📋</text>
+  <text x="90" y="178" font-family="Arial, sans-serif" font-size="11" fill="#555">Claims history</text>
+
+  <!-- Arrow 1 -->
+  <path d="M 200 130 L 245 130" stroke="#7f8c8d" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Stage 2: Feature Engineering -->
+  <rect x="260" y="60" width="180" height="140" rx="15" fill="#e8daef" stroke="#9b59b6" stroke-width="2"/>
+  <rect x="260" y="60" width="180" height="35" rx="15" fill="url(#feGrad)"/>
+  <text x="350" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">FEATURE ENGINEERING</text>
+  <text x="350" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">⚙️ Transform</text>
+
+  <!-- FE icons -->
+  <text x="280" y="125" font-family="Arial, sans-serif" font-size="18">📊</text>
+  <text x="305" y="123" font-family="Arial, sans-serif" font-size="10" fill="#555">Speeding score</text>
+
+  <text x="280" y="150" font-family="Arial, sans-serif" font-size="18">📈</text>
+  <text x="305" y="148" font-family="Arial, sans-serif" font-size="10" fill="#555">Night driving %</text>
+
+  <text x="280" y="175" font-family="Arial, sans-serif" font-size="18">🔢</text>
+  <text x="305" y="173" font-family="Arial, sans-serif" font-size="10" fill="#555">Claim ratio</text>
+
+  <!-- Arrow 2 -->
+  <path d="M 450 130 L 495 130" stroke="#7f8c8d" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Stage 3: Risk Score -->
+  <rect x="510" y="60" width="150" height="140" rx="15" fill="#fef3e2" stroke="#f39c12" stroke-width="2"/>
+  <rect x="510" y="60" width="150" height="35" rx="15" fill="url(#scoreGrad)"/>
+  <text x="585" y="83" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">RISK SCORE</text>
+
+  <!-- Gauge visualization -->
+  <circle cx="585" cy="140" r="40" fill="none" stroke="#e1e4e8" stroke-width="8"/>
+  <path d="M 545 140 A 40 40 0 0 1 605 105" fill="none" stroke="#e74c3c" stroke-width="8" stroke-linecap="round"/>
+  <text x="585" y="148" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e74c3c">72</text>
+  <text x="585" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#555">High Risk</text>
+
+  <!-- Arrow 3 -->
+  <path d="M 670 130 L 715 130" stroke="#7f8c8d" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Stage 4: Decision -->
+  <rect x="730" y="60" width="140" height="140" rx="15" fill="#d4edda" stroke="#27ae60" stroke-width="2"/>
+  <rect x="730" y="60" width="140" height="35" rx="15" fill="url(#decisionGrad)"/>
+  <text x="800" y="83" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">DECISION</text>
+
+  <!-- Decision options -->
+  <rect x="750" y="105" width="100" height="30" rx="5" fill="#fadbd8" stroke="#e74c3c"/>
+  <text x="800" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#922b21">👎 Deny</text>
+
+  <rect x="750" y="140" width="100" height="30" rx="5" fill="#fef3e2" stroke="#f39c12"/>
+  <text x="800" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#856404">💰 High Premium</text>
+
+  <rect x="750" y="175" width="100" height="20" rx="5" fill="#d4edda" stroke="#27ae60" opacity="0.5"/>
+  <text x="800" y="189" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#155724">👍 Approve</text>
+
+  <!-- Privacy Warning Section -->
+  <rect x="30" y="220" width="840" height="90" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+  <text x="450" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#856404">⚠️ Privacy Considerations</text>
+
+  <!-- Privacy concerns -->
+  <text x="60" y="275" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    <tspan font-weight="bold">📍 Location data</tspan> reveals where you go
+  </text>
+  <text x="280" y="275" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    <tspan font-weight="bold">🌙 Night driving</tspan> suggests lifestyle
+  </text>
+  <text x="510" y="275" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    <tspan font-weight="bold">🏥 Frequent stops</tspan> at hospitals?
+  </text>
+  <text x="730" y="275" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    <tspan font-weight="bold">🍺 Bar visits?</tspan>
+  </text>
+
+  <text x="450" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-style="italic" fill="#856404">Is this risk assessment or surveillance?</text>
+</svg>
