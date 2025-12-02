@@ -22,13 +22,13 @@
   <rect width="800" height="400" fill="#f8f9fa" rx="10"/>
 
   <!-- Title -->
-  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">نظرة عامة على أدوات هندسة الميزات</text>
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">نظرة عامة على أدوات هندسة الخصائص</text>
   <text x="400" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">(ماذا تفعل، وليس كيف تُبرمج)</text>
 
   <!-- Row 1: Manual FE Tools -->
   <rect x="410" y="70" width="370" height="140" rx="10" fill="#e3f2fd" stroke="#3498db" stroke-width="2"/>
   <rect x="410" y="70" width="370" height="30" rx="10" fill="url(#manualGradAr)"/>
-  <text x="430" y="90" text-anchor="end" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">🔧 هندسة الميزات اليدوية</text>
+  <text x="430" y="90" text-anchor="end" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">🔧 هندسة الخصائص اليدوية</text>
 
   <!-- Pandas -->
   <rect x="600" y="115" width="160" height="80" rx="8" fill="white" stroke="#bdc3c8"/>
@@ -47,19 +47,19 @@
   <!-- Row 1: Relational FE -->
   <rect x="20" y="70" width="370" height="140" rx="10" fill="#e8daef" stroke="#9b59b6" stroke-width="2"/>
   <rect x="20" y="70" width="370" height="30" rx="10" fill="url(#relGradAr)"/>
-  <text x="40" y="90" text-anchor="end" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">🔗 هندسة الميزات العلائقية</text>
+  <text x="40" y="90" text-anchor="end" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">🔗 هندسة الخصائص العلائقية</text>
 
   <!-- Featuretools -->
   <rect x="35" y="115" width="340" height="80" rx="8" fill="white" stroke="#bdc3c8"/>
   <text x="205" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">🔗🤖</text>
-  <text x="205" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">Featuretools (التوليف العميق للميزات)</text>
-  <text x="205" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">ينشئ ميزات تلقائياً من جداول مرتبطة</text>
+  <text x="205" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">Featuretools (التوليف العميق للخصائص)</text>
+  <text x="205" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">ينشئ خصائص تلقائياً من جداول مرتبطة</text>
   <text x="205" y="188" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">عندما تمتد البيانات عبر جداول متعددة</text>
 
   <!-- Row 2: Automated FE -->
   <rect x="410" y="225" width="370" height="160" rx="10" fill="#d4edda" stroke="#27ae60" stroke-width="2"/>
   <rect x="410" y="225" width="370" height="30" rx="10" fill="url(#autoGradAr)"/>
-  <text x="430" y="245" text-anchor="end" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">🤖 هندسة الميزات الآلية</text>
+  <text x="430" y="245" text-anchor="end" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">🤖 هندسة الخصائص الآلية</text>
 
   <!-- Autofeat -->
   <rect x="600" y="270" width="160" height="100" rx="8" fill="white" stroke="#bdc3c8"/>

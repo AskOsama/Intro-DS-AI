@@ -13,7 +13,7 @@
   <rect x="5" y="5" width="690" height="290" rx="12" fill="none" stroke="#e74c3c" stroke-width="3"/>
 
   <!-- Title -->
-  <text x="350" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#c0392b">The "$5 Attack" - Re-identification Made Easy</text>
+  <text x="350" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#c0392b">The "$20 Attack" - Re-identification Made Easy</text>
 
   <!-- Dataset A: Anonymous Hospital Data -->
   <rect x="30" y="60" width="140" height="130" rx="10" fill="#e3f2fd" stroke="#3498db" stroke-width="2"/>
@@ -43,7 +43,7 @@
 
   <!-- $5 -->
   <rect x="410" y="80" width="80" height="90" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="3"/>
-  <text x="450" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#856404">$5</text>
+  <text x="450" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#856404">$20</text>
   <text x="450" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#856404">to buy data</text>
 
   <!-- Equals sign -->
@@ -63,7 +63,7 @@
   <text x="50" y="235" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#c0392b">How it works:</text>
 
   <text x="50" y="255" font-family="Arial, sans-serif" font-size="11" fill="#555">1. Hospital removes names from records (de-identification)</text>
-  <text x="50" y="270" font-family="Arial, sans-serif" font-size="11" fill="#555">2. Attacker buys public voter registration data ($5-$20)</text>
+  <text x="50" y="270" font-family="Arial, sans-serif" font-size="11" fill="#555">2. Attacker buys public voter registration data (~$20)</text>
 
   <text x="400" y="255" font-family="Arial, sans-serif" font-size="11" fill="#555">3. Match on ZIP + birthdate + gender</text>
   <text x="400" y="270" font-family="Arial, sans-serif" font-size="11" fill="#c0392b" font-weight="bold">4. Identity + medical records exposed!</text>

@@ -47,7 +47,7 @@
   <!-- Stage 3: Feature Engineering -->
   <rect x="460" y="60" width="180" height="140" rx="15" fill="#e8daef" stroke="#9b59b6" stroke-width="2"/>
   <rect x="460" y="60" width="180" height="35" rx="15" fill="url(#feGradAr)"/>
-  <text x="550" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">هندسة الميزات</text>
+  <text x="550" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">هندسة الخصائص</text>
   <text x="550" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">⚙️ تحويل</text>
 
   <text x="560" y="123" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#555">درجة السرعة الزائدة</text>
