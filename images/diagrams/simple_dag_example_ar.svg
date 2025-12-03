@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="600" height="450">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+    <linearGradient id="dagGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ecf0f1;stop-opacity:0.5"/>
+      <stop offset="100%" style="stop-color:#bdc3c7;stop-opacity:0.3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Container -->
+  <rect x="20" y="15" width="560" height="420" rx="12" fill="url(#dagGrad)" stroke="#95a5a6" stroke-width="2"/>
+  <text x="300" y="45" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50" text-anchor="middle">مثال بسيط على DAG</text>
+
+  <!-- Read CSV node -->
+  <rect x="225" y="65" width="150" height="40" rx="8" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="300" y="92" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">قراءة CSV</text>
+
+  <!-- Arrow down from Read CSV -->
+  <line x1="300" y1="105" x2="300" y2="130" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Split point -->
+  <circle cx="300" cy="140" r="5" fill="#2c3e50"/>
+
+  <!-- Branch arrows -->
+  <line x1="300" y1="145" x2="180" y2="175" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="300" y1="145" x2="420" y2="175" stroke="#2c3e50" stroke-width="2"/>
+
+  <!-- Filter Rows node -->
+  <rect x="105" y="175" width="150" height="40" rx="8" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="180" y="202" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">تصفية الصفوف</text>
+
+  <!-- Calculate Stats node -->
+  <rect x="345" y="175" width="150" height="40" rx="8" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="420" y="202" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">حساب الإحصائيات</text>
+
+  <!-- Arrows down -->
+  <line x1="180" y1="215" x2="180" y2="255" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="420" y1="215" x2="420" y2="255" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Group By node -->
+  <rect x="105" y="255" width="150" height="40" rx="8" fill="#9b59b6" stroke="#7d3c98" stroke-width="2"/>
+  <text x="180" y="282" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">تجميع حسب</text>
+
+  <!-- Format Report node -->
+  <rect x="345" y="255" width="150" height="40" rx="8" fill="#9b59b6" stroke="#7d3c98" stroke-width="2"/>
+  <text x="420" y="282" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">تنسيق التقرير</text>
+
+  <!-- Merge arrows -->
+  <line x1="180" y1="295" x2="180" y2="315" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="420" y1="295" x2="420" y2="315" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="180" y1="315" x2="300" y2="340" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="420" y1="315" x2="300" y2="340" stroke="#2c3e50" stroke-width="2"/>
+
+  <!-- Join node -->
+  <rect x="225" y="340" width="150" height="40" rx="8" fill="#e67e22" stroke="#d35400" stroke-width="2"/>
+  <text x="300" y="367" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">دمج النتائج</text>
+
+  <!-- Arrow to output -->
+  <line x1="300" y1="380" x2="300" y2="400" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Write Output node -->
+  <rect x="225" y="400" width="150" height="40" rx="8" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+  <text x="300" y="427" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">كتابة الإخراج</text>
+
+  <!-- Legend -->
+  <text x="480" y="80" font-family="Arial, sans-serif" font-size="10" fill="#666">العقد = المهام</text>
+  <text x="480" y="95" font-family="Arial, sans-serif" font-size="10" fill="#666">الأسهم = تدفق البيانات</text>
+</svg>

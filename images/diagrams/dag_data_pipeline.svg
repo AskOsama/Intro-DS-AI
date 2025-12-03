@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="850" height="520">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+    <marker id="greenarrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="425" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2c3e50" text-anchor="middle">DATA PROCESSING PIPELINE</text>
+
+  <!-- Pipeline boxes -->
+  <rect x="50" y="55" width="120" height="50" rx="8" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="110" y="85" font-family="Arial, sans-serif" font-size="13" fill="white" text-anchor="middle" font-weight="bold">Load Data</text>
+
+  <line x1="170" y1="80" x2="230" y2="80" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <rect x="230" y="55" width="120" height="50" rx="8" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="290" y="85" font-family="Arial, sans-serif" font-size="13" fill="white" text-anchor="middle" font-weight="bold">Clean Data</text>
+
+  <line x1="350" y1="80" x2="410" y2="80" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <rect x="410" y="55" width="130" height="50" rx="8" fill="#9b59b6" stroke="#7d3c98" stroke-width="2"/>
+  <text x="475" y="85" font-family="Arial, sans-serif" font-size="13" fill="white" text-anchor="middle" font-weight="bold">Transform Data</text>
+
+  <line x1="540" y1="80" x2="600" y2="80" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <rect x="600" y="55" width="120" height="50" rx="8" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+  <text x="660" y="85" font-family="Arial, sans-serif" font-size="13" fill="white" text-anchor="middle" font-weight="bold">Save Data</text>
+
+  <!-- Futures row -->
+  <text x="110" y="130" font-family="Arial, sans-serif" font-size="11" fill="#3498db" text-anchor="middle">Future #1</text>
+  <text x="290" y="130" font-family="Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Future #2</text>
+  <text x="475" y="130" font-family="Arial, sans-serif" font-size="11" fill="#9b59b6" text-anchor="middle">Future #3</text>
+  <text x="660" y="130" font-family="Arial, sans-serif" font-size="11" fill="#e74c3c" text-anchor="middle">Future #4</text>
+
+  <text x="290" y="145" font-family="Arial, sans-serif" font-size="9" fill="#666" text-anchor="middle">(depends on #1)</text>
+  <text x="475" y="145" font-family="Arial, sans-serif" font-size="9" fill="#666" text-anchor="middle">(depends on #2)</text>
+  <text x="660" y="145" font-family="Arial, sans-serif" font-size="9" fill="#666" text-anchor="middle">(depends on #3)</text>
+
+  <!-- Step 1 box -->
+  <rect x="30" y="165" width="790" height="65" rx="8" fill="#e8f4fc" stroke="#3498db" stroke-width="1"/>
+  <text x="50" y="185" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50" font-weight="bold">Step 1: Submit all tasks (instantly!)</text>
+  <text x="50" y="205" font-family="monospace" font-size="11" fill="#333">f1 = submit(load, "file.csv")        # Returns Future #1 instantly</text>
+  <text x="50" y="220" font-family="monospace" font-size="11" fill="#333">f2 = submit(clean, f1)               # Returns Future #2 instantly</text>
+
+  <!-- Step 2 box -->
+  <rect x="30" y="240" width="790" height="70" rx="8" fill="#d4edda" stroke="#27ae60" stroke-width="1"/>
+  <text x="50" y="260" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50" font-weight="bold">Step 2: System analyzes dependencies and builds DAG</text>
+  <text x="425" y="285" font-family="monospace" font-size="13" fill="#333" text-anchor="middle">DAG: f1 ──► f2 ──► f3 ──► f4</text>
+  <text x="50" y="300" font-family="Arial, sans-serif" font-size="11" fill="#666" font-style="italic">System knows: "f1 has no dependencies, start it first!"</text>
+
+  <!-- Step 3: Execution Timeline -->
+  <rect x="30" y="320" width="790" height="180" rx="8" fill="#fef9e7" stroke="#f1c40f" stroke-width="1"/>
+  <text x="50" y="345" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50" font-weight="bold">Step 3: Execution flows as futures resolve</text>
+
+  <!-- Time axis -->
+  <text x="80" y="370" font-family="Arial, sans-serif" font-size="11" fill="#666">Time</text>
+  <line x1="115" y1="367" x2="780" y2="367" stroke="#666" stroke-width="1" marker-end="url(#arrowhead)"/>
+
+  <!-- Worker 1 timeline -->
+  <text x="50" y="395" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">Worker 1:</text>
+  <rect x="130" y="383" width="100" height="20" rx="3" fill="#3498db"/>
+  <text x="180" y="397" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle">f1</text>
+
+  <!-- Arrow showing f1 done -->
+  <line x1="230" y1="393" x2="230" y2="413" stroke="#27ae60" stroke-width="2" stroke-dasharray="3,2"/>
+  <text x="260" y="410" font-family="Arial, sans-serif" font-size="9" fill="#27ae60">(f1 done)</text>
+
+  <!-- Worker 2 timeline -->
+  <text x="50" y="435" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">Worker 2:</text>
+  <rect x="250" y="423" width="150" height="20" rx="3" fill="#27ae60"/>
+  <text x="325" y="437" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle">f2</text>
+
+  <!-- Arrow showing f2 done -->
+  <line x1="400" y1="433" x2="400" y2="453" stroke="#9b59b6" stroke-width="2" stroke-dasharray="3,2"/>
+  <text x="430" y="450" font-family="Arial, sans-serif" font-size="9" fill="#9b59b6">(f2 done)</text>
+
+  <!-- Worker 1 again for f3 -->
+  <rect x="420" y="383" width="130" height="20" rx="3" fill="#9b59b6"/>
+  <text x="485" y="397" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle">f3</text>
+
+  <!-- Arrow showing f3 done -->
+  <line x1="550" y1="393" x2="550" y2="473" stroke="#e74c3c" stroke-width="2" stroke-dasharray="3,2"/>
+  <text x="580" y="410" font-family="Arial, sans-serif" font-size="9" fill="#e74c3c">(f3 done)</text>
+
+  <!-- Worker 2 for f4 -->
+  <rect x="570" y="463" width="100" height="20" rx="3" fill="#e74c3c"/>
+  <text x="620" y="477" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle">f4</text>
+
+  <text x="50" y="480" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">Worker 2:</text>
+</svg>

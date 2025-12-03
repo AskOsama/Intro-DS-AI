@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2c3e50" text-anchor="middle">PARALLEL BRANCHES IN DAG</text>
+
+  <!-- DAG Structure Section -->
+  <!-- Load Data node -->
+  <rect x="325" y="50" width="150" height="40" rx="8" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="400" y="77" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">Load Data</text>
+
+  <line x1="400" y1="90" x2="400" y2="110" stroke="#2c3e50" stroke-width="2"/>
+  <text x="400" y="125" font-family="Arial, sans-serif" font-size="11" fill="#3498db" text-anchor="middle">Future #1</text>
+
+  <!-- Branch lines -->
+  <line x1="400" y1="135" x2="150" y2="165" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="400" y1="135" x2="400" y2="165" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="400" y1="135" x2="650" y2="165" stroke="#2c3e50" stroke-width="2"/>
+
+  <!-- Branch A -->
+  <rect x="75" y="165" width="150" height="40" rx="8" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="150" y="192" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">Process Branch A</text>
+  <text x="150" y="225" font-family="Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Future #2</text>
+
+  <!-- Branch B -->
+  <rect x="325" y="165" width="150" height="40" rx="8" fill="#e67e22" stroke="#d35400" stroke-width="2"/>
+  <text x="400" y="192" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">Process Branch B</text>
+  <text x="400" y="225" font-family="Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle">Future #3</text>
+
+  <!-- Branch C -->
+  <rect x="575" y="165" width="150" height="40" rx="8" fill="#9b59b6" stroke="#7d3c98" stroke-width="2"/>
+  <text x="650" y="192" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">Process Branch C</text>
+  <text x="650" y="225" font-family="Arial, sans-serif" font-size="11" fill="#9b59b6" text-anchor="middle">Future #4</text>
+
+  <!-- Merge lines -->
+  <line x1="150" y1="235" x2="400" y2="265" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="400" y1="235" x2="400" y2="265" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="650" y1="235" x2="400" y2="265" stroke="#2c3e50" stroke-width="2"/>
+
+  <!-- Merge node -->
+  <rect x="325" y="265" width="150" height="40" rx="8" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+  <text x="400" y="292" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">Merge Results</text>
+  <text x="400" y="325" font-family="Arial, sans-serif" font-size="11" fill="#e74c3c" text-anchor="middle">Future #5 (depends on #2, #3, AND #4)</text>
+
+  <!-- Separator -->
+  <line x1="50" y1="350" x2="750" y2="350" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="10,5"/>
+
+  <!-- Timeline Section -->
+  <text x="400" y="375" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50" text-anchor="middle">EXECUTION TIMELINE (parallel!)</text>
+
+  <!-- Time axis -->
+  <text x="60" y="405" font-family="Arial, sans-serif" font-size="11" fill="#666">Time</text>
+  <line x1="95" y1="402" x2="750" y2="402" stroke="#666" stroke-width="1" marker-end="url(#arrowhead)"/>
+
+  <!-- Worker 1: f1 -->
+  <text x="35" y="430" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">Worker 1:</text>
+  <rect x="110" y="418" width="80" height="20" rx="3" fill="#3498db"/>
+  <text x="150" y="432" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle">f1</text>
+
+  <!-- Distribution point -->
+  <line x1="190" y1="428" x2="220" y2="428" stroke="#2c3e50" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="220" y1="428" x2="220" y2="455" stroke="#2c3e50" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="220" y1="428" x2="220" y2="480" stroke="#2c3e50" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="220" y1="428" x2="220" y2="505" stroke="#2c3e50" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Worker 1: f2 (parallel) -->
+  <rect x="240" y="443" width="100" height="20" rx="3" fill="#27ae60"/>
+  <text x="290" y="457" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle">f2</text>
+
+  <!-- Worker 2: f3 (parallel) -->
+  <text x="35" y="480" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">Worker 2:</text>
+  <rect x="240" y="468" width="160" height="20" rx="3" fill="#e67e22"/>
+  <text x="320" y="482" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle">f3</text>
+
+  <!-- Worker 3: f4 (parallel) -->
+  <text x="35" y="517" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">Worker 3:</text>
+  <rect x="240" y="505" width="130" height="20" rx="3" fill="#9b59b6"/>
+  <text x="305" y="519" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle">f4</text>
+
+  <!-- Merge point lines -->
+  <line x1="340" y1="453" x2="420" y2="543" stroke="#666" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="400" y1="478" x2="420" y2="543" stroke="#666" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="370" y1="515" x2="420" y2="543" stroke="#666" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Worker 1: f5 (after all) -->
+  <rect x="440" y="530" width="120" height="20" rx="3" fill="#e74c3c"/>
+  <text x="500" y="544" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle">f5 (merge)</text>
+
+  <!-- Annotation -->
+  <text x="400" y="575" font-family="Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="bold">BRANCHES RUN IN PARALLEL! Much faster than sequential!</text>
+</svg>

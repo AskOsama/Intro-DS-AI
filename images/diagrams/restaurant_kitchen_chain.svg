@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350" width="800" height="350">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+    <linearGradient id="kitchenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff3cd;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#ffc107;stop-opacity:0.2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Kitchen container -->
+  <rect x="30" y="20" width="740" height="310" rx="15" fill="url(#kitchenGrad)" stroke="#ffc107" stroke-width="3"/>
+  <text x="400" y="55" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2c3e50" text-anchor="middle">RESTAURANT KITCHEN</text>
+
+  <!-- Customer order -->
+  <text x="400" y="85" font-family="Arial, sans-serif" font-size="13" fill="#666" text-anchor="middle" font-style="italic">"I want a salad, then soup (using salad bowl), then main course"</text>
+
+  <!-- Station boxes -->
+  <!-- Salad Station -->
+  <rect x="80" y="120" width="180" height="140" rx="10" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <rect x="80" y="120" width="180" height="35" rx="10" fill="#27ae60"/>
+  <rect x="80" y="145" width="180" height="5" fill="#27ae60"/>
+  <text x="170" y="145" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">SALAD Station</text>
+  <text x="170" y="185" font-family="Arial, sans-serif" font-size="13" fill="#333" text-anchor="middle">Ticket: #1</text>
+  <text x="170" y="210" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">(starts immediately)</text>
+
+  <!-- Arrow 1 -->
+  <line x1="260" y1="190" x2="310" y2="190" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+  <!-- Soup Station -->
+  <rect x="310" y="120" width="180" height="140" rx="10" fill="white" stroke="#3498db" stroke-width="2"/>
+  <rect x="310" y="120" width="180" height="35" rx="10" fill="#3498db"/>
+  <rect x="310" y="145" width="180" height="5" fill="#3498db"/>
+  <text x="400" y="145" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">SOUP Station</text>
+  <text x="400" y="185" font-family="Arial, sans-serif" font-size="13" fill="#333" text-anchor="middle">Ticket: #2</text>
+  <text x="400" y="210" font-family="Arial, sans-serif" font-size="11" fill="#e74c3c" text-anchor="middle">(waits for #1 first!)</text>
+
+  <!-- Arrow 2 -->
+  <line x1="490" y1="190" x2="540" y2="190" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+  <!-- Main Station -->
+  <rect x="540" y="120" width="180" height="140" rx="10" fill="white" stroke="#e74c3c" stroke-width="2"/>
+  <rect x="540" y="120" width="180" height="35" rx="10" fill="#e74c3c"/>
+  <rect x="540" y="145" width="180" height="5" fill="#e74c3c"/>
+  <text x="630" y="145" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">MAIN Station</text>
+  <text x="630" y="185" font-family="Arial, sans-serif" font-size="13" fill="#333" text-anchor="middle">Ticket: #3</text>
+  <text x="630" y="210" font-family="Arial, sans-serif" font-size="11" fill="#e74c3c" text-anchor="middle">(waits for #2 first!)</text>
+
+  <!-- Flow arrows below -->
+  <line x1="170" y1="260" x2="170" y2="290" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="400" y1="260" x2="400" y2="290" stroke="#3498db" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="630" y1="260" x2="630" y2="290" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Results -->
+  <text x="170" y="310" font-family="Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="bold">Salad Ready</text>
+  <line x1="210" y1="305" x2="360" y2="305" stroke="#666" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowhead)"/>
+  <text x="400" y="310" font-family="Arial, sans-serif" font-size="12" fill="#3498db" text-anchor="middle" font-weight="bold">Soup made</text>
+  <text x="400" y="325" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">(reuses bowl)</text>
+  <line x1="440" y1="305" x2="590" y2="305" stroke="#666" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowhead)"/>
+  <text x="630" y="310" font-family="Arial, sans-serif" font-size="12" fill="#e74c3c" text-anchor="middle" font-weight="bold">Main Course Ready!</text>
+</svg>
