@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Distributed Computing - Week 3 Session 3</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="session3_week3_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <header>
+        <h1>Understanding Distributed Computing</h1>
+        <p class="subtitle">Week 3, Session 3: A Beginner's Guide to Parallel Processing, Futures, and DAGs</p>
+    </header>
+
+    <nav class="table-of-contents no-print">
+        <h2>Contents</h2>
+        <ul>
+            <li><a href="#overview">Learning Objectives</a></li>
+            <li><a href="#introduction">Introduction: Parallel Processing Patterns</a></li>
+            <li><a href="#restaurant">1. The Restaurant Analogy</a></li>
+            <li><a href="#futures">2. Understanding Futures/Promises</a></li>
+            <li><a href="#tools">3. How Tools Implement This Pattern</a></li>
+            <li><a href="#lazy">4. Lazy Evaluation</a></li>
+            <li><a href="#terminology">5. Key Terminology</a></li>
+            <li><a href="#dag">6. What is a DAG?</a></li>
+            <li><a href="#dependencies">7. Task Dependencies</a></li>
+            <li><a href="#workers">8. Worker Communication Patterns</a></li>
+            <li><a href="#code-examples">9. Code Examples by Tool</a></li>
+            <li><a href="#summary">Summary</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="overview" class="learning-objectives">
+            <h2>Learning Objectives</h2>
+            <p>By the end of this session, students will be able to:</p>
+            <ul>
+                <li><strong>Understand</strong> the Future/Promise pattern used in distributed computing</li>
+                <li><strong>Explain</strong> the difference between synchronous and asynchronous execution</li>
+                <li><strong>Define</strong> what a DAG is and why it matters</li>
+                <li><strong>Describe</strong> how task dependencies flow through a distributed system</li>
+                <li><strong>Compare</strong> different worker communication patterns</li>
+                <li><strong>Apply</strong> these concepts to understand how AI frameworks process data</li>
+            </ul>
+        </section>
+
+        <!-- Introduction -->
+        <section id="introduction" class="content-section">
+            <h2>Introduction: How Distributed Tools Handle Parallel Processing</h2>
+
+            <div class="key-message">
+                <p><strong>Key Insight:</strong> Before diving into specific tools, it's essential to understand the fundamental pattern that most distributed and parallel processing tools use: <strong>asynchronous execution with Futures/Promises</strong>.</p>
+            </div>
+
+            <p>When you need to process massive amounts of data—whether training an AI model or analyzing billions of records—you can't wait for each operation to complete before starting the next one. Instead, modern distributed systems use a clever "ticket" system that lets you submit work and continue doing other things while that work is being processed.</p>
+        </section>
+
+        <!-- Restaurant Analogy -->
+        <section id="restaurant" class="content-section">
+            <h2>1. The Restaurant Analogy</h2>
+
+            <p>Imagine you walk into a busy coffee shop or restaurant. There are two ways the ordering process could work:</p>
+
+            <h3>The Synchronous (Blocking) Way — Inefficient!</h3>
+
+            <div class="example">
+                <pre><code>You: "I'd like a latte please"
+You: *stand at counter*
+You: *wait*
+You: *keep waiting*
+You: *still waiting... 5 minutes pass*
+Barista: "Here's your latte!"
+You: *NOW you can go sit down or do anything else*</code></pre>
+            </div>
+
+            <div class="limitations-box">
+                <p><strong>Problem:</strong> This is <strong>synchronous/blocking</strong> execution — you submit a request and wait idle until it completes. You can't do anything else during this time. Very inefficient!</p>
+            </div>
+
+            <h3>The Asynchronous (Non-Blocking) Way — Efficient!</h3>
+
+            <div class="example">
+                <pre><code>You: "I'd like a latte please"
+Barista: "Sure! Here's your ticket: #42"
+You: *take ticket, go sit down, read a book, check emails, chat with friend*
+You: *occasionally check the screen or listen for your number*
+Screen: "Now serving #42!"
+You: *go collect your latte*</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Key Point:</strong> This is <strong>asynchronous/non-blocking</strong> execution — you submit a request, immediately get a <strong>ticket (Future/Promise)</strong>, and you're free to do other things while your order is being prepared.</p>
+            </div>
+        </section>
+
+        <!-- Futures/Promises -->
+        <section id="futures" class="content-section">
+            <h2>2. Understanding Futures/Promises: The Ticket System</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> A <strong>Future</strong> (also called a <strong>Promise</strong>) is a placeholder for a result that will be available later. It's like a ticket that you can use to retrieve your result when it's ready.</p>
+            </div>
+
+            <p>That ticket (#42) is exactly what programming languages and distributed tools call a <strong>Future</strong> or <strong>Promise</strong>:</p>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Restaurant</th>
+                        <th>Programming</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Your order (latte)</td>
+                        <td>A computation/task</td>
+                    </tr>
+                    <tr>
+                        <td>The kitchen/barista</td>
+                        <td>A worker/executor</td>
+                    </tr>
+                    <tr>
+                        <td>The ticket (#42)</td>
+                        <td>A <strong>Future/Promise</strong> object</td>
+                    </tr>
+                    <tr>
+                        <td>Checking if order ready</td>
+                        <td>Checking Future status (<code>.done()</code>, <code>.ready()</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>Picking up your order</td>
+                        <td>Getting the result (<code>.result()</code>, <code>.get()</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>Order failed (out of milk!)</td>
+                        <td>Future raises an exception</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Why This Pattern Matters for Distributed Computing</h3>
+
+            <p>In distributed systems, we often need to:</p>
+            <ol>
+                <li><strong>Submit many tasks</strong> to different workers (machines/cores/GPUs)</li>
+                <li><strong>Not wait</strong> for each task to finish before submitting the next</li>
+                <li><strong>Collect results</strong> when they're ready</li>
+                <li><strong>Handle failures</strong> gracefully</li>
+            </ol>
+
+            <h3>Single Task Example</h3>
+
+            <div class="example">
+                <pre><code># SYNCHRONOUS (blocking) - inefficient
+result = slow_computation(data)  # Wait here for 10 minutes...
+print(result)                     # Can only continue after it's done
+
+# ASYNCHRONOUS (non-blocking) - efficient
+future = submit(slow_computation, data)  # Returns immediately with a "ticket"
+# ... do other work while computation runs ...
+result = future.result()                  # Get result when needed</code></pre>
+            </div>
+
+            <h3>Multiple Tasks Example</h3>
+
+            <div class="example">
+                <pre><code># Submit 1000 tasks - returns 1000 "tickets" immediately
+futures = [submit(process, chunk) for chunk in data_chunks]
+
+# All 1000 tasks are now running in parallel on different workers!
+# We didn't wait for task 1 to finish before submitting task 2
+
+# Collect results when ready
+results = [f.result() for f in futures]</code></pre>
+            </div>
+
+            <img src="images/diagrams/futures_big_picture.svg" alt="The Big Picture: Your program submits tasks to multiple workers who process them in parallel, then results are returned as futures complete" class="content-image">
+        </section>
+
+        <!-- Tools Implementation -->
+        <section id="tools" class="content-section">
+            <h2>3. How Different Tools Implement This Pattern</h2>
+
+            <p>Almost every distributed tool uses some form of this Future/Promise pattern:</p>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Tool</th>
+                        <th>Future/Promise Implementation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Python (built-in)</strong></td>
+                        <td><code>concurrent.futures.Future</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dask</strong></td>
+                        <td><code>dask.delayed</code> returns delayed objects; <code>.compute()</code> triggers execution</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ray</strong></td>
+                        <td><code>@ray.remote</code> functions return <code>ObjectRef</code> (Ray's future)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Spark</strong></td>
+                        <td>RDDs/DataFrames are lazy; transformations return new RDDs; actions trigger execution</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Parsl</strong></td>
+                        <td><code>@python_app</code> functions return <code>AppFuture</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flink</strong></td>
+                        <td>DataStream operations are lazy; execution triggered by <code>env.execute()</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TensorFlow</strong></td>
+                        <td>(Graph mode) Operations return tensor references; <code>session.run()</code> executes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PyTorch</strong></td>
+                        <td><code>torch.jit.fork()</code> returns <code>Future</code> for async execution</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Airflow/Prefect</strong></td>
+                        <td>Tasks return results that downstream tasks await</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Lazy Evaluation -->
+        <section id="lazy" class="content-section">
+            <h2>4. Lazy Evaluation: The Kitchen Doesn't Start Until You Order</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> <strong>Lazy evaluation</strong> means the system doesn't actually do any work until you explicitly ask for results. It builds a "plan" first, then executes it all at once.</p>
+            </div>
+
+            <p>Many tools use <strong>lazy evaluation</strong> — they don't actually do any work until you explicitly ask for results:</p>
+
+            <div class="example">
+                <pre><code># Dask example - NOTHING is computed yet!
+df = dd.read_csv("huge_file.csv")      # Lazy - just a plan
+filtered = df[df['value'] > 100]        # Lazy - adds to plan
+grouped = filtered.groupby('category')  # Lazy - adds to plan
+result = grouped.sum()                  # Lazy - still just a plan!
+
+# NOW it actually executes the entire plan
+final = result.compute()                # Triggers execution!</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>Restaurant Analogy</h3>
+                <p>It's like telling the waiter your entire order (appetizer, main course, dessert), and the kitchen only starts cooking when you say "That's everything, please start!"</p>
+                <p>This allows the system to <strong>optimize</strong> the entire plan before executing — maybe combining steps, reordering operations, or eliminating unnecessary work.</p>
+            </div>
+        </section>
+
+        <!-- Key Terminology -->
+        <section id="terminology" class="content-section">
+            <h2>5. Key Terminology Summary</h2>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Term</th>
+                        <th>Meaning</th>
+                        <th>Restaurant Analogy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Synchronous</strong></td>
+                        <td>Wait for each task to complete before continuing</td>
+                        <td>Stand at counter until order ready</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Asynchronous</strong></td>
+                        <td>Submit task, get ticket, continue with other work</td>
+                        <td>Get ticket, go sit down</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Future/Promise</strong></td>
+                        <td>A placeholder for a result that will be available later</td>
+                        <td>Your ticket #42</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Blocking</strong></td>
+                        <td>Operation that stops execution until complete</td>
+                        <td>Waiting at counter</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Non-blocking</strong></td>
+                        <td>Operation that returns immediately</td>
+                        <td>Getting ticket and walking away</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lazy Evaluation</strong></td>
+                        <td>Build a plan of work, execute later</td>
+                        <td>Give full order, kitchen starts on command</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Eager Evaluation</strong></td>
+                        <td>Execute immediately when called</td>
+                        <td>Kitchen starts each item as you order it</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Callback</strong></td>
+                        <td>Function called when future completes</td>
+                        <td>"We'll call your name when ready!"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>await/wait</strong></td>
+                        <td>Block until future completes</td>
+                        <td>Sit and wait for your number</td>
+                    </tr>
+                    <tr>
+                        <td><strong>poll/check</strong></td>
+                        <td>Check if future is ready without blocking</td>
+                        <td>Glance at the screen occasionally</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- What is a DAG -->
+        <section id="dag" class="content-section">
+            <h2>6. What is a DAG? (Directed Acyclic Graph)</h2>
+
+            <div class="definition">
+                <p><strong>Definition:</strong> A <strong>DAG</strong> (Directed Acyclic Graph) is a way to represent tasks and their dependencies. It shows which tasks must complete before others can start.</p>
+                <ul>
+                    <li><strong>Directed:</strong> Arrows show data flow direction (A → B means A's output goes to B)</li>
+                    <li><strong>Acyclic:</strong> No loops/cycles (you can't have A depend on B and B depend on A)</li>
+                    <li><strong>Graph:</strong> Nodes (tasks) connected by edges (dependencies)</li>
+                </ul>
+            </div>
+
+            <img src="images/diagrams/simple_dag_example.svg" alt="Simple DAG Example showing Read CSV splitting into Filter Rows and Calculate Stats, which merge into Join Results and Write Output" class="content-image">
+
+            <h3>The Chain of Promises: Multi-Course Meal</h3>
+
+            <p>Imagine a more complex restaurant scenario — you're ordering a multi-course meal where each course depends on the previous one:</p>
+
+            <img src="images/diagrams/restaurant_kitchen_chain.svg" alt="Restaurant kitchen showing Salad Station (Ticket #1) leading to Soup Station (Ticket #2, waits for #1) leading to Main Station (Ticket #3, waits for #2)" class="content-image">
+
+            <div class="key-message">
+                <p><strong>Key Insight:</strong> Ticket #2 (soup) cannot start until Ticket #1 (salad) is complete. The soup station is <em>waiting</em> on the salad station's promise to be fulfilled.</p>
+            </div>
+        </section>
+
+        <!-- Task Dependencies -->
+        <section id="dependencies" class="content-section">
+            <h2>7. Task Dependencies: How Futures Flow Through the DAG</h2>
+
+            <p>In real-world data processing, tasks rarely work in isolation. The output of one task becomes the input to another. This creates <strong>dependencies</strong>.</p>
+
+            <h3>Dependencies in Code</h3>
+
+            <div class="example">
+                <pre><code># Task B depends on Task A's result
+# Task C depends on Task B's result
+
+future_A = submit(task_A, raw_data)           # Returns immediately with ticket A
+future_B = submit(task_B, future_A)           # Takes ticket A as input!
+future_C = submit(task_C, future_B)           # Takes ticket B as input!
+
+# The system knows:
+#   - task_A can start immediately
+#   - task_B must WAIT for future_A to be ready
+#   - task_C must WAIT for future_B to be ready
+
+final_result = future_C.result()  # Blocks until entire chain completes</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <p><strong>Notice:</strong> We pass the <em>future itself</em> (the ticket), not the result! The system automatically waits for dependencies.</p>
+            </div>
+
+            <h3>Data Processing Pipeline with DAG Flow</h3>
+
+            <img src="images/diagrams/dag_data_pipeline.svg" alt="Data Processing Pipeline showing Load Data to Clean Data to Transform Data to Save Data, with futures and dependencies, plus execution timeline" class="content-image">
+
+            <h3>Parallel Branches: Where DAGs Shine</h3>
+
+            <p>The real power comes when tasks can run <strong>in parallel</strong> because they don't depend on each other:</p>
+
+            <img src="images/diagrams/parallel_branches_dag.svg" alt="Parallel Branches in DAG showing Load Data branching into three parallel processes that merge into a final result, with execution timeline showing parallel execution" class="content-image">
+
+            <h3>Building a DAG with Dependencies (Code Example)</h3>
+
+            <div class="example">
+                <pre><code># Using Dask as example (similar pattern in Ray, Parsl, Spark)
+
+from dask import delayed
+
+@delayed
+def load(filename):
+    return read_file(filename)
+
+@delayed
+def process_a(data):
+    return data.filter(...)
+
+@delayed
+def process_b(data):
+    return data.transform(...)
+
+@delayed
+def process_c(data):
+    return data.aggregate(...)
+
+@delayed
+def merge(a, b, c):
+    return combine(a, b, c)
+
+# Build the DAG (no execution yet!)
+data = load("input.csv")              # Future #1
+
+branch_a = process_a(data)            # Future #2, depends on #1
+branch_b = process_b(data)            # Future #3, depends on #1
+branch_c = process_c(data)            # Future #4, depends on #1
+
+final = merge(branch_a, branch_b, branch_c)  # Future #5, depends on #2,#3,#4
+
+# Visualize the DAG (Dask feature)
+final.visualize()   # Shows the graph!
+
+# Execute the DAG
+result = final.compute()  # NOW all tasks run, respecting dependencies</code></pre>
+            </div>
+        </section>
+
+        <!-- Worker Communication -->
+        <section id="workers" class="content-section">
+            <h2>8. Worker Communication Patterns</h2>
+
+            <p>When a future completes, how does the next task get the result? Different tools use different approaches:</p>
+
+            <h3>Pattern 1: Centralized Scheduler (Dask, Spark)</h3>
+
+            <img src="images/diagrams/worker_centralized_scheduler.svg" alt="Centralized Scheduler pattern showing Scheduler (Master) coordinating Workers 1, 2, and 3, with workflow when f1 completes" class="content-image">
+
+            <h3>Pattern 2: Distributed Object Store (Ray)</h3>
+
+            <img src="images/diagrams/worker_distributed_store.svg" alt="Distributed Object Store pattern showing shared object store with results, workers accessing results, and zero-copy shared memory" class="content-image">
+
+            <h3>Pattern 3: Message Passing / Dataflow (Flink)</h3>
+
+            <img src="images/diagrams/worker_message_passing.svg" alt="Message Passing pattern showing continuous data stream flowing through Task 1, Task 2, and Task 3" class="content-image">
+
+            <h3>The Complete Picture: From Submission to Result</h3>
+
+            <img src="images/diagrams/complete_execution_flow.svg" alt="Complete execution flow showing code submission creating futures, scheduler analyzing DAG, workers executing tasks, and results returning" class="content-image">
+        </section>
+
+        <!-- Code Examples -->
+        <section id="code-examples" class="content-section">
+            <h2>9. Quick Code Examples by Tool</h2>
+
+            <h3>Dask</h3>
+            <div class="example">
+                <pre><code>import dask
+
+@dask.delayed          # Makes function lazy
+def process(x):
+    return x * 2
+
+futures = [process(i) for i in range(100)]  # 100 delayed objects (tickets)
+results = dask.compute(*futures)             # Execute all in parallel</code></pre>
+            </div>
+
+            <h3>Ray</h3>
+            <div class="example">
+                <pre><code>import ray
+
+@ray.remote            # Makes function distributed
+def process(x):
+    return x * 2
+
+futures = [process.remote(i) for i in range(100)]  # 100 ObjectRefs (tickets)
+results = ray.get(futures)                          # Collect results</code></pre>
+            </div>
+
+            <h3>Parsl</h3>
+            <div class="example">
+                <pre><code>from parsl import python_app
+
+@python_app            # Makes function parallel
+def process(x):
+    return x * 2
+
+futures = [process(i) for i in range(100)]  # 100 AppFutures (tickets)
+results = [f.result() for f in futures]      # Collect results</code></pre>
+            </div>
+
+            <h3>Spark (Lazy Transformations)</h3>
+            <div class="example">
+                <pre><code>rdd = sc.parallelize(range(100))    # Distributed collection
+mapped = rdd.map(lambda x: x * 2)   # Lazy transformation (plan)
+result = mapped.collect()            # Action triggers execution</code></pre>
+            </div>
+
+            <h3>Tools and Their DAG Implementations</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Tool</th>
+                        <th>DAG Construction</th>
+                        <th>Visualization</th>
+                        <th>Execution Trigger</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Dask</strong></td>
+                        <td><code>@delayed</code> decorator</td>
+                        <td><code>.visualize()</code></td>
+                        <td><code>.compute()</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ray</strong></td>
+                        <td><code>@ray.remote</code> decorator</td>
+                        <td>Ray Dashboard</td>
+                        <td><code>ray.get()</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Spark</strong></td>
+                        <td>Transformations on RDD/DF</td>
+                        <td>Spark UI (DAG tab)</td>
+                        <td>Actions (collect, save)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Parsl</strong></td>
+                        <td><code>@python_app</code> decorator</td>
+                        <td>Parsl monitoring</td>
+                        <td><code>.result()</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Airflow</strong></td>
+                        <td>Task dependencies in DAG file</td>
+                        <td>Airflow Web UI</td>
+                        <td>Scheduler triggers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Prefect</strong></td>
+                        <td><code>@task</code> and <code>@flow</code> decorators</td>
+                        <td>Prefect UI</td>
+                        <td><code>.run()</code> or schedule</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flink</strong></td>
+                        <td>DataStream operations</td>
+                        <td>Flink Web UI</td>
+                        <td><code>env.execute()</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Beam</strong></td>
+                        <td>PTransform chains</td>
+                        <td>Pipeline visualization</td>
+                        <td><code>pipeline.run()</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Summary -->
+        <section id="summary" class="content-section">
+            <h2>Summary: Key Takeaways</h2>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Concept</th>
+                        <th>Explanation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Future/Promise</strong></td>
+                        <td>A placeholder (ticket) for a result that will be available later</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DAG</strong></td>
+                        <td>A graph showing tasks (nodes) and their dependencies (edges)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Root tasks</strong></td>
+                        <td>Tasks with no dependencies — can start immediately</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Leaf tasks</strong></td>
+                        <td>Tasks with no dependents — final outputs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dependency resolution</strong></td>
+                        <td>Scheduler tracks which futures each task needs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Parallel branches</strong></td>
+                        <td>Independent tasks run simultaneously on different workers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Join/Merge points</strong></td>
+                        <td>Tasks that wait for multiple futures before starting</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data locality</strong></td>
+                        <td>Scheduler tries to run tasks near their input data</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lazy construction</strong></td>
+                        <td>DAG is built instantly; execution happens later</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-message">
+                <h3>What You Now Understand</h3>
+                <ul>
+                    <li>The Future/Promise pattern (the "ticket" system)</li>
+                    <li>How tasks form dependencies</li>
+                    <li>What a DAG is and why it matters</li>
+                    <li>How workers communicate and hand off results</li>
+                    <li>How parallel branches speed up execution</li>
+                </ul>
+            </div>
+
+            <div class="key-pattern">
+                <h3>Connection to AI/ML</h3>
+                <p>These patterns are fundamental to how modern AI systems work:</p>
+                <ul>
+                    <li><strong>Training deep learning models</strong> distributes computation across GPUs using these patterns</li>
+                    <li><strong>Data preprocessing pipelines</strong> use DAGs to organize transformation steps</li>
+                    <li><strong>Feature engineering</strong> often involves parallel computation of many features</li>
+                    <li><strong>Model inference at scale</strong> uses async patterns to handle many requests</li>
+                </ul>
+            </div>
+        </section>
+        <!-- Additional Resources -->
+        <section class="content-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; margin-top: 2rem;">
+            <h2 style="color: white; border-bottom: 2px solid rgba(255,255,255,0.3);">Additional Resources</h2>
+            <p>Want to dive deeper into specific distributed computing tools? Check out our comprehensive technical reference:</p>
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <a href="distributed_tools_reference.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 0.5rem;">
+                    Distributed Tools Technical Reference
+                </a>
+                <a href="distributed_tools_reference_ar.html" style="display: inline-block; padding: 1rem 2rem; background: rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 0.5rem; border: 2px solid white;">
+                    المرجع التقني بالعربية
+                </a>
+            </div>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.9;">The reference covers: Computing paradigms, language support, processing modes, device support (GPU/TPU), cloud capabilities, architecture patterns, data partitioning strategies, fault tolerance mechanisms, and tool selection guides.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p><a href="index.html">← Back to Course Index</a></p>
+        <p>DS-AI Course - Week 3, Session 3: Understanding Distributed Computing</p>
+    </footer>
+</body>
+</html>

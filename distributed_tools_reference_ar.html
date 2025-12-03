@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="Arabic">
+    <meta name="direction" content="rtl">
+    <meta name="description" content="أدوات البرمجة الموزعة - المرجع التقني والتحليل المقارن">
+    <title>أدوات البرمجة الموزعة - المرجع التقني | مقرر DS-AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reference page specific styles */
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .reference-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .reference-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .reference-header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .topic-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .topic-section h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #3498db;
+        }
+
+        .topic-section h3 {
+            color: #3498db;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .topic-section h4 {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .topic-section p {
+            line-height: 1.8;
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .topic-badge {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .paradigm-card {
+            background: #f8f9fa;
+            border-right: 4px solid #3498db;
+            border-left: none;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .paradigm-card h4 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        .paradigm-card .tools {
+            background: #e8f4fc;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            color: #2980b9;
+            direction: ltr;
+        }
+
+        .characteristics-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+
+        .characteristics-list li {
+            padding: 0.3rem 1.5rem 0.3rem 0;
+            position: relative;
+        }
+
+        .characteristics-list li::before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+        }
+
+        .ref-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .ref-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 0.8rem;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .ref-table td {
+            padding: 0.8rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .ref-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .ref-table tr:hover {
+            background: #e8f4fc;
+        }
+
+        .ref-table code {
+            background: #e8e8e8;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .summary-box h4 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .summary-box .ref-table {
+            background: rgba(255,255,255,0.95) !important;
+            border-radius: 6px;
+        }
+
+        .summary-box .ref-table td {
+            color: #333 !important;
+        }
+
+        .summary-box .ref-table tr:nth-child(even) {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .summary-box .ref-table tr:hover {
+            background: rgba(255,255,255,0.7);
+        }
+
+        .summary-box .characteristics-list li {
+            color: white;
+        }
+
+        .quick-ref-section {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .quick-ref-section h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .quick-ref-section .ref-table {
+            background: rgba(255,255,255,0.95);
+            border-radius: 6px;
+        }
+
+        .quick-ref-section .ref-table th {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .quick-ref-section .ref-table td {
+            border-bottom-color: #e0e0e0;
+            color: #333;
+        }
+
+        .quick-ref-section .ref-table tr:nth-child(even) {
+            background: rgba(240,240,240,0.8);
+        }
+
+        .quick-ref-section .ref-table tr:hover {
+            background: rgba(230,230,230,0.9);
+        }
+
+        .quick-ref-section .legend {
+            background: rgba(255,255,255,0.95) !important;
+            color: #333 !important;
+            border: 1px solid #ddd !important;
+        }
+
+        .toc-nav {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .toc-nav h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .toc-nav ul {
+            columns: 2;
+            column-gap: 2rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-nav li {
+            padding: 0.3rem 0;
+        }
+
+        .toc-nav a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .toc-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .back-link a {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin: 0.5rem;
+        }
+
+        .back-link a:hover {
+            background-color: #2980b9;
+        }
+
+        .legend {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .tool-name {
+            direction: ltr;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .toc-nav ul {
+                columns: 1;
+            }
+            .reference-header h1 {
+                font-size: 1.8rem;
+            }
+            .ref-table {
+                font-size: 0.8rem;
+            }
+            .ref-table th, .ref-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="distributed_tools_reference.html" class="lang-button" title="Switch to English">English</a>
+    </div>
+
+    <div class="reference-header">
+        <h1>أدوات البرمجة الموزعة</h1>
+        <p class="subtitle">المرجع التقني والتحليل المقارن</p>
+    </div>
+
+    <main style="max-width: 1000px; margin: 0 auto; padding: 0 2rem;">
+
+        <!-- Table of Contents -->
+        <nav class="toc-nav">
+            <h3>التنقل السريع</h3>
+            <ul>
+                <li><a href="#paradigms">1. نماذج الحوسبة</a></li>
+                <li><a href="#languages">2. اللغات والواجهات</a></li>
+                <li><a href="#processing">3. أنماط المعالجة</a></li>
+                <li><a href="#devices">4. دعم الأجهزة</a></li>
+                <li><a href="#cloud">5. السحابة والهجين</a></li>
+                <li><a href="#architecture">6. أنماط البنية</a></li>
+                <li><a href="#partitioning">7. تقسيم البيانات</a></li>
+                <li><a href="#fault-tolerance">8. التسامح مع الأخطاء</a></li>
+                <li><a href="#strengths">9. نقاط القوة والقيود</a></li>
+                <li><a href="#selection">10. دليل اختيار الأداة</a></li>
+                <li><a href="#quick-ref">جدول المرجع السريع</a></li>
+                <li><a href="#appendix">الملحق: الموارد</a></li>
+            </ul>
+        </nav>
+
+        <!-- Section 1: Computing Paradigms -->
+        <section id="paradigms" class="topic-section">
+            <span class="topic-badge">القسم 1</span>
+            <h2>نماذج الحوسبة (Computing Paradigms)</h2>
+            <p>فهم نموذج الحوسبة أساسي لاختيار الأداة الصحيحة. كل نموذج يمثل نهجاً مختلفاً لتنظيم وتنفيذ الحسابات الموزعة.</p>
+
+            <div class="paradigm-card">
+                <h4>MapReduce</h4>
+                <p>نموذج الحوسبة الموزعة الأصلي باستخدام نهج ثنائي المراحل صارم: Map (تحويل) ← Shuffle ← Reduce (تجميع). البيانات تتدفق عبر القرص بين المراحل.</p>
+                <ul class="characteristics-list">
+                    <li>نموذج تنفيذ بسيط وقابل للتنبؤ</li>
+                    <li>عبء I/O عالٍ على القرص</li>
+                    <li>الأفضل لأعمال ETL الدفعية</li>
+                    <li>مرونة محدودة لخطوط الأنابيب المعقدة</li>
+                </ul>
+                <span class="tools">الأدوات: Hadoop</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>DAG-Based (قائم على الرسم البياني الموجه غير الدوري)</h4>
+                <p>الحسابات منظمة كرسم بياني للعمليات يُحسّن قبل التنفيذ. يسمح بخطوط أنابيب متعددة المراحل معقدة مع فرص تحسين.</p>
+                <ul class="characteristics-list">
+                    <li>التقييم الكسول (بناء الرسم ثم التنفيذ)</li>
+                    <li>تحسين الاستعلامات ممكن</li>
+                    <li>أكثر مرونة من MapReduce</li>
+                    <li>يمكن تحسين نقل البيانات</li>
+                </ul>
+                <span class="tools">الأدوات: Spark, Dask, Airflow, Prefect</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Dataflow / Stream Processing (معالجة التدفق)</h4>
+                <p>البيانات تتدفق باستمرار عبر المشغلين. المعالجة الحقيقية للتدفق تعالج الأحداث واحداً تلو الآخر؛ الدفعات الصغيرة تعالج دفعات صغيرة بشكل متكرر.</p>
+                <ul class="characteristics-list">
+                    <li>معالجة منخفضة الكمون</li>
+                    <li>دلالات وقت الحدث</li>
+                    <li>النوافذ والمحفزات</li>
+                    <li>ضمانات exactly-once ممكنة</li>
+                </ul>
+                <table class="ref-table">
+                    <tr><th>النوع الفرعي</th><th>الوصف</th><th>الأدوات</th></tr>
+                    <tr><td>True Streaming</td><td>معالجة حدث بحدث</td><td>Flink</td></tr>
+                    <tr><td>Micro-batch</td><td>فترات دفعات صغيرة</td><td>Spark Streaming</td></tr>
+                    <tr><td>Unified Model</td><td>نفس API للدفعي والتدفق</td><td>Beam, Flink</td></tr>
+                </table>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Task-Based / Actor-Based (التوازي القائم على المهام/الفاعلين)</h4>
+                <p>الحساب مقسم إلى مهام مستقلة أو فاعلين ذوي حالة. أكثر مرونة من مناهج التوازي البياني.</p>
+                <ul class="characteristics-list">
+                    <li>توازي دقيق الحبيبات</li>
+                    <li>يدعم أعباء العمل غير المتجانسة</li>
+                    <li>توليد مهام ديناميكي</li>
+                    <li>جيد للحسابات غير المنتظمة</li>
+                </ul>
+                <table class="ref-table">
+                    <tr><th>النموذج</th><th>الوصف</th><th>الأدوات</th></tr>
+                    <tr><td>Task-based</td><td>دوال متوازية بدون حالة</td><td>Ray, Parsl</td></tr>
+                    <tr><td>Actor-based</td><td>كائنات موزعة ذات حالة</td><td>Ray</td></tr>
+                    <tr><td>Hybrid</td><td>مهام وفاعلين معاً</td><td>Ray</td></tr>
+                </table>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Dataflow Graphs - ML (الرسوم البيانية لتدفق ML)</h4>
+                <p>الحسابات كرسوم بيانية حيث العقد عمليات والحواف tensors/مصفوفات. محسّنة لأعباء العمل العددية و ML.</p>
+                <ul class="characteristics-list">
+                    <li>التفاضل التلقائي</li>
+                    <li>تحسين خاص بالعتاد (GPU/TPU)</li>
+                    <li>بناء الرسم البياني ثابت أو ديناميكي</li>
+                    <li>دمج النواة والتجميع</li>
+                </ul>
+                <table class="ref-table">
+                    <tr><th>نوع الرسم</th><th>الوصف</th><th>الأدوات</th></tr>
+                    <tr><td>Static (Define-then-run)</td><td>الرسم يُبنى أولاً ثم يُنفذ</td><td>TensorFlow (graph mode)</td></tr>
+                    <tr><td>Dynamic (Define-by-run)</td><td>الرسم يُبنى أثناء التنفيذ</td><td>PyTorch, TensorFlow (eager)</td></tr>
+                    <tr><td>Functional</td><td>تحويلات قابلة للتركيب</td><td>JAX</td></tr>
+                </table>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>GPU-Accelerated Data Processing (معالجة البيانات المُسرّعة بـ GPU)</h4>
+                <p>تستفيد من توازي GPU لمهام معالجة البيانات التي تُجرى تقليدياً على CPU.</p>
+                <ul class="characteristics-list">
+                    <li>توازي ضخم (آلاف الأنوية)</li>
+                    <li>تحسين عرض نطاق الذاكرة</li>
+                    <li>تنسيقات بيانات عمودية (Arrow)</li>
+                    <li>محدود بذاكرة GPU</li>
+                </ul>
+                <span class="tools">الأدوات: RAPIDS, RAPIDS+Dask</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Collective Communication (الاتصال الجماعي للتدريب الموزع)</h4>
+                <p>يزامن المشتقات/المعاملات عبر العمال باستخدام عمليات جماعية فعالة.</p>
+                <ul class="characteristics-list">
+                    <li>Ring-allreduce لكفاءة النطاق الترددي</li>
+                    <li>توازي البيانات (النموذج مكرر)</li>
+                    <li>توسع شبه خطي</li>
+                    <li>غير مرتبط بإطار عمل معين</li>
+                </ul>
+                <span class="tools">الأدوات: Horovod, PyTorch Distributed, TensorFlow Distributed</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Workflow Orchestration (تنسيق سير العمل)</h4>
+                <p>يدير تبعيات المهام والجدولة، وليس معالجة البيانات نفسها.</p>
+                <ul class="characteristics-list">
+                    <li>DAG من المهام (وليس عمليات البيانات)</li>
+                    <li>الجدولة والمراقبة</li>
+                    <li>يُشغّل أنظمة خارجية</li>
+                    <li>إعادة المحاولة والتنبيه</li>
+                </ul>
+                <span class="tools">الأدوات: Airflow, Prefect</span>
+            </div>
+
+            <div class="summary-box">
+                <h4>ملخص النماذج</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>النموذج</th><th>الأفضل لـ</th><th>الأدوات</th></tr>
+                    <tr><td>MapReduce</td><td>ETL دفعي بسيط</td><td>Hadoop</td></tr>
+                    <tr><td>DAG-based</td><td>خطوط أنابيب دفعية معقدة</td><td>Spark, Dask</td></tr>
+                    <tr><td>Dataflow/Stream</td><td>المعالجة في الوقت الفعلي</td><td>Flink, Beam</td></tr>
+                    <tr><td>Task/Actor</td><td>AI/ML، أعباء عمل غير منتظمة</td><td>Ray, Parsl</td></tr>
+                    <tr><td>ML Dataflow</td><td>التعلم العميق</td><td>TensorFlow, PyTorch, JAX</td></tr>
+                    <tr><td>GPU Data</td><td>علم البيانات السريع</td><td>RAPIDS</td></tr>
+                    <tr><td>Collective</td><td>التدريب الموزع</td><td>Horovod</td></tr>
+                    <tr><td>Orchestration</td><td>إدارة خطوط الأنابيب</td><td>Airflow, Prefect</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 2: Languages -->
+        <section id="languages" class="topic-section">
+            <span class="topic-badge">القسم 2</span>
+            <h2>التنفيذ واللغات المدعومة</h2>
+
+            <h3>لغات التنفيذ</h3>
+            <p>لغة التنفيذ تؤثر على الأداء وقابلية التوسع والقدرة على المساهمة.</p>
+            <table class="ref-table">
+                <tr><th>التنفيذ</th><th>الأدوات</th></tr>
+                <tr><td><strong>Java</strong></td><td>Hadoop, Flink, Beam</td></tr>
+                <tr><td><strong>Scala</strong></td><td>Spark</td></tr>
+                <tr><td><strong>Python</strong></td><td>Dask, Airflow, Prefect, Parsl</td></tr>
+                <tr><td><strong>C++</strong></td><td>Ray (core), TensorFlow, PyTorch, XGBoost, Horovod</td></tr>
+                <tr><td><strong>C++ + CUDA</strong></td><td>RAPIDS, TensorFlow, PyTorch</td></tr>
+            </table>
+
+            <h3>اللغات المدعومة (واجهات المستخدم)</h3>
+            <table class="ref-table">
+                <tr><th>الواجهة الأساسية</th><th>الأدوات</th></tr>
+                <tr><td><strong>Python فقط</strong></td><td>Dask, Parsl, Airflow, Prefect</td></tr>
+                <tr><td><strong>Python أولاً</strong></td><td>Ray, TensorFlow, PyTorch, JAX, RAPIDS, Horovod</td></tr>
+                <tr><td><strong>متعدد اللغات</strong></td><td>Spark (Scala/Java/Python/R/SQL), Flink (Java/Scala/Python/SQL), Beam (Java/Python/Go)</td></tr>
+                <tr><td><strong>Python + R</strong></td><td>XGBoost, LightGBM, CatBoost</td></tr>
+            </table>
+
+            <h3>التكامل مع نظام Python البيئي</h3>
+            <table class="ref-table">
+                <tr><th>مستوى التكامل</th><th>الوصف</th><th>الأدوات</th></tr>
+                <tr><td><strong>أصلي</strong></td><td>مبني على واجهات NumPy/Pandas</td><td>Dask, RAPIDS, JAX</td></tr>
+                <tr><td><strong>قوي</strong></td><td>تكامل سهل مع النظام البيئي</td><td>Ray, Parsl, PyTorch</td></tr>
+                <tr><td><strong>جيد</strong></td><td>يعمل جيداً لكن واجهة مختلفة</td><td>Spark (PySpark), TensorFlow</td></tr>
+                <tr><td><strong>غلاف</strong></td><td>غلاف Python فوق JVM</td><td>Flink (PyFlink), Beam</td></tr>
+            </table>
+
+            <div class="summary-box">
+                <h4>توصيات اللغات</h4>
+                <ul class="characteristics-list" style="color: white;">
+                    <li><strong>الأفضل لعلماء بيانات Python:</strong> Dask, RAPIDS, Ray, Parsl</li>
+                    <li><strong>الأفضل لفرق JVM:</strong> Spark, Flink, Hadoop</li>
+                    <li><strong>الأفضل لباحثي ML:</strong> PyTorch, JAX</li>
+                    <li><strong>الأفضل لـ ML الإنتاجي:</strong> TensorFlow, Spark</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Processing Modes -->
+        <section id="processing" class="topic-section">
+            <span class="topic-badge">القسم 3</span>
+            <h2>أنماط المعالجة</h2>
+
+            <div class="paradigm-card">
+                <h4>المعالجة الدفعية فقط (Batch Processing Only)</h4>
+                <p>معالجة مجموعات بيانات محدودة في مهام مجدولة. كمون أعلى، إنتاجية أعلى.</p>
+                <ul class="characteristics-list">
+                    <li>مجموعة البيانات الكاملة متاحة</li>
+                    <li>محسّنة للإنتاجية</li>
+                    <li>تنفيذ مجدول/مُشغّل</li>
+                    <li>النتائج بعد اكتمال المهمة</li>
+                </ul>
+                <span class="tools">الأدوات: Hadoop, Dask, Parsl, RAPIDS, XGBoost, Horovod, JAX</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>معالجة التدفق فقط (Stream Processing Only)</h4>
+                <p>معالجة بيانات غير محدودة باستمرار بكمون منخفض.</p>
+                <ul class="characteristics-list">
+                    <li>الأحداث تُعالج عند وصولها</li>
+                    <li>كمون منخفض (ميلي ثانية إلى ثوانٍ)</li>
+                    <li>استعلامات مستمرة</li>
+                    <li>إدارة الحالة مطلوبة</li>
+                </ul>
+                <span class="tools">الأدوات: Flink (التصميم الأساسي)</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>دفعي + تدفق موحد (Unified Batch + Stream)</h4>
+                <p>نفس الواجهة والدلالات لأعباء العمل الدفعية والتدفقية.</p>
+                <table class="ref-table">
+                    <tr><th>النهج</th><th>الوصف</th><th>الأدوات</th></tr>
+                    <tr><td>Micro-batch streaming</td><td>دفعات صغيرة تحاكي التدفق</td><td>Spark</td></tr>
+                    <tr><td>True unified</td><td>تدفق أولاً مع الدفعي كحالة خاصة</td><td>Flink, Beam</td></tr>
+                </table>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>عام الغرض / تفاعلي (General-Purpose / Interactive)</h4>
+                <p>يدعم الدفعي، الاستعلامات التفاعلية، وأعباء عمل الخدمة.</p>
+                <ul class="characteristics-list">
+                    <li>تنفيذ مهام منخفض الكمون</li>
+                    <li>تطوير تفاعلي</li>
+                    <li>قدرات خدمة النماذج</li>
+                    <li>أعباء عمل غير متجانسة</li>
+                </ul>
+                <span class="tools">الأدوات: Ray, Spark (تفاعلي)</span>
+            </div>
+
+            <div class="summary-box">
+                <h4>ملخص أنماط المعالجة</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>النمط</th><th>الكمون</th><th>الأدوات</th></tr>
+                    <tr><td>دفعي فقط</td><td>دقائق-ساعات</td><td>Hadoop, Dask, Parsl, RAPIDS</td></tr>
+                    <tr><td>تدفق فقط</td><td>ميلي ثانية</td><td>Flink</td></tr>
+                    <tr><td>دفعي + تدفق</td><td>ثوانٍ-دقائق</td><td>Spark, Beam</td></tr>
+                    <tr><td>تفاعلي</td><td>ثوانٍ</td><td>Ray, Spark</td></tr>
+                    <tr><td>تنسيق</td><td>غير متاح (جدولة)</td><td>Airflow, Prefect</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 4: Device Support -->
+        <section id="devices" class="topic-section">
+            <span class="topic-badge">القسم 4</span>
+            <h2>دعم الأجهزة</h2>
+
+            <h3>CPU فقط / CPU أساسي</h3>
+            <p>أدوات مصممة أساساً لتنفيذ CPU: عتاد سلعي، توسع أفقي، فعال من حيث التكلفة، قابل للنشر على نطاق واسع.</p>
+            <p><strong>الأدوات:</strong> Hadoop, Flink, Beam, Airflow, Prefect, Parsl</p>
+
+            <h3>دعم GPU أصلي</h3>
+            <p>تسريع GPU مدمج بدون إضافات. تكامل CUDA/cuDNN، دعم GPU متعدد، تسريع كبير (10-100x).</p>
+            <table class="ref-table">
+                <tr><th>المستوى</th><th>الوصف</th><th>الأدوات</th></tr>
+                <tr><td><strong>الهدف الأساسي</strong></td><td>مصمم لـ GPU</td><td>RAPIDS, TensorFlow, PyTorch, JAX</td></tr>
+                <tr><td><strong>خيار أصلي</strong></td><td>GPU كخيار تنفيذ</td><td>XGBoost (<code>gpu_hist</code>), Ray</td></tr>
+                <tr><td><strong>عبر backends</strong></td><td>GPU موزع</td><td>Horovod, TF Distributed, PyTorch Distributed</td></tr>
+            </table>
+
+            <h3>GPU عبر إضافة/تكامل</h3>
+            <table class="ref-table">
+                <tr><th>الأداة</th><th>تكامل GPU</th></tr>
+                <tr><td>Spark</td><td>RAPIDS Accelerator (إضافة NVIDIA)</td></tr>
+                <tr><td>Dask</td><td>Dask-CUDA + RAPIDS (dask-cudf)</td></tr>
+                <tr><td>Flink</td><td>مكتبات خارجية تجريبية</td></tr>
+            </table>
+
+            <h3>دعم TPU</h3>
+            <p>وحدات معالجة Tensor من Google لأعباء عمل ML. محسّنة لعمليات المصفوفات، متاحة على Google Cloud.</p>
+            <table class="ref-table">
+                <tr><th>مستوى الدعم</th><th>الأدوات</th></tr>
+                <tr><td><strong>من الدرجة الأولى</strong></td><td>TensorFlow, JAX</td></tr>
+                <tr><td><strong>عبر XLA</strong></td><td>PyTorch (torch_xla)</td></tr>
+                <tr><td><strong>عبر runners</strong></td><td>Beam (Dataflow runner)</td></tr>
+            </table>
+
+            <div class="summary-box">
+                <h4>ملخص دعم الأجهزة</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>الجهاز</th><th>دعم قوي</th><th>محدود/إضافة</th></tr>
+                    <tr><td>CPU</td><td>جميع الأدوات</td><td>-</td></tr>
+                    <tr><td>NVIDIA GPU</td><td>TF, PyTorch, JAX, RAPIDS, XGBoost</td><td>Spark, Dask, Flink</td></tr>
+                    <tr><td>TPU</td><td>TF, JAX</td><td>PyTorch</td></tr>
+                    <tr><td>AMD GPU</td><td>PyTorch</td><td>-</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 5: Cloud & Hybrid -->
+        <section id="cloud" class="topic-section">
+            <span class="topic-badge">القسم 5</span>
+            <h2>القدرات الهجينة والسحابية</h2>
+
+            <h3>السحابة الأصلية / الخدمات المُدارة</h3>
+            <table class="ref-table">
+                <tr><th>الأداة</th><th>الخدمات المُدارة</th></tr>
+                <tr><td>Spark</td><td>Databricks, AWS EMR, Azure Synapse, GCP Dataproc</td></tr>
+                <tr><td>Flink</td><td>AWS Kinesis Analytics, Ververica Platform</td></tr>
+                <tr><td>Beam</td><td>Google Cloud Dataflow</td></tr>
+                <tr><td>Airflow</td><td>AWS MWAA, Google Cloud Composer, Astronomer</td></tr>
+                <tr><td>TensorFlow</td><td>GCP Vertex AI, AWS SageMaker, Azure ML</td></tr>
+                <tr><td>PyTorch</td><td>AWS SageMaker, Azure ML, GCP Vertex AI</td></tr>
+                <tr><td>Ray</td><td>Anyscale</td></tr>
+                <tr><td>Dask</td><td>Coiled, Saturn Cloud</td></tr>
+                <tr><td>Prefect</td><td>Prefect Cloud</td></tr>
+            </table>
+
+            <h3>دعم On-Premise / HPC</h3>
+            <table class="ref-table">
+                <tr><th>المجدول</th><th>الأدوات مع دعم أصلي</th></tr>
+                <tr><td>Slurm</td><td>Parsl, Dask, Ray</td></tr>
+                <tr><td>PBS/Torque</td><td>Parsl, Dask</td></tr>
+                <tr><td>HTCondor</td><td>Parsl</td></tr>
+                <tr><td>YARN</td><td>Spark, Flink, Hadoop</td></tr>
+                <tr><td>Kubernetes</td><td>جميع الأدوات الحديثة</td></tr>
+                <tr><td>Mesos</td><td>Spark</td></tr>
+            </table>
+            <p><strong>الأفضل لـ HPC:</strong> Parsl (مصمم لذلك), Dask, Ray</p>
+
+            <h3>القدرات السحابية الهجينة</h3>
+            <table class="ref-table">
+                <tr><th>مستوى القدرة</th><th>الوصف</th><th>الأدوات</th></tr>
+                <tr><td><strong>ممتاز</strong></td><td>مصمم للمواقع المتعددة</td><td>Parsl, Beam</td></tr>
+                <tr><td><strong>قوي</strong></td><td>جيد عبر البيئات</td><td>Spark, Ray, Airflow, Prefect</td></tr>
+                <tr><td><strong>جيد</strong></td><td>ممكن مع الإعداد</td><td>Dask, Flink, TensorFlow, PyTorch</td></tr>
+                <tr><td><strong>محدود</strong></td><td>تركيز على عنقود واحد</td><td>JAX, RAPIDS</td></tr>
+            </table>
+
+            <div class="summary-box">
+                <h4>أبطال التنفيذ متعدد المواقع</h4>
+                <ul class="characteristics-list" style="color: white;">
+                    <li><strong>Parsl:</strong> تنفيذ سلس HPC + السحابة</li>
+                    <li><strong>Beam:</strong> خطوط أنابيب قابلة للنقل عبر runners</li>
+                    <li><strong>Airflow/Prefect:</strong> تنسيق في أي مكان</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 6: Architecture Patterns -->
+        <section id="architecture" class="topic-section">
+            <span class="topic-badge">القسم 6</span>
+            <h2>أنماط البنية</h2>
+
+            <div class="paradigm-card">
+                <h4>بنية السيد-العامل (Master-Worker Architecture)</h4>
+                <p>منسق مركزي (السيد/المشغّل) يوزع العمل على العمال.</p>
+                <ul class="characteristics-list">
+                    <li>جدولة مركزية</li>
+                    <li>السيد يمكن أن يكون عنق زجاجة</li>
+                    <li>نموذج ذهني بسيط</li>
+                    <li>نقطة فشل واحدة (تُخفف بـ HA)</li>
+                </ul>
+                <span class="tools">الأدوات: Spark (Driver-Executor), Hadoop (JobTracker-TaskTracker), Flink (JobManager-TaskManager), Dask (Scheduler-Worker)</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>لامركزي / نظير-لنظير (Decentralized / Peer-to-Peer)</h4>
+                <p>لا منسق واحد؛ العمال يتواصلون مباشرة.</p>
+                <ul class="characteristics-list">
+                    <li>لا عنق زجاجة واحد</li>
+                    <li>تنسيق أكثر تعقيداً</li>
+                    <li>إمكانية تسامح أفضل مع الأخطاء</li>
+                    <li>طوبولوجيات الحلقة شائعة</li>
+                </ul>
+                <span class="tools">الأدوات: Horovod (ring-allreduce)</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>بنية Parameter Server (خادم المعاملات)</h4>
+                <p>خوادم مخصصة تخزن معاملات النموذج؛ العمال يحسبون المشتقات.</p>
+                <ul class="characteristics-list">
+                    <li>تدريب غير متزامن ممكن</li>
+                    <li>يتوسع لعمال كثيرين</li>
+                    <li>عنق زجاجة الاتصال عند PS</li>
+                    <li>مشاكل القِدم ممكنة</li>
+                </ul>
+                <span class="tools">الأدوات: TensorFlow (ParameterServerStrategy)</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>الاتصال الجماعي (Collective Communication)</h4>
+                <p>العمال يتواصلون مباشرة باستخدام عمليات جماعية (all-reduce, broadcast, إلخ).</p>
+                <table class="ref-table">
+                    <tr><th>العملية</th><th>الوصف</th></tr>
+                    <tr><td>All-reduce</td><td>تجميع + توزيع (المشتقات)</td></tr>
+                    <tr><td>Broadcast</td><td>واحد-للكل (المعاملات)</td></tr>
+                    <tr><td>Scatter/Gather</td><td>توزيع/جمع البيانات</td></tr>
+                </table>
+                <span class="tools">الأدوات: Horovod, PyTorch DDP, TensorFlow MirroredStrategy</span>
+            </div>
+
+            <div class="summary-box">
+                <h4>ملخص البنية</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>النمط</th><th>حالة الاستخدام</th><th>الأدوات</th></tr>
+                    <tr><td>السيد-العامل</td><td>المعالجة الموزعة العامة</td><td>Spark, Flink, Dask</td></tr>
+                    <tr><td>Ring Allreduce</td><td>التدريب الموزع</td><td>Horovod, PyTorch DDP</td></tr>
+                    <tr><td>Parameter Server</td><td>تدريب async واسع النطاق</td><td>TensorFlow PS</td></tr>
+                    <tr><td>هرمي</td><td>كمون منخفض، مهام كثيرة</td><td>Ray</td></tr>
+                    <tr><td>Workflow DAG</td><td>تنسيق خطوط الأنابيب</td><td>Airflow, Prefect</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 7: Data Partitioning -->
+        <section id="partitioning" class="topic-section">
+            <span class="topic-badge">القسم 7</span>
+            <h2>استراتيجيات تقسيم البيانات</h2>
+
+            <div class="paradigm-card">
+                <h4>التقسيم القائم على الكتل (Block-Based Partitioning)</h4>
+                <p>البيانات تُقسم إلى كتل ثابتة الحجم موزعة عبر العقد. بسيط، قابل للتنبؤ، جيد للوصول المتسلسل.</p>
+                <span class="tools">الأدوات: Hadoop (كتل 128MB), Spark (كتل HDFS)</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>التقسيم بالتجزئة (Hash Partitioning)</h4>
+                <p>البيانات موزعة بناءً على hash المفتاح. توزيع متساوٍ، تجميع البيانات المتعلقة، جيد لـ joins/aggregations.</p>
+                <span class="tools">الأدوات: Spark, Flink, Dask</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>تقسيم ذاكرة GPU</h4>
+                <p>البيانات مقسمة لتناسب قيود ذاكرة GPU. محدودة بـ RAM الـ GPU، نموذج partition-per-GPU، عرض نطاق عالي داخل GPU.</p>
+                <span class="tools">الأدوات: RAPIDS, RAPIDS+Dask</span>
+            </div>
+
+            <h3>تقسيم الصفوف مقابل الأعمدة (ML)</h3>
+            <table class="ref-table">
+                <tr><th>الاستراتيجية</th><th>الوصف</th><th>الأدوات</th></tr>
+                <tr><td>Data parallel</td><td>الصفوف مقسمة، النموذج مكرر</td><td>PyTorch DDP, Horovod, TF Mirrored</td></tr>
+                <tr><td>Feature parallel</td><td>الأعمدة مقسمة</td><td>XGBoost</td></tr>
+                <tr><td>Model parallel</td><td>طبقات النموذج مقسمة</td><td>PyTorch RPC, TF</td></tr>
+            </table>
+
+            <div class="summary-box">
+                <h4>ملخص التقسيم</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>الاستراتيجية</th><th>الأفضل لـ</th><th>الأدوات</th></tr>
+                    <tr><td>قائم على الكتل</td><td>ملفات كبيرة، ETL</td><td>Hadoop, Spark</td></tr>
+                    <tr><td>Hash</td><td>Joins، aggregations</td><td>Spark, Flink, Dask</td></tr>
+                    <tr><td>ذاكرة GPU</td><td>علم بيانات GPU</td><td>RAPIDS</td></tr>
+                    <tr><td>Data parallel</td><td>التدريب الموزع</td><td>TF, PyTorch, Horovod</td></tr>
+                    <tr><td>قائم على المهام</td><td>أعباء عمل غير منتظمة</td><td>Ray, Parsl</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 8: Fault Tolerance -->
+        <section id="fault-tolerance" class="topic-section">
+            <span class="topic-badge">القسم 8</span>
+            <h2>آليات التسامح مع الأخطاء</h2>
+
+            <div class="paradigm-card">
+                <h4>تكرار البيانات (Data Replication)</h4>
+                <p>نسخ متعددة من البيانات عبر العقد. استرداد بسيط، عبء تخزين (2-3x)، عامل تكرار قابل للتكوين.</p>
+                <span class="tools">الأدوات: Hadoop (تكرار HDFS), Dask (اختياري)</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>الاسترداد القائم على النسب (Lineage-Based Recovery)</h4>
+                <p>تتبع التحويلات؛ إعادة حساب البيانات المفقودة من المصدر. لا عبء تخزين، تكلفة إعادة الحساب، يعمل جيداً مع البيانات غير القابلة للتغيير.</p>
+                <span class="tools">الأدوات: Spark (RDD lineage), Ray (object lineage)</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Checkpointing (نقاط التفتيش)</h4>
+                <p>حفظ الحالة دورياً إلى التخزين الدائم.</p>
+                <table class="ref-table">
+                    <tr><th>النوع</th><th>الوصف</th><th>الأدوات</th></tr>
+                    <tr><td>دوري</td><td>لقطات زمنية</td><td>Flink, Spark, TensorFlow, PyTorch</td></tr>
+                    <tr><td>متزامن</td><td>لقطات موزعة متسقة</td><td>Flink (Chandy-Lamport)</td></tr>
+                    <tr><td>Savepoints</td><td>يُشغّل بواسطة المستخدم للترقيات</td><td>Flink</td></tr>
+                </table>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>إعادة محاولة على مستوى المهمة (Task-Level Retry)</h4>
+                <p>إعادة محاولة المهام الفاشلة تلقائياً. بسيط وفعال، عدد إعادات قابل للتكوين، تراجع أسي.</p>
+                <span class="tools">الأدوات: جميع أدوات سير العمل (Airflow, Prefect, Parsl), Spark, Dask, Ray</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>التنفيذ التخميني (Speculative Execution)</h4>
+                <p>تشغيل مهام مكررة للمتأخرين؛ استخدام أول نتيجة. يتعامل مع العقد البطيئة، استخدام موارد إضافي.</p>
+                <span class="tools">الأدوات: Hadoop, Spark</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>التنفيذ المرن (Elastic Execution)</h4>
+                <p>إضافة/إزالة العمال ديناميكياً أثناء التنفيذ. يتعامل مع فشل العقد بأناقة، يدعم instances الفورية.</p>
+                <span class="tools">الأدوات: Ray, Horovod (Elastic), PyTorch (TorchElastic)</span>
+            </div>
+
+            <div class="summary-box">
+                <h4>ملخص التسامح مع الأخطاء</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>الآلية</th><th>الأدوات</th></tr>
+                    <tr><td>تكرار البيانات</td><td>Hadoop, Dask</td></tr>
+                    <tr><td>استرداد النسب</td><td>Spark, Ray</td></tr>
+                    <tr><td>Checkpointing</td><td>Flink, Spark, TF, PyTorch</td></tr>
+                    <tr><td>إعادة محاولة المهمة</td><td>جميع الأدوات</td></tr>
+                    <tr><td>التنفيذ التخميني</td><td>Hadoop, Spark</td></tr>
+                    <tr><td>التنفيذ المرن</td><td>Ray, Horovod, PyTorch</td></tr>
+                    <tr><td>Exactly-once</td><td>Flink, Beam</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 9: Strengths & Limitations -->
+        <section id="strengths" class="topic-section">
+            <span class="topic-badge">القسم 9</span>
+            <h2>نظرة عامة على نقاط القوة والقيود</h2>
+
+            <h3>أبطال التوسع</h3>
+            <ul class="characteristics-list">
+                <li><strong>دفعي بيتابايت:</strong> Hadoop, Spark</li>
+                <li><strong>وقت حقيقي على نطاق واسع:</strong> Flink, Kafka</li>
+                <li><strong>مجموعات GPU:</strong> RAPIDS+Dask, TensorFlow, PyTorch</li>
+                <li><strong>حواسيب HPC الفائقة:</strong> Parsl</li>
+            </ul>
+
+            <h3>قادة سهولة الاستخدام</h3>
+            <ul class="characteristics-list">
+                <li><strong>علماء بيانات Python:</strong> Dask (واجهات مألوفة), Ray (decorators بسيطة)</li>
+                <li><strong>ممارسو ML:</strong> PyTorch (بديهي), Keras/TensorFlow</li>
+                <li><strong>مؤلفو سير العمل:</strong> Prefect (Pythonic), Airflow (ناضج)</li>
+            </ul>
+
+            <h3>قادة الأداء</h3>
+            <ul class="characteristics-list">
+                <li><strong>المعالجة في الذاكرة:</strong> Spark (10-100x مقابل Hadoop)</li>
+                <li><strong>تسريع GPU:</strong> RAPIDS (10-100x مقابل CPU pandas)</li>
+                <li><strong>التدريب الموزع:</strong> Horovod, PyTorch DDP (توسع شبه خطي)</li>
+                <li><strong>كمون الوقت الحقيقي:</strong> Flink (ميلي ثانية)</li>
+            </ul>
+
+            <h3>أبطال المرونة</h3>
+            <ul class="characteristics-list">
+                <li><strong>عام الغرض:</strong> Ray (مهام، فاعلين، خدمة، تدريب)</li>
+                <li><strong>متعدد المواقع:</strong> Parsl (laptop → HPC → cloud)</li>
+                <li><strong>خطوط أنابيب قابلة للنقل:</strong> Beam (اكتب مرة، شغّل في أي مكان)</li>
+                <li><strong>أعباء عمل هجينة:</strong> Spark (دفعي، تدفق، SQL، ML، رسم بياني)</li>
+            </ul>
+
+            <h3>القيود الشائعة حسب الفئة</h3>
+            <table class="ref-table">
+                <tr><th>الفئة</th><th>القيود الشائعة</th><th>الأدوات المتأثرة</th></tr>
+                <tr><td>الذاكرة</td><td>استهلاك عالي، أخطاء OOM</td><td>Spark, RAPIDS</td></tr>
+                <tr><td>التعقيد</td><td>منحنى تعلم حاد، إعداد</td><td>Flink, TensorFlow Distributed</td></tr>
+                <tr><td>النظام البيئي</td><td>مجتمع أصغر</td><td>Dask, Parsl, JAX</td></tr>
+                <tr><td>العتاد</td><td>GPU/TPU مطلوب</td><td>RAPIDS, JAX (تركيز TPU)</td></tr>
+                <tr><td>الكمون</td><td>ليس وقتاً حقيقياً</td><td>Hadoop, Dask</td></tr>
+                <tr><td>التدفق</td><td>دعم محدود أو معدوم</td><td>Dask, Parsl, Ray</td></tr>
+            </table>
+        </section>
+
+        <!-- Section 10: Tool Selection Guide -->
+        <section id="selection" class="topic-section">
+            <span class="topic-badge">القسم 10</span>
+            <h2>دليل اختيار الأداة</h2>
+
+            <h3>حسب حالة الاستخدام</h3>
+            <table class="ref-table">
+                <tr><th>حالة الاستخدام</th><th>الأدوات الموصى بها</th></tr>
+                <tr><td>ETL واسع النطاق</td><td>Spark, Hadoop, Flink</td></tr>
+                <tr><td>التدفق في الوقت الحقيقي</td><td>Flink, Beam</td></tr>
+                <tr><td>علم بيانات Python</td><td>Dask, Ray, RAPIDS</td></tr>
+                <tr><td>تدريب التعلم العميق</td><td>PyTorch, TensorFlow, JAX</td></tr>
+                <tr><td>DL موزع</td><td>Horovod, PyTorch DDP, TF Distributed</td></tr>
+                <tr><td>ML جدولي</td><td>XGBoost, LightGBM</td></tr>
+                <tr><td>تنسيق سير العمل</td><td>Airflow, Prefect</td></tr>
+                <tr><td>الحوسبة العلمية</td><td>Parsl, Dask</td></tr>
+                <tr><td>علم بيانات GPU</td><td>RAPIDS, RAPIDS+Dask</td></tr>
+                <tr><td>خطوط أنابيب متعددة السحب</td><td>Beam, Airflow</td></tr>
+            </table>
+
+            <h3>حسب خلفية الفريق</h3>
+            <table class="ref-table">
+                <tr><th>الفريق</th><th>الأدوات الموصى بها</th></tr>
+                <tr><td>Python بكثافة</td><td>Dask, Ray, Parsl, Prefect</td></tr>
+                <tr><td>JVM/Scala</td><td>Spark, Flink</td></tr>
+                <tr><td>باحثو ML</td><td>PyTorch, JAX</td></tr>
+                <tr><td>مهندسو ML</td><td>TensorFlow, Spark MLlib</td></tr>
+                <tr><td>مهندسو البيانات</td><td>Spark, Flink, Airflow</td></tr>
+                <tr><td>علماء HPC</td><td>Parsl, Dask</td></tr>
+            </table>
+        </section>
+
+        <!-- Quick Reference Table -->
+        <section id="quick-ref" class="quick-ref-section">
+            <h2>جدول ملخص المرجع السريع</h2>
+            <div style="overflow-x: auto;">
+                <table class="ref-table">
+                    <tr>
+                        <th>الأداة</th>
+                        <th>النموذج</th>
+                        <th>اللغات</th>
+                        <th>النمط</th>
+                        <th>GPU</th>
+                        <th>TPU</th>
+                        <th>الأفضل لـ</th>
+                    </tr>
+                    <tr><td>Hadoop</td><td>MapReduce</td><td>Java</td><td>دفعي</td><td>-</td><td>-</td><td>ETL واسع النطاق</td></tr>
+                    <tr><td>Spark</td><td>DAG</td><td>Scala/Python</td><td>دفعي+تدفق</td><td>إضافة</td><td>-</td><td>بيانات ضخمة عامة</td></tr>
+                    <tr><td>Flink</td><td>Dataflow</td><td>Java/Scala</td><td>تدفق أولاً</td><td>محدود</td><td>-</td><td>تحليلات وقت حقيقي</td></tr>
+                    <tr><td>Dask</td><td>DAG</td><td>Python</td><td>دفعي</td><td>عبر RAPIDS</td><td>-</td><td>علم بيانات Python</td></tr>
+                    <tr><td>Ray</td><td>Task/Actor</td><td>Python</td><td>عام</td><td>نعم</td><td>نعم</td><td>تطبيقات AI/ML</td></tr>
+                    <tr><td>Beam</td><td>موحد</td><td>Java/Python</td><td>دفعي+تدفق</td><td>Runner</td><td>نعم</td><td>خطوط أنابيب قابلة للنقل</td></tr>
+                    <tr><td>Airflow</td><td>تنسيق</td><td>Python</td><td>دفعي</td><td>تشغيل</td><td>تشغيل</td><td>جدولة سير العمل</td></tr>
+                    <tr><td>TensorFlow</td><td>Dataflow</td><td>Python</td><td>دفعي</td><td>نعم</td><td>نعم</td><td>ML إنتاجي</td></tr>
+                    <tr><td>PyTorch</td><td>ديناميكي</td><td>Python</td><td>دفعي</td><td>نعم</td><td>عبر XLA</td><td>بحث ML</td></tr>
+                    <tr><td>RAPIDS</td><td>GPU</td><td>Python</td><td>دفعي</td><td>نعم</td><td>-</td><td>علم بيانات GPU</td></tr>
+                    <tr><td>XGBoost</td><td>Boosting</td><td>Python/R</td><td>دفعي</td><td>نعم</td><td>-</td><td>ML جدولي</td></tr>
+                    <tr><td>Horovod</td><td>Ring-allreduce</td><td>Python</td><td>دفعي</td><td>نعم</td><td>-</td><td>DL متعدد الأطر</td></tr>
+                    <tr><td>JAX</td><td>دالي</td><td>Python</td><td>دفعي</td><td>نعم</td><td>نعم</td><td>بحث/TPU</td></tr>
+                    <tr><td>Parsl</td><td>Dataflow</td><td>Python</td><td>دفعي</td><td>نعم</td><td>مخصص</td><td>HPC/علمي</td></tr>
+                </table>
+            </div>
+            <div class="legend" style="margin-top: 1rem; background: rgba(255,255,255,0.2); border: none; color: white;">
+                <strong>المفتاح:</strong> - = غير مدعوم | نعم = دعم أصلي | إضافة/عبر = من خلال تكامل
+            </div>
+        </section>
+
+        <!-- Appendix -->
+        <section id="appendix" class="topic-section">
+            <span class="topic-badge">الملحق</span>
+            <h2>حقائق سريعة وموارد الأدوات</h2>
+
+            <h3>أصول الأدوات</h3>
+            <table class="ref-table">
+                <tr><th>الأداة</th><th>أنشأها</th><th>السنة</th><th>الترخيص</th></tr>
+                <tr><td>Hadoop</td><td>Yahoo/Apache</td><td>2006</td><td>Apache 2.0</td></tr>
+                <tr><td>Spark</td><td>UC Berkeley/Apache</td><td>2014</td><td>Apache 2.0</td></tr>
+                <tr><td>Flink</td><td>TU Berlin/Apache</td><td>2014</td><td>Apache 2.0</td></tr>
+                <tr><td>Dask</td><td>Anaconda</td><td>2015</td><td>BSD</td></tr>
+                <tr><td>Ray</td><td>UC Berkeley/Anyscale</td><td>2017</td><td>Apache 2.0</td></tr>
+                <tr><td>Beam</td><td>Google/Apache</td><td>2016</td><td>Apache 2.0</td></tr>
+                <tr><td>Airflow</td><td>Airbnb/Apache</td><td>2015</td><td>Apache 2.0</td></tr>
+                <tr><td>Prefect</td><td>Prefect</td><td>2018</td><td>Apache 2.0</td></tr>
+                <tr><td>TensorFlow</td><td>Google</td><td>2015</td><td>Apache 2.0</td></tr>
+                <tr><td>PyTorch</td><td>Facebook/Meta</td><td>2016</td><td>BSD</td></tr>
+                <tr><td>RAPIDS</td><td>NVIDIA</td><td>2018</td><td>Apache 2.0</td></tr>
+                <tr><td>XGBoost</td><td>DMLC</td><td>2014</td><td>Apache 2.0</td></tr>
+                <tr><td>Horovod</td><td>Uber</td><td>2017</td><td>Apache 2.0</td></tr>
+                <tr><td>JAX</td><td>Google</td><td>2018</td><td>Apache 2.0</td></tr>
+                <tr><td>Parsl</td><td>UChicago/Argonne</td><td>2017</td><td>Apache 2.0</td></tr>
+            </table>
+
+            <h3>روابط التوثيق الرسمية</h3>
+            <table class="ref-table">
+                <tr><th>الأداة</th><th>التوثيق</th><th>GitHub</th></tr>
+                <tr><td>Hadoop</td><td>hadoop.apache.org</td><td>github.com/apache/hadoop</td></tr>
+                <tr><td>Spark</td><td>spark.apache.org</td><td>github.com/apache/spark</td></tr>
+                <tr><td>Flink</td><td>flink.apache.org</td><td>github.com/apache/flink</td></tr>
+                <tr><td>Dask</td><td>dask.org</td><td>github.com/dask/dask</td></tr>
+                <tr><td>Ray</td><td>ray.io</td><td>github.com/ray-project/ray</td></tr>
+                <tr><td>Beam</td><td>beam.apache.org</td><td>github.com/apache/beam</td></tr>
+                <tr><td>Airflow</td><td>airflow.apache.org</td><td>github.com/apache/airflow</td></tr>
+                <tr><td>Prefect</td><td>prefect.io</td><td>github.com/PrefectHQ/prefect</td></tr>
+                <tr><td>TensorFlow</td><td>tensorflow.org</td><td>github.com/tensorflow/tensorflow</td></tr>
+                <tr><td>PyTorch</td><td>pytorch.org</td><td>github.com/pytorch/pytorch</td></tr>
+                <tr><td>RAPIDS</td><td>rapids.ai</td><td>github.com/rapidsai</td></tr>
+                <tr><td>XGBoost</td><td>xgboost.ai</td><td>github.com/dmlc/xgboost</td></tr>
+                <tr><td>Horovod</td><td>horovod.ai</td><td>github.com/horovod/horovod</td></tr>
+                <tr><td>JAX</td><td>jax.readthedocs.io</td><td>github.com/google/jax</td></tr>
+                <tr><td>Parsl</td><td>parsl-project.org</td><td>github.com/Parsl/parsl</td></tr>
+            </table>
+        </section>
+
+        <!-- Navigation Links -->
+        <div class="back-link">
+            <a href="session3_week3_ar.html">← العودة للجلسة 3</a>
+            <a href="index_ar.html">← العودة لفهرس المقرر</a>
+        </div>
+    </main>
+
+    <footer style="margin-top: 4rem; padding: 2rem; background-color: #f5f5f5; text-align: center;">
+        <p style="color: #666;">جزء من مواد مقرر DS-AI</p>
+        <p style="color: #666; font-size: 0.9rem;">مرخص بموجب CC BY 4.0</p>
+    </footer>
+</body>
+</html>

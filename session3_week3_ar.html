@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="Arabic">
+    <meta name="direction" content="rtl">
+    <title>فهم الحوسبة الموزعة - الأسبوع 3 الجلسة 3</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="session3_week3.html" class="lang-button" title="Switch to English">English</a>
+    </div>
+
+    <header>
+        <h1>فهم الحوسبة الموزعة</h1>
+        <p class="subtitle">الأسبوع 3، الجلسة 3: دليل المبتدئين للمعالجة المتوازية والـ Futures والـ DAGs</p>
+    </header>
+
+    <nav class="table-of-contents no-print">
+        <h2>المحتويات</h2>
+        <ul>
+            <li><a href="#overview">أهداف التعلم</a></li>
+            <li><a href="#introduction">مقدمة: أنماط المعالجة المتوازية</a></li>
+            <li><a href="#restaurant">1. تشبيه المطعم</a></li>
+            <li><a href="#futures">2. فهم الـ Futures/Promises</a></li>
+            <li><a href="#tools">3. كيف تطبق الأدوات هذا النمط</a></li>
+            <li><a href="#lazy">4. التقييم الكسول</a></li>
+            <li><a href="#terminology">5. المصطلحات الأساسية</a></li>
+            <li><a href="#dag">6. ما هو الـ DAG؟</a></li>
+            <li><a href="#dependencies">7. تبعيات المهام</a></li>
+            <li><a href="#workers">8. أنماط تواصل العمال</a></li>
+            <li><a href="#code-examples">9. أمثلة الكود حسب الأداة</a></li>
+            <li><a href="#summary">الملخص</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="overview" class="learning-objectives">
+            <h2>أهداف التعلم</h2>
+            <p>بنهاية هذه الجلسة، سيكون الطلاب قادرين على:</p>
+            <ul>
+                <li><strong>فهم</strong> نمط Future/Promise المستخدم في الحوسبة الموزعة</li>
+                <li><strong>شرح</strong> الفرق بين التنفيذ المتزامن وغير المتزامن</li>
+                <li><strong>تعريف</strong> ما هو الـ DAG ولماذا هو مهم</li>
+                <li><strong>وصف</strong> كيف تتدفق تبعيات المهام عبر النظام الموزع</li>
+                <li><strong>مقارنة</strong> أنماط تواصل العمال المختلفة</li>
+                <li><strong>تطبيق</strong> هذه المفاهيم لفهم كيف تعالج أطر الذكاء الاصطناعي البيانات</li>
+            </ul>
+        </section>
+
+        <!-- Introduction -->
+        <section id="introduction" class="content-section">
+            <h2>مقدمة: كيف تتعامل الأدوات الموزعة مع المعالجة المتوازية</h2>
+
+            <div class="key-message">
+                <p><strong>الرؤية الأساسية:</strong> قبل الغوص في أدوات محددة، من الضروري فهم النمط الأساسي الذي تستخدمه معظم أدوات المعالجة الموزعة والمتوازية: <strong>التنفيذ غير المتزامن مع Futures/Promises</strong>.</p>
+            </div>
+
+            <p>عندما تحتاج إلى معالجة كميات هائلة من البيانات - سواء كان تدريب نموذج ذكاء اصطناعي أو تحليل مليارات السجلات - لا يمكنك انتظار اكتمال كل عملية قبل بدء التالية. بدلاً من ذلك، تستخدم الأنظمة الموزعة الحديثة نظام "تذاكر" ذكي يتيح لك إرسال العمل والاستمرار في القيام بأشياء أخرى أثناء معالجة هذا العمل.</p>
+        </section>
+
+        <!-- Restaurant Analogy -->
+        <section id="restaurant" class="content-section">
+            <h2>1. تشبيه المطعم</h2>
+
+            <p>تخيل أنك تدخل مقهى أو مطعم مزدحم. هناك طريقتان يمكن أن تعمل بها عملية الطلب:</p>
+
+            <h3>الطريقة المتزامنة (الحاجزة) — غير فعالة!</h3>
+
+            <div class="example">
+                <pre dir="ltr" align="left"><code>You: "I'd like a latte please"
+You: *stand at counter*
+You: *wait*
+You: *keep waiting*
+You: *still waiting... 5 minutes pass*
+Barista: "Here's your latte!"
+You: *NOW you can go sit down or do anything else*</code></pre>
+            </div>
+
+            <div class="limitations-box">
+                <p><strong>المشكلة:</strong> هذا هو التنفيذ <strong>المتزامن/الحاجز</strong> — تقدم طلباً وتنتظر خاملاً حتى يكتمل. لا يمكنك فعل أي شيء آخر خلال هذا الوقت. غير فعال جداً!</p>
+            </div>
+
+            <h3>الطريقة غير المتزامنة (غير الحاجزة) — فعالة!</h3>
+
+            <div class="example">
+                <pre dir="ltr" align="left"><code>You: "I'd like a latte please"
+Barista: "Sure! Here's your ticket: #42"
+You: *take ticket, go sit down, read a book, check emails, chat with friend*
+You: *occasionally check the screen or listen for your number*
+Screen: "Now serving #42!"
+You: *go collect your latte*</code></pre>
+            </div>
+
+            <div class="key-message">
+                <p><strong>النقطة الأساسية:</strong> هذا هو التنفيذ <strong>غير المتزامن/غير الحاجز</strong> — تقدم طلباً، تحصل فوراً على <strong>تذكرة (Future/Promise)</strong>، وأنت حر في فعل أشياء أخرى أثناء تحضير طلبك.</p>
+            </div>
+        </section>
+
+        <!-- Futures/Promises -->
+        <section id="futures" class="content-section">
+            <h2>2. فهم الـ Futures/Promises: نظام التذاكر</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> الـ <strong>Future</strong> (يُسمى أيضاً <strong>Promise</strong>) هو عنصر نائب لنتيجة ستكون متاحة لاحقاً. إنه مثل تذكرة يمكنك استخدامها لاسترداد نتيجتك عندما تكون جاهزة.</p>
+            </div>
+
+            <p>تلك التذكرة (#42) هي بالضبط ما تسميه لغات البرمجة والأدوات الموزعة <strong>Future</strong> أو <strong>Promise</strong>:</p>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>المطعم</th>
+                        <th>البرمجة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>طلبك (لاتيه)</td>
+                        <td>حساب/مهمة</td>
+                    </tr>
+                    <tr>
+                        <td>المطبخ/الباريستا</td>
+                        <td>العامل/المنفذ</td>
+                    </tr>
+                    <tr>
+                        <td>التذكرة (#42)</td>
+                        <td>كائن <strong>Future/Promise</strong></td>
+                    </tr>
+                    <tr>
+                        <td>التحقق إذا كان الطلب جاهزاً</td>
+                        <td>التحقق من حالة Future (<code dir="ltr">.done()</code>، <code dir="ltr">.ready()</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>استلام طلبك</td>
+                        <td>الحصول على النتيجة (<code dir="ltr">.result()</code>، <code dir="ltr">.get()</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>فشل الطلب (نفد الحليب!)</td>
+                        <td>Future يطلق استثناءً</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>لماذا هذا النمط مهم للحوسبة الموزعة</h3>
+
+            <p>في الأنظمة الموزعة، غالباً ما نحتاج إلى:</p>
+            <ol>
+                <li><strong>إرسال مهام كثيرة</strong> إلى عمال مختلفين (أجهزة/أنوية/GPUs)</li>
+                <li><strong>عدم الانتظار</strong> لكل مهمة لتنتهي قبل إرسال التالية</li>
+                <li><strong>جمع النتائج</strong> عندما تكون جاهزة</li>
+                <li><strong>التعامل مع الإخفاقات</strong> بشكل أنيق</li>
+            </ol>
+
+            <h3>مثال مهمة واحدة</h3>
+
+            <div class="example">
+                <pre dir="ltr" align="left"><code># SYNCHRONOUS (blocking) - inefficient
+result = slow_computation(data)  # Wait here for 10 minutes...
+print(result)                     # Can only continue after it's done
+
+# ASYNCHRONOUS (non-blocking) - efficient
+future = submit(slow_computation, data)  # Returns immediately with a "ticket"
+# ... do other work while computation runs ...
+result = future.result()                  # Get result when needed</code></pre>
+            </div>
+
+            <h3>مثال مهام متعددة</h3>
+
+            <div class="example">
+                <pre dir="ltr" align="left"><code># Submit 1000 tasks - returns 1000 "tickets" immediately
+futures = [submit(process, chunk) for chunk in data_chunks]
+
+# All 1000 tasks are now running in parallel on different workers!
+# We didn't wait for task 1 to finish before submitting task 2
+
+# Collect results when ready
+results = [f.result() for f in futures]</code></pre>
+            </div>
+
+            <img src="images/diagrams/futures_big_picture_ar.svg" alt="الصورة الكبيرة: برنامجك يرسل المهام إلى عمال متعددين يعالجونها بالتوازي، ثم تُرجع النتائج عند اكتمال الـ Futures" class="content-image">
+        </section>
+
+        <!-- Tools Implementation -->
+        <section id="tools" class="content-section">
+            <h2>3. كيف تطبق الأدوات المختلفة هذا النمط</h2>
+
+            <p>تقريباً كل أداة موزعة تستخدم شكلاً من أشكال نمط Future/Promise:</p>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>الأداة</th>
+                        <th>تطبيق Future/Promise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Python (مدمج)</strong></td>
+                        <td><code dir="ltr">concurrent.futures.Future</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dask</strong></td>
+                        <td><code dir="ltr">dask.delayed</code> يُرجع كائنات مؤجلة؛ <code dir="ltr">.compute()</code> يُشغل التنفيذ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ray</strong></td>
+                        <td>دوال <code dir="ltr">@ray.remote</code> تُرجع <code dir="ltr">ObjectRef</code> (future الخاص بـ Ray)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Spark</strong></td>
+                        <td>RDDs/DataFrames كسولة؛ التحويلات تُرجع RDDs جديدة؛ الإجراءات تُشغل التنفيذ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Parsl</strong></td>
+                        <td>دوال <code dir="ltr">@python_app</code> تُرجع <code dir="ltr">AppFuture</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flink</strong></td>
+                        <td>عمليات DataStream كسولة؛ التنفيذ يُشغل بـ <code dir="ltr">env.execute()</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TensorFlow</strong></td>
+                        <td>(وضع الرسم البياني) العمليات تُرجع مراجع Tensor؛ <code dir="ltr">session.run()</code> ينفذ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PyTorch</strong></td>
+                        <td><code dir="ltr">torch.jit.fork()</code> يُرجع <code dir="ltr">Future</code> للتنفيذ غير المتزامن</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Airflow/Prefect</strong></td>
+                        <td>المهام تُرجع نتائج تنتظرها المهام التابعة</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Lazy Evaluation -->
+        <section id="lazy" class="content-section">
+            <h2>4. التقييم الكسول: المطبخ لا يبدأ حتى تطلب</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> <strong>التقييم الكسول</strong> يعني أن النظام لا يقوم بأي عمل فعلياً حتى تطلب النتائج صراحةً. يبني "خطة" أولاً، ثم ينفذها كلها مرة واحدة.</p>
+            </div>
+
+            <p>العديد من الأدوات تستخدم <strong>التقييم الكسول</strong> — لا تقوم بأي عمل فعلياً حتى تطلب النتائج صراحةً:</p>
+
+            <div class="example">
+                <pre dir="ltr" align="left"><code># Dask example - NOTHING is computed yet!
+df = dd.read_csv("huge_file.csv")      # Lazy - just a plan
+filtered = df[df['value'] > 100]        # Lazy - adds to plan
+grouped = filtered.groupby('category')  # Lazy - adds to plan
+result = grouped.sum()                  # Lazy - still just a plan!
+
+# NOW it actually executes the entire plan
+final = result.compute()                # Triggers execution!</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h3>تشبيه المطعم</h3>
+                <p>إنه مثل إخبار النادل بطلبك الكامل (المقبلات، الطبق الرئيسي، الحلوى)، والمطبخ يبدأ الطبخ فقط عندما تقول "هذا كل شيء، يرجى البدء!"</p>
+                <p>هذا يسمح للنظام <strong>بتحسين</strong> الخطة بأكملها قبل التنفيذ — ربما دمج الخطوات، إعادة ترتيب العمليات، أو إزالة العمل غير الضروري.</p>
+            </div>
+        </section>
+
+        <!-- Key Terminology -->
+        <section id="terminology" class="content-section">
+            <h2>5. ملخص المصطلحات الأساسية</h2>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>المصطلح</th>
+                        <th>المعنى</th>
+                        <th>تشبيه المطعم</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Synchronous (متزامن)</strong></td>
+                        <td>انتظر كل مهمة لتكتمل قبل المتابعة</td>
+                        <td>قف عند المنضدة حتى يجهز الطلب</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Asynchronous (غير متزامن)</strong></td>
+                        <td>أرسل المهمة، احصل على تذكرة، تابع عملاً آخر</td>
+                        <td>احصل على تذكرة، اذهب واجلس</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Future/Promise</strong></td>
+                        <td>عنصر نائب لنتيجة ستكون متاحة لاحقاً</td>
+                        <td>تذكرتك #42</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Blocking (حاجز)</strong></td>
+                        <td>عملية توقف التنفيذ حتى تكتمل</td>
+                        <td>الانتظار عند المنضدة</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Non-blocking (غير حاجز)</strong></td>
+                        <td>عملية تعود فوراً</td>
+                        <td>الحصول على التذكرة والمشي بعيداً</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lazy Evaluation (التقييم الكسول)</strong></td>
+                        <td>بناء خطة عمل، التنفيذ لاحقاً</td>
+                        <td>أعطِ الطلب الكامل، المطبخ يبدأ بأمر</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Eager Evaluation (التقييم النشط)</strong></td>
+                        <td>التنفيذ فوراً عند الاستدعاء</td>
+                        <td>المطبخ يبدأ كل عنصر عند طلبه</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Callback</strong></td>
+                        <td>دالة تُستدعى عند اكتمال الـ future</td>
+                        <td>"سننادي اسمك عندما يكون جاهزاً!"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>await/wait</strong></td>
+                        <td>حجز حتى يكتمل الـ future</td>
+                        <td>اجلس وانتظر رقمك</td>
+                    </tr>
+                    <tr>
+                        <td><strong>poll/check</strong></td>
+                        <td>تحقق إذا كان الـ future جاهزاً دون حجز</td>
+                        <td>ألقِ نظرة على الشاشة أحياناً</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- What is a DAG -->
+        <section id="dag" class="content-section">
+            <h2>6. ما هو الـ DAG؟ (الرسم البياني الموجه غير الدوري)</h2>
+
+            <div class="definition">
+                <p><strong>التعريف:</strong> الـ <strong>DAG</strong> (Directed Acyclic Graph - الرسم البياني الموجه غير الدوري) هو طريقة لتمثيل المهام وتبعياتها. يُظهر أي المهام يجب أن تكتمل قبل أن تبدأ أخرى.</p>
+                <ul>
+                    <li><strong>Directed (موجه):</strong> الأسهم تُظهر اتجاه تدفق البيانات (A ← B يعني مخرجات A تذهب إلى B)</li>
+                    <li><strong>Acyclic (غير دوري):</strong> لا حلقات/دورات (لا يمكن أن يعتمد A على B و B يعتمد على A)</li>
+                    <li><strong>Graph (رسم بياني):</strong> عقد (مهام) متصلة بحواف (تبعيات)</li>
+                </ul>
+            </div>
+
+            <img src="images/diagrams/simple_dag_example_ar.svg" alt="مثال DAG بسيط يُظهر قراءة CSV تتفرع إلى تصفية الصفوف وحساب الإحصائيات، التي تندمج في دمج النتائج وكتابة الإخراج" class="content-image">
+
+            <h3>سلسلة الوعود: وجبة متعددة الأطباق</h3>
+
+            <p>تخيل سيناريو مطعم أكثر تعقيداً — أنت تطلب وجبة متعددة الأطباق حيث كل طبق يعتمد على السابق:</p>
+
+            <img src="images/diagrams/restaurant_kitchen_chain_ar.svg" alt="مطبخ المطعم يُظهر محطة السلطة (تذكرة #1) تؤدي إلى محطة الشوربة (تذكرة #2، تنتظر #1) تؤدي إلى المحطة الرئيسية (تذكرة #3، تنتظر #2)" class="content-image">
+
+            <div class="key-message">
+                <p><strong>الرؤية الأساسية:</strong> التذكرة #2 (الشوربة) لا يمكن أن تبدأ حتى تكتمل التذكرة #1 (السلطة). محطة الشوربة <em>تنتظر</em> وعد محطة السلطة ليتحقق.</p>
+            </div>
+        </section>
+
+        <!-- Task Dependencies -->
+        <section id="dependencies" class="content-section">
+            <h2>7. تبعيات المهام: كيف تتدفق الـ Futures عبر الـ DAG</h2>
+
+            <p>في معالجة البيانات الواقعية، نادراً ما تعمل المهام منعزلة. مخرجات مهمة واحدة تصبح مدخلات أخرى. هذا يُنشئ <strong>تبعيات</strong>.</p>
+
+            <h3>التبعيات في الكود</h3>
+
+            <div class="example">
+                <pre dir="ltr" align="left"><code># Task B depends on Task A's result
+# Task C depends on Task B's result
+
+future_A = submit(task_A, raw_data)           # Returns immediately with ticket A
+future_B = submit(task_B, future_A)           # Takes ticket A as input!
+future_C = submit(task_C, future_B)           # Takes ticket B as input!
+
+# The system knows:
+#   - task_A can start immediately
+#   - task_B must WAIT for future_A to be ready
+#   - task_C must WAIT for future_B to be ready
+
+final_result = future_C.result()  # Blocks until entire chain completes</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <p><strong>لاحظ:</strong> نمرر <em>الـ future نفسه</em> (التذكرة)، وليس النتيجة! النظام ينتظر التبعيات تلقائياً.</p>
+            </div>
+
+            <h3>خط أنابيب معالجة البيانات مع تدفق DAG</h3>
+
+            <img src="images/diagrams/dag_data_pipeline_ar.svg" alt="خط أنابيب معالجة البيانات يُظهر تحميل البيانات إلى تنظيف البيانات إلى تحويل البيانات إلى حفظ البيانات، مع futures والتبعيات، بالإضافة إلى الجدول الزمني للتنفيذ" class="content-image">
+
+            <h3>الفروع المتوازية: حيث تتألق الـ DAGs</h3>
+
+            <p>القوة الحقيقية تأتي عندما يمكن للمهام أن تعمل <strong>بالتوازي</strong> لأنها لا تعتمد على بعضها:</p>
+
+            <img src="images/diagrams/parallel_branches_dag_ar.svg" alt="الفروع المتوازية في DAG تُظهر تحميل البيانات تتفرع إلى ثلاث عمليات متوازية تندمج في نتيجة نهائية، مع الجدول الزمني للتنفيذ يُظهر التنفيذ المتوازي" class="content-image">
+
+            <h3>بناء DAG مع التبعيات (مثال كود)</h3>
+
+            <div class="example">
+                <pre dir="ltr" align="left"><code># Using Dask as example (similar pattern in Ray, Parsl, Spark)
+
+from dask import delayed
+
+@delayed
+def load(filename):
+    return read_file(filename)
+
+@delayed
+def process_a(data):
+    return data.filter(...)
+
+@delayed
+def process_b(data):
+    return data.transform(...)
+
+@delayed
+def process_c(data):
+    return data.aggregate(...)
+
+@delayed
+def merge(a, b, c):
+    return combine(a, b, c)
+
+# Build the DAG (no execution yet!)
+data = load("input.csv")              # Future #1
+
+branch_a = process_a(data)            # Future #2, depends on #1
+branch_b = process_b(data)            # Future #3, depends on #1
+branch_c = process_c(data)            # Future #4, depends on #1
+
+final = merge(branch_a, branch_b, branch_c)  # Future #5, depends on #2,#3,#4
+
+# Visualize the DAG (Dask feature)
+final.visualize()   # Shows the graph!
+
+# Execute the DAG
+result = final.compute()  # NOW all tasks run, respecting dependencies</code></pre>
+            </div>
+        </section>
+
+        <!-- Worker Communication -->
+        <section id="workers" class="content-section">
+            <h2>8. أنماط تواصل العمال</h2>
+
+            <p>عندما يكتمل future، كيف تحصل المهمة التالية على النتيجة؟ الأدوات المختلفة تستخدم مناهج مختلفة:</p>
+
+            <h3>النمط 1: المجدول المركزي (Dask, Spark)</h3>
+
+            <img src="images/diagrams/worker_centralized_scheduler_ar.svg" alt="نمط المجدول المركزي يُظهر المجدول (السيد) ينسق العمال 1 و 2 و 3، مع سير العمل عند اكتمال f1" class="content-image">
+
+            <h3>النمط 2: مخزن الكائنات الموزع (Ray)</h3>
+
+            <img src="images/diagrams/worker_distributed_store_ar.svg" alt="نمط مخزن الكائنات الموزع يُظهر مخزن كائنات مشترك مع النتائج، العمال يصلون للنتائج، والذاكرة المشتركة بدون نسخ" class="content-image">
+
+            <h3>النمط 3: تمرير الرسائل / تدفق البيانات (Flink)</h3>
+
+            <img src="images/diagrams/worker_message_passing_ar.svg" alt="نمط تمرير الرسائل يُظهر تدفق البيانات المستمر عبر المهمة 1 والمهمة 2 والمهمة 3" class="content-image">
+
+            <h3>الصورة الكاملة: من الإرسال إلى النتيجة</h3>
+
+            <img src="images/diagrams/complete_execution_flow_ar.svg" alt="تدفق التنفيذ الكامل يُظهر إرسال الكود ينشئ futures، المجدول يحلل DAG، العمال ينفذون المهام، والنتائج تعود" class="content-image">
+        </section>
+
+        <!-- Code Examples -->
+        <section id="code-examples" class="content-section">
+            <h2>9. أمثلة كود سريعة حسب الأداة</h2>
+
+            <h3>Dask</h3>
+            <div class="example">
+                <pre dir="ltr" align="left"><code>import dask
+
+@dask.delayed          # Makes function lazy
+def process(x):
+    return x * 2
+
+futures = [process(i) for i in range(100)]  # 100 delayed objects (tickets)
+results = dask.compute(*futures)             # Execute all in parallel</code></pre>
+            </div>
+
+            <h3>Ray</h3>
+            <div class="example">
+                <pre dir="ltr" align="left"><code>import ray
+
+@ray.remote            # Makes function distributed
+def process(x):
+    return x * 2
+
+futures = [process.remote(i) for i in range(100)]  # 100 ObjectRefs (tickets)
+results = ray.get(futures)                          # Collect results</code></pre>
+            </div>
+
+            <h3>Parsl</h3>
+            <div class="example">
+                <pre dir="ltr" align="left"><code>from parsl import python_app
+
+@python_app            # Makes function parallel
+def process(x):
+    return x * 2
+
+futures = [process(i) for i in range(100)]  # 100 AppFutures (tickets)
+results = [f.result() for f in futures]      # Collect results</code></pre>
+            </div>
+
+            <h3>Spark (التحويلات الكسولة)</h3>
+            <div class="example">
+                <pre dir="ltr" align="left"><code>rdd = sc.parallelize(range(100))    # Distributed collection
+mapped = rdd.map(lambda x: x * 2)   # Lazy transformation (plan)
+result = mapped.collect()            # Action triggers execution</code></pre>
+            </div>
+
+            <h3>الأدوات وتطبيقاتها للـ DAG</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>الأداة</th>
+                        <th>بناء DAG</th>
+                        <th>التصور</th>
+                        <th>محفز التنفيذ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Dask</strong></td>
+                        <td><code dir="ltr">@delayed</code> decorator</td>
+                        <td><code dir="ltr">.visualize()</code></td>
+                        <td><code dir="ltr">.compute()</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ray</strong></td>
+                        <td><code dir="ltr">@ray.remote</code> decorator</td>
+                        <td>Ray Dashboard</td>
+                        <td><code dir="ltr">ray.get()</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Spark</strong></td>
+                        <td>تحويلات على RDD/DF</td>
+                        <td>Spark UI (تبويب DAG)</td>
+                        <td>إجراءات (collect, save)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Parsl</strong></td>
+                        <td><code dir="ltr">@python_app</code> decorator</td>
+                        <td>مراقبة Parsl</td>
+                        <td><code dir="ltr">.result()</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Airflow</strong></td>
+                        <td>تبعيات المهام في ملف DAG</td>
+                        <td>Airflow Web UI</td>
+                        <td>المجدول يُشغل</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Prefect</strong></td>
+                        <td><code dir="ltr">@task</code> و <code dir="ltr">@flow</code> decorators</td>
+                        <td>Prefect UI</td>
+                        <td><code dir="ltr">.run()</code> أو جدولة</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flink</strong></td>
+                        <td>عمليات DataStream</td>
+                        <td>Flink Web UI</td>
+                        <td><code dir="ltr">env.execute()</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Beam</strong></td>
+                        <td>سلاسل PTransform</td>
+                        <td>تصور Pipeline</td>
+                        <td><code dir="ltr">pipeline.run()</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Summary -->
+        <section id="summary" class="content-section">
+            <h2>الملخص: النقاط الرئيسية</h2>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>المفهوم</th>
+                        <th>الشرح</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Future/Promise</strong></td>
+                        <td>عنصر نائب (تذكرة) لنتيجة ستكون متاحة لاحقاً</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DAG</strong></td>
+                        <td>رسم بياني يُظهر المهام (عقد) وتبعياتها (حواف)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>المهام الجذرية</strong></td>
+                        <td>مهام بدون تبعيات — يمكن أن تبدأ فوراً</td>
+                    </tr>
+                    <tr>
+                        <td><strong>المهام الورقية</strong></td>
+                        <td>مهام بدون تابعين — المخرجات النهائية</td>
+                    </tr>
+                    <tr>
+                        <td><strong>حل التبعيات</strong></td>
+                        <td>المجدول يتتبع أي futures تحتاجها كل مهمة</td>
+                    </tr>
+                    <tr>
+                        <td><strong>الفروع المتوازية</strong></td>
+                        <td>المهام المستقلة تعمل بالتزامن على عمال مختلفين</td>
+                    </tr>
+                    <tr>
+                        <td><strong>نقاط الدمج/الربط</strong></td>
+                        <td>مهام تنتظر futures متعددة قبل البدء</td>
+                    </tr>
+                    <tr>
+                        <td><strong>موقعية البيانات</strong></td>
+                        <td>المجدول يحاول تشغيل المهام قريباً من بيانات الإدخال</td>
+                    </tr>
+                    <tr>
+                        <td><strong>البناء الكسول</strong></td>
+                        <td>DAG يُبنى فوراً؛ التنفيذ يحدث لاحقاً</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-message">
+                <h3>ما تفهمه الآن</h3>
+                <ul>
+                    <li>نمط Future/Promise (نظام "التذاكر")</li>
+                    <li>كيف تُشكل المهام تبعيات</li>
+                    <li>ما هو DAG ولماذا هو مهم</li>
+                    <li>كيف يتواصل العمال ويسلمون النتائج</li>
+                    <li>كيف تُسرع الفروع المتوازية التنفيذ</li>
+                </ul>
+            </div>
+
+            <div class="key-pattern">
+                <h3>الصلة بالذكاء الاصطناعي/تعلم الآلة</h3>
+                <p>هذه الأنماط أساسية لكيفية عمل أنظمة الذكاء الاصطناعي الحديثة:</p>
+                <ul>
+                    <li><strong>تدريب نماذج التعلم العميق</strong> يوزع الحساب عبر GPUs باستخدام هذه الأنماط</li>
+                    <li><strong>خطوط أنابيب معالجة البيانات</strong> تستخدم DAGs لتنظيم خطوات التحويل</li>
+                    <li><strong>هندسة الخصائص</strong> غالباً تتضمن حساب متوازي للعديد من الخصائص</li>
+                    <li><strong>استدلال النموذج على نطاق واسع</strong> يستخدم أنماط async للتعامل مع طلبات كثيرة</li>
+                </ul>
+            </div>
+        </section>
+        <!-- Additional Resources -->
+        <section class="content-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; margin-top: 2rem;">
+            <h2 style="color: white; border-bottom: 2px solid rgba(255,255,255,0.3);">موارد إضافية</h2>
+            <p>هل تريد التعمق أكثر في أدوات الحوسبة الموزعة المحددة؟ اطلع على مرجعنا التقني الشامل:</p>
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <a href="distributed_tools_reference_ar.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 0.5rem;">
+                    المرجع التقني لأدوات البرمجة الموزعة
+                </a>
+                <a href="distributed_tools_reference.html" style="display: inline-block; padding: 1rem 2rem; background: rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 0.5rem; border: 2px solid white;">
+                    Technical Reference in English
+                </a>
+            </div>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.9;">يغطي المرجع: نماذج الحوسبة، دعم اللغات، أنماط المعالجة، دعم الأجهزة (GPU/TPU)، القدرات السحابية، أنماط البنية، استراتيجيات تقسيم البيانات، آليات التسامح مع الأخطاء، وأدلة اختيار الأدوات.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p><a href="index_ar.html">→ العودة لفهرس المقرر</a></p>
+        <p>مقرر علم البيانات والذكاء الاصطناعي - الأسبوع 3، الجلسة 3: فهم الحوسبة الموزعة</p>
+    </footer>
+</body>
+</html>

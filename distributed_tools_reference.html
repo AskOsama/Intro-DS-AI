@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Distributed Programming Tools - Technical Reference and Comparative Analysis">
+    <title>Distributed Programming Tools - Technical Reference | DS-AI Course</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Reference page specific styles */
+        .reference-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .reference-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .reference-header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .topic-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .topic-section h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #3498db;
+        }
+
+        .topic-section h3 {
+            color: #3498db;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .topic-section h4 {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .topic-section p {
+            line-height: 1.8;
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .topic-badge {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .paradigm-card {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .paradigm-card h4 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        .paradigm-card .tools {
+            background: #e8f4fc;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            color: #2980b9;
+        }
+
+        .characteristics-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+
+        .characteristics-list li {
+            padding: 0.3rem 0 0.3rem 1.5rem;
+            position: relative;
+        }
+
+        .characteristics-list li::before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .ref-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .ref-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 0.8rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .ref-table td {
+            padding: 0.8rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .ref-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .ref-table tr:hover {
+            background: #e8f4fc;
+        }
+
+        .ref-table code {
+            background: #e8e8e8;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .summary-box h4 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .summary-box .ref-table {
+            background: rgba(255,255,255,0.95) !important;
+            border-radius: 6px;
+        }
+
+        .summary-box .ref-table td {
+            color: #333 !important;
+        }
+
+        .summary-box .ref-table tr:nth-child(even) {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .summary-box .ref-table tr:hover {
+            background: rgba(255,255,255,0.7);
+        }
+
+        .summary-box .characteristics-list li {
+            color: white;
+        }
+
+        .quick-ref-section {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .quick-ref-section h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .quick-ref-section .ref-table {
+            background: rgba(255,255,255,0.95);
+            border-radius: 6px;
+        }
+
+        .quick-ref-section .ref-table th {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .quick-ref-section .ref-table td {
+            border-bottom-color: #e0e0e0;
+            color: #333;
+        }
+
+        .quick-ref-section .ref-table tr:nth-child(even) {
+            background: rgba(240,240,240,0.8);
+        }
+
+        .quick-ref-section .ref-table tr:hover {
+            background: rgba(230,230,230,0.9);
+        }
+
+        .quick-ref-section .legend {
+            background: rgba(255,255,255,0.95) !important;
+            color: #333 !important;
+            border: 1px solid #ddd !important;
+        }
+
+        .toc-nav {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .toc-nav h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .toc-nav ul {
+            columns: 2;
+            column-gap: 2rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-nav li {
+            padding: 0.3rem 0;
+        }
+
+        .toc-nav a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .toc-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .back-link a {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin: 0.5rem;
+        }
+
+        .back-link a:hover {
+            background-color: #2980b9;
+        }
+
+        .legend {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .toc-nav ul {
+                columns: 1;
+            }
+            .reference-header h1 {
+                font-size: 1.8rem;
+            }
+            .ref-table {
+                font-size: 0.8rem;
+            }
+            .ref-table th, .ref-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="distributed_tools_reference_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <div class="reference-header">
+        <h1>Distributed Programming Tools</h1>
+        <p class="subtitle">Technical Reference & Comparative Analysis</p>
+    </div>
+
+    <main style="max-width: 1000px; margin: 0 auto; padding: 0 2rem;">
+
+        <!-- Table of Contents -->
+        <nav class="toc-nav">
+            <h3>Quick Navigation</h3>
+            <ul>
+                <li><a href="#paradigms">1. Computing Paradigms</a></li>
+                <li><a href="#languages">2. Languages & APIs</a></li>
+                <li><a href="#processing">3. Processing Modes</a></li>
+                <li><a href="#devices">4. Device Support</a></li>
+                <li><a href="#cloud">5. Cloud & Hybrid</a></li>
+                <li><a href="#architecture">6. Architecture Patterns</a></li>
+                <li><a href="#partitioning">7. Data Partitioning</a></li>
+                <li><a href="#fault-tolerance">8. Fault Tolerance</a></li>
+                <li><a href="#strengths">9. Strengths & Limits</a></li>
+                <li><a href="#selection">10. Tool Selection Guide</a></li>
+                <li><a href="#quick-ref">Quick Reference Table</a></li>
+                <li><a href="#appendix">Appendix: Resources</a></li>
+            </ul>
+        </nav>
+
+        <!-- Section 1: Computing Paradigms -->
+        <section id="paradigms" class="topic-section">
+            <span class="topic-badge">Section 1</span>
+            <h2>Computing Paradigms</h2>
+            <p>Understanding the computing paradigm is fundamental to choosing the right tool. Each paradigm represents a different approach to organizing and executing distributed computations.</p>
+
+            <div class="paradigm-card">
+                <h4>MapReduce</h4>
+                <p>The original distributed computing model using a rigid two-phase approach: Map (transform) → Shuffle → Reduce (aggregate). Data flows through disk between phases.</p>
+                <ul class="characteristics-list">
+                    <li>Simple, predictable execution model</li>
+                    <li>High disk I/O overhead</li>
+                    <li>Best for batch ETL workloads</li>
+                    <li>Limited flexibility for complex pipelines</li>
+                </ul>
+                <span class="tools">Tools: Hadoop</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>DAG-Based (Directed Acyclic Graph)</h4>
+                <p>Computations organized as a graph of operations optimized before execution. Allows complex multi-stage pipelines with optimization opportunities.</p>
+                <ul class="characteristics-list">
+                    <li>Lazy evaluation (build graph, then execute)</li>
+                    <li>Query optimization possible</li>
+                    <li>More flexible than MapReduce</li>
+                    <li>Can optimize data movement</li>
+                </ul>
+                <span class="tools">Tools: Spark, Dask, Airflow, Prefect</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Dataflow / Stream Processing</h4>
+                <p>Data flows continuously through operators. True streaming processes events one-at-a-time; micro-batch processes small batches frequently.</p>
+                <ul class="characteristics-list">
+                    <li>Low-latency processing</li>
+                    <li>Event-time semantics</li>
+                    <li>Windowing and triggers</li>
+                    <li>Exactly-once guarantees possible</li>
+                </ul>
+                <table class="ref-table">
+                    <tr><th>Sub-type</th><th>Description</th><th>Tools</th></tr>
+                    <tr><td>True Streaming</td><td>Event-at-a-time processing</td><td>Flink</td></tr>
+                    <tr><td>Micro-batch</td><td>Small batch intervals</td><td>Spark Streaming</td></tr>
+                    <tr><td>Unified Model</td><td>Same API for batch/stream</td><td>Beam, Flink</td></tr>
+                </table>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Task-Based / Actor-Based Parallelism</h4>
+                <p>Computation broken into independent tasks or stateful actors. More flexible than data-parallel approaches.</p>
+                <ul class="characteristics-list">
+                    <li>Fine-grained parallelism</li>
+                    <li>Supports heterogeneous workloads</li>
+                    <li>Dynamic task generation</li>
+                    <li>Good for irregular computations</li>
+                </ul>
+                <table class="ref-table">
+                    <tr><th>Model</th><th>Description</th><th>Tools</th></tr>
+                    <tr><td>Task-based</td><td>Stateless parallel functions</td><td>Ray, Parsl</td></tr>
+                    <tr><td>Actor-based</td><td>Stateful distributed objects</td><td>Ray</td></tr>
+                    <tr><td>Hybrid</td><td>Both tasks and actors</td><td>Ray</td></tr>
+                </table>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Dataflow Graphs (ML-Focused)</h4>
+                <p>Computations as graphs where nodes are operations and edges are tensors/arrays. Optimized for numerical and ML workloads.</p>
+                <ul class="characteristics-list">
+                    <li>Automatic differentiation</li>
+                    <li>Hardware-specific optimization (GPU/TPU)</li>
+                    <li>Static or dynamic graph construction</li>
+                    <li>Kernel fusion and compilation</li>
+                </ul>
+                <table class="ref-table">
+                    <tr><th>Graph Type</th><th>Description</th><th>Tools</th></tr>
+                    <tr><td>Static (Define-then-run)</td><td>Graph built first, then executed</td><td>TensorFlow (graph mode)</td></tr>
+                    <tr><td>Dynamic (Define-by-run)</td><td>Graph built during execution</td><td>PyTorch, TensorFlow (eager)</td></tr>
+                    <tr><td>Functional</td><td>Composable transformations</td><td>JAX</td></tr>
+                </table>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>GPU-Accelerated Data Processing</h4>
+                <p>Leverages GPU parallelism for data manipulation tasks traditionally done on CPU.</p>
+                <ul class="characteristics-list">
+                    <li>Massive parallelism (thousands of cores)</li>
+                    <li>Memory bandwidth optimization</li>
+                    <li>Columnar data formats (Arrow)</li>
+                    <li>Limited by GPU memory</li>
+                </ul>
+                <span class="tools">Tools: RAPIDS, RAPIDS+Dask</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Collective Communication (Distributed Training)</h4>
+                <p>Synchronizes gradients/parameters across workers using efficient collective operations.</p>
+                <ul class="characteristics-list">
+                    <li>Ring-allreduce for bandwidth efficiency</li>
+                    <li>Data parallelism (model replicated)</li>
+                    <li>Near-linear scaling</li>
+                    <li>Framework-agnostic possible</li>
+                </ul>
+                <span class="tools">Tools: Horovod, PyTorch Distributed, TensorFlow Distributed</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Workflow Orchestration</h4>
+                <p>Manages task dependencies and scheduling, not data processing itself.</p>
+                <ul class="characteristics-list">
+                    <li>DAG of tasks (not data operations)</li>
+                    <li>Scheduling and monitoring</li>
+                    <li>Triggers external systems</li>
+                    <li>Retry and alerting</li>
+                </ul>
+                <span class="tools">Tools: Airflow, Prefect</span>
+            </div>
+
+            <div class="summary-box">
+                <h4>Paradigm Summary</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>Paradigm</th><th>Best For</th><th>Tools</th></tr>
+                    <tr><td>MapReduce</td><td>Simple batch ETL</td><td>Hadoop</td></tr>
+                    <tr><td>DAG-based</td><td>Complex batch pipelines</td><td>Spark, Dask</td></tr>
+                    <tr><td>Dataflow/Stream</td><td>Real-time processing</td><td>Flink, Beam</td></tr>
+                    <tr><td>Task/Actor</td><td>AI/ML, irregular workloads</td><td>Ray, Parsl</td></tr>
+                    <tr><td>ML Dataflow</td><td>Deep learning</td><td>TensorFlow, PyTorch, JAX</td></tr>
+                    <tr><td>GPU Data</td><td>Fast data science</td><td>RAPIDS</td></tr>
+                    <tr><td>Collective</td><td>Distributed training</td><td>Horovod</td></tr>
+                    <tr><td>Orchestration</td><td>Pipeline management</td><td>Airflow, Prefect</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 2: Languages -->
+        <section id="languages" class="topic-section">
+            <span class="topic-badge">Section 2</span>
+            <h2>Implementation & Supported Languages</h2>
+
+            <h3>Implementation Languages</h3>
+            <p>The implementation language affects performance, extensibility, and the ability to contribute.</p>
+            <table class="ref-table">
+                <tr><th>Implementation</th><th>Tools</th></tr>
+                <tr><td><strong>Java</strong></td><td>Hadoop, Flink, Beam</td></tr>
+                <tr><td><strong>Scala</strong></td><td>Spark</td></tr>
+                <tr><td><strong>Python</strong></td><td>Dask, Airflow, Prefect, Parsl</td></tr>
+                <tr><td><strong>C++</strong></td><td>Ray (core), TensorFlow, PyTorch, XGBoost, Horovod</td></tr>
+                <tr><td><strong>C++ + CUDA</strong></td><td>RAPIDS, TensorFlow, PyTorch</td></tr>
+            </table>
+
+            <h3>Supported Languages (User-Facing APIs)</h3>
+            <table class="ref-table">
+                <tr><th>Primary API</th><th>Tools</th></tr>
+                <tr><td><strong>Python-only</strong></td><td>Dask, Parsl, Airflow, Prefect</td></tr>
+                <tr><td><strong>Python-first</strong></td><td>Ray, TensorFlow, PyTorch, JAX, RAPIDS, Horovod</td></tr>
+                <tr><td><strong>Multi-language</strong></td><td>Spark (Scala/Java/Python/R/SQL), Flink (Java/Scala/Python/SQL), Beam (Java/Python/Go)</td></tr>
+                <tr><td><strong>Python + R</strong></td><td>XGBoost, LightGBM, CatBoost</td></tr>
+            </table>
+
+            <h3>Python Ecosystem Integration</h3>
+            <table class="ref-table">
+                <tr><th>Integration Level</th><th>Description</th><th>Tools</th></tr>
+                <tr><td><strong>Native</strong></td><td>Built on NumPy/Pandas APIs</td><td>Dask, RAPIDS, JAX</td></tr>
+                <tr><td><strong>Strong</strong></td><td>Easy interop with ecosystem</td><td>Ray, Parsl, PyTorch</td></tr>
+                <tr><td><strong>Good</strong></td><td>Works well but different API</td><td>Spark (PySpark), TensorFlow</td></tr>
+                <tr><td><strong>Wrapper</strong></td><td>Python wrapper over JVM</td><td>Flink (PyFlink), Beam</td></tr>
+            </table>
+
+            <div class="summary-box">
+                <h4>Language Recommendations</h4>
+                <ul class="characteristics-list" style="color: white;">
+                    <li><strong>Best for Python data scientists:</strong> Dask, RAPIDS, Ray, Parsl</li>
+                    <li><strong>Best for JVM shops:</strong> Spark, Flink, Hadoop</li>
+                    <li><strong>Best for ML researchers:</strong> PyTorch, JAX</li>
+                    <li><strong>Best for production ML:</strong> TensorFlow, Spark</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Processing Modes -->
+        <section id="processing" class="topic-section">
+            <span class="topic-badge">Section 3</span>
+            <h2>Processing Modes</h2>
+
+            <div class="paradigm-card">
+                <h4>Batch Processing Only</h4>
+                <p>Process bounded datasets in scheduled jobs. Higher latency, higher throughput.</p>
+                <ul class="characteristics-list">
+                    <li>Complete dataset available</li>
+                    <li>Optimized for throughput</li>
+                    <li>Scheduled/triggered execution</li>
+                    <li>Results after job completes</li>
+                </ul>
+                <span class="tools">Tools: Hadoop, Dask, Parsl, RAPIDS, XGBoost, Horovod, JAX</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Stream Processing Only</h4>
+                <p>Process unbounded data continuously with low latency.</p>
+                <ul class="characteristics-list">
+                    <li>Events processed as they arrive</li>
+                    <li>Low latency (milliseconds to seconds)</li>
+                    <li>Continuous queries</li>
+                    <li>State management required</li>
+                </ul>
+                <span class="tools">Tools: Flink (primary design)</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Unified Batch + Stream</h4>
+                <p>Same API and semantics for both batch and streaming workloads.</p>
+                <table class="ref-table">
+                    <tr><th>Approach</th><th>Description</th><th>Tools</th></tr>
+                    <tr><td>Micro-batch streaming</td><td>Small batches simulate streaming</td><td>Spark</td></tr>
+                    <tr><td>True unified</td><td>Stream-first with batch as special case</td><td>Flink, Beam</td></tr>
+                </table>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>General-Purpose / Interactive</h4>
+                <p>Support batch, interactive queries, and serving workloads.</p>
+                <ul class="characteristics-list">
+                    <li>Low-latency task execution</li>
+                    <li>Interactive development</li>
+                    <li>Model serving capabilities</li>
+                    <li>Heterogeneous workloads</li>
+                </ul>
+                <span class="tools">Tools: Ray, Spark (interactive)</span>
+            </div>
+
+            <div class="summary-box">
+                <h4>Processing Mode Summary</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>Mode</th><th>Latency</th><th>Tools</th></tr>
+                    <tr><td>Batch only</td><td>Minutes-hours</td><td>Hadoop, Dask, Parsl, RAPIDS</td></tr>
+                    <tr><td>Stream only</td><td>Milliseconds</td><td>Flink</td></tr>
+                    <tr><td>Batch + Stream</td><td>Seconds-minutes</td><td>Spark, Beam</td></tr>
+                    <tr><td>Interactive</td><td>Seconds</td><td>Ray, Spark</td></tr>
+                    <tr><td>Orchestration</td><td>N/A (scheduling)</td><td>Airflow, Prefect</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 4: Device Support -->
+        <section id="devices" class="topic-section">
+            <span class="topic-badge">Section 4</span>
+            <h2>Device Support</h2>
+
+            <h3>CPU-Only / CPU-Primary</h3>
+            <p>Tools designed primarily for CPU execution: commodity hardware, horizontal scaling, cost-effective, widely deployable.</p>
+            <p><strong>Tools:</strong> Hadoop, Flink, Beam, Airflow, Prefect, Parsl</p>
+
+            <h3>Native GPU Support</h3>
+            <p>Built-in GPU acceleration without plugins. CUDA/cuDNN integration, multi-GPU support, significant speedups (10-100x).</p>
+            <table class="ref-table">
+                <tr><th>Level</th><th>Description</th><th>Tools</th></tr>
+                <tr><td><strong>Primary target</strong></td><td>Designed for GPU</td><td>RAPIDS, TensorFlow, PyTorch, JAX</td></tr>
+                <tr><td><strong>Native option</strong></td><td>GPU as execution option</td><td>XGBoost (<code>gpu_hist</code>), Ray</td></tr>
+                <tr><td><strong>Via backends</strong></td><td>Distributed GPU</td><td>Horovod, TF Distributed, PyTorch Distributed</td></tr>
+            </table>
+
+            <h3>GPU via Plugin/Integration</h3>
+            <table class="ref-table">
+                <tr><th>Tool</th><th>GPU Integration</th></tr>
+                <tr><td>Spark</td><td>RAPIDS Accelerator (NVIDIA plugin)</td></tr>
+                <tr><td>Dask</td><td>Dask-CUDA + RAPIDS (dask-cudf)</td></tr>
+                <tr><td>Flink</td><td>Experimental external libraries</td></tr>
+            </table>
+
+            <h3>TPU Support</h3>
+            <p>Google's Tensor Processing Units for ML workloads. Optimized for matrix operations, available on Google Cloud.</p>
+            <table class="ref-table">
+                <tr><th>Support Level</th><th>Tools</th></tr>
+                <tr><td><strong>First-class</strong></td><td>TensorFlow, JAX</td></tr>
+                <tr><td><strong>Via XLA</strong></td><td>PyTorch (torch_xla)</td></tr>
+                <tr><td><strong>Via runners</strong></td><td>Beam (Dataflow runner)</td></tr>
+            </table>
+
+            <div class="summary-box">
+                <h4>Device Support Summary</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>Device</th><th>Strong Support</th><th>Limited/Plugin</th></tr>
+                    <tr><td>CPU</td><td>All tools</td><td>-</td></tr>
+                    <tr><td>NVIDIA GPU</td><td>TF, PyTorch, JAX, RAPIDS, XGBoost</td><td>Spark, Dask, Flink</td></tr>
+                    <tr><td>TPU</td><td>TF, JAX</td><td>PyTorch</td></tr>
+                    <tr><td>AMD GPU</td><td>PyTorch</td><td>-</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 5: Cloud & Hybrid -->
+        <section id="cloud" class="topic-section">
+            <span class="topic-badge">Section 5</span>
+            <h2>Hybrid & Cloud Capabilities</h2>
+
+            <h3>Cloud-Native / Managed Services</h3>
+            <table class="ref-table">
+                <tr><th>Tool</th><th>Managed Services</th></tr>
+                <tr><td>Spark</td><td>Databricks, AWS EMR, Azure Synapse, GCP Dataproc</td></tr>
+                <tr><td>Flink</td><td>AWS Kinesis Analytics, Ververica Platform</td></tr>
+                <tr><td>Beam</td><td>Google Cloud Dataflow</td></tr>
+                <tr><td>Airflow</td><td>AWS MWAA, Google Cloud Composer, Astronomer</td></tr>
+                <tr><td>TensorFlow</td><td>GCP Vertex AI, AWS SageMaker, Azure ML</td></tr>
+                <tr><td>PyTorch</td><td>AWS SageMaker, Azure ML, GCP Vertex AI</td></tr>
+                <tr><td>Ray</td><td>Anyscale</td></tr>
+                <tr><td>Dask</td><td>Coiled, Saturn Cloud</td></tr>
+                <tr><td>Prefect</td><td>Prefect Cloud</td></tr>
+            </table>
+
+            <h3>On-Premise / HPC Support</h3>
+            <table class="ref-table">
+                <tr><th>Scheduler</th><th>Tools with Native Support</th></tr>
+                <tr><td>Slurm</td><td>Parsl, Dask, Ray</td></tr>
+                <tr><td>PBS/Torque</td><td>Parsl, Dask</td></tr>
+                <tr><td>HTCondor</td><td>Parsl</td></tr>
+                <tr><td>YARN</td><td>Spark, Flink, Hadoop</td></tr>
+                <tr><td>Kubernetes</td><td>All modern tools</td></tr>
+                <tr><td>Mesos</td><td>Spark</td></tr>
+            </table>
+            <p><strong>Best for HPC:</strong> Parsl (designed for it), Dask, Ray</p>
+
+            <h3>Hybrid Cloud Capabilities</h3>
+            <table class="ref-table">
+                <tr><th>Capability Level</th><th>Description</th><th>Tools</th></tr>
+                <tr><td><strong>Excellent</strong></td><td>Designed for multi-site</td><td>Parsl, Beam</td></tr>
+                <tr><td><strong>Strong</strong></td><td>Good cross-environment</td><td>Spark, Ray, Airflow, Prefect</td></tr>
+                <tr><td><strong>Good</strong></td><td>Possible with config</td><td>Dask, Flink, TensorFlow, PyTorch</td></tr>
+                <tr><td><strong>Limited</strong></td><td>Single-cluster focus</td><td>JAX, RAPIDS</td></tr>
+            </table>
+
+            <div class="summary-box">
+                <h4>Multi-Site Execution Champions</h4>
+                <ul class="characteristics-list" style="color: white;">
+                    <li><strong>Parsl:</strong> HPC + Cloud seamless execution</li>
+                    <li><strong>Beam:</strong> Portable pipelines across runners</li>
+                    <li><strong>Airflow/Prefect:</strong> Orchestrate anywhere</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 6: Architecture Patterns -->
+        <section id="architecture" class="topic-section">
+            <span class="topic-badge">Section 6</span>
+            <h2>Architecture Patterns</h2>
+
+            <div class="paradigm-card">
+                <h4>Master-Worker Architecture</h4>
+                <p>Central coordinator (master/driver) distributes work to workers.</p>
+                <ul class="characteristics-list">
+                    <li>Centralized scheduling</li>
+                    <li>Master can be bottleneck</li>
+                    <li>Simple mental model</li>
+                    <li>Single point of failure (mitigated by HA)</li>
+                </ul>
+                <span class="tools">Tools: Spark (Driver-Executor), Hadoop (JobTracker-TaskTracker), Flink (JobManager-TaskManager), Dask (Scheduler-Worker)</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Decentralized / Peer-to-Peer</h4>
+                <p>No single coordinator; workers communicate directly.</p>
+                <ul class="characteristics-list">
+                    <li>No single bottleneck</li>
+                    <li>More complex coordination</li>
+                    <li>Better fault tolerance potential</li>
+                    <li>Ring topologies common</li>
+                </ul>
+                <span class="tools">Tools: Horovod (ring-allreduce)</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Parameter Server Architecture</h4>
+                <p>Dedicated servers store model parameters; workers compute gradients.</p>
+                <ul class="characteristics-list">
+                    <li>Asynchronous training possible</li>
+                    <li>Scales to many workers</li>
+                    <li>Communication bottleneck at PS</li>
+                    <li>Staleness issues possible</li>
+                </ul>
+                <span class="tools">Tools: TensorFlow (ParameterServerStrategy)</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Collective Communication</h4>
+                <p>Workers communicate directly using collective operations (all-reduce, broadcast, etc.).</p>
+                <table class="ref-table">
+                    <tr><th>Operation</th><th>Description</th></tr>
+                    <tr><td>All-reduce</td><td>Aggregate + distribute (gradients)</td></tr>
+                    <tr><td>Broadcast</td><td>One-to-all (parameters)</td></tr>
+                    <tr><td>Scatter/Gather</td><td>Distribute/collect data</td></tr>
+                </table>
+                <span class="tools">Tools: Horovod, PyTorch DDP, TensorFlow MirroredStrategy</span>
+            </div>
+
+            <div class="summary-box">
+                <h4>Architecture Summary</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>Pattern</th><th>Use Case</th><th>Tools</th></tr>
+                    <tr><td>Master-Worker</td><td>General distributed processing</td><td>Spark, Flink, Dask</td></tr>
+                    <tr><td>Ring Allreduce</td><td>Distributed training</td><td>Horovod, PyTorch DDP</td></tr>
+                    <tr><td>Parameter Server</td><td>Large-scale async training</td><td>TensorFlow PS</td></tr>
+                    <tr><td>Hierarchical</td><td>Low-latency, many tasks</td><td>Ray</td></tr>
+                    <tr><td>Workflow DAG</td><td>Pipeline orchestration</td><td>Airflow, Prefect</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 7: Data Partitioning -->
+        <section id="partitioning" class="topic-section">
+            <span class="topic-badge">Section 7</span>
+            <h2>Data Partitioning Strategies</h2>
+
+            <div class="paradigm-card">
+                <h4>Block-Based Partitioning</h4>
+                <p>Data split into fixed-size blocks distributed across nodes. Simple, predictable, good for sequential access.</p>
+                <span class="tools">Tools: Hadoop (128MB blocks), Spark (HDFS blocks)</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Hash Partitioning</h4>
+                <p>Data distributed based on hash of key. Even distribution, co-locates related data, good for joins/aggregations.</p>
+                <span class="tools">Tools: Spark, Flink, Dask</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>GPU Memory Partitioning</h4>
+                <p>Data partitioned to fit GPU memory constraints. Limited by GPU RAM, partition-per-GPU model, high-bandwidth within GPU.</p>
+                <span class="tools">Tools: RAPIDS, RAPIDS+Dask</span>
+            </div>
+
+            <h3>Row vs. Column Partitioning (ML)</h3>
+            <table class="ref-table">
+                <tr><th>Strategy</th><th>Description</th><th>Tools</th></tr>
+                <tr><td>Data parallel</td><td>Rows split, model replicated</td><td>PyTorch DDP, Horovod, TF Mirrored</td></tr>
+                <tr><td>Feature parallel</td><td>Columns split</td><td>XGBoost</td></tr>
+                <tr><td>Model parallel</td><td>Model layers split</td><td>PyTorch RPC, TF</td></tr>
+            </table>
+
+            <div class="summary-box">
+                <h4>Partitioning Summary</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>Strategy</th><th>Best For</th><th>Tools</th></tr>
+                    <tr><td>Block-based</td><td>Large files, ETL</td><td>Hadoop, Spark</td></tr>
+                    <tr><td>Hash</td><td>Joins, aggregations</td><td>Spark, Flink, Dask</td></tr>
+                    <tr><td>GPU memory</td><td>GPU data science</td><td>RAPIDS</td></tr>
+                    <tr><td>Data parallel</td><td>Distributed training</td><td>TF, PyTorch, Horovod</td></tr>
+                    <tr><td>Task-based</td><td>Irregular workloads</td><td>Ray, Parsl</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 8: Fault Tolerance -->
+        <section id="fault-tolerance" class="topic-section">
+            <span class="topic-badge">Section 8</span>
+            <h2>Fault Tolerance Mechanisms</h2>
+
+            <div class="paradigm-card">
+                <h4>Data Replication</h4>
+                <p>Multiple copies of data across nodes. Simple recovery, storage overhead (2-3x), configurable replication factor.</p>
+                <span class="tools">Tools: Hadoop (HDFS replication), Dask (optional)</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Lineage-Based Recovery</h4>
+                <p>Track transformations; recompute lost data from source. No storage overhead, recomputation cost, works well with immutable data.</p>
+                <span class="tools">Tools: Spark (RDD lineage), Ray (object lineage)</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Checkpointing</h4>
+                <p>Periodically save state to persistent storage.</p>
+                <table class="ref-table">
+                    <tr><th>Type</th><th>Description</th><th>Tools</th></tr>
+                    <tr><td>Periodic</td><td>Time-based snapshots</td><td>Flink, Spark, TensorFlow, PyTorch</td></tr>
+                    <tr><td>Synchronous</td><td>Consistent distributed snapshots</td><td>Flink (Chandy-Lamport)</td></tr>
+                    <tr><td>Savepoints</td><td>User-triggered for upgrades</td><td>Flink</td></tr>
+                </table>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Task-Level Retry</h4>
+                <p>Automatically retry failed tasks. Simple and effective, configurable retry count, exponential backoff.</p>
+                <span class="tools">Tools: All workflow tools (Airflow, Prefect, Parsl), Spark, Dask, Ray</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Speculative Execution</h4>
+                <p>Run duplicate tasks for stragglers; use first result. Handles slow nodes, extra resource usage.</p>
+                <span class="tools">Tools: Hadoop, Spark</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Elastic Execution</h4>
+                <p>Dynamically add/remove workers during execution. Handles node failures gracefully, supports spot instances.</p>
+                <span class="tools">Tools: Ray, Horovod (Elastic), PyTorch (TorchElastic)</span>
+            </div>
+
+            <div class="summary-box">
+                <h4>Fault Tolerance Summary</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>Mechanism</th><th>Tools</th></tr>
+                    <tr><td>Data replication</td><td>Hadoop, Dask</td></tr>
+                    <tr><td>Lineage recovery</td><td>Spark, Ray</td></tr>
+                    <tr><td>Checkpointing</td><td>Flink, Spark, TF, PyTorch</td></tr>
+                    <tr><td>Task retry</td><td>All tools</td></tr>
+                    <tr><td>Speculative execution</td><td>Hadoop, Spark</td></tr>
+                    <tr><td>Elastic execution</td><td>Ray, Horovod, PyTorch</td></tr>
+                    <tr><td>Exactly-once</td><td>Flink, Beam</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 9: Strengths & Limitations -->
+        <section id="strengths" class="topic-section">
+            <span class="topic-badge">Section 9</span>
+            <h2>Strengths & Limitations Overview</h2>
+
+            <h3>Scalability Champions</h3>
+            <ul class="characteristics-list">
+                <li><strong>Petabyte-scale batch:</strong> Hadoop, Spark</li>
+                <li><strong>Real-time at scale:</strong> Flink, Kafka</li>
+                <li><strong>GPU clusters:</strong> RAPIDS+Dask, TensorFlow, PyTorch</li>
+                <li><strong>HPC supercomputers:</strong> Parsl</li>
+            </ul>
+
+            <h3>Ease of Use Leaders</h3>
+            <ul class="characteristics-list">
+                <li><strong>Python data scientists:</strong> Dask (familiar APIs), Ray (simple decorators)</li>
+                <li><strong>ML practitioners:</strong> PyTorch (intuitive), Keras/TensorFlow</li>
+                <li><strong>Workflow authors:</strong> Prefect (Pythonic), Airflow (mature)</li>
+            </ul>
+
+            <h3>Performance Leaders</h3>
+            <ul class="characteristics-list">
+                <li><strong>In-memory processing:</strong> Spark (10-100x vs Hadoop)</li>
+                <li><strong>GPU acceleration:</strong> RAPIDS (10-100x vs CPU pandas)</li>
+                <li><strong>Distributed training:</strong> Horovod, PyTorch DDP (near-linear scaling)</li>
+                <li><strong>Real-time latency:</strong> Flink (milliseconds)</li>
+            </ul>
+
+            <h3>Flexibility Champions</h3>
+            <ul class="characteristics-list">
+                <li><strong>General-purpose:</strong> Ray (tasks, actors, serving, training)</li>
+                <li><strong>Multi-site:</strong> Parsl (laptop → HPC → cloud)</li>
+                <li><strong>Portable pipelines:</strong> Beam (write once, run anywhere)</li>
+                <li><strong>Hybrid workloads:</strong> Spark (batch, stream, SQL, ML, graph)</li>
+            </ul>
+
+            <h3>Common Limitations by Category</h3>
+            <table class="ref-table">
+                <tr><th>Category</th><th>Common Limitations</th><th>Tools Affected</th></tr>
+                <tr><td>Memory</td><td>High consumption, OOM errors</td><td>Spark, RAPIDS</td></tr>
+                <tr><td>Complexity</td><td>Steep learning curve, config</td><td>Flink, TensorFlow Distributed</td></tr>
+                <tr><td>Ecosystem</td><td>Smaller community</td><td>Dask, Parsl, JAX</td></tr>
+                <tr><td>Hardware</td><td>GPU/TPU required</td><td>RAPIDS, JAX (TPU focus)</td></tr>
+                <tr><td>Latency</td><td>Not real-time</td><td>Hadoop, Dask</td></tr>
+                <tr><td>Streaming</td><td>Limited or no support</td><td>Dask, Parsl, Ray</td></tr>
+            </table>
+        </section>
+
+        <!-- Section 10: Tool Selection Guide -->
+        <section id="selection" class="topic-section">
+            <span class="topic-badge">Section 10</span>
+            <h2>Tool Selection Guide</h2>
+
+            <h3>By Use Case</h3>
+            <table class="ref-table">
+                <tr><th>Use Case</th><th>Recommended Tools</th></tr>
+                <tr><td>Large-scale ETL</td><td>Spark, Hadoop, Flink</td></tr>
+                <tr><td>Real-time streaming</td><td>Flink, Beam</td></tr>
+                <tr><td>Python data science</td><td>Dask, Ray, RAPIDS</td></tr>
+                <tr><td>Deep learning training</td><td>PyTorch, TensorFlow, JAX</td></tr>
+                <tr><td>Distributed DL</td><td>Horovod, PyTorch DDP, TF Distributed</td></tr>
+                <tr><td>Tabular ML</td><td>XGBoost, LightGBM</td></tr>
+                <tr><td>Workflow orchestration</td><td>Airflow, Prefect</td></tr>
+                <tr><td>Scientific computing</td><td>Parsl, Dask</td></tr>
+                <tr><td>GPU data science</td><td>RAPIDS, RAPIDS+Dask</td></tr>
+                <tr><td>Multi-cloud pipelines</td><td>Beam, Airflow</td></tr>
+            </table>
+
+            <h3>By Team Background</h3>
+            <table class="ref-table">
+                <tr><th>Team</th><th>Recommended Tools</th></tr>
+                <tr><td>Python-heavy</td><td>Dask, Ray, Parsl, Prefect</td></tr>
+                <tr><td>JVM/Scala</td><td>Spark, Flink</td></tr>
+                <tr><td>ML researchers</td><td>PyTorch, JAX</td></tr>
+                <tr><td>ML engineers</td><td>TensorFlow, Spark MLlib</td></tr>
+                <tr><td>Data engineers</td><td>Spark, Flink, Airflow</td></tr>
+                <tr><td>HPC scientists</td><td>Parsl, Dask</td></tr>
+            </table>
+        </section>
+
+        <!-- Quick Reference Table -->
+        <section id="quick-ref" class="quick-ref-section">
+            <h2>Quick Reference Summary Table</h2>
+            <div style="overflow-x: auto;">
+                <table class="ref-table">
+                    <tr>
+                        <th>Tool</th>
+                        <th>Paradigm</th>
+                        <th>Languages</th>
+                        <th>Mode</th>
+                        <th>GPU</th>
+                        <th>TPU</th>
+                        <th>Best For</th>
+                    </tr>
+                    <tr><td>Hadoop</td><td>MapReduce</td><td>Java</td><td>Batch</td><td>-</td><td>-</td><td>Large-scale ETL</td></tr>
+                    <tr><td>Spark</td><td>DAG</td><td>Scala/Python</td><td>Batch+Stream</td><td>Plugin</td><td>-</td><td>General big data</td></tr>
+                    <tr><td>Flink</td><td>Dataflow</td><td>Java/Scala</td><td>Stream-first</td><td>Limited</td><td>-</td><td>Real-time analytics</td></tr>
+                    <tr><td>Dask</td><td>DAG</td><td>Python</td><td>Batch</td><td>Via RAPIDS</td><td>-</td><td>Python data science</td></tr>
+                    <tr><td>Ray</td><td>Task/Actor</td><td>Python</td><td>General</td><td>Yes</td><td>Yes</td><td>AI/ML applications</td></tr>
+                    <tr><td>Beam</td><td>Unified</td><td>Java/Python</td><td>Batch+Stream</td><td>Runner</td><td>Yes</td><td>Portable pipelines</td></tr>
+                    <tr><td>Airflow</td><td>Orchestration</td><td>Python</td><td>Batch</td><td>Trigger</td><td>Trigger</td><td>Workflow scheduling</td></tr>
+                    <tr><td>TensorFlow</td><td>Dataflow</td><td>Python</td><td>Batch</td><td>Yes</td><td>Yes</td><td>Production ML</td></tr>
+                    <tr><td>PyTorch</td><td>Dynamic</td><td>Python</td><td>Batch</td><td>Yes</td><td>Via XLA</td><td>Research ML</td></tr>
+                    <tr><td>RAPIDS</td><td>GPU</td><td>Python</td><td>Batch</td><td>Yes</td><td>-</td><td>GPU data science</td></tr>
+                    <tr><td>XGBoost</td><td>Boosting</td><td>Python/R</td><td>Batch</td><td>Yes</td><td>-</td><td>Tabular ML</td></tr>
+                    <tr><td>Horovod</td><td>Ring-allreduce</td><td>Python</td><td>Batch</td><td>Yes</td><td>-</td><td>Multi-framework DL</td></tr>
+                    <tr><td>JAX</td><td>Functional</td><td>Python</td><td>Batch</td><td>Yes</td><td>Yes</td><td>Research/TPU</td></tr>
+                    <tr><td>Parsl</td><td>Dataflow</td><td>Python</td><td>Batch</td><td>Yes</td><td>Custom</td><td>HPC/Scientific</td></tr>
+                </table>
+            </div>
+            <div class="legend" style="margin-top: 1rem; background: rgba(255,255,255,0.2); border: none; color: white;">
+                <strong>Legend:</strong> - = Not supported | Yes = Native support | Plugin/Via = Through integration
+            </div>
+        </section>
+
+        <!-- Appendix -->
+        <section id="appendix" class="topic-section">
+            <span class="topic-badge">Appendix</span>
+            <h2>Tool Quick Facts & Resources</h2>
+
+            <h3>Tool Origins</h3>
+            <table class="ref-table">
+                <tr><th>Tool</th><th>Created By</th><th>Year</th><th>License</th></tr>
+                <tr><td>Hadoop</td><td>Yahoo/Apache</td><td>2006</td><td>Apache 2.0</td></tr>
+                <tr><td>Spark</td><td>UC Berkeley/Apache</td><td>2014</td><td>Apache 2.0</td></tr>
+                <tr><td>Flink</td><td>TU Berlin/Apache</td><td>2014</td><td>Apache 2.0</td></tr>
+                <tr><td>Dask</td><td>Anaconda</td><td>2015</td><td>BSD</td></tr>
+                <tr><td>Ray</td><td>UC Berkeley/Anyscale</td><td>2017</td><td>Apache 2.0</td></tr>
+                <tr><td>Beam</td><td>Google/Apache</td><td>2016</td><td>Apache 2.0</td></tr>
+                <tr><td>Airflow</td><td>Airbnb/Apache</td><td>2015</td><td>Apache 2.0</td></tr>
+                <tr><td>Prefect</td><td>Prefect</td><td>2018</td><td>Apache 2.0</td></tr>
+                <tr><td>TensorFlow</td><td>Google</td><td>2015</td><td>Apache 2.0</td></tr>
+                <tr><td>PyTorch</td><td>Facebook/Meta</td><td>2016</td><td>BSD</td></tr>
+                <tr><td>RAPIDS</td><td>NVIDIA</td><td>2018</td><td>Apache 2.0</td></tr>
+                <tr><td>XGBoost</td><td>DMLC</td><td>2014</td><td>Apache 2.0</td></tr>
+                <tr><td>Horovod</td><td>Uber</td><td>2017</td><td>Apache 2.0</td></tr>
+                <tr><td>JAX</td><td>Google</td><td>2018</td><td>Apache 2.0</td></tr>
+                <tr><td>Parsl</td><td>UChicago/Argonne</td><td>2017</td><td>Apache 2.0</td></tr>
+            </table>
+
+            <h3>Official Documentation Links</h3>
+            <table class="ref-table">
+                <tr><th>Tool</th><th>Documentation</th><th>GitHub</th></tr>
+                <tr><td>Hadoop</td><td>hadoop.apache.org</td><td>github.com/apache/hadoop</td></tr>
+                <tr><td>Spark</td><td>spark.apache.org</td><td>github.com/apache/spark</td></tr>
+                <tr><td>Flink</td><td>flink.apache.org</td><td>github.com/apache/flink</td></tr>
+                <tr><td>Dask</td><td>dask.org</td><td>github.com/dask/dask</td></tr>
+                <tr><td>Ray</td><td>ray.io</td><td>github.com/ray-project/ray</td></tr>
+                <tr><td>Beam</td><td>beam.apache.org</td><td>github.com/apache/beam</td></tr>
+                <tr><td>Airflow</td><td>airflow.apache.org</td><td>github.com/apache/airflow</td></tr>
+                <tr><td>Prefect</td><td>prefect.io</td><td>github.com/PrefectHQ/prefect</td></tr>
+                <tr><td>TensorFlow</td><td>tensorflow.org</td><td>github.com/tensorflow/tensorflow</td></tr>
+                <tr><td>PyTorch</td><td>pytorch.org</td><td>github.com/pytorch/pytorch</td></tr>
+                <tr><td>RAPIDS</td><td>rapids.ai</td><td>github.com/rapidsai</td></tr>
+                <tr><td>XGBoost</td><td>xgboost.ai</td><td>github.com/dmlc/xgboost</td></tr>
+                <tr><td>Horovod</td><td>horovod.ai</td><td>github.com/horovod/horovod</td></tr>
+                <tr><td>JAX</td><td>jax.readthedocs.io</td><td>github.com/google/jax</td></tr>
+                <tr><td>Parsl</td><td>parsl-project.org</td><td>github.com/Parsl/parsl</td></tr>
+            </table>
+        </section>
+
+        <!-- Navigation Links -->
+        <div class="back-link">
+            <a href="session3_week3.html">← Back to Session 3</a>
+            <a href="index.html">← Back to Course Index</a>
+        </div>
+    </main>
+
+    <footer style="margin-top: 4rem; padding: 2rem; background-color: #f5f5f5; text-align: center;">
+        <p style="color: #666;">Part of DS-AI Course Materials</p>
+        <p style="color: #666; font-size: 0.9rem;">Licensed under CC BY 4.0</p>
+    </footer>
+</body>
+</html>
