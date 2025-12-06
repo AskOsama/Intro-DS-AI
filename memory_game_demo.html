@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Match Game - Search Algorithms Demo | DS-AI Course</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Game-specific styles */
+        .game-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .game-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .game-stats strong {
+            color: #3498db;
+            font-size: 1.5rem;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            max-width: 400px;
+            margin: 0 auto 2rem auto;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: transparent;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            user-select: none;
+            border: none;
+            position: relative;
+        }
+
+        .card::before {
+            content: "?";
+            position: absolute;
+            color: rgba(255,255,255,0.3);
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .card:hover:not(.flipped):not(.matched) {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .card.flipped {
+            background: white;
+            color: #2c3e50;
+            border: 3px solid #3498db;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .card.flipped::before {
+            content: none;
+        }
+
+        .card.matched {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            cursor: default;
+            animation: matchPulse 0.6s ease;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .card.matched::before {
+            content: none;
+        }
+
+        @keyframes matchPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .win-message {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            border-radius: 12px;
+            margin: 1rem 0;
+            animation: fadeIn 0.5s ease;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .win-message h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.8rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .game-buttons {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .game-buttons button,
+        .game-buttons a {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            margin: 0.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #3498db;
+            border: 2px solid #3498db;
+        }
+
+        .btn-secondary:hover {
+            background: #3498db;
+            color: white;
+        }
+
+        .algorithm-connection {
+            margin-top: 2rem;
+        }
+
+        .algorithm-connection table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .algorithm-connection th,
+        .algorithm-connection td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #e1e4e8;
+        }
+
+        .algorithm-connection th {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .algorithm-connection tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .algorithm-connection tr:hover {
+            background: #e8f4fc;
+        }
+
+        .emoji-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .emoji-legend span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 480px) {
+            .game-board {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 280px;
+                gap: 0.8rem;
+                padding: 1rem;
+            }
+            .card {
+                font-size: 1.8rem;
+            }
+            .game-stats {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="course-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <h1>Memory Match Game</h1>
+        <p>Demonstrating Search Algorithms & Heuristics</p>
+    </header>
+
+    <main>
+        <div class="game-container">
+            <!-- Instructions -->
+            <section class="content-section">
+                <div class="key-message">
+                    <p><strong>How to Play:</strong> Click on cards to flip them. Find all matching pairs using the fewest moves. Use your memory to remember card positions - just like a memory heuristic in search algorithms!</p>
+                </div>
+            </section>
+
+            <!-- Game Stats -->
+            <div class="game-stats">
+                <span>Moves: <strong id="moves">0</strong></span>
+                <span>Matches: <strong id="matches">0</strong> / 6</span>
+            </div>
+
+            <!-- Game Board -->
+            <div class="game-board" id="gameBoard">
+                <!-- Cards generated by JavaScript -->
+            </div>
+
+            <!-- Win Message (hidden initially) -->
+            <div id="winMessage" style="display: none;"></div>
+
+            <!-- Game Buttons -->
+            <div class="game-buttons">
+                <button class="btn-primary" onclick="resetGame()">New Game</button>
+                <a href="session1_week4.html" class="btn-secondary">Back to Session</a>
+            </div>
+
+            <!-- Emoji Legend -->
+            <div class="emoji-legend">
+                <span>🎯 Target</span>
+                <span>🧠 Memory</span>
+                <span>🔍 Search</span>
+                <span>⚡ Greedy</span>
+                <span>🎲 Random</span>
+                <span>✓ Match</span>
+            </div>
+
+            <!-- Educational Connection -->
+            <section class="content-section algorithm-connection">
+                <div class="definition">
+                    <h3>Connection to Search Algorithms</h3>
+                    <p>This game illustrates key concepts from Week 4 Session 1:</p>
+                    <table>
+                        <tr>
+                            <th>Game Action</th>
+                            <th>Algorithm Concept</th>
+                        </tr>
+                        <tr>
+                            <td>Remember card positions</td>
+                            <td><strong>Memory Heuristic</strong> - Store state information for future decisions</td>
+                        </tr>
+                        <tr>
+                            <td>Match known pairs immediately</td>
+                            <td><strong>Greedy Heuristic</strong> - Take the best available action now</td>
+                        </tr>
+                        <tr>
+                            <td>Flip unknown cards</td>
+                            <td><strong>Random/Exploration</strong> - Gather new information</td>
+                        </tr>
+                        <tr>
+                            <td>Track all card locations</td>
+                            <td><strong>State Space</strong> - The set of all possible configurations</td>
+                        </tr>
+                        <tr>
+                            <td>Find all matching pairs</td>
+                            <td><strong>Goal State</strong> - The target configuration we seek</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Strategy Tips -->
+            <section class="content-section">
+                <div class="key-pattern">
+                    <h3>Optimal Strategy (Like an AI Agent)</h3>
+                    <ul>
+                        <li><strong>Phase 1 - Exploration:</strong> Flip cards to build your memory of positions</li>
+                        <li><strong>Phase 2 - Exploitation:</strong> Use remembered positions to match known pairs</li>
+                        <li><strong>Trade-off:</strong> Balance between exploring new cards and exploiting known matches</li>
+                    </ul>
+                    <p><em>This explore/exploit trade-off is fundamental to many AI algorithms!</em></p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p><a href="session1_week4.html">Back to Week 4 Session 1</a> | <a href="index.html">Course Home</a></p>
+        <p>&copy; 2025 Introduction to Data Science & AI Course</p>
+    </footer>
+
+    <script>
+        // Game Configuration
+        const emojis = ['🎯', '🧠', '🔍', '⚡', '🎲', '✓'];
+
+        // Game State
+        let cards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moves = 0;
+        let isLocked = false;
+
+        // Initialize Game
+        function initGame() {
+            // Create pairs and shuffle
+            cards = [...emojis, ...emojis];
+            shuffleArray(cards);
+
+            // Reset stats
+            matchedPairs = 0;
+            moves = 0;
+            flippedCards = [];
+            isLocked = false;
+            updateStats();
+
+            // Hide win message
+            document.getElementById('winMessage').style.display = 'none';
+
+            // Render cards
+            const board = document.getElementById('gameBoard');
+            board.innerHTML = '';
+
+            cards.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.emoji = emoji;
+                card.dataset.index = index;
+                card.textContent = emoji;
+                card.addEventListener('click', () => flipCard(card));
+                board.appendChild(card);
+            });
+        }
+
+        // Flip a card
+        function flipCard(card) {
+            // Guard clauses
+            if (isLocked) return;
+            if (card.classList.contains('flipped')) return;
+            if (card.classList.contains('matched')) return;
+            if (flippedCards.length >= 2) return;
+
+            // Flip the card
+            card.classList.add('flipped');
+            flippedCards.push(card);
+
+            // Check for match when 2 cards are flipped
+            if (flippedCards.length === 2) {
+                moves++;
+                updateStats();
+                checkMatch();
+            }
+        }
+
+        // Check if two flipped cards match
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            const isMatch = card1.dataset.emoji === card2.dataset.emoji;
+
+            if (isMatch) {
+                // Match found!
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                updateStats();
+                flippedCards = [];
+
+                // Check for win
+                if (matchedPairs === emojis.length) {
+                    setTimeout(showWinMessage, 500);
+                }
+            } else {
+                // No match - flip back after delay
+                isLocked = true;
+                setTimeout(() => {
+                    card1.classList.remove('flipped');
+                    card2.classList.remove('flipped');
+                    flippedCards = [];
+                    isLocked = false;
+                }, 1000);
+            }
+        }
+
+        // Fisher-Yates shuffle
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Update stats display
+        function updateStats() {
+            document.getElementById('moves').textContent = moves;
+            document.getElementById('matches').textContent = matchedPairs;
+        }
+
+        // Show win message
+        function showWinMessage() {
+            const winDiv = document.getElementById('winMessage');
+            let rating = '';
+
+            if (moves <= 8) {
+                rating = 'Perfect memory! You think like an optimal algorithm!';
+            } else if (moves <= 12) {
+                rating = 'Great job! Your memory heuristic is working well!';
+            } else if (moves <= 18) {
+                rating = 'Good work! Keep practicing your search strategy!';
+            } else {
+                rating = 'You found all matches! Try to use fewer moves next time.';
+            }
+
+            winDiv.innerHTML = `
+                <div class="win-message">
+                    <h3>Congratulations!</h3>
+                    <p>You matched all pairs in <strong>${moves}</strong> moves!</p>
+                    <p>${rating}</p>
+                </div>
+            `;
+            winDiv.style.display = 'block';
+        }
+
+        // Reset game
+        function resetGame() {
+            initGame();
+        }
+
+        // Start game on page load
+        window.addEventListener('load', initGame);
+    </script>
+</body>
+</html>
