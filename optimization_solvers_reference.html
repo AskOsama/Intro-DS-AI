@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Optimization Solvers and Frameworks - Technical Reference and Comparative Analysis">
+    <title>Optimization Solvers & Frameworks - Technical Reference | DS-AI Course</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Reference page specific styles */
+        .reference-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .reference-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .reference-header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .topic-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .topic-section h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #3498db;
+        }
+
+        .topic-section h3 {
+            color: #3498db;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .topic-section h4 {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .topic-section p {
+            line-height: 1.8;
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .topic-badge {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .paradigm-card {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .paradigm-card h4 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        .paradigm-card .tools {
+            background: #e8f4fc;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            color: #2980b9;
+        }
+
+        .paradigm-card .license-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .license-mit { background: #d4edda; color: #155724; }
+        .license-apache { background: #cce5ff; color: #004085; }
+        .license-gpl { background: #fff3cd; color: #856404; }
+        .license-lgpl { background: #f8d7da; color: #721c24; }
+        .status-active { background: #d4edda; color: #155724; }
+        .status-inactive { background: #e2e3e5; color: #383d41; }
+
+        .characteristics-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+
+        .characteristics-list li {
+            padding: 0.3rem 0 0.3rem 1.5rem;
+            position: relative;
+        }
+
+        .characteristics-list li::before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .ref-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .ref-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 0.8rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .ref-table td {
+            padding: 0.8rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .ref-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .ref-table tr:hover {
+            background: #e8f4fc;
+        }
+
+        .ref-table code {
+            background: #e8e8e8;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .summary-box h4 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .summary-box .ref-table {
+            background: rgba(255,255,255,0.95) !important;
+            border-radius: 6px;
+        }
+
+        .summary-box .ref-table td {
+            color: #333 !important;
+        }
+
+        .summary-box .ref-table tr:nth-child(even) {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .summary-box .ref-table tr:hover {
+            background: rgba(255,255,255,0.7);
+        }
+
+        .summary-box .characteristics-list li {
+            color: white;
+        }
+
+        .quick-ref-section {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .quick-ref-section h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .quick-ref-section .ref-table {
+            background: rgba(255,255,255,0.95);
+            border-radius: 6px;
+        }
+
+        .quick-ref-section .ref-table th {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .quick-ref-section .ref-table td {
+            border-bottom-color: #e0e0e0;
+            color: #333;
+        }
+
+        .quick-ref-section .ref-table tr:nth-child(even) {
+            background: rgba(240,240,240,0.8);
+        }
+
+        .quick-ref-section .ref-table tr:hover {
+            background: rgba(230,230,230,0.9);
+        }
+
+        .quick-ref-section .legend {
+            background: rgba(255,255,255,0.95) !important;
+            color: #333 !important;
+            border: 1px solid #ddd !important;
+        }
+
+        .toc-nav {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .toc-nav h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .toc-nav ul {
+            columns: 2;
+            column-gap: 2rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-nav li {
+            padding: 0.3rem 0;
+        }
+
+        .toc-nav a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .toc-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .back-link a {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin: 0.5rem;
+        }
+
+        .back-link a:hover {
+            background-color: #2980b9;
+        }
+
+        .legend {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .cost-free { color: #27ae60; font-weight: bold; }
+        .cost-paid { color: #e74c3c; font-weight: bold; }
+        .cost-freemium { color: #f39c12; font-weight: bold; }
+
+        @media (max-width: 768px) {
+            .toc-nav ul {
+                columns: 1;
+            }
+            .reference-header h1 {
+                font-size: 1.8rem;
+            }
+            .ref-table {
+                font-size: 0.8rem;
+            }
+            .ref-table th, .ref-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="optimization_solvers_reference_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <div class="reference-header">
+        <h1>Optimization Solvers & Frameworks</h1>
+        <p class="subtitle">Technical Reference & Comparative Analysis</p>
+    </div>
+
+    <main style="max-width: 1000px; margin: 0 auto; padding: 0 2rem;">
+
+        <!-- Table of Contents -->
+        <nav class="toc-nav">
+            <h3>Quick Navigation</h3>
+            <ul>
+                <li><a href="#python-frameworks">1. Python Optimization Frameworks</a></li>
+                <li><a href="#excel-solvers">2. Excel Solver Add-ins</a></li>
+                <li><a href="#sheets-tools">3. Google Sheets Tools</a></li>
+                <li><a href="#modeling-languages">4. Modeling Languages</a></li>
+                <li><a href="#cloud-services">5. Cloud-Based Services</a></li>
+                <li><a href="#comparison">6. Comparison Tables</a></li>
+                <li><a href="#recommendations">7. Recommendations</a></li>
+                <li><a href="#quick-ref">Quick Reference Table</a></li>
+                <li><a href="#appendix">Appendix: Resources</a></li>
+            </ul>
+        </nav>
+
+        <!-- Section 1: Python Frameworks -->
+        <section id="python-frameworks" class="topic-section">
+            <span class="topic-badge">Section 1</span>
+            <h2>Python-Based Multi-Objective Optimization Frameworks</h2>
+            <p>Python offers a rich ecosystem of optimization frameworks for multi-objective and metaheuristic optimization. These tools range from research-focused libraries to production-ready solutions.</p>
+
+            <div class="paradigm-card">
+                <h4>jMetalPy</h4>
+                <span class="license-badge license-mit">MIT</span>
+                <span class="license-badge status-active">Active</span>
+                <p><strong>Focus:</strong> Multi-objective optimization with metaheuristics</p>
+                <ul class="characteristics-list">
+                    <li>Dynamic optimization support</li>
+                    <li>Parallel computing (Apache Spark, Dask)</li>
+                    <li>Real-time and interactive visualization</li>
+                    <li>Statistical post-processing</li>
+                    <li>Preference articulation for decision making</li>
+                </ul>
+                <p><strong>Algorithms:</strong> NSGA-II, NSGA-III, SMPSO, OMOPSO, MOEA/D, SMS-EMOA, GDE3, SPEA2, HYPE, IBEA</p>
+                <span class="tools">Website: github.com/jMetal/jMetalPy</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>DEAP (Distributed Evolutionary Algorithms in Python)</h4>
+                <span class="license-badge license-lgpl">LGPL-3.0</span>
+                <span class="license-badge status-active">Active</span>
+                <p><strong>Focus:</strong> General evolutionary computation (not centered on multi-objective)</p>
+                <ul class="characteristics-list">
+                    <li>Parallelization and load-balancing</li>
+                    <li>Modular and extensible framework</li>
+                    <li>Rapid prototyping</li>
+                </ul>
+                <p><strong>Algorithms:</strong> GA, GP, CMA-ES, NSGA-II, SPEA2, MO-CMA-ES</p>
+                <span class="tools">Website: github.com/DEAP/deap</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>PyGMO / Pagmo</h4>
+                <span class="license-badge license-gpl">GPL-3.0</span>
+                <span class="license-badge status-active">Active</span>
+                <p><strong>Focus:</strong> Single/multi-objective optimization with parallel processing</p>
+                <ul class="characteristics-list">
+                    <li>Massively parallel optimization</li>
+                    <li>Statistical methods for racing algorithms</li>
+                    <li>Quality indicators and fitness landscape analysis</li>
+                    <li>Hybrid algorithm variants</li>
+                </ul>
+                <p><strong>Algorithms:</strong> GA, DE, PSO, SA, ABC, IHS, MC, CMA-ES, NSGA-II, MOEA/D</p>
+                <span class="tools">Website: esa.github.io/pagmo2/</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Platypus</h4>
+                <span class="license-badge license-gpl">GPL-3.0</span>
+                <span class="license-badge status-active">Active</span>
+                <p><strong>Focus:</strong> Multi-objective optimization</p>
+                <ul class="characteristics-list">
+                    <li>Parallel processing in solution evaluation</li>
+                    <li>Visualization and statistics</li>
+                    <li>Reference point based methods</li>
+                </ul>
+                <p><strong>Algorithms:</strong> CMA-ES, NSGA-II, NSGA-III, GDE3, IBEA, MOEA/D, OMOPSO, EpsMOEA, SPEA2</p>
+                <span class="tools">Website: github.com/Project-Platypus/Platypus</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Pymoo</h4>
+                <span class="license-badge license-apache">Apache 2.0</span>
+                <span class="license-badge status-active">Active</span>
+                <p><strong>Focus:</strong> Multi-objective optimization with preference articulation</p>
+                <ul class="characteristics-list">
+                    <li>Reference point methods</li>
+                    <li>Visualization and statistics</li>
+                    <li>Gradient information through automatic differentiation</li>
+                    <li>Multi-criteria decision making</li>
+                </ul>
+                <p><strong>Algorithms:</strong> GA, DE, NSGA-II, NSGA-III, U-NSGA-III, R-NSGA-III</p>
+                <span class="tools">Website: pymoo.org</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Inspyred</h4>
+                <span class="license-badge license-mit">MIT</span>
+                <span class="license-badge status-inactive">Inactive</span>
+                <p><strong>Focus:</strong> Bio-inspired computational intelligence (not multi-objective specific)</p>
+                <ul class="characteristics-list">
+                    <li>Educational and research focus</li>
+                    <li>Simple API for getting started</li>
+                </ul>
+                <p><strong>Algorithms:</strong> GA, ES, PSO, ACO, SA, PAES, NSGA-II</p>
+                <span class="tools">Website: github.com/aarongarrett/inspyred</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Geatpy</h4>
+                <span class="license-badge license-mit">MIT</span>
+                <span class="license-badge status-active">Active</span>
+                <p><strong>Focus:</strong> Genetic and evolutionary algorithms</p>
+                <ul class="characteristics-list">
+                    <li>High-performance with Numpy backend</li>
+                    <li>Multi-objective optimization support</li>
+                </ul>
+                <p><strong>Algorithms:</strong> GA, MOEA</p>
+                <span class="tools">Website: geatpy.com</span>
+            </div>
+
+            <div class="summary-box">
+                <h4>Python Frameworks Summary</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>Framework</th><th>License</th><th>Parallel</th><th>Multi-Obj Focus</th><th>Best For</th></tr>
+                    <tr><td>jMetalPy</td><td>MIT</td><td>Yes</td><td>Yes</td><td>Research, dynamic optimization</td></tr>
+                    <tr><td>DEAP</td><td>LGPL-3.0</td><td>Yes</td><td>Partial</td><td>General evolutionary algorithms</td></tr>
+                    <tr><td>PyGMO</td><td>GPL-3.0</td><td>Yes</td><td>Partial</td><td>Parallel optimization</td></tr>
+                    <tr><td>Platypus</td><td>GPL-3.0</td><td>Yes</td><td>Yes</td><td>Multi-objective research</td></tr>
+                    <tr><td>Pymoo</td><td>Apache 2.0</td><td>Yes</td><td>Yes</td><td>Decision making, visualization</td></tr>
+                    <tr><td>Inspyred</td><td>MIT</td><td>No</td><td>No</td><td>Learning, simple problems</td></tr>
+                    <tr><td>Geatpy</td><td>MIT</td><td>Yes</td><td>Partial</td><td>High-performance GA</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 2: Excel Solver Add-ins -->
+        <section id="excel-solvers" class="topic-section">
+            <span class="topic-badge">Section 2</span>
+            <h2>Excel Solver Add-ins and Extensions</h2>
+            <p>Microsoft Excel provides built-in optimization capabilities that can be extended with third-party add-ins for more complex problems.</p>
+
+            <h3>Free / Open Source Options</h3>
+
+            <div class="paradigm-card">
+                <h4>Built-in Excel Solver</h4>
+                <span class="license-badge cost-free">Free (Included)</span>
+                <p><strong>Developer:</strong> Frontline Systems (for Microsoft)</p>
+                <ul class="characteristics-list">
+                    <li>Linear programming (Simplex LP)</li>
+                    <li>Nonlinear optimization (GRG Nonlinear)</li>
+                    <li>Evolutionary algorithms</li>
+                </ul>
+                <p><strong>Limitations:</strong> 200 decision variables, 100 constraints</p>
+                <span class="tools">Best For: Learning, simple optimization problems</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>OpenSolver</h4>
+                <span class="license-badge license-gpl">GPL</span>
+                <span class="license-badge cost-free">Free</span>
+                <p><strong>Developer:</strong> University of Auckland</p>
+                <ul class="characteristics-list">
+                    <li>Uses COIN-OR CBC optimization engine</li>
+                    <li>No artificial limits on problem size</li>
+                    <li>Compatible with existing Excel Solver models</li>
+                    <li>Built-in model visualizer</li>
+                    <li>QuickSolve mode for faster re-solving</li>
+                </ul>
+                <p><strong>Supported Solvers:</strong> CBC, Gurobi, CPLEX, XPRESS, GLPK, Bonmin, Couenne</p>
+                <span class="tools">Website: opensolver.org</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>SolverStudio</h4>
+                <span class="license-badge cost-free">Free</span>
+                <p><strong>Developer:</strong> University of Auckland</p>
+                <ul class="characteristics-list">
+                    <li>Supports multiple modeling languages (PuLP, AMPL, GAMS, GMPL, Pyomo, Gurobi Python)</li>
+                    <li>Cloud-based solving via NEOS servers</li>
+                    <li>Model stored inside Excel workbook</li>
+                    <li>Better suited for large, complex problems</li>
+                </ul>
+                <span class="tools">Website: solverstudio.org</span>
+            </div>
+
+            <h3>Commercial / Premium Options</h3>
+
+            <div class="paradigm-card">
+                <h4>Frontline Systems Products</h4>
+                <span class="license-badge cost-paid">Commercial</span>
+                <table class="ref-table">
+                    <tr><th>Product</th><th>Description</th><th>Key Features</th></tr>
+                    <tr><td><strong>Premium Solver Pro</strong></td><td>Enhanced Excel Solver</td><td>Larger problem sizes, faster performance</td></tr>
+                    <tr><td><strong>Premium Solver Platform</strong></td><td>Professional optimization platform</td><td>Multiple solver engines, auto model diagnosis</td></tr>
+                    <tr><td><strong>Risk Solver Platform</strong></td><td>Optimization + simulation</td><td>Monte Carlo simulation, stochastic optimization</td></tr>
+                    <tr><td><strong>Analytic Solver</strong></td><td>Comprehensive analytics platform</td><td>Data mining, optimization, simulation</td></tr>
+                </table>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Solver Engines (for Frontline Platforms)</h4>
+                <table class="ref-table">
+                    <tr><th>Engine</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><strong>Gurobi Solver</strong></td><td>LP/QP/MIP</td><td>Ultra high-performance, multi-core parallel processing</td></tr>
+                    <tr><td><strong>XPRESS Solver</strong></td><td>LP/MIP</td><td>High-performance commercial solver</td></tr>
+                    <tr><td><strong>KNITRO Solver</strong></td><td>NLP</td><td>Specialized for nonlinear problems</td></tr>
+                    <tr><td><strong>MOSEK Solver</strong></td><td>LP/QP/SOCP/SDP</td><td>Conic and semidefinite programming</td></tr>
+                    <tr><td><strong>CPLEX Connector</strong></td><td>LP/QP/MIP</td><td>IBM's industrial-strength solver</td></tr>
+                </table>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>What'sBest! (LINDO Systems)</h4>
+                <span class="license-badge cost-paid">Commercial</span>
+                <p><strong>Developer:</strong> LINDO Systems</p>
+                <ul class="characteristics-list">
+                    <li>Large industrial-size optimization problems</li>
+                    <li>Linear, nonlinear, and integer programming</li>
+                    <li>Direct Excel integration</li>
+                </ul>
+                <span class="tools">Website: lindo.com</span>
+            </div>
+
+            <div class="summary-box">
+                <h4>Excel Tools Summary</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>Tool</th><th>Cost</th><th>Problem Limits</th><th>Best For</th></tr>
+                    <tr><td>Built-in Solver</td><td class="cost-free">Free</td><td>200 vars, 100 constraints</td><td>Learning, simple problems</td></tr>
+                    <tr><td>OpenSolver</td><td class="cost-free">Free</td><td>Unlimited</td><td>Medium-large LP/MIP</td></tr>
+                    <tr><td>SolverStudio</td><td class="cost-free">Free</td><td>Depends on solver</td><td>Complex models, coding</td></tr>
+                    <tr><td>Premium Solver Pro</td><td class="cost-paid">$$</td><td>Extended</td><td>Professional use</td></tr>
+                    <tr><td>Gurobi Engine</td><td class="cost-paid">$$$</td><td>Millions</td><td>Enterprise, large-scale</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 3: Google Sheets Tools -->
+        <section id="sheets-tools" class="topic-section">
+            <span class="topic-badge">Section 3</span>
+            <h2>Google Sheets Optimization Tools</h2>
+            <p>Google Sheets offers several optimization add-ons that enable cloud-based solving for collaborative environments.</p>
+
+            <div class="paradigm-card">
+                <h4>OpenSolver for Google Sheets</h4>
+                <span class="license-badge cost-free">Free</span>
+                <p><strong>Developer:</strong> University of Auckland</p>
+                <ul class="characteristics-list">
+                    <li><strong>Glop</strong> - Google's linear programming solver</li>
+                    <li><strong>SCIP</strong> - Mixed-integer programming</li>
+                    <li><strong>COIN-OR Cbc</strong> - via NEOS cloud</li>
+                    <li><strong>GLPK.js</strong> - runs locally in browser</li>
+                </ul>
+                <p><strong>Limitations:</strong> 6-minute script timeout (with resume capability)</p>
+                <span class="tools">Install: Google Workspace Marketplace</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Solver Add-on (Frontline Systems)</h4>
+                <span class="license-badge cost-freemium">Freemium</span>
+                <p><strong>Developer:</strong> Frontline Systems</p>
+                <ul class="characteristics-list">
+                    <li>Simplex LP Solver (linear/mixed-integer)</li>
+                    <li>GRG Nonlinear Solver</li>
+                    <li>Multistart method (global optimization)</li>
+                    <li>Evolutionary Solver</li>
+                </ul>
+                <p><strong>Limitations:</strong> 200 variables, 100 constraints, 30-second solve time</p>
+                <span class="tools">Install: Google Workspace Marketplace</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Google Linear Optimization</h4>
+                <span class="license-badge cost-free">Free</span>
+                <p><strong>Developer:</strong> Google</p>
+                <ul class="characteristics-list">
+                    <li>Built-in linear optimization support</li>
+                    <li>Simple interface for LP problems</li>
+                </ul>
+                <span class="tools">Built-in Google Sheets add-on</span>
+            </div>
+
+            <div class="summary-box">
+                <h4>Google Sheets Tools Summary</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>Tool</th><th>Cost</th><th>Limits</th><th>Solvers</th></tr>
+                    <tr><td>OpenSolver</td><td class="cost-free">Free</td><td>Unlimited (6-min timeout)</td><td>Glop, SCIP, CBC, GLPK</td></tr>
+                    <tr><td>Solver Add-on</td><td class="cost-freemium">Freemium</td><td>200 vars, 30s solve</td><td>Simplex, GRG, Evolutionary</td></tr>
+                    <tr><td>Google Linear Opt</td><td class="cost-free">Free</td><td>Varies</td><td>Built-in LP</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 4: Modeling Languages -->
+        <section id="modeling-languages" class="topic-section">
+            <span class="topic-badge">Section 4</span>
+            <h2>Modeling Languages</h2>
+            <p>Algebraic modeling languages provide a high-level way to describe optimization problems that can be solved by various solvers.</p>
+
+            <table class="ref-table">
+                <tr><th>Language</th><th>Type</th><th>Description</th><th>Key Features</th></tr>
+                <tr>
+                    <td><strong>AMPL</strong></td>
+                    <td><span class="license-badge cost-paid">Commercial</span></td>
+                    <td>Industry-standard modeling language</td>
+                    <td>Free demo available, wide solver support</td>
+                </tr>
+                <tr>
+                    <td><strong>GAMS</strong></td>
+                    <td><span class="license-badge cost-paid">Commercial</span></td>
+                    <td>General Algebraic Modeling System</td>
+                    <td>Powerful for complex models, extensive documentation</td>
+                </tr>
+                <tr>
+                    <td><strong>PuLP</strong></td>
+                    <td><span class="license-badge cost-free">Open Source</span></td>
+                    <td>Python-based LP modeling</td>
+                    <td>Included with SolverStudio, beginner-friendly</td>
+                </tr>
+                <tr>
+                    <td><strong>GMPL</strong></td>
+                    <td><span class="license-badge cost-free">Open Source</span></td>
+                    <td>GNU MathProg Language (AMPL subset)</td>
+                    <td>Free, works with GLPK solver</td>
+                </tr>
+                <tr>
+                    <td><strong>Pyomo / COOPR</strong></td>
+                    <td><span class="license-badge cost-free">Open Source</span></td>
+                    <td>Python-based optimization modeling</td>
+                    <td>Abstract models, stochastic programming, DAE support</td>
+                </tr>
+                <tr>
+                    <td><strong>Gurobi Python</strong></td>
+                    <td><span class="license-badge cost-paid">Commercial</span></td>
+                    <td>Gurobi's native Python interface</td>
+                    <td>Tight integration with Gurobi solver, high performance</td>
+                </tr>
+            </table>
+
+            <div class="legend">
+                <strong>Tip:</strong> For learning, start with PuLP or GMPL (both free). For production, consider AMPL or Pyomo depending on your preference for domain-specific language vs Python.
+            </div>
+        </section>
+
+        <!-- Section 5: Cloud-Based Services -->
+        <section id="cloud-services" class="topic-section">
+            <span class="topic-badge">Section 5</span>
+            <h2>Cloud-Based Optimization Services</h2>
+            <p>Cloud services provide access to powerful solvers without local installation, enabling collaboration and scalability.</p>
+
+            <div class="paradigm-card">
+                <h4>NEOS Server</h4>
+                <span class="license-badge cost-free">Free</span>
+                <p>Free internet-based service for solving optimization problems.</p>
+                <ul class="characteristics-list">
+                    <li>60+ solvers for various problem types</li>
+                    <li>Access via web, email, or API</li>
+                    <li>Supports AMPL, GAMS, and other formats</li>
+                    <li>Integrates with SolverStudio, OpenSolver</li>
+                </ul>
+                <span class="tools">Website: neos-server.org</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Frontline Solver Server</h4>
+                <span class="license-badge cost-paid">Commercial</span>
+                <p>Server-based optimization from Frontline Systems.</p>
+                <ul class="characteristics-list">
+                    <li>Offload solving to remote server</li>
+                    <li>Automatic result download</li>
+                    <li>Enterprise features</li>
+                </ul>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>Satalia SolveEngine</h4>
+                <span class="license-badge cost-paid">Commercial</span>
+                <p>Cloud-based optimization platform.</p>
+                <ul class="characteristics-list">
+                    <li>Accessible via OpenSolver for Google Sheets</li>
+                    <li>Enterprise optimization capabilities</li>
+                    <li>API access</li>
+                </ul>
+            </div>
+
+            <div class="summary-box">
+                <h4>Cloud Services Summary</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>Service</th><th>Cost</th><th>Solvers</th><th>Access</th></tr>
+                    <tr><td>NEOS Server</td><td class="cost-free">Free</td><td>60+</td><td>Web, API, SolverStudio</td></tr>
+                    <tr><td>Frontline Server</td><td class="cost-paid">Commercial</td><td>Frontline engines</td><td>Frontline products</td></tr>
+                    <tr><td>Satalia SolveEngine</td><td class="cost-paid">Commercial</td><td>Various</td><td>API, Google Sheets</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 6: Comparison Tables -->
+        <section id="comparison" class="topic-section">
+            <span class="topic-badge">Section 6</span>
+            <h2>Comparison Tables</h2>
+
+            <h3>Python Frameworks Detailed Comparison</h3>
+            <div style="overflow-x: auto;">
+                <table class="ref-table">
+                    <tr>
+                        <th>Framework</th>
+                        <th>License</th>
+                        <th>Parallel</th>
+                        <th>Dynamic Opt</th>
+                        <th>Decision Making</th>
+                        <th>Post-processing</th>
+                        <th>Multi-Obj Focus</th>
+                    </tr>
+                    <tr><td>jMetalPy</td><td>MIT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+                    <tr><td>DEAP</td><td>LGPL-3.0</td><td>Yes</td><td>No</td><td>No</td><td>Statistics</td><td>No</td></tr>
+                    <tr><td>PyGMO</td><td>GPL-3.0</td><td>Yes</td><td>No</td><td>No</td><td>Viz, Stats</td><td>Partial</td></tr>
+                    <tr><td>Platypus</td><td>GPL-3.0</td><td>Yes</td><td>No</td><td>No</td><td>Viz, Stats</td><td>Yes</td></tr>
+                    <tr><td>Pymoo</td><td>Apache 2.0</td><td>Yes</td><td>No</td><td>Yes</td><td>Viz, Stats</td><td>Yes</td></tr>
+                    <tr><td>Inspyred</td><td>MIT</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+                </table>
+            </div>
+
+            <h3>Excel / Google Sheets Tools Comparison</h3>
+            <div style="overflow-x: auto;">
+                <table class="ref-table">
+                    <tr>
+                        <th>Tool</th>
+                        <th>Platform</th>
+                        <th>Cost</th>
+                        <th>Problem Size Limits</th>
+                        <th>Best For</th>
+                    </tr>
+                    <tr><td>Built-in Solver</td><td>Excel</td><td class="cost-free">Free</td><td>200 vars, 100 constraints</td><td>Learning, simple problems</td></tr>
+                    <tr><td>OpenSolver</td><td>Excel</td><td class="cost-free">Free</td><td>Unlimited</td><td>Medium-large LP/MIP</td></tr>
+                    <tr><td>SolverStudio</td><td>Excel</td><td class="cost-free">Free</td><td>Depends on solver</td><td>Complex models, modeling languages</td></tr>
+                    <tr><td>Premium Solver</td><td>Excel</td><td class="cost-paid">$$</td><td>Extended</td><td>Professional use</td></tr>
+                    <tr><td>Gurobi Engine</td><td>Excel</td><td class="cost-paid">$$$</td><td>Millions</td><td>Enterprise, large-scale</td></tr>
+                    <tr><td>OpenSolver</td><td>Google Sheets</td><td class="cost-free">Free</td><td>Unlimited</td><td>Cloud-based LP/MIP</td></tr>
+                    <tr><td>Solver Add-on</td><td>Google Sheets</td><td class="cost-freemium">Freemium</td><td>200 vars, 100 constraints</td><td>Simple to medium problems</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 7: Recommendations -->
+        <section id="recommendations" class="topic-section">
+            <span class="topic-badge">Section 7</span>
+            <h2>Recommendations by Use Case</h2>
+
+            <h3>For Learning and Education</h3>
+            <div class="paradigm-card">
+                <ul class="characteristics-list">
+                    <li><strong>Excel:</strong> Built-in Excel Solver or OpenSolver</li>
+                    <li><strong>Python:</strong> Pymoo or DEAP</li>
+                    <li><strong>Google Sheets:</strong> Frontline Solver Add-on</li>
+                </ul>
+            </div>
+
+            <h3>For Research and Prototyping</h3>
+            <div class="paradigm-card">
+                <ul class="characteristics-list">
+                    <li><strong>Multi-objective optimization:</strong> jMetalPy, Pymoo, Platypus</li>
+                    <li><strong>General evolutionary algorithms:</strong> DEAP, PyGMO</li>
+                    <li><strong>Excel-based with modeling languages:</strong> SolverStudio</li>
+                </ul>
+            </div>
+
+            <h3>For Production / Enterprise</h3>
+            <div class="paradigm-card">
+                <ul class="characteristics-list">
+                    <li><strong>Excel:</strong> Premium Solver Platform + Gurobi/CPLEX/XPRESS engines</li>
+                    <li><strong>Python:</strong> PyGMO (parallel), Gurobi Python API</li>
+                    <li><strong>Standalone:</strong> AMPL, GAMS with commercial solvers</li>
+                </ul>
+            </div>
+
+            <h3>By Problem Type</h3>
+            <table class="ref-table">
+                <tr><th>Problem Type</th><th>Recommended Tools</th></tr>
+                <tr><td>Linear Programming (LP)</td><td>OpenSolver, Gurobi, CPLEX, GLPK</td></tr>
+                <tr><td>Mixed-Integer Programming (MIP)</td><td>CBC, SCIP, Gurobi, CPLEX</td></tr>
+                <tr><td>Nonlinear Programming (NLP)</td><td>KNITRO, GRG Solver, BARON</td></tr>
+                <tr><td>Multi-Objective Optimization</td><td>jMetalPy, Pymoo, Platypus, NSGA-II/III</td></tr>
+                <tr><td>Global Optimization</td><td>PyGMO, Evolutionary Solver</td></tr>
+                <tr><td>Stochastic Optimization</td><td>Risk Solver Platform, Pyomo</td></tr>
+            </table>
+        </section>
+
+        <!-- Quick Reference Table -->
+        <section id="quick-ref" class="quick-ref-section">
+            <h2>Quick Reference Summary Table</h2>
+            <div style="overflow-x: auto;">
+                <table class="ref-table">
+                    <tr>
+                        <th>Tool</th>
+                        <th>Type</th>
+                        <th>Language</th>
+                        <th>Multi-Obj</th>
+                        <th>Parallel</th>
+                        <th>Cost</th>
+                        <th>Best For</th>
+                    </tr>
+                    <tr><td>jMetalPy</td><td>Framework</td><td>Python</td><td>Yes</td><td>Yes</td><td class="cost-free">Free</td><td>Research, multi-obj</td></tr>
+                    <tr><td>DEAP</td><td>Framework</td><td>Python</td><td>Partial</td><td>Yes</td><td class="cost-free">Free</td><td>Evolutionary algorithms</td></tr>
+                    <tr><td>PyGMO</td><td>Framework</td><td>Python</td><td>Partial</td><td>Yes</td><td class="cost-free">Free</td><td>Parallel optimization</td></tr>
+                    <tr><td>Pymoo</td><td>Framework</td><td>Python</td><td>Yes</td><td>Yes</td><td class="cost-free">Free</td><td>Decision making</td></tr>
+                    <tr><td>Platypus</td><td>Framework</td><td>Python</td><td>Yes</td><td>Yes</td><td class="cost-free">Free</td><td>Multi-obj research</td></tr>
+                    <tr><td>OpenSolver</td><td>Add-in</td><td>Excel/Sheets</td><td>No</td><td>No</td><td class="cost-free">Free</td><td>LP/MIP problems</td></tr>
+                    <tr><td>SolverStudio</td><td>Add-in</td><td>Excel</td><td>No</td><td>No</td><td class="cost-free">Free</td><td>Modeling languages</td></tr>
+                    <tr><td>Gurobi</td><td>Solver</td><td>Multi</td><td>No</td><td>Yes</td><td class="cost-paid">$$$</td><td>Enterprise LP/MIP</td></tr>
+                    <tr><td>CPLEX</td><td>Solver</td><td>Multi</td><td>No</td><td>Yes</td><td class="cost-paid">$$$</td><td>Enterprise LP/MIP</td></tr>
+                    <tr><td>PuLP</td><td>Language</td><td>Python</td><td>No</td><td>No</td><td class="cost-free">Free</td><td>LP modeling, learning</td></tr>
+                    <tr><td>Pyomo</td><td>Language</td><td>Python</td><td>No</td><td>Yes</td><td class="cost-free">Free</td><td>Complex models</td></tr>
+                    <tr><td>AMPL</td><td>Language</td><td>DSL</td><td>No</td><td>Yes</td><td class="cost-paid">$$</td><td>Industry standard</td></tr>
+                    <tr><td>NEOS</td><td>Service</td><td>Multi</td><td>No</td><td>N/A</td><td class="cost-free">Free</td><td>Cloud solving</td></tr>
+                </table>
+            </div>
+            <div class="legend" style="margin-top: 1rem; background: rgba(255,255,255,0.95); color: #333;">
+                <strong>Legend:</strong> DSL = Domain Specific Language | $$ = Moderate cost | $$$ = Enterprise pricing
+            </div>
+        </section>
+
+        <!-- Appendix -->
+        <section id="appendix" class="topic-section">
+            <span class="topic-badge">Appendix</span>
+            <h2>Tool Quick Facts & Resources</h2>
+
+            <h3>Tool Origins</h3>
+            <table class="ref-table">
+                <tr><th>Tool</th><th>Created By</th><th>Year</th><th>License</th></tr>
+                <tr><td>jMetalPy</td><td>University of Malaga</td><td>2019</td><td>MIT</td></tr>
+                <tr><td>DEAP</td><td>Universite Laval</td><td>2012</td><td>LGPL-3.0</td></tr>
+                <tr><td>PyGMO/Pagmo</td><td>ESA/European Space Agency</td><td>2017</td><td>GPL-3.0</td></tr>
+                <tr><td>Platypus</td><td>Penn State University</td><td>2015</td><td>GPL-3.0</td></tr>
+                <tr><td>Pymoo</td><td>Michigan State University</td><td>2020</td><td>Apache 2.0</td></tr>
+                <tr><td>OpenSolver</td><td>University of Auckland</td><td>2011</td><td>GPL</td></tr>
+                <tr><td>SolverStudio</td><td>University of Auckland</td><td>2013</td><td>Free</td></tr>
+                <tr><td>Gurobi</td><td>Gurobi Optimization</td><td>2008</td><td>Commercial</td></tr>
+                <tr><td>CPLEX</td><td>IBM</td><td>1988</td><td>Commercial</td></tr>
+                <tr><td>PuLP</td><td>COIN-OR</td><td>2009</td><td>MIT</td></tr>
+                <tr><td>Pyomo</td><td>Sandia National Labs</td><td>2008</td><td>BSD</td></tr>
+                <tr><td>AMPL</td><td>Bell Labs</td><td>1985</td><td>Commercial</td></tr>
+            </table>
+
+            <h3>Official Documentation Links</h3>
+            <table class="ref-table">
+                <tr><th>Tool</th><th>Documentation</th><th>GitHub/Website</th></tr>
+                <tr><td>jMetalPy</td><td>jmetal.github.io/jMetalPy</td><td>github.com/jMetal/jMetalPy</td></tr>
+                <tr><td>DEAP</td><td>deap.readthedocs.io</td><td>github.com/DEAP/deap</td></tr>
+                <tr><td>PyGMO</td><td>esa.github.io/pagmo2</td><td>github.com/esa/pagmo2</td></tr>
+                <tr><td>Platypus</td><td>platypus.readthedocs.io</td><td>github.com/Project-Platypus/Platypus</td></tr>
+                <tr><td>Pymoo</td><td>pymoo.org</td><td>github.com/anyoptimization/pymoo</td></tr>
+                <tr><td>OpenSolver</td><td>opensolver.org</td><td>github.com/OpenSolver/OpenSolver</td></tr>
+                <tr><td>SolverStudio</td><td>solverstudio.org</td><td>solverstudio.org</td></tr>
+                <tr><td>Gurobi</td><td>gurobi.com/documentation</td><td>gurobi.com</td></tr>
+                <tr><td>CPLEX</td><td>ibm.com/docs/cplex</td><td>ibm.com/products/ilog-cplex</td></tr>
+                <tr><td>PuLP</td><td>coin-or.github.io/pulp</td><td>github.com/coin-or/pulp</td></tr>
+                <tr><td>Pyomo</td><td>pyomo.org</td><td>github.com/Pyomo/pyomo</td></tr>
+                <tr><td>NEOS Server</td><td>neos-server.org</td><td>neos-server.org</td></tr>
+            </table>
+
+            <h3>References</h3>
+            <div class="paradigm-card">
+                <ol style="margin: 0; padding-left: 1.5rem;">
+                    <li style="margin-bottom: 0.5rem;">Benitez-Hidalgo, A., Nebro, A. J., Garcia-Nieto, J., Oregi, I., & Del Ser, J. (2019). jMetalPy: A Python framework for multi-objective optimization with metaheuristics. <em>Swarm and Evolutionary Computation</em>, 51, 100598.</li>
+                    <li style="margin-bottom: 0.5rem;">Blank, J., & Deb, K. (2020). Pymoo: Multi-objective optimization in Python. <em>IEEE Access</em>, 8, 89497-89509.</li>
+                    <li style="margin-bottom: 0.5rem;">Fortin, F. A., De Rainville, F. M., Gardner, M. A., Parizeau, M., & Gagne, C. (2012). DEAP: Evolutionary algorithms made easy. <em>Journal of Machine Learning Research</em>, 13, 2171-2175.</li>
+                    <li style="margin-bottom: 0.5rem;">Mason, A. J. (2013). SolverStudio: A new tool for better optimisation and simulation modelling in Excel. <em>INFORMS Transactions on Education</em>, 14(1), 45-52.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Navigation Links -->
+        <div class="back-link">
+            <a href="session1_week4.html">Back to Week 4 Session 1</a>
+            <a href="index.html">Back to Course Index</a>
+        </div>
+    </main>
+
+    <footer style="margin-top: 4rem; padding: 2rem; background-color: #f5f5f5; text-align: center;">
+        <p style="color: #666;">Part of DS-AI Course Materials</p>
+        <p style="color: #666; font-size: 0.9rem;">Licensed under CC BY 4.0</p>
+    </footer>
+</body>
+</html>

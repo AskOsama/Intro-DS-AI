@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="محلّلات التحسين والأطر البرمجية - المرجع التقني والتحليل المقارن">
+    <title>محلّلات التحسين والأطر البرمجية - المرجع التقني | DS-AI Course</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* RTL Reference page specific styles */
+        body {
+            font-family: 'Cairo', Arial, sans-serif;
+        }
+
+        .reference-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .reference-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .reference-header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .topic-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .topic-section h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #3498db;
+        }
+
+        .topic-section h3 {
+            color: #3498db;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .topic-section h4 {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .topic-section p {
+            line-height: 1.8;
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .topic-badge {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .paradigm-card {
+            background: #f8f9fa;
+            border-right: 4px solid #3498db;
+            border-left: none;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .paradigm-card h4 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        .paradigm-card .tools {
+            background: #e8f4fc;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            color: #2980b9;
+            direction: ltr;
+        }
+
+        .paradigm-card .license-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+            direction: ltr;
+        }
+
+        .license-mit { background: #d4edda; color: #155724; }
+        .license-apache { background: #cce5ff; color: #004085; }
+        .license-gpl { background: #fff3cd; color: #856404; }
+        .license-lgpl { background: #f8d7da; color: #721c24; }
+        .status-active { background: #d4edda; color: #155724; }
+        .status-inactive { background: #e2e3e5; color: #383d41; }
+
+        .characteristics-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+
+        .characteristics-list li {
+            padding: 0.3rem 1.5rem 0.3rem 0;
+            position: relative;
+        }
+
+        .characteristics-list li::before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+        }
+
+        .ref-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .ref-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 0.8rem;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .ref-table td {
+            padding: 0.8rem;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: right;
+        }
+
+        .ref-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .ref-table tr:hover {
+            background: #e8f4fc;
+        }
+
+        .ref-table code {
+            background: #e8e8e8;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .tool-name {
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .summary-box h4 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .summary-box .ref-table {
+            background: rgba(255,255,255,0.95) !important;
+            border-radius: 6px;
+        }
+
+        .summary-box .ref-table td {
+            color: #333 !important;
+        }
+
+        .summary-box .ref-table tr:nth-child(even) {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .summary-box .ref-table tr:hover {
+            background: rgba(255,255,255,0.7);
+        }
+
+        .summary-box .characteristics-list li {
+            color: white;
+        }
+
+        .quick-ref-section {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .quick-ref-section h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .quick-ref-section .ref-table {
+            background: rgba(255,255,255,0.95);
+            border-radius: 6px;
+        }
+
+        .quick-ref-section .ref-table th {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .quick-ref-section .ref-table td {
+            border-bottom-color: #e0e0e0;
+            color: #333;
+        }
+
+        .quick-ref-section .ref-table tr:nth-child(even) {
+            background: rgba(240,240,240,0.8);
+        }
+
+        .quick-ref-section .ref-table tr:hover {
+            background: rgba(230,230,230,0.9);
+        }
+
+        .quick-ref-section .legend {
+            background: rgba(255,255,255,0.95) !important;
+            color: #333 !important;
+            border: 1px solid #ddd !important;
+        }
+
+        .toc-nav {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .toc-nav h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .toc-nav ul {
+            columns: 2;
+            column-gap: 2rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-nav li {
+            padding: 0.3rem 0;
+        }
+
+        .toc-nav a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .toc-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .back-link a {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin: 0.5rem;
+        }
+
+        .back-link a:hover {
+            background-color: #2980b9;
+        }
+
+        .legend {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .cost-free { color: #27ae60; font-weight: bold; }
+        .cost-paid { color: #e74c3c; font-weight: bold; }
+        .cost-freemium { color: #f39c12; font-weight: bold; }
+
+        @media (max-width: 768px) {
+            .toc-nav ul {
+                columns: 1;
+            }
+            .reference-header h1 {
+                font-size: 1.8rem;
+            }
+            .ref-table {
+                font-size: 0.8rem;
+            }
+            .ref-table th, .ref-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="optimization_solvers_reference.html" class="lang-button" title="Switch to English">English</a>
+    </div>
+
+    <div class="reference-header">
+        <h1>محلّلات التحسين والأطر البرمجية</h1>
+        <p class="subtitle">المرجع التقني والتحليل المقارن</p>
+    </div>
+
+    <main style="max-width: 1000px; margin: 0 auto; padding: 0 2rem;">
+
+        <!-- Table of Contents -->
+        <nav class="toc-nav">
+            <h3>التنقل السريع</h3>
+            <ul>
+                <li><a href="#python-frameworks">1. أطر التحسين بـ Python</a></li>
+                <li><a href="#excel-solvers">2. إضافات Excel للحل</a></li>
+                <li><a href="#sheets-tools">3. أدوات Google Sheets</a></li>
+                <li><a href="#modeling-languages">4. لغات النمذجة</a></li>
+                <li><a href="#cloud-services">5. الخدمات السحابية</a></li>
+                <li><a href="#comparison">6. جداول المقارنة</a></li>
+                <li><a href="#recommendations">7. التوصيات</a></li>
+                <li><a href="#quick-ref">جدول المرجع السريع</a></li>
+                <li><a href="#appendix">الملحق: الموارد</a></li>
+            </ul>
+        </nav>
+
+        <!-- Section 1: Python Frameworks -->
+        <section id="python-frameworks" class="topic-section">
+            <span class="topic-badge">القسم 1</span>
+            <h2>أطر التحسين متعدد الأهداف بـ Python</h2>
+            <p>تقدم Python نظاماً بيئياً غنياً من أطر التحسين للتحسين متعدد الأهداف والخوارزميات الفوقية. تتراوح هذه الأدوات من المكتبات البحثية إلى الحلول الجاهزة للإنتاج.</p>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">jMetalPy</span></h4>
+                <span class="license-badge license-mit">MIT</span>
+                <span class="license-badge status-active">نشط</span>
+                <p><strong>التركيز:</strong> التحسين متعدد الأهداف باستخدام الخوارزميات الفوقية</p>
+                <ul class="characteristics-list">
+                    <li>دعم التحسين الديناميكي</li>
+                    <li>الحوسبة المتوازية (Apache Spark، Dask)</li>
+                    <li>التصور الفوري والتفاعلي</li>
+                    <li>المعالجة الإحصائية اللاحقة</li>
+                    <li>التعبير عن التفضيلات لصنع القرار</li>
+                </ul>
+                <p><strong>الخوارزميات:</strong> <span class="tool-name">NSGA-II, NSGA-III, SMPSO, OMOPSO, MOEA/D, SMS-EMOA, GDE3, SPEA2, HYPE, IBEA</span></p>
+                <span class="tools">الموقع: github.com/jMetal/jMetalPy</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">DEAP</span> (خوارزميات تطورية موزعة في Python)</h4>
+                <span class="license-badge license-lgpl">LGPL-3.0</span>
+                <span class="license-badge status-active">نشط</span>
+                <p><strong>التركيز:</strong> الحوسبة التطورية العامة (ليست متمحورة حول التعدد)</p>
+                <ul class="characteristics-list">
+                    <li>التوازي وتوزيع الحمل</li>
+                    <li>إطار عمل معياري وقابل للتوسيع</li>
+                    <li>النماذج الأولية السريعة</li>
+                </ul>
+                <p><strong>الخوارزميات:</strong> <span class="tool-name">GA, GP, CMA-ES, NSGA-II, SPEA2, MO-CMA-ES</span></p>
+                <span class="tools">الموقع: github.com/DEAP/deap</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">PyGMO / Pagmo</span></h4>
+                <span class="license-badge license-gpl">GPL-3.0</span>
+                <span class="license-badge status-active">نشط</span>
+                <p><strong>التركيز:</strong> التحسين الفردي/متعدد الأهداف مع المعالجة المتوازية</p>
+                <ul class="characteristics-list">
+                    <li>التحسين المتوازي بشكل ضخم</li>
+                    <li>الأساليب الإحصائية لتنافس الخوارزميات</li>
+                    <li>مؤشرات الجودة وتحليل مشهد اللياقة</li>
+                    <li>متغيرات الخوارزميات الهجينة</li>
+                </ul>
+                <p><strong>الخوارزميات:</strong> <span class="tool-name">GA, DE, PSO, SA, ABC, IHS, MC, CMA-ES, NSGA-II, MOEA/D</span></p>
+                <span class="tools">الموقع: esa.github.io/pagmo2/</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">Platypus</span></h4>
+                <span class="license-badge license-gpl">GPL-3.0</span>
+                <span class="license-badge status-active">نشط</span>
+                <p><strong>التركيز:</strong> التحسين متعدد الأهداف</p>
+                <ul class="characteristics-list">
+                    <li>المعالجة المتوازية في تقييم الحلول</li>
+                    <li>التصور والإحصائيات</li>
+                    <li>طرق تعتمد على نقطة مرجعية</li>
+                </ul>
+                <p><strong>الخوارزميات:</strong> <span class="tool-name">CMA-ES, NSGA-II, NSGA-III, GDE3, IBEA, MOEA/D, OMOPSO, EpsMOEA, SPEA2</span></p>
+                <span class="tools">الموقع: github.com/Project-Platypus/Platypus</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">Pymoo</span></h4>
+                <span class="license-badge license-apache">Apache 2.0</span>
+                <span class="license-badge status-active">نشط</span>
+                <p><strong>التركيز:</strong> التحسين متعدد الأهداف مع التعبير عن التفضيلات</p>
+                <ul class="characteristics-list">
+                    <li>طرق النقطة المرجعية</li>
+                    <li>التصور والإحصائيات</li>
+                    <li>معلومات التدرج عبر التفاضل التلقائي</li>
+                    <li>اتخاذ القرار متعدد المعايير</li>
+                </ul>
+                <p><strong>الخوارزميات:</strong> <span class="tool-name">GA, DE, NSGA-II, NSGA-III, U-NSGA-III, R-NSGA-III</span></p>
+                <span class="tools">الموقع: pymoo.org</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">Inspyred</span></h4>
+                <span class="license-badge license-mit">MIT</span>
+                <span class="license-badge status-inactive">غير نشط</span>
+                <p><strong>التركيز:</strong> الذكاء الحسابي المستوحى من الأحياء (غير متخصص في التعدد)</p>
+                <ul class="characteristics-list">
+                    <li>التركيز التعليمي والبحثي</li>
+                    <li>واجهة برمجة بسيطة للبدء</li>
+                </ul>
+                <p><strong>الخوارزميات:</strong> <span class="tool-name">GA, ES, PSO, ACO, SA, PAES, NSGA-II</span></p>
+                <span class="tools">الموقع: github.com/aarongarrett/inspyred</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">Geatpy</span></h4>
+                <span class="license-badge license-mit">MIT</span>
+                <span class="license-badge status-active">نشط</span>
+                <p><strong>التركيز:</strong> الخوارزميات الجينية والتطورية</p>
+                <ul class="characteristics-list">
+                    <li>أداء عالٍ مع خلفية Numpy</li>
+                    <li>دعم التحسين متعدد الأهداف</li>
+                </ul>
+                <p><strong>الخوارزميات:</strong> <span class="tool-name">GA, MOEA</span></p>
+                <span class="tools">الموقع: geatpy.com</span>
+            </div>
+
+            <div class="summary-box">
+                <h4>ملخص أطر Python</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>الإطار</th><th>الترخيص</th><th>متوازي</th><th>تركيز متعدد الأهداف</th><th>الأفضل لـ</th></tr>
+                    <tr><td><span class="tool-name">jMetalPy</span></td><td><span class="tool-name">MIT</span></td><td>نعم</td><td>نعم</td><td>البحث، التحسين الديناميكي</td></tr>
+                    <tr><td><span class="tool-name">DEAP</span></td><td><span class="tool-name">LGPL-3.0</span></td><td>نعم</td><td>جزئي</td><td>الخوارزميات التطورية العامة</td></tr>
+                    <tr><td><span class="tool-name">PyGMO</span></td><td><span class="tool-name">GPL-3.0</span></td><td>نعم</td><td>جزئي</td><td>التحسين المتوازي</td></tr>
+                    <tr><td><span class="tool-name">Platypus</span></td><td><span class="tool-name">GPL-3.0</span></td><td>نعم</td><td>نعم</td><td>بحث التعدد</td></tr>
+                    <tr><td><span class="tool-name">Pymoo</span></td><td><span class="tool-name">Apache 2.0</span></td><td>نعم</td><td>نعم</td><td>اتخاذ القرار، التصور</td></tr>
+                    <tr><td><span class="tool-name">Inspyred</span></td><td><span class="tool-name">MIT</span></td><td>لا</td><td>لا</td><td>التعلم، المسائل البسيطة</td></tr>
+                    <tr><td><span class="tool-name">Geatpy</span></td><td><span class="tool-name">MIT</span></td><td>نعم</td><td>جزئي</td><td>GA عالي الأداء</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 2: Excel Solver Add-ins -->
+        <section id="excel-solvers" class="topic-section">
+            <span class="topic-badge">القسم 2</span>
+            <h2>إضافات ومحللات Excel</h2>
+            <p>يوفر Microsoft Excel قدرات تحسين مدمجة يمكن توسيعها بإضافات الطرف الثالث للمسائل الأكثر تعقيداً.</p>
+
+            <h3>الخيارات المجانية / مفتوحة المصدر</h3>
+
+            <div class="paradigm-card">
+                <h4>محلل Excel المدمج</h4>
+                <span class="license-badge cost-free">مجاني (مضمّن)</span>
+                <p><strong>المطور:</strong> <span class="tool-name">Frontline Systems</span> (لـ Microsoft)</p>
+                <ul class="characteristics-list">
+                    <li>البرمجة الخطية <span class="tool-name">(Simplex LP)</span></li>
+                    <li>التحسين غير الخطي <span class="tool-name">(GRG Nonlinear)</span></li>
+                    <li>الخوارزميات التطورية</li>
+                </ul>
+                <p><strong>القيود:</strong> 200 متغير قرار، 100 قيد</p>
+                <span class="tools">الأفضل لـ: التعلم، مسائل التحسين البسيطة</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">OpenSolver</span></h4>
+                <span class="license-badge license-gpl">GPL</span>
+                <span class="license-badge cost-free">مجاني</span>
+                <p><strong>المطور:</strong> جامعة أوكلاند</p>
+                <ul class="characteristics-list">
+                    <li>يستخدم محرك التحسين <span class="tool-name">COIN-OR CBC</span></li>
+                    <li>لا قيود مصطنعة على حجم المسألة</li>
+                    <li>متوافق مع نماذج محلل Excel الموجودة</li>
+                    <li>مُصوّر نموذج مدمج</li>
+                    <li>وضع QuickSolve لإعادة الحل بشكل أسرع</li>
+                </ul>
+                <p><strong>المحللات المدعومة:</strong> <span class="tool-name">CBC, Gurobi, CPLEX, XPRESS, GLPK, Bonmin, Couenne</span></p>
+                <span class="tools">الموقع: opensolver.org</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">SolverStudio</span></h4>
+                <span class="license-badge cost-free">مجاني</span>
+                <p><strong>المطور:</strong> جامعة أوكلاند</p>
+                <ul class="characteristics-list">
+                    <li>يدعم لغات نمذجة متعددة <span class="tool-name">(PuLP, AMPL, GAMS, GMPL, Pyomo, Gurobi Python)</span></li>
+                    <li>الحل السحابي عبر خوادم NEOS</li>
+                    <li>النموذج مخزن داخل مصنف Excel</li>
+                    <li>أنسب للمسائل الكبيرة والمعقدة</li>
+                </ul>
+                <span class="tools">الموقع: solverstudio.org</span>
+            </div>
+
+            <h3>الخيارات التجارية / المميزة</h3>
+
+            <div class="paradigm-card">
+                <h4>منتجات <span class="tool-name">Frontline Systems</span></h4>
+                <span class="license-badge cost-paid">تجاري</span>
+                <table class="ref-table">
+                    <tr><th>المنتج</th><th>الوصف</th><th>الميزات الرئيسية</th></tr>
+                    <tr><td><strong><span class="tool-name">Premium Solver Pro</span></strong></td><td>محلل Excel محسّن</td><td>أحجام مسائل أكبر، أداء أسرع</td></tr>
+                    <tr><td><strong><span class="tool-name">Premium Solver Platform</span></strong></td><td>منصة تحسين احترافية</td><td>محركات محلل متعددة، تشخيص تلقائي للنموذج</td></tr>
+                    <tr><td><strong><span class="tool-name">Risk Solver Platform</span></strong></td><td>تحسين + محاكاة</td><td>محاكاة مونت كارلو، التحسين العشوائي</td></tr>
+                    <tr><td><strong><span class="tool-name">Analytic Solver</span></strong></td><td>منصة تحليلات شاملة</td><td>التنقيب في البيانات، التحسين، المحاكاة</td></tr>
+                </table>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>محركات المحلل (لمنصات Frontline)</h4>
+                <table class="ref-table">
+                    <tr><th>المحرك</th><th>النوع</th><th>الوصف</th></tr>
+                    <tr><td><strong><span class="tool-name">Gurobi Solver</span></strong></td><td><span class="tool-name">LP/QP/MIP</span></td><td>أداء فائق، معالجة متوازية متعددة النوى</td></tr>
+                    <tr><td><strong><span class="tool-name">XPRESS Solver</span></strong></td><td><span class="tool-name">LP/MIP</span></td><td>محلل تجاري عالي الأداء</td></tr>
+                    <tr><td><strong><span class="tool-name">KNITRO Solver</span></strong></td><td><span class="tool-name">NLP</span></td><td>متخصص للمسائل غير الخطية</td></tr>
+                    <tr><td><strong><span class="tool-name">MOSEK Solver</span></strong></td><td><span class="tool-name">LP/QP/SOCP/SDP</span></td><td>البرمجة المخروطية وشبه المحددة</td></tr>
+                    <tr><td><strong><span class="tool-name">CPLEX Connector</span></strong></td><td><span class="tool-name">LP/QP/MIP</span></td><td>محلل IBM الصناعي القوي</td></tr>
+                </table>
+            </div>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">What'sBest!</span> (LINDO Systems)</h4>
+                <span class="license-badge cost-paid">تجاري</span>
+                <p><strong>المطور:</strong> <span class="tool-name">LINDO Systems</span></p>
+                <ul class="characteristics-list">
+                    <li>مسائل التحسين الصناعية الكبيرة</li>
+                    <li>البرمجة الخطية وغير الخطية والصحيحة</li>
+                    <li>تكامل مباشر مع Excel</li>
+                </ul>
+                <span class="tools">الموقع: lindo.com</span>
+            </div>
+
+            <div class="summary-box">
+                <h4>ملخص أدوات Excel</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>الأداة</th><th>التكلفة</th><th>حدود المسألة</th><th>الأفضل لـ</th></tr>
+                    <tr><td>المحلل المدمج</td><td class="cost-free">مجاني</td><td>200 متغير، 100 قيد</td><td>التعلم، المسائل البسيطة</td></tr>
+                    <tr><td><span class="tool-name">OpenSolver</span></td><td class="cost-free">مجاني</td><td>غير محدود</td><td>LP/MIP متوسط-كبير</td></tr>
+                    <tr><td><span class="tool-name">SolverStudio</span></td><td class="cost-free">مجاني</td><td>يعتمد على المحلل</td><td>النماذج المعقدة، البرمجة</td></tr>
+                    <tr><td><span class="tool-name">Premium Solver Pro</span></td><td class="cost-paid">$$</td><td>موسّع</td><td>الاستخدام المهني</td></tr>
+                    <tr><td><span class="tool-name">Gurobi Engine</span></td><td class="cost-paid">$$$</td><td>ملايين</td><td>المؤسسات، النطاق الكبير</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 3: Google Sheets Tools -->
+        <section id="sheets-tools" class="topic-section">
+            <span class="topic-badge">القسم 3</span>
+            <h2>أدوات التحسين في Google Sheets</h2>
+            <p>تقدم Google Sheets العديد من إضافات التحسين التي تمكّن الحل السحابي للبيئات التعاونية.</p>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">OpenSolver</span> لـ Google Sheets</h4>
+                <span class="license-badge cost-free">مجاني</span>
+                <p><strong>المطور:</strong> جامعة أوكلاند</p>
+                <ul class="characteristics-list">
+                    <li><strong><span class="tool-name">Glop</span></strong> - محلل البرمجة الخطية من Google</li>
+                    <li><strong><span class="tool-name">SCIP</span></strong> - البرمجة الصحيحة المختلطة</li>
+                    <li><strong><span class="tool-name">COIN-OR Cbc</span></strong> - عبر سحابة NEOS</li>
+                    <li><strong><span class="tool-name">GLPK.js</span></strong> - يعمل محلياً في المتصفح</li>
+                </ul>
+                <p><strong>القيود:</strong> مهلة 6 دقائق للسكربت (مع إمكانية الاستئناف)</p>
+                <span class="tools">التثبيت: Google Workspace Marketplace</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4>إضافة Solver (Frontline Systems)</h4>
+                <span class="license-badge cost-freemium">مجاني جزئياً</span>
+                <p><strong>المطور:</strong> <span class="tool-name">Frontline Systems</span></p>
+                <ul class="characteristics-list">
+                    <li>محلل <span class="tool-name">Simplex LP</span> (خطي/صحيح مختلط)</li>
+                    <li>محلل <span class="tool-name">GRG</span> غير الخطي</li>
+                    <li>طريقة البداية المتعددة (التحسين الشامل)</li>
+                    <li>المحلل التطوري</li>
+                </ul>
+                <p><strong>القيود:</strong> 200 متغير، 100 قيد، 30 ثانية وقت الحل</p>
+                <span class="tools">التثبيت: Google Workspace Marketplace</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">Google Linear Optimization</span></h4>
+                <span class="license-badge cost-free">مجاني</span>
+                <p><strong>المطور:</strong> Google</p>
+                <ul class="characteristics-list">
+                    <li>دعم تحسين خطي مدمج</li>
+                    <li>واجهة بسيطة لمسائل LP</li>
+                </ul>
+                <span class="tools">إضافة مدمجة في Google Sheets</span>
+            </div>
+
+            <div class="summary-box">
+                <h4>ملخص أدوات Google Sheets</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>الأداة</th><th>التكلفة</th><th>القيود</th><th>المحللات</th></tr>
+                    <tr><td><span class="tool-name">OpenSolver</span></td><td class="cost-free">مجاني</td><td>غير محدود (مهلة 6 دقائق)</td><td><span class="tool-name">Glop, SCIP, CBC, GLPK</span></td></tr>
+                    <tr><td>إضافة Solver</td><td class="cost-freemium">مجاني جزئياً</td><td>200 متغير، 30 ثانية</td><td><span class="tool-name">Simplex, GRG, Evolutionary</span></td></tr>
+                    <tr><td>Google Linear Opt</td><td class="cost-free">مجاني</td><td>متغير</td><td>LP مدمج</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 4: Modeling Languages -->
+        <section id="modeling-languages" class="topic-section">
+            <span class="topic-badge">القسم 4</span>
+            <h2>لغات النمذجة</h2>
+            <p>توفر لغات النمذجة الجبرية طريقة عالية المستوى لوصف مسائل التحسين التي يمكن حلها بواسطة محللات مختلفة.</p>
+
+            <table class="ref-table">
+                <tr><th>اللغة</th><th>النوع</th><th>الوصف</th><th>الميزات الرئيسية</th></tr>
+                <tr>
+                    <td><strong><span class="tool-name">AMPL</span></strong></td>
+                    <td><span class="license-badge cost-paid">تجاري</span></td>
+                    <td>لغة النمذجة القياسية الصناعية</td>
+                    <td>عرض تجريبي مجاني متاح، دعم واسع للمحللات</td>
+                </tr>
+                <tr>
+                    <td><strong><span class="tool-name">GAMS</span></strong></td>
+                    <td><span class="license-badge cost-paid">تجاري</span></td>
+                    <td>نظام النمذجة الجبرية العام</td>
+                    <td>قوي للنماذج المعقدة، توثيق شامل</td>
+                </tr>
+                <tr>
+                    <td><strong><span class="tool-name">PuLP</span></strong></td>
+                    <td><span class="license-badge cost-free">مفتوح المصدر</span></td>
+                    <td>نمذجة LP مبنية على Python</td>
+                    <td>مضمن مع SolverStudio، مناسب للمبتدئين</td>
+                </tr>
+                <tr>
+                    <td><strong><span class="tool-name">GMPL</span></strong></td>
+                    <td><span class="license-badge cost-free">مفتوح المصدر</span></td>
+                    <td>لغة GNU MathProg (مجموعة فرعية من AMPL)</td>
+                    <td>مجاني، يعمل مع محلل GLPK</td>
+                </tr>
+                <tr>
+                    <td><strong><span class="tool-name">Pyomo / COOPR</span></strong></td>
+                    <td><span class="license-badge cost-free">مفتوح المصدر</span></td>
+                    <td>نمذجة التحسين المبنية على Python</td>
+                    <td>نماذج مجردة، البرمجة العشوائية، دعم DAE</td>
+                </tr>
+                <tr>
+                    <td><strong><span class="tool-name">Gurobi Python</span></strong></td>
+                    <td><span class="license-badge cost-paid">تجاري</span></td>
+                    <td>واجهة Python الأصلية لـ Gurobi</td>
+                    <td>تكامل وثيق مع محلل Gurobi، أداء عالٍ</td>
+                </tr>
+            </table>
+
+            <div class="legend">
+                <strong>نصيحة:</strong> للتعلم، ابدأ بـ PuLP أو GMPL (كلاهما مجاني). للإنتاج، فكر في AMPL أو Pyomo حسب تفضيلك للغة متخصصة في المجال مقابل Python.
+            </div>
+        </section>
+
+        <!-- Section 5: Cloud-Based Services -->
+        <section id="cloud-services" class="topic-section">
+            <span class="topic-badge">القسم 5</span>
+            <h2>خدمات التحسين السحابية</h2>
+            <p>توفر الخدمات السحابية الوصول إلى محللات قوية دون تثبيت محلي، مما يمكّن التعاون وقابلية التوسع.</p>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">NEOS Server</span></h4>
+                <span class="license-badge cost-free">مجاني</span>
+                <p>خدمة مجانية عبر الإنترنت لحل مسائل التحسين.</p>
+                <ul class="characteristics-list">
+                    <li>أكثر من 60 محلل لأنواع مختلفة من المسائل</li>
+                    <li>الوصول عبر الويب أو البريد الإلكتروني أو API</li>
+                    <li>يدعم صيغ AMPL و GAMS وغيرها</li>
+                    <li>يتكامل مع SolverStudio و OpenSolver</li>
+                </ul>
+                <span class="tools">الموقع: neos-server.org</span>
+            </div>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">Frontline Solver Server</span></h4>
+                <span class="license-badge cost-paid">تجاري</span>
+                <p>التحسين المستند إلى الخادم من Frontline Systems.</p>
+                <ul class="characteristics-list">
+                    <li>نقل الحل إلى خادم بعيد</li>
+                    <li>تنزيل النتائج تلقائياً</li>
+                    <li>ميزات للمؤسسات</li>
+                </ul>
+            </div>
+
+            <div class="paradigm-card">
+                <h4><span class="tool-name">Satalia SolveEngine</span></h4>
+                <span class="license-badge cost-paid">تجاري</span>
+                <p>منصة تحسين سحابية.</p>
+                <ul class="characteristics-list">
+                    <li>متاح عبر OpenSolver لـ Google Sheets</li>
+                    <li>قدرات تحسين للمؤسسات</li>
+                    <li>وصول API</li>
+                </ul>
+            </div>
+
+            <div class="summary-box">
+                <h4>ملخص الخدمات السحابية</h4>
+                <table class="ref-table" style="background: transparent;">
+                    <tr><th>الخدمة</th><th>التكلفة</th><th>المحللات</th><th>الوصول</th></tr>
+                    <tr><td><span class="tool-name">NEOS Server</span></td><td class="cost-free">مجاني</td><td>60+</td><td>ويب، API، SolverStudio</td></tr>
+                    <tr><td><span class="tool-name">Frontline Server</span></td><td class="cost-paid">تجاري</td><td>محركات Frontline</td><td>منتجات Frontline</td></tr>
+                    <tr><td><span class="tool-name">Satalia SolveEngine</span></td><td class="cost-paid">تجاري</td><td>متنوعة</td><td>API، Google Sheets</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 6: Comparison Tables -->
+        <section id="comparison" class="topic-section">
+            <span class="topic-badge">القسم 6</span>
+            <h2>جداول المقارنة</h2>
+
+            <h3>مقارنة أطر Python التفصيلية</h3>
+            <div style="overflow-x: auto;">
+                <table class="ref-table">
+                    <tr>
+                        <th>الإطار</th>
+                        <th>الترخيص</th>
+                        <th>متوازي</th>
+                        <th>تحسين ديناميكي</th>
+                        <th>اتخاذ القرار</th>
+                        <th>ما بعد المعالجة</th>
+                        <th>تركيز متعدد الأهداف</th>
+                    </tr>
+                    <tr><td><span class="tool-name">jMetalPy</span></td><td><span class="tool-name">MIT</span></td><td>نعم</td><td>نعم</td><td>نعم</td><td>نعم</td><td>نعم</td></tr>
+                    <tr><td><span class="tool-name">DEAP</span></td><td><span class="tool-name">LGPL-3.0</span></td><td>نعم</td><td>لا</td><td>لا</td><td>إحصائيات</td><td>لا</td></tr>
+                    <tr><td><span class="tool-name">PyGMO</span></td><td><span class="tool-name">GPL-3.0</span></td><td>نعم</td><td>لا</td><td>لا</td><td>تصور، إحصائيات</td><td>جزئي</td></tr>
+                    <tr><td><span class="tool-name">Platypus</span></td><td><span class="tool-name">GPL-3.0</span></td><td>نعم</td><td>لا</td><td>لا</td><td>تصور، إحصائيات</td><td>نعم</td></tr>
+                    <tr><td><span class="tool-name">Pymoo</span></td><td><span class="tool-name">Apache 2.0</span></td><td>نعم</td><td>لا</td><td>نعم</td><td>تصور، إحصائيات</td><td>نعم</td></tr>
+                    <tr><td><span class="tool-name">Inspyred</span></td><td><span class="tool-name">MIT</span></td><td>لا</td><td>لا</td><td>لا</td><td>لا</td><td>لا</td></tr>
+                </table>
+            </div>
+
+            <h3>مقارنة أدوات Excel / Google Sheets</h3>
+            <div style="overflow-x: auto;">
+                <table class="ref-table">
+                    <tr>
+                        <th>الأداة</th>
+                        <th>المنصة</th>
+                        <th>التكلفة</th>
+                        <th>حدود حجم المسألة</th>
+                        <th>الأفضل لـ</th>
+                    </tr>
+                    <tr><td>المحلل المدمج</td><td><span class="tool-name">Excel</span></td><td class="cost-free">مجاني</td><td>200 متغير، 100 قيد</td><td>التعلم، المسائل البسيطة</td></tr>
+                    <tr><td><span class="tool-name">OpenSolver</span></td><td><span class="tool-name">Excel</span></td><td class="cost-free">مجاني</td><td>غير محدود</td><td>LP/MIP متوسط-كبير</td></tr>
+                    <tr><td><span class="tool-name">SolverStudio</span></td><td><span class="tool-name">Excel</span></td><td class="cost-free">مجاني</td><td>يعتمد على المحلل</td><td>النماذج المعقدة، لغات النمذجة</td></tr>
+                    <tr><td><span class="tool-name">Premium Solver</span></td><td><span class="tool-name">Excel</span></td><td class="cost-paid">$$</td><td>موسّع</td><td>الاستخدام المهني</td></tr>
+                    <tr><td><span class="tool-name">Gurobi Engine</span></td><td><span class="tool-name">Excel</span></td><td class="cost-paid">$$$</td><td>ملايين</td><td>المؤسسات، النطاق الكبير</td></tr>
+                    <tr><td><span class="tool-name">OpenSolver</span></td><td><span class="tool-name">Google Sheets</span></td><td class="cost-free">مجاني</td><td>غير محدود</td><td>LP/MIP سحابي</td></tr>
+                    <tr><td>إضافة Solver</td><td><span class="tool-name">Google Sheets</span></td><td class="cost-freemium">مجاني جزئياً</td><td>200 متغير، 100 قيد</td><td>المسائل البسيطة إلى المتوسطة</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 7: Recommendations -->
+        <section id="recommendations" class="topic-section">
+            <span class="topic-badge">القسم 7</span>
+            <h2>التوصيات حسب حالة الاستخدام</h2>
+
+            <h3>للتعلم والتعليم</h3>
+            <div class="paradigm-card">
+                <ul class="characteristics-list">
+                    <li><strong>Excel:</strong> محلل Excel المدمج أو <span class="tool-name">OpenSolver</span></li>
+                    <li><strong>Python:</strong> <span class="tool-name">Pymoo</span> أو <span class="tool-name">DEAP</span></li>
+                    <li><strong>Google Sheets:</strong> إضافة <span class="tool-name">Frontline Solver</span></li>
+                </ul>
+            </div>
+
+            <h3>للبحث والنماذج الأولية</h3>
+            <div class="paradigm-card">
+                <ul class="characteristics-list">
+                    <li><strong>التحسين متعدد الأهداف:</strong> <span class="tool-name">jMetalPy, Pymoo, Platypus</span></li>
+                    <li><strong>الخوارزميات التطورية العامة:</strong> <span class="tool-name">DEAP, PyGMO</span></li>
+                    <li><strong>Excel مع لغات النمذجة:</strong> <span class="tool-name">SolverStudio</span></li>
+                </ul>
+            </div>
+
+            <h3>للإنتاج / المؤسسات</h3>
+            <div class="paradigm-card">
+                <ul class="characteristics-list">
+                    <li><strong>Excel:</strong> <span class="tool-name">Premium Solver Platform + Gurobi/CPLEX/XPRESS</span> engines</li>
+                    <li><strong>Python:</strong> <span class="tool-name">PyGMO</span> (متوازي)، <span class="tool-name">Gurobi Python API</span></li>
+                    <li><strong>مستقل:</strong> <span class="tool-name">AMPL, GAMS</span> مع محللات تجارية</li>
+                </ul>
+            </div>
+
+            <h3>حسب نوع المسألة</h3>
+            <table class="ref-table">
+                <tr><th>نوع المسألة</th><th>الأدوات الموصى بها</th></tr>
+                <tr><td>البرمجة الخطية (LP)</td><td><span class="tool-name">OpenSolver, Gurobi, CPLEX, GLPK</span></td></tr>
+                <tr><td>البرمجة الصحيحة المختلطة (MIP)</td><td><span class="tool-name">CBC, SCIP, Gurobi, CPLEX</span></td></tr>
+                <tr><td>البرمجة غير الخطية (NLP)</td><td><span class="tool-name">KNITRO, GRG Solver, BARON</span></td></tr>
+                <tr><td>التحسين متعدد الأهداف</td><td><span class="tool-name">jMetalPy, Pymoo, Platypus, NSGA-II/III</span></td></tr>
+                <tr><td>التحسين الشامل</td><td><span class="tool-name">PyGMO, Evolutionary Solver</span></td></tr>
+                <tr><td>التحسين العشوائي</td><td><span class="tool-name">Risk Solver Platform, Pyomo</span></td></tr>
+            </table>
+        </section>
+
+        <!-- Quick Reference Table -->
+        <section id="quick-ref" class="quick-ref-section">
+            <h2>جدول المرجع السريع</h2>
+            <div style="overflow-x: auto;">
+                <table class="ref-table">
+                    <tr>
+                        <th>الأداة</th>
+                        <th>النوع</th>
+                        <th>اللغة</th>
+                        <th>متعدد الأهداف</th>
+                        <th>متوازي</th>
+                        <th>التكلفة</th>
+                        <th>الأفضل لـ</th>
+                    </tr>
+                    <tr><td><span class="tool-name">jMetalPy</span></td><td>إطار</td><td><span class="tool-name">Python</span></td><td>نعم</td><td>نعم</td><td class="cost-free">مجاني</td><td>البحث، متعدد الأهداف</td></tr>
+                    <tr><td><span class="tool-name">DEAP</span></td><td>إطار</td><td><span class="tool-name">Python</span></td><td>جزئي</td><td>نعم</td><td class="cost-free">مجاني</td><td>الخوارزميات التطورية</td></tr>
+                    <tr><td><span class="tool-name">PyGMO</span></td><td>إطار</td><td><span class="tool-name">Python</span></td><td>جزئي</td><td>نعم</td><td class="cost-free">مجاني</td><td>التحسين المتوازي</td></tr>
+                    <tr><td><span class="tool-name">Pymoo</span></td><td>إطار</td><td><span class="tool-name">Python</span></td><td>نعم</td><td>نعم</td><td class="cost-free">مجاني</td><td>اتخاذ القرار</td></tr>
+                    <tr><td><span class="tool-name">Platypus</span></td><td>إطار</td><td><span class="tool-name">Python</span></td><td>نعم</td><td>نعم</td><td class="cost-free">مجاني</td><td>بحث متعدد الأهداف</td></tr>
+                    <tr><td><span class="tool-name">OpenSolver</span></td><td>إضافة</td><td><span class="tool-name">Excel/Sheets</span></td><td>لا</td><td>لا</td><td class="cost-free">مجاني</td><td>مسائل LP/MIP</td></tr>
+                    <tr><td><span class="tool-name">SolverStudio</span></td><td>إضافة</td><td><span class="tool-name">Excel</span></td><td>لا</td><td>لا</td><td class="cost-free">مجاني</td><td>لغات النمذجة</td></tr>
+                    <tr><td><span class="tool-name">Gurobi</span></td><td>محلل</td><td>متعدد</td><td>لا</td><td>نعم</td><td class="cost-paid">$$$</td><td>مؤسسات LP/MIP</td></tr>
+                    <tr><td><span class="tool-name">CPLEX</span></td><td>محلل</td><td>متعدد</td><td>لا</td><td>نعم</td><td class="cost-paid">$$$</td><td>مؤسسات LP/MIP</td></tr>
+                    <tr><td><span class="tool-name">PuLP</span></td><td>لغة</td><td><span class="tool-name">Python</span></td><td>لا</td><td>لا</td><td class="cost-free">مجاني</td><td>نمذجة LP، التعلم</td></tr>
+                    <tr><td><span class="tool-name">Pyomo</span></td><td>لغة</td><td><span class="tool-name">Python</span></td><td>لا</td><td>نعم</td><td class="cost-free">مجاني</td><td>النماذج المعقدة</td></tr>
+                    <tr><td><span class="tool-name">AMPL</span></td><td>لغة</td><td><span class="tool-name">DSL</span></td><td>لا</td><td>نعم</td><td class="cost-paid">$$</td><td>المعيار الصناعي</td></tr>
+                    <tr><td><span class="tool-name">NEOS</span></td><td>خدمة</td><td>متعدد</td><td>لا</td><td>غير متاح</td><td class="cost-free">مجاني</td><td>الحل السحابي</td></tr>
+                </table>
+            </div>
+            <div class="legend" style="margin-top: 1rem; background: rgba(255,255,255,0.95); color: #333;">
+                <strong>الأسطورة:</strong> DSL = لغة متخصصة في المجال | $$ = تكلفة معتدلة | $$$ = تسعير المؤسسات
+            </div>
+        </section>
+
+        <!-- Appendix -->
+        <section id="appendix" class="topic-section">
+            <span class="topic-badge">الملحق</span>
+            <h2>حقائق سريعة عن الأدوات والموارد</h2>
+
+            <h3>أصول الأدوات</h3>
+            <table class="ref-table">
+                <tr><th>الأداة</th><th>المنشئ</th><th>السنة</th><th>الترخيص</th></tr>
+                <tr><td><span class="tool-name">jMetalPy</span></td><td>جامعة مالقة</td><td>2019</td><td><span class="tool-name">MIT</span></td></tr>
+                <tr><td><span class="tool-name">DEAP</span></td><td>جامعة لافال</td><td>2012</td><td><span class="tool-name">LGPL-3.0</span></td></tr>
+                <tr><td><span class="tool-name">PyGMO/Pagmo</span></td><td>وكالة الفضاء الأوروبية ESA</td><td>2017</td><td><span class="tool-name">GPL-3.0</span></td></tr>
+                <tr><td><span class="tool-name">Platypus</span></td><td>جامعة ولاية بنسلفانيا</td><td>2015</td><td><span class="tool-name">GPL-3.0</span></td></tr>
+                <tr><td><span class="tool-name">Pymoo</span></td><td>جامعة ولاية ميشيغان</td><td>2020</td><td><span class="tool-name">Apache 2.0</span></td></tr>
+                <tr><td><span class="tool-name">OpenSolver</span></td><td>جامعة أوكلاند</td><td>2011</td><td><span class="tool-name">GPL</span></td></tr>
+                <tr><td><span class="tool-name">SolverStudio</span></td><td>جامعة أوكلاند</td><td>2013</td><td>مجاني</td></tr>
+                <tr><td><span class="tool-name">Gurobi</span></td><td><span class="tool-name">Gurobi Optimization</span></td><td>2008</td><td>تجاري</td></tr>
+                <tr><td><span class="tool-name">CPLEX</span></td><td><span class="tool-name">IBM</span></td><td>1988</td><td>تجاري</td></tr>
+                <tr><td><span class="tool-name">PuLP</span></td><td><span class="tool-name">COIN-OR</span></td><td>2009</td><td><span class="tool-name">MIT</span></td></tr>
+                <tr><td><span class="tool-name">Pyomo</span></td><td>مختبرات سانديا الوطنية</td><td>2008</td><td><span class="tool-name">BSD</span></td></tr>
+                <tr><td><span class="tool-name">AMPL</span></td><td>مختبرات بيل</td><td>1985</td><td>تجاري</td></tr>
+            </table>
+
+            <h3>روابط التوثيق الرسمي</h3>
+            <table class="ref-table">
+                <tr><th>الأداة</th><th>التوثيق</th><th>GitHub/الموقع</th></tr>
+                <tr><td><span class="tool-name">jMetalPy</span></td><td><span class="tool-name">jmetal.github.io/jMetalPy</span></td><td><span class="tool-name">github.com/jMetal/jMetalPy</span></td></tr>
+                <tr><td><span class="tool-name">DEAP</span></td><td><span class="tool-name">deap.readthedocs.io</span></td><td><span class="tool-name">github.com/DEAP/deap</span></td></tr>
+                <tr><td><span class="tool-name">PyGMO</span></td><td><span class="tool-name">esa.github.io/pagmo2</span></td><td><span class="tool-name">github.com/esa/pagmo2</span></td></tr>
+                <tr><td><span class="tool-name">Platypus</span></td><td><span class="tool-name">platypus.readthedocs.io</span></td><td><span class="tool-name">github.com/Project-Platypus/Platypus</span></td></tr>
+                <tr><td><span class="tool-name">Pymoo</span></td><td><span class="tool-name">pymoo.org</span></td><td><span class="tool-name">github.com/anyoptimization/pymoo</span></td></tr>
+                <tr><td><span class="tool-name">OpenSolver</span></td><td><span class="tool-name">opensolver.org</span></td><td><span class="tool-name">github.com/OpenSolver/OpenSolver</span></td></tr>
+                <tr><td><span class="tool-name">SolverStudio</span></td><td><span class="tool-name">solverstudio.org</span></td><td><span class="tool-name">solverstudio.org</span></td></tr>
+                <tr><td><span class="tool-name">Gurobi</span></td><td><span class="tool-name">gurobi.com/documentation</span></td><td><span class="tool-name">gurobi.com</span></td></tr>
+                <tr><td><span class="tool-name">CPLEX</span></td><td><span class="tool-name">ibm.com/docs/cplex</span></td><td><span class="tool-name">ibm.com/products/ilog-cplex</span></td></tr>
+                <tr><td><span class="tool-name">PuLP</span></td><td><span class="tool-name">coin-or.github.io/pulp</span></td><td><span class="tool-name">github.com/coin-or/pulp</span></td></tr>
+                <tr><td><span class="tool-name">Pyomo</span></td><td><span class="tool-name">pyomo.org</span></td><td><span class="tool-name">github.com/Pyomo/pyomo</span></td></tr>
+                <tr><td><span class="tool-name">NEOS Server</span></td><td><span class="tool-name">neos-server.org</span></td><td><span class="tool-name">neos-server.org</span></td></tr>
+            </table>
+
+            <h3>المراجع</h3>
+            <div class="paradigm-card">
+                <ol style="margin: 0; padding-right: 1.5rem; padding-left: 0;">
+                    <li style="margin-bottom: 0.5rem;"><span dir="ltr">Benitez-Hidalgo, A., Nebro, A. J., Garcia-Nieto, J., Oregi, I., & Del Ser, J. (2019). jMetalPy: A Python framework for multi-objective optimization with metaheuristics. <em>Swarm and Evolutionary Computation</em>, 51, 100598.</span></li>
+                    <li style="margin-bottom: 0.5rem;"><span dir="ltr">Blank, J., & Deb, K. (2020). Pymoo: Multi-objective optimization in Python. <em>IEEE Access</em>, 8, 89497-89509.</span></li>
+                    <li style="margin-bottom: 0.5rem;"><span dir="ltr">Fortin, F. A., De Rainville, F. M., Gardner, M. A., Parizeau, M., & Gagne, C. (2012). DEAP: Evolutionary algorithms made easy. <em>Journal of Machine Learning Research</em>, 13, 2171-2175.</span></li>
+                    <li style="margin-bottom: 0.5rem;"><span dir="ltr">Mason, A. J. (2013). SolverStudio: A new tool for better optimisation and simulation modelling in Excel. <em>INFORMS Transactions on Education</em>, 14(1), 45-52.</span></li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Navigation Links -->
+        <div class="back-link">
+            <a href="session1_week4_ar.html">العودة إلى الأسبوع 4 الجلسة 1</a>
+            <a href="index_ar.html">العودة إلى فهرس الدورة</a>
+        </div>
+    </main>
+
+    <footer style="margin-top: 4rem; padding: 2rem; background-color: #f5f5f5; text-align: center;">
+        <p style="color: #666;">جزء من مواد دورة DS-AI</p>
+        <p style="color: #666; font-size: 0.9rem;">مرخص تحت CC BY 4.0</p>
+    </footer>
+</body>
+</html>

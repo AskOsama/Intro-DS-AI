@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Search Algorithms in AI - Week 4, Session 1 - Learn search strategies through an interactive card game">
+    <meta name="keywords" content="AI, Search Algorithms, Heuristics, Constraint Satisfaction, Optimization">
+    <title>Search Algorithms in AI | Week 4, Session 1</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="session1_week4_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <header>
+        <h1>Search Algorithms in AI</h1>
+        <p class="subtitle">Week 4, Session 1 - AI & Data Science Course</p>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="table-of-contents no-print">
+        <h2>Contents</h2>
+        <ul>
+            <li><a href="#objectives">Learning Objectives</a></li>
+            <li><a href="#motivation">1. Motivation: The Flip-Match Card Game</a></li>
+            <li><a href="#search-space">2. Understanding Search Space</a></li>
+            <li><a href="#constraints">3. Constraint Satisfaction</a></li>
+            <li><a href="#heuristics">4. Heuristic Functions</a></li>
+            <li><a href="#search-approaches">5. Different Search Approaches</a></li>
+            <li><a href="#optimization">6. From Constraints to Optimization</a></li>
+            <li><a href="#multi-objective">7. Multi-Objective Optimization</a></li>
+            <li><a href="#simple-heuristics">8. Simple Heuristics for Our Card Game</a></li>
+            <li><a href="#why-matters">9. Why This Matters for AI</a></li>
+            <li><a href="#summary">10. Summary: Key Concepts</a></li>
+            <li><a href="#practice">11. Practice Questions</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="objectives" class="learning-objectives">
+            <h2>Learning Objectives</h2>
+            <p>By the end of this session, you will be able to:</p>
+            <ul>
+                <li>Understand what <strong>search space</strong> means and how it grows</li>
+                <li>Define <strong>constraints</strong> and their role in problem-solving</li>
+                <li>Explain how <strong>heuristics</strong> guide intelligent search</li>
+                <li>Compare <strong>uninformed vs informed search</strong> strategies</li>
+                <li>Understand <strong>optimization</strong> and trade-offs in multi-objective problems</li>
+                <li>Recognize the <strong>Pareto front</strong> concept in multi-objective optimization</li>
+            </ul>
+        </section>
+
+        <!-- Section 1: Motivation -->
+        <section id="motivation" class="content-section">
+            <h2>1. Motivation: The Flip-Match Card Game 🃏</h2>
+
+            <p>Let's learn search algorithms through a game everyone knows!</p>
+
+            <div class="definition">
+                <h4>The Game Rules</h4>
+                <ul>
+                    <li>Cards are placed <strong>face-down</strong> on a table</li>
+                    <li>Each turn, you <strong>flip 2 cards</strong></li>
+                    <li>If they <strong>match</strong> → keep them (success!)</li>
+                    <li>If they <strong>don't match</strong> → flip them back (try again)</li>
+                    <li><strong>Goal:</strong> Find all matching pairs</li>
+                </ul>
+            </div>
+
+            <h3>Our Example Setup (4 pairs = 8 cards)</h3>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/card_game_setup.svg" alt="8 cards arranged in 2 rows of 4, face-down with position numbers 1-8" class="content-image">
+                <figcaption>The card game setup with 8 cards and hidden values</figcaption>
+            </figure>
+
+            <div class="key-message">
+                <strong>The AI Challenge:</strong> How can we find matches <em>intelligently</em> instead of randomly guessing?
+            </div>
+        </section>
+
+        <!-- Section 2: Search Space -->
+        <section id="search-space" class="content-section">
+            <h2>2. Understanding Search Space (فضاء البحث)</h2>
+
+            <div class="definition">
+                <h4>What is Search Space?</h4>
+                <p><strong>Search Space</strong> = All possible choices/actions you could make</p>
+            </div>
+
+            <h3>Concrete Example: First Move Choices</h3>
+
+            <p>With 8 cards face-down, your choices for the <strong>first flip</strong>:</p>
+
+            <div class="example">
+                <pre><code>You can flip: Card 1, Card 2, Card 3, Card 4, Card 5, Card 6, Card 7, or Card 8
+              └─────────────────── 8 choices ───────────────────────┘</code></pre>
+            </div>
+
+            <p>For the <strong>second flip</strong> (after flipping Card 1):</p>
+
+            <div class="example">
+                <pre><code>You can flip: Card 2, Card 3, Card 4, Card 5, Card 6, Card 7, or Card 8
+              └─────────────────── 7 choices ───────────────────────┘</code></pre>
+            </div>
+
+            <p><strong>Total choices for first turn:</strong> 8 × 7 = 56 possible pairs to flip!</p>
+
+            <h3>How Search Space Grows</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Game Size</th>
+                        <th>Cards</th>
+                        <th>Possible First-Turn Combinations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2 pairs</td>
+                        <td>4</td>
+                        <td>4 × 3 = <strong>12</strong> combinations</td>
+                    </tr>
+                    <tr>
+                        <td>4 pairs</td>
+                        <td>8</td>
+                        <td>8 × 7 = <strong>56</strong> combinations</td>
+                    </tr>
+                    <tr>
+                        <td>8 pairs</td>
+                        <td>16</td>
+                        <td>16 × 15 = <strong>240</strong> combinations</td>
+                    </tr>
+                    <tr>
+                        <td>26 pairs (full deck)</td>
+                        <td>52</td>
+                        <td>52 × 51 = <strong>2,652</strong> combinations</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-message">
+                <strong>Key Insight:</strong> We need <em>smart strategies</em> because checking everything is too slow!
+            </div>
+        </section>
+
+        <!-- Section 3: Constraint Satisfaction -->
+        <section id="constraints" class="content-section">
+            <h2>3. Constraint Satisfaction (تلبية الشروط)</h2>
+
+            <div class="definition">
+                <h4>What is a Constraint?</h4>
+                <p><strong>Constraint</strong> = A rule that MUST be true for a solution to be valid</p>
+            </div>
+
+            <h3>Constraints in Our Card Game</h3>
+
+            <p><strong>Constraint 1: Cards must match</strong></p>
+            <div class="example">
+                <pre><code>✓ Valid:   Flip 7 and 7  → Match! (same value)
+✗ Invalid: Flip 7 and 3  → No match (different values)</code></pre>
+            </div>
+
+            <p><strong>Constraint 2: Each value appears exactly twice</strong></p>
+            <div class="example">
+                <pre><code>Our deck: [7, 7, 3, 3, 8, 8, 9, 9]
+          └─┬─┘ └─┬─┘ └─┬─┘ └─┬─┘
+          pair  pair  pair  pair
+
+If you see a 7, you KNOW there's exactly ONE other 7 somewhere!</code></pre>
+            </div>
+
+            <p><strong>Constraint 3: Can't flip already-matched cards</strong></p>
+            <div class="example">
+                <pre><code>Turn 1: Found the pair of 7s ✓
+Turn 2: Cannot flip 7s again - they're out of the game</code></pre>
+            </div>
+
+            <h3>Constraint Satisfaction Problem (CSP) - Simple View</h3>
+
+            <p>Think of CSP as filling in a puzzle where every rule must be satisfied:</p>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Sudoku Analogy</th>
+                        <th>Card Game</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Each row has 1,2,3 (constraint)</td>
+                        <td>Each value appears exactly twice</td>
+                    </tr>
+                    <tr>
+                        <td>The "?" must follow ALL rules</td>
+                        <td>Unknown positions must contain remaining pairs</td>
+                    </tr>
+                    <tr>
+                        <td>Constraint helps narrow choices</td>
+                        <td>Seeing a 7 tells us where the other 7 could be</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>How Constraints Help Search</h3>
+
+            <div class="key-pattern">
+                <p><strong>Without constraints (blind search):</strong></p>
+                <p>"Let me try every possible combination..." → 56 combinations for 8 cards 😫</p>
+            </div>
+
+            <div class="key-message">
+                <p><strong>With constraints (smart search):</strong></p>
+                <p>"I already saw a 7 at position 1... If I flip a 7 somewhere else, I KNOW position 1 matches it!" → Much fewer tries needed! 😊</p>
+            </div>
+        </section>
+
+        <!-- Section 4: Heuristic Functions -->
+        <section id="heuristics" class="content-section">
+            <h2>4. Heuristic Functions (الدوال التوجيهية)</h2>
+
+            <div class="definition">
+                <h4>What is a Heuristic?</h4>
+                <p><strong>Heuristic</strong> = A "rule of thumb" or helpful hint that guides your search</p>
+                <p>It's not guaranteed to be perfect, but it usually helps!</p>
+            </div>
+
+            <h3>Real-Life Heuristics</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Situation</th>
+                        <th>Heuristic (Rule of Thumb)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Finding your car in parking lot</td>
+                        <td>"I usually park near the entrance"</td>
+                    </tr>
+                    <tr>
+                        <td>Looking for lost keys</td>
+                        <td>"Check the last place I used them"</td>
+                    </tr>
+                    <tr>
+                        <td>Choosing restaurant</td>
+                        <td>"More cars parked = probably good food"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>The Memory Heuristic in Card Game</h3>
+
+            <p><strong>The Idea:</strong> Remember what you've seen!</p>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/memory_heuristic_walkthrough.svg" alt="Three-turn walkthrough showing how memory helps find matches" class="content-image">
+                <figcaption>Memory heuristic walkthrough: Turn 1 learns values, Turn 2 discovers a match in memory, Turn 3 uses memory to guarantee a match</figcaption>
+            </figure>
+
+            <h3>Memory as a Heuristic Function</h3>
+
+            <div class="example">
+                <pre><code># Simple heuristic function
+def memory_score(card_position, my_memory):
+    if card_position in my_memory:
+        return HIGH_VALUE   # We know this card! Useful!
+    else:
+        return LOW_VALUE    # Unknown card, less certain</code></pre>
+            </div>
+
+            <h3>Comparing Search Strategies</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Strategy</th>
+                        <th>How it Works</th>
+                        <th>Efficiency</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Random</strong></td>
+                        <td>Flip any two cards randomly</td>
+                        <td>Poor 😕</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sequential</strong></td>
+                        <td>Flip cards 1,2 then 3,4 then 5,6...</td>
+                        <td>Medium 😐</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memory Heuristic</strong></td>
+                        <td>Remember seen cards, match when possible</td>
+                        <td>Good! 😊</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-message">
+                <strong>Memory saves ~40% of turns!</strong>
+                <p>Random: Average ~8-10 turns | Memory: Average ~5-6 turns</p>
+            </div>
+        </section>
+
+        <!-- Section 5: Different Search Approaches -->
+        <section id="search-approaches" class="content-section">
+            <h2>5. Different Search Approaches</h2>
+
+            <h3>5.1 Uninformed Search (بحث غير موجه)</h3>
+
+            <div class="definition">
+                <p>Searching without any helpful hints - just systematic checking</p>
+            </div>
+
+            <p><strong>Example: Sequential Search</strong></p>
+            <div class="example">
+                <pre><code>Turn 1: Flip cards 1 and 2
+Turn 2: Flip cards 3 and 4
+Turn 3: Flip cards 5 and 6
+...keep going systematically</code></pre>
+            </div>
+            <p>Like reading a book page by page to find one word.</p>
+
+            <h3>5.2 Informed Search (بحث موجه)</h3>
+
+            <div class="definition">
+                <p>Using knowledge/heuristics to search smarter</p>
+            </div>
+
+            <p><strong>Example: Memory-Guided Search</strong></p>
+            <div class="example">
+                <pre><code>Turn 1: Flip cards 1 and 2 → See 7 and 3, remember them
+Turn 2: Flip card 3 → See 7! Remember position 1 had 7!
+        Flip card 1 → MATCH! ✓</code></pre>
+            </div>
+            <p>Like using the index at the back of a book to find a word.</p>
+
+            <h3>5.3 Stochastic/Random Search (بحث عشوائي)</h3>
+
+            <div class="definition">
+                <p>Adding randomness to avoid getting stuck</p>
+            </div>
+
+            <div class="key-pattern">
+                <h4>Why add randomness?</h4>
+                <p>Imagine you're stuck:</p>
+                <ul>
+                    <li>You've checked many cards but keep missing matches</li>
+                    <li>Sequential search might keep checking the same "bad" areas</li>
+                    <li>Random jump might find something new!</li>
+                </ul>
+                <p><em>It's like: Stuck in traffic on your usual route? Try a random different street - might find a shortcut!</em></p>
+            </div>
+        </section>
+
+        <!-- Section 6: From Constraints to Optimization -->
+        <section id="optimization" class="content-section">
+            <h2>6. From Constraints to Optimization (من الشروط إلى التحسين)</h2>
+
+            <h3>Constraint Satisfaction vs Optimization</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Constraint Satisfaction</th>
+                        <th>Optimization</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>"Find ANY valid solution"</td>
+                        <td>"Find the BEST solution"</td>
+                    </tr>
+                    <tr>
+                        <td>"Did we match the cards?"</td>
+                        <td>"Match with FEWEST turns"</td>
+                    </tr>
+                    <tr>
+                        <td>Pass or Fail</td>
+                        <td>Score: Better or Worse</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Adding Objectives to Our Card Game</h3>
+
+            <p><strong>Basic Constraint:</strong> Find matching pairs</p>
+
+            <p><strong>Optimization Questions:</strong></p>
+
+            <div class="example">
+                <pre><code>1. MINIMIZE TURNS: "Can you finish in fewer moves?"
+
+   Solution A: Finished in 10 turns
+   Solution B: Finished in 6 turns  ← BETTER!
+
+2. MINIMIZE TIME: "Can you finish faster?"
+
+   Each flip takes 2 seconds
+   Fewer flips = Less total time
+
+3. MAXIMIZE FIRST-TRY MATCHES: "How many matches on first try?"
+
+   Player A: 1 out of 4 pairs on first try
+   Player B: 3 out of 4 pairs on first try ← BETTER!</code></pre>
+            </div>
+
+            <h3>Objective Functions in Card Game</h3>
+
+            <div class="key-pattern">
+                <p><strong>Objective 1: Minimize Total Flips</strong></p>
+                <p><code>f(solution) = total number of cards flipped</code></p>
+                <p>Solution A: Flipped 20 cards → f = 20 | Solution B: Flipped 14 cards → f = 14 ← Winner!</p>
+            </div>
+
+            <div class="key-pattern">
+                <p><strong>Objective 2: Maximize Efficiency</strong></p>
+                <p><code>f(solution) = matches found / turns taken</code></p>
+                <p>4 pairs in 8 turns → 0.5 | 4 pairs in 5 turns → 0.8 ← Better!</p>
+            </div>
+        </section>
+
+        <!-- Section 7: Multi-Objective Optimization -->
+        <section id="multi-objective" class="content-section">
+            <h2>7. Multi-Objective Optimization (تحسين متعدد الأهداف)</h2>
+
+            <h3>When Goals Conflict</h3>
+
+            <p>Sometimes you can't optimize everything at once!</p>
+
+            <div class="limitations-box">
+                <h4>Card Game Example</h4>
+                <p><strong>Goal 1:</strong> Be FAST (flip quickly, don't think too long)</p>
+                <p><strong>Goal 2:</strong> Be ACCURATE (remember everything, make perfect matches)</p>
+                <p><strong>CONFLICT:</strong></p>
+                <ul>
+                    <li>Thinking longer = Better memory = More accurate</li>
+                    <li>Thinking longer = Slower overall time</li>
+                </ul>
+                <p>You can't maximize BOTH speed AND accuracy!</p>
+            </div>
+
+            <h3>Real-World Example: Buying a Car 🚗</h3>
+
+            <div class="example">
+                <pre><code>Goal 1: MAXIMIZE Speed (want fast car)
+Goal 2: MINIMIZE Cost (want cheap car)
+
+The Trade-off:
+- Want MORE speed? Pay MORE money!
+- Want LESS cost? Get LESS speed!</code></pre>
+            </div>
+
+            <h3>Pareto Front (جبهة باريتو)</h3>
+
+            <div class="definition">
+                <p><strong>The Pareto Front</strong> = All solutions where you can't improve one goal without hurting another</p>
+            </div>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/pareto_front.svg" alt="Pareto front diagram showing speed vs cost trade-off with optimal and dominated solutions" class="content-image">
+                <figcaption>Pareto Front: Star markers show optimal trade-offs, X markers show dominated (suboptimal) solutions</figcaption>
+            </figure>
+
+            <div class="key-message">
+                <p><strong>For Dominated Solutions:</strong> There exists another solution that is better in ALL objectives.</p>
+                <p><strong>For Pareto Optimal Solutions:</strong> Any improvement in one objective requires sacrifice in another.</p>
+            </div>
+        </section>
+
+        <!-- Section 8: Simple Heuristics for Our Card Game -->
+        <section id="simple-heuristics" class="content-section">
+            <h2>8. Simple Heuristics for Our Card Game</h2>
+
+            <h3>Heuristic 1: Pure Memory</h3>
+
+            <p><strong>REMEMBER</strong> everything you see, then use it!</p>
+
+            <h4>Memory Table:</h4>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>Value</th>
+                        <th>Turns Ago Seen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>7</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>7</td>
+                        <td>1 ← Recent! Confident!</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>9</td>
+                        <td>2</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-message">
+                <p><strong>Strategy:</strong> "I remember 7 at positions 1 and 5 → MATCH THEM!"</p>
+            </div>
+
+            <h3>Heuristic 2: Greedy (Take Best Immediate Option)</h3>
+
+            <div class="example">
+                <pre><code>Always do what seems best RIGHT NOW:
+
+1. Can I make a guaranteed match? → DO IT!
+2. No guaranteed match? → Flip an unknown card
+3. New card matches something in memory? → MATCH IT!
+4. No match in memory? → Flip another unknown</code></pre>
+            </div>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/greedy_decision_flow.svg" alt="Flowchart showing greedy decision process" class="content-image" style="max-width: 500px;">
+                <figcaption>Greedy Heuristic Decision Flow</figcaption>
+            </figure>
+
+            <h3>Heuristic 3: Exploration vs Exploitation</h3>
+
+            <div class="key-pattern">
+                <p><strong>EXPLORATION:</strong> Flip unknown cards to LEARN more</p>
+                <p><strong>EXPLOITATION:</strong> Use what you know to MATCH</p>
+                <p><strong>Balance Example:</strong></p>
+                <ul>
+                    <li>Early game → More exploration (learn the board)</li>
+                    <li>Late game → More exploitation (use memory to match)</li>
+                </ul>
+            </div>
+
+            <h3>Comparing Heuristics</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Heuristic</th>
+                        <th>Strength</th>
+                        <th>Weakness</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pure Memory</td>
+                        <td>Perfect recall</td>
+                        <td>Requires good memory capacity</td>
+                    </tr>
+                    <tr>
+                        <td>Greedy</td>
+                        <td>Simple, fast decisions</td>
+                        <td>Might miss better long-term plays</td>
+                    </tr>
+                    <tr>
+                        <td>Explore/Exploit</td>
+                        <td>Balanced approach</td>
+                        <td>Need to tune the balance</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 9: Why This Matters for AI -->
+        <section id="why-matters" class="content-section">
+            <h2>9. Why This Matters for AI</h2>
+
+            <h3>9.1 Machine Learning Training</h3>
+
+            <div class="key-pattern">
+                <p><strong>Training a Neural Network = SEARCH PROBLEM!</strong></p>
+                <ul>
+                    <li><strong>Search Space:</strong> All possible weight values</li>
+                    <li><strong>Constraint:</strong> Must fit the training data</li>
+                    <li><strong>Objective:</strong> Minimize prediction error</li>
+                    <li><strong>Heuristic:</strong> Gradient descent (follow the slope down)</li>
+                </ul>
+            </div>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/gradient_descent.svg" alt="Gradient descent curve showing error decreasing as we follow the gradient downhill" class="content-image" style="max-width: 500px;">
+                <figcaption>Gradient Descent: Following the slope to minimize error</figcaption>
+            </figure>
+
+            <h3>9.2 Reinforcement Learning</h3>
+
+            <div class="key-pattern">
+                <p><strong>Robot Learning to Walk = SEARCH PROBLEM!</strong></p>
+                <ul>
+                    <li><strong>Search Space:</strong> All possible movements</li>
+                    <li><strong>Constraint:</strong> Don't fall over, stay within bounds</li>
+                    <li><strong>Objective:</strong> Maximize distance traveled</li>
+                    <li><strong>Heuristic:</strong> Actions that kept balance before → try again!</li>
+                </ul>
+                <p><em>Similar to card game: Robot "remembers" what worked, uses that knowledge to make better decisions, balances exploration (try new things) and exploitation (use what works)</em></p>
+            </div>
+
+            <h3>9.3 Image Search Application</h3>
+
+            <div class="example">
+                <pre><code>SCENARIO: Police searching for a suspect
+
+DATABASE: 10,000 face images
+CONSTRAINT: Must match witness description
+          - Male
+          - Age 30-40
+          - Scar on left cheek
+
+Search Space: All 10,000 images
+Heuristic: Filter by constraints first!
+
+Step 1: Filter males only          → 5,000 images remain
+Step 2: Filter age 30-40           → 1,500 images remain
+Step 3: Filter for facial features → 50 images remain
+Step 4: Human reviews 50 images    → FOUND!
+
+Without heuristics: Check 10,000 images 😫
+With heuristics: Check 50 images 😊</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 10: Summary -->
+        <section id="summary" class="content-section">
+            <h2>10. Summary: Key Concepts</h2>
+
+            <h3>The Big Picture</h3>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/search_problems_overview.svg" alt="Overview diagram showing Search Space, Constraints, and Heuristics flowing into Optimization" class="content-image">
+                <figcaption>Search Problems Overview: How search space, constraints, and heuristics combine for optimization</figcaption>
+            </figure>
+
+            <h3>Key Terms Summary</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Term</th>
+                        <th>Arabic</th>
+                        <th>Simple Definition</th>
+                        <th>Card Game Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Search Space</td>
+                        <td>فضاء البحث</td>
+                        <td>All possible choices</td>
+                        <td>All card combinations to flip</td>
+                    </tr>
+                    <tr>
+                        <td>Constraint</td>
+                        <td>الشرط</td>
+                        <td>Rule that must be true</td>
+                        <td>Cards must match</td>
+                    </tr>
+                    <tr>
+                        <td>CSP</td>
+                        <td>مسألة تلبية الشروط</td>
+                        <td>Find solution meeting all rules</td>
+                        <td>Find valid matching pairs</td>
+                    </tr>
+                    <tr>
+                        <td>Heuristic</td>
+                        <td>دالة توجيهية</td>
+                        <td>Smart hint to guide search</td>
+                        <td>Remember card positions</td>
+                    </tr>
+                    <tr>
+                        <td>Objective Function</td>
+                        <td>دالة الهدف</td>
+                        <td>What we want to optimize</td>
+                        <td>Minimize number of turns</td>
+                    </tr>
+                    <tr>
+                        <td>Optimization</td>
+                        <td>التحسين</td>
+                        <td>Finding the BEST solution</td>
+                        <td>Finish in fewest moves</td>
+                    </tr>
+                    <tr>
+                        <td>Pareto Front</td>
+                        <td>جبهة باريتو</td>
+                        <td>Best trade-off solutions</td>
+                        <td>Balance speed vs accuracy</td>
+                    </tr>
+                    <tr>
+                        <td>Exploration</td>
+                        <td>استكشاف</td>
+                        <td>Try new things to learn</td>
+                        <td>Flip unknown cards</td>
+                    </tr>
+                    <tr>
+                        <td>Exploitation</td>
+                        <td>استغلال</td>
+                        <td>Use what you know</td>
+                        <td>Match remembered pairs</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 11: Practice Questions -->
+        <section id="practice" class="content-section">
+            <h2>11. Practice Questions</h2>
+
+            <div class="example">
+                <p><strong>Q1:</strong> In an 8-card game, you flip card 1 (shows 5) and card 2 (shows 8). No match. Next, you flip card 3 (shows 5). What should a memory heuristic tell you to do?</p>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Answer:</strong> Flip card 1! You remember card 1 was also a 5. This is a guaranteed match!</p>
+            </div>
+
+            <div class="example">
+                <p><strong>Q2:</strong> Why is random search sometimes useful even though it seems "dumb"?</p>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Answer:</strong> Random search can help escape local traps and explore parts of the search space that systematic search might miss. It adds flexibility and can find unexpected solutions.</p>
+            </div>
+
+            <div class="example">
+                <p><strong>Q3:</strong> You're optimizing for both SPEED and ACCURACY. Can you achieve 100% in both?</p>
+            </div>
+
+            <div class="key-message">
+                <p><strong>Answer:</strong> Usually no! These goals often conflict. Going faster means less time to think, which reduces accuracy. This is why we have Pareto fronts - to show the best possible trade-offs.</p>
+            </div>
+
+            <h3>Preview: Session 2</h3>
+
+            <div class="key-pattern">
+                <p><strong>Coming up next:</strong></p>
+                <ul>
+                    <li>What happens with MANY constraints? (Complex CSPs)</li>
+                    <li>How do we handle LARGE search spaces? (Scalability)</li>
+                    <li>Advanced optimization techniques</li>
+                    <li>Real-world AI applications</li>
+                </ul>
+                <p><strong>Think about:</strong> "What if our card game had 1000 cards and 50 different matching rules?" That's where advanced algorithms become essential!</p>
+            </div>
+        </section>
+
+        <!-- Additional Resources -->
+        <section class="content-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; margin-top: 2rem;">
+            <h2 style="color: white; border-bottom: 2px solid rgba(255,255,255,0.3);">Additional Resources</h2>
+            <p>Want to dive deeper into optimization solvers and frameworks? Check out our comprehensive technical reference:</p>
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <a href="optimization_solvers_reference.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 0.5rem;">
+                    Optimization Solvers Technical Reference
+                </a>
+                <a href="optimization_solvers_reference_ar.html" style="display: inline-block; padding: 1rem 2rem; background: rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 0.5rem; border: 2px solid white;">
+                    المرجع التقني بالعربية
+                </a>
+            </div>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.9;">The reference covers: Python optimization frameworks (jMetalPy, DEAP, PyGMO, Pymoo), Excel and Google Sheets solvers, modeling languages (AMPL, PuLP, Pyomo), cloud services, and tool selection guides.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p class="no-print">
+            <a href="index.html">← Back to Course Home</a>
+        </p>
+        <p>&copy; 2025 Introduction to Data Science & AI Course</p>
+    </footer>
+</body>
+</html>
