@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db"/>
+      <stop offset="100%" style="stop-color:#2980b9"/>
+    </linearGradient>
+    <style>
+      .title { font-family: 'Cairo', Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #2c3e50; direction: rtl; }
+      .subtitle { font-family: 'Cairo', Arial, sans-serif; font-size: 14px; fill: #7f8c8d; direction: rtl; }
+      .card-text { font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; fill: white; }
+      .position { font-family: 'Cairo', Arial, sans-serif; font-size: 12px; fill: #9b59b6; font-weight: 600; direction: rtl; }
+      .hidden-label { font-family: 'Cairo', Arial, sans-serif; font-size: 13px; fill: #2c3e50; direction: rtl; }
+      .hidden-values { font-family: 'Courier New', monospace; font-size: 14px; fill: #27ae60; direction: ltr; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="300" y="35" text-anchor="middle" class="title">إعداد لعبة مطابقة البطاقات</text>
+  <text x="300" y="55" text-anchor="middle" class="subtitle">٤ أزواج = ٨ بطاقات مقلوبة</text>
+
+  <!-- Card Grid - Row 1 (RTL: positions 4,3,2,1 from left to right) -->
+  <g transform="translate(90, 80)">
+    <!-- Card 4 (leftmost in RTL) -->
+    <rect x="0" y="0" width="90" height="120" rx="8" fill="url(#cardGrad)" stroke="#2980b9" stroke-width="2"/>
+    <text x="45" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="45" y="150" text-anchor="middle" class="position">الموقع ٤</text>
+
+    <!-- Card 3 -->
+    <rect x="110" y="0" width="90" height="120" rx="8" fill="url(#cardGrad)" stroke="#2980b9" stroke-width="2"/>
+    <text x="155" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="155" y="150" text-anchor="middle" class="position">الموقع ٣</text>
+
+    <!-- Card 2 -->
+    <rect x="220" y="0" width="90" height="120" rx="8" fill="url(#cardGrad)" stroke="#2980b9" stroke-width="2"/>
+    <text x="265" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="265" y="150" text-anchor="middle" class="position">الموقع ٢</text>
+
+    <!-- Card 1 (rightmost in RTL) -->
+    <rect x="330" y="0" width="90" height="120" rx="8" fill="url(#cardGrad)" stroke="#2980b9" stroke-width="2"/>
+    <text x="375" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="375" y="150" text-anchor="middle" class="position">الموقع ١</text>
+  </g>
+
+  <!-- Card Grid - Row 2 (RTL: positions 8,7,6,5 from left to right) -->
+  <g transform="translate(90, 240)">
+    <!-- Card 8 -->
+    <rect x="0" y="0" width="90" height="120" rx="8" fill="url(#cardGrad)" stroke="#2980b9" stroke-width="2"/>
+    <text x="45" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="45" y="-10" text-anchor="middle" class="position">الموقع ٨</text>
+
+    <!-- Card 7 -->
+    <rect x="110" y="0" width="90" height="120" rx="8" fill="url(#cardGrad)" stroke="#2980b9" stroke-width="2"/>
+    <text x="155" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="155" y="-10" text-anchor="middle" class="position">الموقع ٧</text>
+
+    <!-- Card 6 -->
+    <rect x="220" y="0" width="90" height="120" rx="8" fill="url(#cardGrad)" stroke="#2980b9" stroke-width="2"/>
+    <text x="265" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="265" y="-10" text-anchor="middle" class="position">الموقع ٦</text>
+
+    <!-- Card 5 -->
+    <rect x="330" y="0" width="90" height="120" rx="8" fill="url(#cardGrad)" stroke="#2980b9" stroke-width="2"/>
+    <text x="375" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="375" y="-10" text-anchor="middle" class="position">الموقع ٥</text>
+  </g>
+
+  <!-- Hidden Values Info -->
+  <text x="390" y="390" text-anchor="middle" class="hidden-label">القيم المخفية:</text>
+  <text x="200" y="390" text-anchor="middle" class="hidden-values">[7, 3, 8, 3, 7, 9, 8, 9]</text>
+</svg>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="900" height="500">
+  <defs>
+    <linearGradient id="cardBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db"/>
+      <stop offset="100%" style="stop-color:#2980b9"/>
+    </linearGradient>
+    <linearGradient id="cardRevealed" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f39c12"/>
+      <stop offset="100%" style="stop-color:#e67e22"/>
+    </linearGradient>
+    <linearGradient id="cardMatched" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60"/>
+      <stop offset="100%" style="stop-color:#1e8449"/>
+    </linearGradient>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; }
+      .turn-label { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #9b59b6; }
+      .card-text { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: white; }
+      .position { font-family: Arial, sans-serif; font-size: 9px; fill: #7f8c8d; }
+      .memory-title { font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; fill: #2c3e50; }
+      .memory-text { font-family: Arial, sans-serif; font-size: 10px; fill: #2c3e50; }
+      .action { font-family: Arial, sans-serif; font-size: 11px; fill: #27ae60; font-style: italic; }
+      .result { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #e74c3c; }
+      .success { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #27ae60; }
+    </style>
+  </defs>
+
+  <!-- Main Title -->
+  <text x="450" y="30" text-anchor="middle" class="title">Memory Heuristic Walkthrough</text>
+
+  <!-- TURN 1 -->
+  <g transform="translate(20, 50)">
+    <text x="130" y="15" text-anchor="middle" class="turn-label">TURN 1: Flip positions 1 and 6</text>
+
+    <!-- Cards Row 1 -->
+    <rect x="20" y="30" width="50" height="65" rx="5" fill="url(#cardRevealed)" stroke="#d35400" stroke-width="2"/>
+    <text x="45" y="70" text-anchor="middle" class="card-text">7</text>
+    <text x="45" y="105" text-anchor="middle" class="position">Pos 1</text>
+
+    <rect x="80" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="105" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="105" y="105" text-anchor="middle" class="position">Pos 2</text>
+
+    <rect x="140" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="165" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="165" y="105" text-anchor="middle" class="position">Pos 3</text>
+
+    <rect x="200" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="225" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="225" y="105" text-anchor="middle" class="position">Pos 4</text>
+
+    <!-- Cards Row 2 -->
+    <rect x="20" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="45" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="45" y="195" text-anchor="middle" class="position">Pos 5</text>
+
+    <rect x="80" y="120" width="50" height="65" rx="5" fill="url(#cardRevealed)" stroke="#d35400" stroke-width="2"/>
+    <text x="105" y="160" text-anchor="middle" class="card-text">9</text>
+    <text x="105" y="195" text-anchor="middle" class="position">Pos 6</text>
+
+    <rect x="140" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="165" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="165" y="195" text-anchor="middle" class="position">Pos 7</text>
+
+    <rect x="200" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="225" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="225" y="195" text-anchor="middle" class="position">Pos 8</text>
+
+    <!-- Memory & Result -->
+    <text x="130" y="220" text-anchor="middle" class="result">No match!</text>
+    <text x="130" y="240" text-anchor="middle" class="memory-title">Memory: Pos1=7, Pos6=9</text>
+  </g>
+
+  <!-- TURN 2 -->
+  <g transform="translate(310, 50)">
+    <text x="130" y="15" text-anchor="middle" class="turn-label">TURN 2: Flip positions 3 and 5</text>
+
+    <!-- Cards Row 1 -->
+    <rect x="20" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="45" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="45" y="105" text-anchor="middle" class="position">Pos 1</text>
+
+    <rect x="80" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="105" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="105" y="105" text-anchor="middle" class="position">Pos 2</text>
+
+    <rect x="140" y="30" width="50" height="65" rx="5" fill="url(#cardRevealed)" stroke="#d35400" stroke-width="2"/>
+    <text x="165" y="70" text-anchor="middle" class="card-text">8</text>
+    <text x="165" y="105" text-anchor="middle" class="position">Pos 3</text>
+
+    <rect x="200" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="225" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="225" y="105" text-anchor="middle" class="position">Pos 4</text>
+
+    <!-- Cards Row 2 -->
+    <rect x="20" y="120" width="50" height="65" rx="5" fill="url(#cardRevealed)" stroke="#d35400" stroke-width="2"/>
+    <text x="45" y="160" text-anchor="middle" class="card-text">7</text>
+    <text x="45" y="195" text-anchor="middle" class="position">Pos 5</text>
+
+    <rect x="80" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="105" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="105" y="195" text-anchor="middle" class="position">Pos 6</text>
+
+    <rect x="140" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="165" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="165" y="195" text-anchor="middle" class="position">Pos 7</text>
+
+    <rect x="200" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="225" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="225" y="195" text-anchor="middle" class="position">Pos 8</text>
+
+    <!-- Memory & Result -->
+    <text x="130" y="220" text-anchor="middle" class="action">Pos5=7... Wait! Pos1 was also 7!</text>
+    <text x="130" y="240" text-anchor="middle" class="memory-title">Memory: Pos1=7, Pos5=7, Pos3=8, Pos6=9</text>
+  </g>
+
+  <!-- TURN 3 -->
+  <g transform="translate(600, 50)">
+    <text x="130" y="15" text-anchor="middle" class="turn-label">TURN 3: Use Memory!</text>
+
+    <!-- Cards Row 1 -->
+    <rect x="20" y="30" width="50" height="65" rx="5" fill="url(#cardMatched)" stroke="#1e8449" stroke-width="2"/>
+    <text x="45" y="70" text-anchor="middle" class="card-text">7</text>
+    <text x="45" y="105" text-anchor="middle" class="position">Pos 1</text>
+
+    <rect x="80" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="105" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="105" y="105" text-anchor="middle" class="position">Pos 2</text>
+
+    <rect x="140" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="165" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="165" y="105" text-anchor="middle" class="position">Pos 3</text>
+
+    <rect x="200" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="225" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="225" y="105" text-anchor="middle" class="position">Pos 4</text>
+
+    <!-- Cards Row 2 -->
+    <rect x="20" y="120" width="50" height="65" rx="5" fill="url(#cardMatched)" stroke="#1e8449" stroke-width="2"/>
+    <text x="45" y="160" text-anchor="middle" class="card-text">7</text>
+    <text x="45" y="195" text-anchor="middle" class="position">Pos 5</text>
+
+    <rect x="80" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="105" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="105" y="195" text-anchor="middle" class="position">Pos 6</text>
+
+    <rect x="140" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="165" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="165" y="195" text-anchor="middle" class="position">Pos 7</text>
+
+    <rect x="200" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="225" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="225" y="195" text-anchor="middle" class="position">Pos 8</text>
+
+    <!-- Result -->
+    <text x="130" y="220" text-anchor="middle" class="success">MATCH! The heuristic worked!</text>
+  </g>
+
+  <!-- Arrows between panels -->
+  <path d="M 275 150 L 295 150" stroke="#9b59b6" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 565 150 L 585 150" stroke="#9b59b6" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#9b59b6"/>
+    </marker>
+  </defs>
+
+  <!-- Bottom Summary -->
+  <rect x="50" y="290" width="800" height="80" rx="10" fill="#e8f8f5" stroke="#27ae60" stroke-width="2"/>
+  <text x="450" y="320" text-anchor="middle" class="title" style="fill:#27ae60">Key Insight: Memory as a Heuristic</text>
+  <text x="450" y="345" text-anchor="middle" class="memory-text">By remembering what we've seen, we can make informed decisions instead of random guesses.</text>
+  <text x="450" y="360" text-anchor="middle" class="memory-text">This reduces the average turns needed from ~8-10 (random) to ~5-6 (memory-guided)!</text>
+</svg>

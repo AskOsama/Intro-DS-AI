@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="900" height="500">
+  <defs>
+    <linearGradient id="cardBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db"/>
+      <stop offset="100%" style="stop-color:#2980b9"/>
+    </linearGradient>
+    <linearGradient id="cardRevealed" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f39c12"/>
+      <stop offset="100%" style="stop-color:#e67e22"/>
+    </linearGradient>
+    <linearGradient id="cardMatched" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60"/>
+      <stop offset="100%" style="stop-color:#1e8449"/>
+    </linearGradient>
+    <style>
+      .title { font-family: 'Cairo', Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; direction: rtl; }
+      .turn-label { font-family: 'Cairo', Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #9b59b6; direction: rtl; }
+      .card-text { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: white; }
+      .position { font-family: 'Cairo', Arial, sans-serif; font-size: 9px; fill: #7f8c8d; direction: rtl; }
+      .memory-title { font-family: 'Cairo', Arial, sans-serif; font-size: 11px; font-weight: bold; fill: #2c3e50; direction: rtl; }
+      .memory-text { font-family: 'Cairo', Arial, sans-serif; font-size: 10px; fill: #2c3e50; direction: rtl; }
+      .action { font-family: 'Cairo', Arial, sans-serif; font-size: 11px; fill: #27ae60; font-style: italic; direction: rtl; }
+      .result { font-family: 'Cairo', Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #e74c3c; direction: rtl; }
+      .success { font-family: 'Cairo', Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #27ae60; direction: rtl; }
+    </style>
+  </defs>
+
+  <!-- Main Title -->
+  <text x="450" y="30" text-anchor="middle" class="title">شرح الدالة التوجيهية بالذاكرة</text>
+
+  <!-- TURN 3 (rightmost in RTL - shown first) -->
+  <g transform="translate(600, 50)">
+    <text x="130" y="15" text-anchor="middle" class="turn-label">الدور ٣: استخدم الذاكرة!</text>
+
+    <!-- Cards Row 1 -->
+    <rect x="20" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="45" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="45" y="105" text-anchor="middle" class="position">م٤</text>
+
+    <rect x="80" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="105" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="105" y="105" text-anchor="middle" class="position">م٣</text>
+
+    <rect x="140" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="165" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="165" y="105" text-anchor="middle" class="position">م٢</text>
+
+    <rect x="200" y="30" width="50" height="65" rx="5" fill="url(#cardMatched)" stroke="#1e8449" stroke-width="2"/>
+    <text x="225" y="70" text-anchor="middle" class="card-text">7</text>
+    <text x="225" y="105" text-anchor="middle" class="position">م١</text>
+
+    <!-- Cards Row 2 -->
+    <rect x="20" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="45" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="45" y="195" text-anchor="middle" class="position">م٨</text>
+
+    <rect x="80" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="105" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="105" y="195" text-anchor="middle" class="position">م٧</text>
+
+    <rect x="140" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="165" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="165" y="195" text-anchor="middle" class="position">م٦</text>
+
+    <rect x="200" y="120" width="50" height="65" rx="5" fill="url(#cardMatched)" stroke="#1e8449" stroke-width="2"/>
+    <text x="225" y="160" text-anchor="middle" class="card-text">7</text>
+    <text x="225" y="195" text-anchor="middle" class="position">م٥</text>
+
+    <!-- Result -->
+    <text x="130" y="220" text-anchor="middle" class="success">تطابق! نجحت الدالة التوجيهية!</text>
+  </g>
+
+  <!-- TURN 2 -->
+  <g transform="translate(310, 50)">
+    <text x="130" y="15" text-anchor="middle" class="turn-label">الدور ٢: اقلب الموقعين ٣ و ٥</text>
+
+    <!-- Cards Row 1 -->
+    <rect x="20" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="45" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="45" y="105" text-anchor="middle" class="position">م٤</text>
+
+    <rect x="80" y="30" width="50" height="65" rx="5" fill="url(#cardRevealed)" stroke="#d35400" stroke-width="2"/>
+    <text x="105" y="70" text-anchor="middle" class="card-text">8</text>
+    <text x="105" y="105" text-anchor="middle" class="position">م٣</text>
+
+    <rect x="140" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="165" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="165" y="105" text-anchor="middle" class="position">م٢</text>
+
+    <rect x="200" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="225" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="225" y="105" text-anchor="middle" class="position">م١</text>
+
+    <!-- Cards Row 2 -->
+    <rect x="20" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="45" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="45" y="195" text-anchor="middle" class="position">م٨</text>
+
+    <rect x="80" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="105" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="105" y="195" text-anchor="middle" class="position">م٧</text>
+
+    <rect x="140" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="165" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="165" y="195" text-anchor="middle" class="position">م٦</text>
+
+    <rect x="200" y="120" width="50" height="65" rx="5" fill="url(#cardRevealed)" stroke="#d35400" stroke-width="2"/>
+    <text x="225" y="160" text-anchor="middle" class="card-text">7</text>
+    <text x="225" y="195" text-anchor="middle" class="position">م٥</text>
+
+    <!-- Memory & Result -->
+    <text x="130" y="220" text-anchor="middle" class="action">م٥=٧... لحظة! م١ كان ٧ أيضاً!</text>
+    <text x="130" y="240" text-anchor="middle" class="memory-title">الذاكرة: م١=٧، م٥=٧، م٣=٨، م٦=٩</text>
+  </g>
+
+  <!-- TURN 1 (leftmost in RTL - shown last) -->
+  <g transform="translate(20, 50)">
+    <text x="130" y="15" text-anchor="middle" class="turn-label">الدور ١: اقلب الموقعين ١ و ٦</text>
+
+    <!-- Cards Row 1 -->
+    <rect x="20" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="45" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="45" y="105" text-anchor="middle" class="position">م٤</text>
+
+    <rect x="80" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="105" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="105" y="105" text-anchor="middle" class="position">م٣</text>
+
+    <rect x="140" y="30" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="165" y="70" text-anchor="middle" class="card-text">?</text>
+    <text x="165" y="105" text-anchor="middle" class="position">م٢</text>
+
+    <rect x="200" y="30" width="50" height="65" rx="5" fill="url(#cardRevealed)" stroke="#d35400" stroke-width="2"/>
+    <text x="225" y="70" text-anchor="middle" class="card-text">7</text>
+    <text x="225" y="105" text-anchor="middle" class="position">م١</text>
+
+    <!-- Cards Row 2 -->
+    <rect x="20" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="45" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="45" y="195" text-anchor="middle" class="position">م٨</text>
+
+    <rect x="80" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="105" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="105" y="195" text-anchor="middle" class="position">م٧</text>
+
+    <rect x="140" y="120" width="50" height="65" rx="5" fill="url(#cardRevealed)" stroke="#d35400" stroke-width="2"/>
+    <text x="165" y="160" text-anchor="middle" class="card-text">9</text>
+    <text x="165" y="195" text-anchor="middle" class="position">م٦</text>
+
+    <rect x="200" y="120" width="50" height="65" rx="5" fill="url(#cardBlue)" stroke="#2980b9" stroke-width="1"/>
+    <text x="225" y="160" text-anchor="middle" class="card-text">?</text>
+    <text x="225" y="195" text-anchor="middle" class="position">م٥</text>
+
+    <!-- Memory & Result -->
+    <text x="130" y="220" text-anchor="middle" class="result">لا تطابق!</text>
+    <text x="130" y="240" text-anchor="middle" class="memory-title">الذاكرة: م١=٧، م٦=٩</text>
+  </g>
+
+  <!-- Arrows between panels (RTL: right to left) -->
+  <path d="M 585 150 L 565 150" stroke="#9b59b6" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 295 150 L 275 150" stroke="#9b59b6" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto">
+      <polygon points="10 0, 0 3.5, 10 7" fill="#9b59b6"/>
+    </marker>
+  </defs>
+
+  <!-- Bottom Summary -->
+  <rect x="50" y="290" width="800" height="80" rx="10" fill="#e8f8f5" stroke="#27ae60" stroke-width="2"/>
+  <text x="450" y="320" text-anchor="middle" class="title" style="fill:#27ae60">الفكرة الأساسية: الذاكرة كدالة توجيهية</text>
+  <text x="450" y="345" text-anchor="middle" class="memory-text">بتذكر ما رأيناه، يمكننا اتخاذ قرارات مدروسة بدلاً من التخمين العشوائي.</text>
+  <text x="450" y="360" text-anchor="middle" class="memory-text">هذا يقلل متوسط الأدوار من ٨-١٠ (عشوائي) إلى ٥-٦ (موجه بالذاكرة)!</text>
+</svg>

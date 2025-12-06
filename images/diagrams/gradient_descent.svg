@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320" width="500" height="320">
+  <defs>
+    <marker id="axisArrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+    <marker id="gradArrow" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#e74c3c"/>
+    </marker>
+    <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3498db"/>
+      <stop offset="100%" style="stop-color:#9b59b6"/>
+    </linearGradient>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #2c3e50; }
+      .axis-label { font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #2c3e50; }
+      .annotation { font-family: Arial, sans-serif; font-size: 12px; fill: #e74c3c; font-weight: bold; }
+      .sub-annotation { font-family: Arial, sans-serif; font-size: 11px; fill: #27ae60; font-style: italic; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="250" y="25" text-anchor="middle" class="title">Gradient Descent: Finding Minimum Error</text>
+
+  <!-- Axes -->
+  <line x1="60" y1="260" x2="460" y2="260" stroke="#2c3e50" stroke-width="2" marker-end="url(#axisArrow)"/>
+  <line x1="60" y1="260" x2="60" y2="50" stroke="#2c3e50" stroke-width="2" marker-end="url(#axisArrow)"/>
+
+  <!-- Axis Labels -->
+  <text x="470" y="265" class="axis-label">Weights</text>
+  <text x="35" y="45" class="axis-label">Error</text>
+
+  <!-- Error Curve -->
+  <path d="M 80 80
+           Q 120 90, 150 120
+           Q 180 150, 200 170
+           Q 230 200, 280 230
+           Q 330 245, 380 240
+           Q 420 235, 440 220"
+        stroke="url(#curveGrad)" stroke-width="4" fill="none"/>
+
+  <!-- Current position point -->
+  <circle cx="150" cy="120" r="8" fill="#e74c3c"/>
+
+  <!-- Gradient arrow pointing downhill -->
+  <line x1="160" y1="130" x2="240" y2="195" stroke="#e74c3c" stroke-width="3" marker-end="url(#gradArrow)"/>
+
+  <!-- Minimum point -->
+  <circle cx="350" cy="243" r="6" fill="#27ae60"/>
+  <text x="350" y="275" text-anchor="middle" class="sub-annotation">Minimum</text>
+
+  <!-- Annotations -->
+  <text x="175" y="100" class="annotation">Gradient points</text>
+  <text x="175" y="115" class="annotation">this way</text>
+
+  <rect x="255" y="175" width="95" height="25" rx="4" fill="#27ae60"/>
+  <text x="302" y="193" text-anchor="middle" style="font-family: Arial; font-size: 11px; fill: white; font-weight: bold;">"Go downhill!"</text>
+</svg>
