@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Registry Data | DS-AI Course</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: system-ui, sans-serif; padding: 2rem; background: #f5f5f5; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 0.5rem; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 2rem; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #2c3e50; color: white; padding: 0.8rem; text-align: left; }
+        td { padding: 0.6rem 0.8rem; border-bottom: 1px solid #eee; }
+        tr:hover { background: #f8f9fa; }
+        .name { font-weight: 600; color: #c0392b; }
+        .quasi { background: #fff3cd; }
+        .back-link { display: block; text-align: center; margin-top: 2rem; color: #3498db; }
+        .count { text-align: center; color: #666; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Public Registry (Voter Data)</h1>
+        <p class="subtitle">Publicly available voter registration records</p>
+        <p class="count">Total Records: 100</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Full Name</th>
+                    <th>ZIP Code</th>
+                    <th>Birth Date</th>
+                    <th>Gender</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td class="name">Samantha Davis</td>
+                    <td class="quasi">10001</td>
+                    <td class="quasi">1974-09-04</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td class="name">Patricia Garcia</td>
+                    <td class="quasi">90211</td>
+                    <td class="quasi">1970-11-15</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td class="name">Christopher Hall</td>
+                    <td class="quasi">60602</td>
+                    <td class="quasi">1980-07-11</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td class="name">Brian Hill</td>
+                    <td class="quasi">02134</td>
+                    <td class="quasi">1953-11-24</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td class="name">Matthew Rivera</td>
+                    <td class="quasi">10003</td>
+                    <td class="quasi">1954-02-10</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td class="name">Samantha White</td>
+                    <td class="quasi">90210</td>
+                    <td class="quasi">1983-03-19</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td class="name">Cynthia Harris</td>
+                    <td class="quasi">02134</td>
+                    <td class="quasi">1999-12-20</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td class="name">William Wilson</td>
+                    <td class="quasi">19102</td>
+                    <td class="quasi">2000-11-19</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td class="name">Ashley Mitchell</td>
+                    <td class="quasi">30301</td>
+                    <td class="quasi">1998-05-10</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td class="name">Elizabeth Carter</td>
+                    <td class="quasi">10002</td>
+                    <td class="quasi">1959-11-02</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td class="name">Steven Scott</td>
+                    <td class="quasi">75202</td>
+                    <td class="quasi">1951-01-12</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td class="name">Patrick Campbell</td>
+                    <td class="quasi">02134</td>
+                    <td class="quasi">1994-11-29</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td class="name">Anna Roberts</td>
+                    <td class="quasi">19102</td>
+                    <td class="quasi">1997-07-31</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td class="name">Donald Torres</td>
+                    <td class="quasi">19103</td>
+                    <td class="quasi">1957-01-24</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td class="name">Nancy Taylor</td>
+                    <td class="quasi">98102</td>
+                    <td class="quasi">1987-12-18</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td class="name">Ashley Anderson</td>
+                    <td class="quasi">10003</td>
+                    <td class="quasi">1980-05-01</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>17</td>
+                    <td class="name">William Williams</td>
+                    <td class="quasi">75202</td>
+                    <td class="quasi">1979-08-24</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>18</td>
+                    <td class="name">Jacob Clark</td>
+                    <td class="quasi">90211</td>
+                    <td class="quasi">1958-06-18</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>19</td>
+                    <td class="name">Stephanie Campbell</td>
+                    <td class="quasi">02136</td>
+                    <td class="quasi">1959-10-21</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>20</td>
+                    <td class="name">Cynthia Thomas</td>
+                    <td class="quasi">75202</td>
+                    <td class="quasi">1956-10-06</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>21</td>
+                    <td class="name">Timothy Young</td>
+                    <td class="quasi">98101</td>
+                    <td class="quasi">1969-03-06</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>22</td>
+                    <td class="name">Jason Hall</td>
+                    <td class="quasi">19103</td>
+                    <td class="quasi">1999-11-11</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>23</td>
+                    <td class="name">Linda Brown</td>
+                    <td class="quasi">30302</td>
+                    <td class="quasi">1992-10-10</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>24</td>
+                    <td class="name">Stephanie Davis</td>
+                    <td class="quasi">19103</td>
+                    <td class="quasi">1972-02-02</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>25</td>
+                    <td class="name">Christine Rivera</td>
+                    <td class="quasi">02136</td>
+                    <td class="quasi">1971-06-01</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>26</td>
+                    <td class="name">Helen Torres</td>
+                    <td class="quasi">10004</td>
+                    <td class="quasi">1956-07-28</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>27</td>
+                    <td class="name">Christopher Lewis</td>
+                    <td class="quasi">75201</td>
+                    <td class="quasi">1998-09-26</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>28</td>
+                    <td class="name">Susan Mitchell</td>
+                    <td class="quasi">30301</td>
+                    <td class="quasi">1963-12-12</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>29</td>
+                    <td class="name">Gary Taylor</td>
+                    <td class="quasi">19101</td>
+                    <td class="quasi">1954-07-23</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>30</td>
+                    <td class="name">Jack Lewis</td>
+                    <td class="quasi">30301</td>
+                    <td class="quasi">1988-05-15</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>31</td>
+                    <td class="name">Thomas Williams</td>
+                    <td class="quasi">02135</td>
+                    <td class="quasi">1982-09-18</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>32</td>
+                    <td class="name">Catherine Martinez</td>
+                    <td class="quasi">19102</td>
+                    <td class="quasi">1971-03-29</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>33</td>
+                    <td class="name">Christopher Hall</td>
+                    <td class="quasi">10004</td>
+                    <td class="quasi">1984-04-27</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>34</td>
+                    <td class="name">Mark Johnson</td>
+                    <td class="quasi">85001</td>
+                    <td class="quasi">1967-04-30</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>35</td>
+                    <td class="name">Gregory Wright</td>
+                    <td class="quasi">02136</td>
+                    <td class="quasi">1952-06-23</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>36</td>
+                    <td class="name">Janet Lee</td>
+                    <td class="quasi">60602</td>
+                    <td class="quasi">1995-11-19</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>37</td>
+                    <td class="name">Eric Wright</td>
+                    <td class="quasi">85001</td>
+                    <td class="quasi">1967-09-05</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>38</td>
+                    <td class="name">Nicholas Martin</td>
+                    <td class="quasi">85001</td>
+                    <td class="quasi">1986-08-22</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>39</td>
+                    <td class="name">Brandon Torres</td>
+                    <td class="quasi">02135</td>
+                    <td class="quasi">1986-06-07</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>40</td>
+                    <td class="name">Jeffrey Lewis</td>
+                    <td class="quasi">85001</td>
+                    <td class="quasi">1969-03-04</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>41</td>
+                    <td class="name">Donald Baker</td>
+                    <td class="quasi">02135</td>
+                    <td class="quasi">1970-02-26</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>42</td>
+                    <td class="name">Rebecca Green</td>
+                    <td class="quasi">30302</td>
+                    <td class="quasi">1967-06-12</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>43</td>
+                    <td class="name">Daniel Hall</td>
+                    <td class="quasi">98102</td>
+                    <td class="quasi">1991-09-05</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>44</td>
+                    <td class="name">Brandon Campbell</td>
+                    <td class="quasi">19101</td>
+                    <td class="quasi">1995-04-15</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>45</td>
+                    <td class="name">Gary Green</td>
+                    <td class="quasi">90212</td>
+                    <td class="quasi">1974-08-21</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>46</td>
+                    <td class="name">Karen Anderson</td>
+                    <td class="quasi">60601</td>
+                    <td class="quasi">1963-09-17</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>47</td>
+                    <td class="name">Anthony Clark</td>
+                    <td class="quasi">60601</td>
+                    <td class="quasi">1951-10-03</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>48</td>
+                    <td class="name">Mark Moore</td>
+                    <td class="quasi">60602</td>
+                    <td class="quasi">1993-07-27</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>49</td>
+                    <td class="name">Jonathan Johnson</td>
+                    <td class="quasi">19102</td>
+                    <td class="quasi">1985-05-08</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>50</td>
+                    <td class="name">Edward Lee</td>
+                    <td class="quasi">90211</td>
+                    <td class="quasi">1990-10-17</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>51</td>
+                    <td class="name">John Mitchell</td>
+                    <td class="quasi">30301</td>
+                    <td class="quasi">1954-09-03</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>52</td>
+                    <td class="name">Helen Martinez</td>
+                    <td class="quasi">90212</td>
+                    <td class="quasi">1961-04-29</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>53</td>
+                    <td class="name">Nicole Mitchell</td>
+                    <td class="quasi">85002</td>
+                    <td class="quasi">1960-04-11</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>54</td>
+                    <td class="name">Carolyn Gonzalez</td>
+                    <td class="quasi">10003</td>
+                    <td class="quasi">1971-10-15</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>55</td>
+                    <td class="name">Jason Nelson</td>
+                    <td class="quasi">02137</td>
+                    <td class="quasi">1956-03-09</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>56</td>
+                    <td class="name">Sharon Lopez</td>
+                    <td class="quasi">33101</td>
+                    <td class="quasi">1996-10-22</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>57</td>
+                    <td class="name">Elizabeth Moore</td>
+                    <td class="quasi">19101</td>
+                    <td class="quasi">1990-06-11</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>58</td>
+                    <td class="name">Dorothy Lopez</td>
+                    <td class="quasi">98101</td>
+                    <td class="quasi">1969-01-11</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>59</td>
+                    <td class="name">Mary King</td>
+                    <td class="quasi">19103</td>
+                    <td class="quasi">1967-02-21</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>60</td>
+                    <td class="name">Carolyn Young</td>
+                    <td class="quasi">60603</td>
+                    <td class="quasi">1951-07-20</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>61</td>
+                    <td class="name">Stephen King</td>
+                    <td class="quasi">02137</td>
+                    <td class="quasi">1988-03-04</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>62</td>
+                    <td class="name">Kenneth Davis</td>
+                    <td class="quasi">33101</td>
+                    <td class="quasi">1998-01-28</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>63</td>
+                    <td class="name">Matthew Jackson</td>
+                    <td class="quasi">90212</td>
+                    <td class="quasi">1982-05-18</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>64</td>
+                    <td class="name">Donna Hall</td>
+                    <td class="quasi">19103</td>
+                    <td class="quasi">1961-04-30</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>65</td>
+                    <td class="name">Lisa Brown</td>
+                    <td class="quasi">02134</td>
+                    <td class="quasi">1992-11-10</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>66</td>
+                    <td class="name">Karen Torres</td>
+                    <td class="quasi">19103</td>
+                    <td class="quasi">1977-04-05</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>67</td>
+                    <td class="name">Edward Lewis</td>
+                    <td class="quasi">19102</td>
+                    <td class="quasi">1989-09-20</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>68</td>
+                    <td class="name">Benjamin Wilson</td>
+                    <td class="quasi">02134</td>
+                    <td class="quasi">1957-04-14</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>69</td>
+                    <td class="name">Frank Hill</td>
+                    <td class="quasi">98101</td>
+                    <td class="quasi">1976-02-17</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>70</td>
+                    <td class="name">Benjamin Nguyen</td>
+                    <td class="quasi">85001</td>
+                    <td class="quasi">1967-10-01</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>71</td>
+                    <td class="name">Linda Hernandez</td>
+                    <td class="quasi">33103</td>
+                    <td class="quasi">1977-08-06</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>72</td>
+                    <td class="name">Nicholas Wright</td>
+                    <td class="quasi">98101</td>
+                    <td class="quasi">1989-04-10</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>73</td>
+                    <td class="name">Gregory Torres</td>
+                    <td class="quasi">30302</td>
+                    <td class="quasi">1951-11-11</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>74</td>
+                    <td class="name">Sharon Green</td>
+                    <td class="quasi">75201</td>
+                    <td class="quasi">1994-02-11</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>75</td>
+                    <td class="name">Kevin Clark</td>
+                    <td class="quasi">85002</td>
+                    <td class="quasi">1994-06-14</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>76</td>
+                    <td class="name">Joseph Roberts</td>
+                    <td class="quasi">60601</td>
+                    <td class="quasi">1996-03-02</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>77</td>
+                    <td class="name">Jeffrey Carter</td>
+                    <td class="quasi">10002</td>
+                    <td class="quasi">1968-04-06</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>78</td>
+                    <td class="name">Nicole Thomas</td>
+                    <td class="quasi">85002</td>
+                    <td class="quasi">1964-03-17</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>79</td>
+                    <td class="name">Samuel Martinez</td>
+                    <td class="quasi">98101</td>
+                    <td class="quasi">1976-03-08</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>80</td>
+                    <td class="name">Matthew Hill</td>
+                    <td class="quasi">98102</td>
+                    <td class="quasi">1962-04-01</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>81</td>
+                    <td class="name">Patrick Martin</td>
+                    <td class="quasi">75201</td>
+                    <td class="quasi">1993-12-05</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>82</td>
+                    <td class="name">Dorothy Gonzalez</td>
+                    <td class="quasi">85002</td>
+                    <td class="quasi">1971-06-05</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>83</td>
+                    <td class="name">Raymond Adams</td>
+                    <td class="quasi">10005</td>
+                    <td class="quasi">1994-06-09</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>84</td>
+                    <td class="name">Ryan Smith</td>
+                    <td class="quasi">33101</td>
+                    <td class="quasi">1962-12-07</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>85</td>
+                    <td class="name">David Perez</td>
+                    <td class="quasi">75202</td>
+                    <td class="quasi">1997-11-15</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>86</td>
+                    <td class="name">Debra Jackson</td>
+                    <td class="quasi">90212</td>
+                    <td class="quasi">1958-02-09</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>87</td>
+                    <td class="name">Linda Jackson</td>
+                    <td class="quasi">02137</td>
+                    <td class="quasi">1983-08-18</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>88</td>
+                    <td class="name">Daniel Garcia</td>
+                    <td class="quasi">30303</td>
+                    <td class="quasi">1984-04-27</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>89</td>
+                    <td class="name">Steven Nelson</td>
+                    <td class="quasi">10001</td>
+                    <td class="quasi">1991-09-28</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>90</td>
+                    <td class="name">Jason Hall</td>
+                    <td class="quasi">02134</td>
+                    <td class="quasi">1990-12-26</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>91</td>
+                    <td class="name">Donna Hall</td>
+                    <td class="quasi">02135</td>
+                    <td class="quasi">1951-12-20</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>92</td>
+                    <td class="name">Sandra Hill</td>
+                    <td class="quasi">33103</td>
+                    <td class="quasi">1981-08-10</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>93</td>
+                    <td class="name">Samuel Williams</td>
+                    <td class="quasi">02135</td>
+                    <td class="quasi">1989-07-19</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>94</td>
+                    <td class="name">Betty Rodriguez</td>
+                    <td class="quasi">33103</td>
+                    <td class="quasi">1998-05-24</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>95</td>
+                    <td class="name">Cynthia Jones</td>
+                    <td class="quasi">10005</td>
+                    <td class="quasi">1970-03-29</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>96</td>
+                    <td class="name">Melissa Baker</td>
+                    <td class="quasi">33101</td>
+                    <td class="quasi">1973-07-09</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>97</td>
+                    <td class="name">Mark Adams</td>
+                    <td class="quasi">10003</td>
+                    <td class="quasi">1991-08-27</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>98</td>
+                    <td class="name">Richard Thomas</td>
+                    <td class="quasi">19101</td>
+                    <td class="quasi">1998-03-24</td>
+                    <td class="quasi">M</td>
+                </tr>
+                <tr>
+                    <td>99</td>
+                    <td class="name">Katherine Miller</td>
+                    <td class="quasi">75201</td>
+                    <td class="quasi">1993-11-25</td>
+                    <td class="quasi">F</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td class="name">Richard Baker</td>
+                    <td class="quasi">02137</td>
+                    <td class="quasi">1998-11-06</td>
+                    <td class="quasi">F</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="deanonymization_demo.html" class="back-link">← Back to De-Anonymization Demo</a>
+    </div>
+</body>
+</html>

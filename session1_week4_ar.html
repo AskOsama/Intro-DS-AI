@@ -62,10 +62,15 @@
         <section class="content-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; text-align: center; padding: 2rem;">
             <h2 style="color: white; border: none; margin-top: 0;">جرّب العرض التفاعلي!</h2>
             <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">اختبر المفاهيم في هذه الجلسة من خلال لعبة مطابقة الذاكرة. شاهد كيف تعمل الدوال التوجيهية واستراتيجيات البحث عملياً!</p>
-            <a href="memory_game_demo.html" style="display: inline-block; padding: 1rem 2.5rem; background: white; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; transition: transform 0.3s, box-shadow 0.3s;">
-                🎮 العب لعبة مطابقة الذاكرة
-            </a>
-            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">تستخدم: الدالة التوجيهية بالذاكرة، البحث الجشع، مفاضلة الاستكشاف/الاستغلال</p>
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <a href="memory_game_demo.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; transition: transform 0.3s, box-shadow 0.3s;">
+                    🎮 العب لعبة مطابقة الذاكرة
+                </a>
+                <a href="heuristic_demo.html" style="display: inline-block; padding: 1rem 2rem; background: rgba(255,255,255,0.15); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; border: 2px solid white; transition: transform 0.3s, box-shadow 0.3s;">
+                    🧠 شاهد الذكاء الاصطناعي يستخدم الدوال التوجيهية
+                </a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">تستخدم: الدالة التوجيهية بالذاكرة، البحث الجشع، مفاضلة الاستكشاف/الاستغلال، مقارنة البحث الشامل</p>
         </section>
 
         <!-- Section 1: Motivation -->
@@ -441,6 +446,25 @@ def memory_score(card_position, my_memory):
                 <p><code>f(solution) = التطابقات الموجودة / الأدوار المتخذة</code></p>
                 <p>٤ أزواج في ٨ أدوار ← ٠.٥ | ٤ أزواج في ٥ أدوار ← ٠.٨ ← أفضل!</p>
             </div>
+        </section>
+
+        <!-- تذكير عرض الدوال التوجيهية -->
+        <section class="content-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; text-align: center; padding: 1.5rem; margin-top: 1rem;">
+            <h3 style="color: white; border: none; margin-top: 0;">🧠 لم تجرب عرض الدوال التوجيهية بعد؟</h3>
+            <p style="font-size: 1rem; margin-bottom: 1rem;">شاهد كيف يستخدم الذكاء الاصطناعي الدوال التوجيهية بالذاكرة لحل لعبة قلب البطاقات بذكاء!</p>
+            <a href="heuristic_demo.html" style="display: inline-block; padding: 0.8rem 1.5rem; background: white; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1rem; transition: transform 0.3s, box-shadow 0.3s;">
+                🧠 شاهد الذكاء الاصطناعي يستخدم الدوال التوجيهية
+            </a>
+        </section>
+
+        <!-- عرض إزالة إخفاء الهوية -->
+        <section class="content-section" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; border-radius: 12px; text-align: center; padding: 2rem; margin-top: 1rem;">
+            <h2 style="color: white; border: none; margin-top: 0;">🔓 لعبة قلب بطاقات أخرى... لكن بلمسة مختلفة!</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">تذكر لعبة مطابقة الذاكرة؟ إليك تحدي قلب ومطابقة آخر! لكن هذه المرة، نقلب البطاقات لكشف هويات مخفية في بيانات طبية "مجهولة". شاهد كيف تكشف مطابقة ٣ سمات فقط عن السجلات الصحية الخاصة!</p>
+            <a href="deanonymization_demo_ar.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #c0392b; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; transition: transform 0.3s, box-shadow 0.3s;">
+                🎴 العب عرض هجوم إزالة إخفاء الهوية
+            </a>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">المفاهيم: هجوم الربط، شبه المعرفات، k-Anonymity، خصوصية البيانات</p>
         </section>
 
         <!-- Section 7: Multi-Objective Optimization -->

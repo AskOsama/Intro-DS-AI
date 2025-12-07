@@ -55,12 +55,17 @@
 
         <!-- Interactive Demo Banner -->
         <section class="content-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; text-align: center; padding: 2rem;">
-            <h2 style="color: white; border: none; margin-top: 0;">Try the Interactive Demo!</h2>
-            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">Experience the concepts in this session through our Memory Match Game. See how heuristics and search strategies work in practice!</p>
-            <a href="memory_game_demo.html" style="display: inline-block; padding: 1rem 2.5rem; background: white; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; transition: transform 0.3s, box-shadow 0.3s;">
-                🎮 Play Memory Match Game
-            </a>
-            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">Uses: Memory Heuristic, Greedy Search, Explore/Exploit Trade-off</p>
+            <h2 style="color: white; border: none; margin-top: 0;">Try the Interactive Demos!</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">Experience the concepts in this session through our interactive demos. See how heuristics and search strategies work in practice!</p>
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <a href="memory_game_demo.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; transition: transform 0.3s, box-shadow 0.3s;">
+                    🎮 Play Memory Match Game
+                </a>
+                <a href="heuristic_demo.html" style="display: inline-block; padding: 1rem 2rem; background: rgba(255,255,255,0.15); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; border: 2px solid white; transition: transform 0.3s, box-shadow 0.3s;">
+                    🧠 Watch AI Use Heuristics
+                </a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">Uses: Memory Heuristic, Greedy Search, Explore/Exploit Trade-off, Brute Force Comparison</p>
         </section>
 
         <!-- Section 1: Motivation -->
@@ -438,6 +443,25 @@ Turn 2: Flip card 3 → See 7! Remember position 1 had 7!
             </div>
         </section>
 
+        <!-- Heuristic Demo Reminder -->
+        <section class="content-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; text-align: center; padding: 1.5rem; margin-top: 1rem;">
+            <h3 style="color: white; border: none; margin-top: 0;">🧠 Haven't tried the Heuristic Demo yet?</h3>
+            <p style="font-size: 1rem; margin-bottom: 1rem;">Watch how AI uses memory heuristics to solve the card-flipping game intelligently!</p>
+            <a href="heuristic_demo.html" style="display: inline-block; padding: 0.8rem 1.5rem; background: white; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1rem; transition: transform 0.3s, box-shadow 0.3s;">
+                🧠 Watch AI Use Heuristics
+            </a>
+        </section>
+
+        <!-- De-Anonymization Demo Banner -->
+        <section class="content-section" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; border-radius: 12px; text-align: center; padding: 2rem; margin-top: 1rem;">
+            <h2 style="color: white; border: none; margin-top: 0;">🔓 Another Card-Flipping Game... With a Twist!</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">Remember the memory matching game? Here's another flip-and-match challenge! But this time, we flip cards to reveal hidden identities in "anonymous" medical data. Watch how matching just 3 attributes exposes private health records!</p>
+            <a href="deanonymization_demo.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #c0392b; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; transition: transform 0.3s, box-shadow 0.3s;">
+                🎴 Play De-Anonymization Attack Demo
+            </a>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">Concepts: Linkage Attack, Quasi-identifiers, k-Anonymity, Data Privacy</p>
+        </section>
+
         <!-- Section 7: Multi-Objective Optimization -->
         <section id="multi-objective" class="content-section">
             <h2>7. Multi-Objective Optimization (تحسين متعدد الأهداف)</h2>
@@ -582,6 +606,15 @@ The Trade-off:
                     </tr>
                 </tbody>
             </table>
+
+            <!-- Try It Yourself Banner -->
+            <div class="key-message" style="margin-top: 2rem; text-align: center;">
+                <p style="font-size: 1.1rem;">
+                    <strong>See It In Action:</strong>
+                    <a href="heuristic_demo.html" style="color: #667eea; font-weight: bold;">Watch the AI use these heuristics</a>
+                    to play the memory game with Greedy, Epsilon-Greedy, Random, and Brute Force strategies!
+                </p>
+            </div>
         </section>
 
         <!-- Section 9: Why This Matters for AI -->
