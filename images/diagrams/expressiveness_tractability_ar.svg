@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280">
+  <defs>
+    <style>
+      .title { font-family: Cairo, Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; }
+      .axis-label { font-family: Cairo, Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #2c3e50; }
+      .box-title { font-family: Cairo, Arial, sans-serif; font-size: 11px; font-weight: bold; fill: #fff; }
+      .box-subtitle { font-family: Cairo, Arial, sans-serif; font-size: 9px; fill: rgba(255,255,255,0.9); }
+      .complexity { font-family: Cairo, Arial, sans-serif; font-size: 9px; fill: #7f8c8d; }
+      .arrow-text { font-family: Cairo, Arial, sans-serif; font-size: 10px; fill: #7f8c8d; }
+    </style>
+    <linearGradient id="spectrum-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#27ae60"/>
+      <stop offset="25%" style="stop-color:#2ecc71"/>
+      <stop offset="50%" style="stop-color:#f1c40f"/>
+      <stop offset="75%" style="stop-color:#e67e22"/>
+      <stop offset="100%" style="stop-color:#e74c3c"/>
+    </linearGradient>
+    <marker id="arrow-left" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto">
+      <polygon points="10 0, 0 3.5, 10 7" fill="#7f8c8d"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="title">المفاضلة بين التعبيرية وقابلية الحل</text>
+
+  <!-- Spectrum gradient bar (reversed for RTL) -->
+  <rect x="80" y="55" width="640" height="15" rx="4" fill="url(#spectrum-gradient)"/>
+
+  <!-- Axis labels (reversed for RTL) -->
+  <text x="720" y="50" text-anchor="end" class="axis-label" style="fill: #e74c3c;">أكثر تعبيرية</text>
+  <text x="720" y="85" text-anchor="end" class="axis-label" style="fill: #e74c3c;">أقل قابلية للحل</text>
+
+  <text x="80" y="50" class="axis-label" style="fill: #27ae60;">أقل تعبيرية</text>
+  <text x="80" y="85" class="axis-label" style="fill: #27ae60;">أكثر قابلية للحل</text>
+
+  <!-- Arrow across spectrum (reversed for RTL) -->
+  <line x1="680" y1="100" x2="120" y2="100" stroke="#7f8c8d" stroke-width="2" marker-end="url(#arrow-left)"/>
+
+  <!-- Logic boxes (5 boxes - reversed order for RTL) -->
+  <!-- Box 1: Propositional Logic (far left now) -->
+  <rect x="90" y="120" width="110" height="70" rx="8" fill="#16a085" stroke="#138d75" stroke-width="2"/>
+  <text x="145" y="145" text-anchor="middle" class="box-title">المنطق</text>
+  <text x="145" y="160" text-anchor="middle" class="box-title">القضوي</text>
+  <text x="145" y="205" text-anchor="middle" class="complexity">NP-Complete (SAT)</text>
+
+  <!-- Box 2: Datalog -->
+  <rect x="220" y="120" width="110" height="70" rx="8" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="275" y="152" text-anchor="middle" class="box-title">Datalog</text>
+  <text x="275" y="205" text-anchor="middle" class="complexity">P-TIME (عادةً)</text>
+
+  <!-- Box 3: Description Logics (OWL) -->
+  <rect x="350" y="120" width="110" height="70" rx="8" fill="#f39c12" stroke="#d68910" stroke-width="2"/>
+  <text x="405" y="145" text-anchor="middle" class="box-title">المنطق الوصفي</text>
+  <text x="405" y="160" text-anchor="middle" class="box-title">(OWL)</text>
+  <text x="405" y="205" text-anchor="middle" class="complexity">قابل للحل (ExpTime)</text>
+
+  <!-- Box 4: First-Order Logic -->
+  <rect x="480" y="120" width="110" height="70" rx="8" fill="#e67e22" stroke="#d35400" stroke-width="2"/>
+  <text x="535" y="145" text-anchor="middle" class="box-title">منطق الدرجة</text>
+  <text x="535" y="160" text-anchor="middle" class="box-title">الأولى (FOL)</text>
+  <text x="535" y="205" text-anchor="middle" class="complexity">شبه قابل للحل</text>
+
+  <!-- Box 5: Higher-Order Logic (far right now) -->
+  <rect x="610" y="120" width="110" height="70" rx="8" fill="#c0392b" stroke="#a93226" stroke-width="2"/>
+  <text x="665" y="145" text-anchor="middle" class="box-title">منطق الدرجة</text>
+  <text x="665" y="160" text-anchor="middle" class="box-title">العليا</text>
+  <text x="665" y="205" text-anchor="middle" class="complexity">غير قابل للحل</text>
+
+  <!-- Bottom note -->
+  <rect x="200" y="230" width="400" height="35" rx="6" fill="#f8f9fa" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="400" y="250" text-anchor="middle" class="arrow-text">اختر المنطق الذي يوازن بين احتياجات التعبيرية والجدوى الحسابية</text>
+
+</svg>

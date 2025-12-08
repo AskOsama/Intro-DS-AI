@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 400">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; }
+      .section-title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #2c3e50; }
+      .box-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #fff; }
+      .box-subtitle { font-family: Arial, sans-serif; font-size: 11px; fill: rgba(255,255,255,0.9); }
+      .desc-text { font-family: Arial, sans-serif; font-size: 10px; fill: #7f8c8d; font-style: italic; }
+      .code-text { font-family: monospace; font-size: 10px; fill: #2c3e50; }
+      .label-text { font-family: Arial, sans-serif; font-size: 11px; fill: #2c3e50; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="275" y="30" text-anchor="middle" class="title">Ontology Structure: TBox and ABox</text>
+
+  <!-- Main Ontology Container -->
+  <rect x="40" y="50" width="470" height="330" rx="15" fill="#f8f9fa" stroke="#9b59b6" stroke-width="3"/>
+  <text x="275" y="78" text-anchor="middle" class="section-title" style="fill: #9b59b6;">ONTOLOGY</text>
+
+  <!-- TBox Container -->
+  <rect x="60" y="95" width="430" height="120" rx="10" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+  <text x="275" y="120" text-anchor="middle" class="box-title">TBox (Terminological Box)</text>
+  <text x="275" y="138" text-anchor="middle" class="box-subtitle">"Schema" - Defines concepts and relationships</text>
+
+  <!-- TBox content -->
+  <rect x="80" y="148" width="390" height="55" rx="6" fill="rgba(255,255,255,0.15)"/>
+  <text x="95" y="168" class="code-text" style="fill: #fff;">Mammal ⊑ Animal</text>
+  <text x="95" y="183" class="code-text" style="fill: #fff;">Parent ≡ ∃hasChild.Person</text>
+  <text x="95" y="198" class="code-text" style="fill: #fff;">GrandParent ≡ ∃hasChild.Parent</text>
+
+  <!-- Arrow between TBox and ABox -->
+  <line x1="275" y1="220" x2="275" y2="240" stroke="#7f8c8d" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="320" y="235" class="desc-text">defines meaning for</text>
+
+  <!-- ABox Container -->
+  <rect x="60" y="250" width="430" height="115" rx="10" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="275" y="275" text-anchor="middle" class="box-title">ABox (Assertion Box)</text>
+  <text x="275" y="293" text-anchor="middle" class="box-subtitle">"Data" - Assertions about individuals</text>
+
+  <!-- ABox content -->
+  <rect x="80" y="303" width="390" height="50" rx="6" fill="rgba(255,255,255,0.15)"/>
+  <text x="95" y="323" class="code-text" style="fill: #fff;">Mammal(fido)</text>
+  <text x="95" y="338" class="code-text" style="fill: #fff;">hasChild(alice, bob)    hasChild(bob, charlie)</text>
+
+  <!-- Side labels -->
+  <rect x="490" y="130" width="50" height="25" rx="4" fill="#f8d7da"/>
+  <text x="515" y="147" text-anchor="middle" class="label-text" style="font-size: 9px; fill: #c0392b;">Schema</text>
+
+  <rect x="490" y="285" width="50" height="25" rx="4" fill="#d1ecf1"/>
+  <text x="515" y="302" text-anchor="middle" class="label-text" style="font-size: 9px; fill: #2980b9;">Data</text>
+
+</svg>

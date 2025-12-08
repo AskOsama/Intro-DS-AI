@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 11px; fill: #7f8c8d; font-style: italic; }
+      .person-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #fff; }
+      .person-role { font-family: Arial, sans-serif; font-size: 9px; fill: rgba(255,255,255,0.85); }
+      .generation { font-family: Arial, sans-serif; font-size: 10px; fill: #95a5a6; font-weight: bold; }
+      .marriage-dot { fill: #2c3e50; }
+    </style>
+    <marker id="child-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#7f8c8d"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="250" y="30" text-anchor="middle" class="title">Family Tree: The ParentChild Database</text>
+  <text x="250" y="48" text-anchor="middle" class="subtitle">7 facts representing 3 generations</text>
+
+  <!-- Generation labels -->
+  <text x="25" y="100" class="generation">Gen 1</text>
+  <text x="25" y="195" class="generation">Gen 2</text>
+  <text x="25" y="305" class="generation">Gen 3</text>
+
+  <!-- ===== GENERATION 1: Khalid & Fatima ===== -->
+  <!-- Khalid (male - blue) -->
+  <rect x="155" y="70" width="80" height="45" rx="8" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="195" y="92" text-anchor="middle" class="person-name">Khalid</text>
+  <text x="195" y="106" text-anchor="middle" class="person-role">father</text>
+
+  <!-- Fatima (female - pink) -->
+  <rect x="265" y="70" width="80" height="45" rx="8" fill="#e91e63" stroke="#c2185b" stroke-width="2"/>
+  <text x="305" y="92" text-anchor="middle" class="person-name">Fatima</text>
+  <text x="305" y="106" text-anchor="middle" class="person-role">mother</text>
+
+  <!-- Marriage line -->
+  <line x1="235" y1="92" x2="265" y2="92" stroke="#2c3e50" stroke-width="2"/>
+  <circle cx="250" cy="92" r="4" class="marriage-dot"/>
+
+  <!-- Line down to Ahmed -->
+  <line x1="250" y1="115" x2="250" y2="155" stroke="#7f8c8d" stroke-width="2" marker-end="url(#child-arrow)"/>
+
+  <!-- ===== GENERATION 2: Ahmed & Nour ===== -->
+  <!-- Ahmed (male - blue) -->
+  <rect x="155" y="165" width="80" height="45" rx="8" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="195" y="187" text-anchor="middle" class="person-name">Ahmed</text>
+  <text x="195" y="201" text-anchor="middle" class="person-role">father</text>
+
+  <!-- Nour (female - pink) -->
+  <rect x="265" y="165" width="80" height="45" rx="8" fill="#e91e63" stroke="#c2185b" stroke-width="2"/>
+  <text x="305" y="187" text-anchor="middle" class="person-name">Nour</text>
+  <text x="305" y="201" text-anchor="middle" class="person-role">mother</text>
+
+  <!-- Marriage line -->
+  <line x1="235" y1="187" x2="265" y2="187" stroke="#2c3e50" stroke-width="2"/>
+  <circle cx="250" cy="187" r="4" class="marriage-dot"/>
+
+  <!-- Lines down to Yusuf and Layla -->
+  <line x1="250" y1="210" x2="250" y2="235" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="150" y1="235" x2="350" y2="235" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="150" y1="235" x2="150" y2="260" stroke="#7f8c8d" stroke-width="2" marker-end="url(#child-arrow)"/>
+  <line x1="350" y1="235" x2="350" y2="260" stroke="#7f8c8d" stroke-width="2" marker-end="url(#child-arrow)"/>
+
+  <!-- ===== GENERATION 3: Yusuf, Layla, Sara ===== -->
+  <!-- Yusuf (male - blue) -->
+  <rect x="110" y="270" width="80" height="45" rx="8" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="150" y="292" text-anchor="middle" class="person-name">Yusuf</text>
+  <text x="150" y="306" text-anchor="middle" class="person-role">father</text>
+
+  <!-- Layla (female - pink) -->
+  <rect x="310" y="270" width="80" height="45" rx="8" fill="#e91e63" stroke="#c2185b" stroke-width="2"/>
+  <text x="350" y="292" text-anchor="middle" class="person-name">Layla</text>
+  <text x="350" y="306" text-anchor="middle" class="person-role">sister</text>
+
+  <!-- Line down to Sara -->
+  <line x1="150" y1="315" x2="150" y2="345" stroke="#7f8c8d" stroke-width="2" marker-end="url(#child-arrow)"/>
+
+  <!-- Sara (female - pink) -->
+  <rect x="110" y="355" width="80" height="35" rx="8" fill="#e91e63" stroke="#c2185b" stroke-width="2"/>
+  <text x="150" y="377" text-anchor="middle" class="person-name">Sara</text>
+
+  <!-- Legend -->
+  <rect x="400" y="340" width="90" height="50" rx="6" fill="#f8f9fa" stroke="#e1e4e8" stroke-width="1"/>
+  <rect x="410" y="350" width="16" height="12" rx="3" fill="#3498db"/>
+  <text x="432" y="360" style="font-family: Arial; font-size: 10px; fill: #2c3e50;">Male</text>
+  <rect x="410" y="370" width="16" height="12" rx="3" fill="#e91e63"/>
+  <text x="432" y="380" style="font-family: Arial; font-size: 10px; fill: #2c3e50;">Female</text>
+
+</svg>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; }
+      .axis-label { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #2c3e50; }
+      .box-title { font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; fill: #fff; }
+      .box-subtitle { font-family: Arial, sans-serif; font-size: 9px; fill: rgba(255,255,255,0.9); }
+      .complexity { font-family: Arial, sans-serif; font-size: 9px; fill: #7f8c8d; }
+      .arrow-text { font-family: Arial, sans-serif; font-size: 10px; fill: #7f8c8d; }
+    </style>
+    <linearGradient id="spectrum-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e74c3c"/>
+      <stop offset="25%" style="stop-color:#e67e22"/>
+      <stop offset="50%" style="stop-color:#f1c40f"/>
+      <stop offset="75%" style="stop-color:#2ecc71"/>
+      <stop offset="100%" style="stop-color:#27ae60"/>
+    </linearGradient>
+    <marker id="arrow-right" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7f8c8d"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="title">Expressiveness vs Tractability Trade-off</text>
+
+  <!-- Spectrum gradient bar -->
+  <rect x="80" y="55" width="640" height="15" rx="4" fill="url(#spectrum-gradient)"/>
+
+  <!-- Axis labels -->
+  <text x="80" y="50" class="axis-label" style="fill: #e74c3c;">More Expressive</text>
+  <text x="80" y="85" class="axis-label" style="fill: #e74c3c;">Less Tractable</text>
+
+  <text x="720" y="50" text-anchor="end" class="axis-label" style="fill: #27ae60;">Less Expressive</text>
+  <text x="720" y="85" text-anchor="end" class="axis-label" style="fill: #27ae60;">More Tractable</text>
+
+  <!-- Arrow across spectrum -->
+  <line x1="120" y1="100" x2="680" y2="100" stroke="#7f8c8d" stroke-width="2" marker-end="url(#arrow-right)"/>
+
+  <!-- Logic boxes (5 boxes) -->
+  <!-- Box 1: Higher-Order Logic -->
+  <rect x="90" y="120" width="110" height="70" rx="8" fill="#c0392b" stroke="#a93226" stroke-width="2"/>
+  <text x="145" y="145" text-anchor="middle" class="box-title">Full Higher-</text>
+  <text x="145" y="160" text-anchor="middle" class="box-title">Order Logic</text>
+  <text x="145" y="205" text-anchor="middle" class="complexity">Undecidable</text>
+
+  <!-- Box 2: First-Order Logic -->
+  <rect x="220" y="120" width="110" height="70" rx="8" fill="#e67e22" stroke="#d35400" stroke-width="2"/>
+  <text x="275" y="145" text-anchor="middle" class="box-title">First-Order</text>
+  <text x="275" y="160" text-anchor="middle" class="box-title">Logic (FOL)</text>
+  <text x="275" y="205" text-anchor="middle" class="complexity">Semi-decidable</text>
+
+  <!-- Box 3: Description Logics (OWL) -->
+  <rect x="350" y="120" width="110" height="70" rx="8" fill="#f39c12" stroke="#d68910" stroke-width="2"/>
+  <text x="405" y="145" text-anchor="middle" class="box-title">Description</text>
+  <text x="405" y="160" text-anchor="middle" class="box-title">Logics (OWL)</text>
+  <text x="405" y="205" text-anchor="middle" class="complexity">Decidable (ExpTime)</text>
+
+  <!-- Box 4: Datalog -->
+  <rect x="480" y="120" width="110" height="70" rx="8" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="535" y="152" text-anchor="middle" class="box-title">Datalog</text>
+  <text x="535" y="205" text-anchor="middle" class="complexity">P-TIME (usually)</text>
+
+  <!-- Box 5: Propositional Logic -->
+  <rect x="610" y="120" width="110" height="70" rx="8" fill="#16a085" stroke="#138d75" stroke-width="2"/>
+  <text x="665" y="145" text-anchor="middle" class="box-title">Propositional</text>
+  <text x="665" y="160" text-anchor="middle" class="box-title">Logic</text>
+  <text x="665" y="205" text-anchor="middle" class="complexity">NP-Complete (SAT)</text>
+
+  <!-- Bottom note -->
+  <rect x="200" y="230" width="400" height="35" rx="6" fill="#f8f9fa" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="400" y="250" text-anchor="middle" class="arrow-text">Choose the logic that balances your expressiveness needs with computational feasibility</text>
+
+</svg>

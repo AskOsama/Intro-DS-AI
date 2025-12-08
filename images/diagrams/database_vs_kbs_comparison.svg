@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <style>
+      .main-title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; }
+      .panel-title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #2c3e50; }
+      .box-label { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #fff; }
+      .box-sublabel { font-family: Arial, sans-serif; font-size: 10px; fill: rgba(255,255,255,0.9); }
+      .arrow-label { font-family: Arial, sans-serif; font-size: 11px; fill: #34495e; font-weight: bold; }
+      .component-text { font-family: Arial, sans-serif; font-size: 12px; fill: #2c3e50; }
+      .note-text { font-family: Arial, sans-serif; font-size: 11px; fill: #7f8c8d; font-style: italic; }
+    </style>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3498db"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#9b59b6"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- LEFT PANEL: Database System -->
+  <rect x="20" y="20" width="370" height="360" rx="12" fill="#f0f4f8" stroke="#3498db" stroke-width="2"/>
+  <text x="205" y="50" text-anchor="middle" class="panel-title">Database System</text>
+
+  <!-- DATA Box (DB) -->
+  <rect x="60" y="90" width="120" height="70" rx="8" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="120" y="120" text-anchor="middle" class="box-label">DATA</text>
+  <text x="120" y="140" text-anchor="middle" class="box-sublabel">(Tables)</text>
+
+  <!-- Arrow to Result (DB) -->
+  <line x1="180" y1="125" x2="270" y2="125" stroke="#3498db" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="225" y="115" text-anchor="middle" class="arrow-label">Query</text>
+
+  <!-- RESULT Box (DB) -->
+  <rect x="280" y="90" width="90" height="70" rx="8" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="325" y="125" text-anchor="middle" class="box-label">RESULT</text>
+
+  <!-- Components label (DB) -->
+  <rect x="60" y="190" width="310" height="35" rx="6" fill="#e8f4fd"/>
+  <text x="215" y="212" text-anchor="middle" class="component-text">Components: DATA + QUERY</text>
+
+  <!-- Note (DB) -->
+  <text x="205" y="260" text-anchor="middle" class="note-text">What you store is what you get.</text>
+
+  <!-- Divider line -->
+  <line x1="400" y1="40" x2="400" y2="360" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,5"/>
+
+  <!-- RIGHT PANEL: Knowledge-Based System -->
+  <rect x="410" y="20" width="370" height="360" rx="12" fill="#faf5ff" stroke="#9b59b6" stroke-width="2"/>
+  <text x="595" y="50" text-anchor="middle" class="panel-title">Knowledge-Based System</text>
+
+  <!-- DATA Box (KBS) -->
+  <rect x="430" y="80" width="90" height="60" rx="8" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="475" y="105" text-anchor="middle" class="box-label">DATA</text>
+  <text x="475" y="125" text-anchor="middle" class="box-sublabel">(Facts)</text>
+
+  <!-- RULES Box (KBS) -->
+  <rect x="540" y="80" width="90" height="60" rx="8" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+  <text x="585" y="105" text-anchor="middle" class="box-label">RULES</text>
+  <text x="585" y="125" text-anchor="middle" class="box-sublabel">(Inference)</text>
+
+  <!-- Arrows to Inference Engine -->
+  <line x1="475" y1="140" x2="530" y2="175" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrow-purple)"/>
+  <line x1="585" y1="140" x2="530" y2="175" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrow-purple)"/>
+
+  <!-- Inference Engine Box -->
+  <rect x="480" y="180" width="100" height="40" rx="6" fill="#9b59b6" stroke="#7d3c98" stroke-width="2"/>
+  <text x="530" y="205" text-anchor="middle" class="box-label" style="font-size: 11px;">INFERENCE</text>
+
+  <!-- Query arrow -->
+  <line x1="650" y1="200" x2="580" y2="200" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrow-purple)"/>
+  <text x="700" y="205" text-anchor="middle" class="arrow-label">Query</text>
+
+  <!-- Arrow to Result -->
+  <line x1="530" y1="220" x2="530" y2="260" stroke="#27ae60" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <!-- RESULT Box (KBS) -->
+  <rect x="480" y="265" width="100" height="50" rx="8" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="530" y="290" text-anchor="middle" class="box-label">RESULT</text>
+  <text x="530" y="305" text-anchor="middle" class="box-sublabel">(Derived)</text>
+
+  <!-- Components label (KBS) -->
+  <rect x="430" y="335" width="340" height="30" rx="6" fill="#f3e8ff"/>
+  <text x="600" y="355" text-anchor="middle" class="component-text">Components: DATA + RULES + QUERY</text>
+
+  <!-- Note (KBS) -->
+  <text x="595" y="260" text-anchor="middle" class="note-text" style="font-size: 10px;">Derives new knowledge</text>
+  <text x="595" y="275" text-anchor="middle" class="note-text" style="font-size: 10px;">through reasoning.</text>
+
+</svg>

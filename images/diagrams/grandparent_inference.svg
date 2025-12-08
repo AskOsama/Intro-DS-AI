@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 450">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; }
+      .step-number { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #fff; }
+      .step-title { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #2c3e50; }
+      .step-text { font-family: Arial, sans-serif; font-size: 11px; fill: #34495e; }
+      .code-text { font-family: monospace; font-size: 11px; fill: #2c3e50; }
+      .highlight { font-family: monospace; font-size: 11px; fill: #e74c3c; font-weight: bold; }
+      .result { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #27ae60; }
+      .subst { font-family: monospace; font-size: 10px; fill: #9b59b6; }
+    </style>
+    <marker id="arrow-down" markerWidth="10" markerHeight="7" refX="5" refY="7" orient="auto">
+      <polygon points="0 0, 10 0, 5 7" fill="#3498db"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="350" y="30" text-anchor="middle" class="title">Inference Process: How KBS Answers "grandparent(khalid, yusuf)?"</text>
+
+  <!-- Query Box -->
+  <rect x="200" y="50" width="300" height="40" rx="8" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="350" y="75" text-anchor="middle" class="step-number" style="font-size: 13px;">Query: ?- grandparent(khalid, yusuf)</text>
+
+  <!-- Arrow -->
+  <line x1="350" y1="90" x2="350" y2="115" stroke="#3498db" stroke-width="2" marker-end="url(#arrow-down)"/>
+
+  <!-- Step 1 -->
+  <rect x="50" y="120" width="600" height="55" rx="8" fill="#f8f9fa" stroke="#3498db" stroke-width="2"/>
+  <circle cx="80" cy="147" r="18" fill="#3498db"/>
+  <text x="80" y="153" text-anchor="middle" class="step-number">1</text>
+  <text x="115" y="140" class="step-title">Match query with rule head</text>
+  <text x="115" y="158" class="code-text">grandparent(khalid, yusuf) matches grandparent(X, Z)</text>
+  <text x="450" y="165" class="subst">Substitution: X = khalid, Z = yusuf</text>
+
+  <!-- Arrow -->
+  <line x1="350" y1="175" x2="350" y2="195" stroke="#3498db" stroke-width="2" marker-end="url(#arrow-down)"/>
+
+  <!-- Step 2 -->
+  <rect x="50" y="200" width="600" height="55" rx="8" fill="#f8f9fa" stroke="#e74c3c" stroke-width="2"/>
+  <circle cx="80" cy="227" r="18" fill="#e74c3c"/>
+  <text x="80" y="233" text-anchor="middle" class="step-number">2</text>
+  <text x="115" y="220" class="step-title">Prove rule body with substitution</text>
+  <text x="115" y="238" class="code-text">Need to prove: parent(khalid, Y) AND parent(Y, yusuf)</text>
+
+  <!-- Arrow -->
+  <line x1="350" y1="255" x2="350" y2="275" stroke="#3498db" stroke-width="2" marker-end="url(#arrow-down)"/>
+
+  <!-- Step 3 -->
+  <rect x="50" y="280" width="600" height="55" rx="8" fill="#f8f9fa" stroke="#f39c12" stroke-width="2"/>
+  <circle cx="80" cy="307" r="18" fill="#f39c12"/>
+  <text x="80" y="313" text-anchor="middle" class="step-number">3</text>
+  <text x="115" y="300" class="step-title">Find Y such that parent(khalid, Y) is true</text>
+  <text x="115" y="318" class="code-text">Lookup: Found fact </text>
+  <text x="245" y="318" class="highlight">parent(khalid, ahmed)</text>
+  <text x="450" y="318" class="subst">Y = ahmed</text>
+
+  <!-- Arrow -->
+  <line x1="350" y1="335" x2="350" y2="355" stroke="#3498db" stroke-width="2" marker-end="url(#arrow-down)"/>
+
+  <!-- Step 4 -->
+  <rect x="50" y="360" width="600" height="55" rx="8" fill="#f8f9fa" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="80" cy="387" r="18" fill="#27ae60"/>
+  <text x="80" y="393" text-anchor="middle" class="step-number">4</text>
+  <text x="115" y="380" class="step-title">Check if parent(ahmed, yusuf) is true</text>
+  <text x="115" y="398" class="code-text">Lookup: Found fact </text>
+  <text x="245" y="398" class="highlight">parent(ahmed, yusuf)</text>
+  <text x="420" y="398" class="result">YES!</text>
+
+  <!-- Final Result -->
+  <rect x="250" y="425" width="200" height="30" rx="6" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="350" y="445" text-anchor="middle" class="step-number" style="font-size: 12px;">Result: TRUE</text>
+
+</svg>

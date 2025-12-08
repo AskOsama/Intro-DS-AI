@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 280">
+  <defs>
+    <style>
+      .title { font-family: Cairo, Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #2c3e50; }
+      .subtitle { font-family: Cairo, Arial, sans-serif; font-size: 12px; fill: #7f8c8d; font-style: italic; }
+      .box-label { font-family: Cairo, Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #fff; }
+      .box-sublabel { font-family: Cairo, Arial, sans-serif; font-size: 11px; fill: rgba(255,255,255,0.9); }
+      .arrow-label { font-family: Cairo, Arial, sans-serif; font-size: 12px; fill: #34495e; font-weight: bold; }
+      .note-text { font-family: Cairo, Arial, sans-serif; font-size: 11px; fill: #7f8c8d; }
+      .caption { font-family: Cairo, Arial, sans-serif; font-size: 13px; fill: #2c3e50; font-style: italic; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3498db"/>
+    </marker>
+  </defs>
+
+  <!-- Background frame -->
+  <rect x="20" y="15" width="610" height="250" rx="12" fill="#f8f9fa" stroke="#e1e4e8" stroke-width="1"/>
+
+  <!-- Title -->
+  <text x="325" y="45" text-anchor="middle" class="title">نظام قواعد البيانات</text>
+  <text x="325" y="65" text-anchor="middle" class="subtitle">نموذج الاسترجاع فقط</text>
+
+  <!-- DATA Box -->
+  <rect x="80" y="100" width="140" height="80" rx="10" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="150" y="135" text-anchor="middle" class="box-label">البيانات</text>
+  <text x="150" y="155" text-anchor="middle" class="box-sublabel">(الجداول)</text>
+
+  <!-- Arrow from DATA to RESULT -->
+  <line x1="220" y1="140" x2="390" y2="140" stroke="#3498db" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+  <!-- Query label on arrow -->
+  <rect x="270" y="115" width="70" height="24" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="305" y="132" text-anchor="middle" class="arrow-label">استعلام</text>
+
+  <!-- RESULT Box -->
+  <rect x="430" y="100" width="140" height="80" rx="10" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="500" y="135" text-anchor="middle" class="box-label">النتيجة</text>
+  <text x="500" y="155" text-anchor="middle" class="box-sublabel">(المسترجعة)</text>
+
+  <!-- Bottom note -->
+  <rect x="100" y="210" width="450" height="40" rx="6" fill="#fff3cd" stroke="#ffc107" stroke-width="1"/>
+  <text x="325" y="228" text-anchor="middle" class="note-text">النظام يمكنه فقط استرجاع ما تم تخزينه.</text>
+  <text x="325" y="243" text-anchor="middle" class="note-text" style="font-weight: bold;">لا يمكنه استنتاج حقائق جديدة من الموجودة.</text>
+
+</svg>

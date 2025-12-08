@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 420">
+  <defs>
+    <style>
+      .title { font-family: Cairo, Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; }
+      .layer-title { font-family: Cairo, Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #fff; }
+      .layer-desc { font-family: Cairo, Arial, sans-serif; font-size: 10px; fill: rgba(255,255,255,0.9); }
+      .side-label { font-family: Cairo, Arial, sans-serif; font-size: 10px; fill: #7f8c8d; }
+      .bracket-text { font-family: Cairo, Arial, sans-serif; font-size: 11px; fill: #2c3e50; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="250" y="30" text-anchor="middle" class="title">مكدس تقنيات الويب الدلالي</text>
+
+  <!-- Layer 5: SPARQL (Queries) - Top -->
+  <rect x="100" y="55" width="300" height="55" rx="8" fill="#9b59b6" stroke="#7d3c98" stroke-width="2"/>
+  <text x="250" y="80" text-anchor="middle" class="layer-title">الاستعلامات</text>
+  <text x="250" y="98" text-anchor="middle" class="layer-desc">(SPARQL)</text>
+
+  <!-- Layer 4: OWL/SWRL (Ontologies) -->
+  <rect x="100" y="120" width="300" height="55" rx="8" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+  <text x="250" y="145" text-anchor="middle" class="layer-title">الأنطولوجيات</text>
+  <text x="250" y="163" text-anchor="middle" class="layer-desc">(OWL / SWRL)</text>
+
+  <!-- Layer 3: RDFS (Schemas) -->
+  <rect x="100" y="185" width="300" height="55" rx="8" fill="#f39c12" stroke="#d68910" stroke-width="2"/>
+  <text x="250" y="210" text-anchor="middle" class="layer-title">المخططات</text>
+  <text x="250" y="228" text-anchor="middle" class="layer-desc">(RDFS - الفئات، الخصائص)</text>
+
+  <!-- Layer 2: RDF (Data) -->
+  <rect x="100" y="250" width="300" height="55" rx="8" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="250" y="275" text-anchor="middle" class="layer-title">البيانات</text>
+  <text x="250" y="293" text-anchor="middle" class="layer-desc">(RDF - ثلاثيات الفاعل-المحمول-المفعول)</text>
+
+  <!-- Layer 1: URIs (Identifiers) - Bottom -->
+  <rect x="100" y="315" width="300" height="55" rx="8" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="250" y="340" text-anchor="middle" class="layer-title">المعرّفات</text>
+  <text x="250" y="358" text-anchor="middle" class="layer-desc">(URIs - معرّفات الموارد الموحدة)</text>
+
+  <!-- Right side bracket and label: "Rules" -->
+  <path d="M 415 120 L 425 120 L 425 175 L 415 175" stroke="#7f8c8d" stroke-width="2" fill="none"/>
+  <text x="445" y="152" text-anchor="middle" class="side-label">القواعد/المخطط</text>
+
+  <!-- Left side bracket and label: "Data" -->
+  <path d="M 85 250 L 75 250 L 75 370 L 85 370" stroke="#7f8c8d" stroke-width="2" fill="none"/>
+  <text x="55" y="310" text-anchor="middle" class="side-label">طبقة البيانات</text>
+
+  <!-- Bottom legend -->
+  <rect x="100" y="385" width="300" height="25" rx="4" fill="#f8f9fa" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="250" y="402" text-anchor="middle" class="side-label">كل طبقة تُبنى على التي أسفلها</text>
+
+  <!-- Connecting lines between layers (subtle) -->
+  <line x1="250" y1="110" x2="250" y2="120" stroke="#bdc3c7" stroke-width="1"/>
+  <line x1="250" y1="175" x2="250" y2="185" stroke="#bdc3c7" stroke-width="1"/>
+  <line x1="250" y1="240" x2="250" y2="250" stroke="#bdc3c7" stroke-width="1"/>
+  <line x1="250" y1="305" x2="250" y2="315" stroke="#bdc3c7" stroke-width="1"/>
+
+</svg>
