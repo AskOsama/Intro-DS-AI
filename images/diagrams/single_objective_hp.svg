@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 400" width="700" height="400">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #2c3e50; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 14px; fill: #7f8c8d; }
+      .axis-label { font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #2c3e50; }
+      .tick-label { font-family: Arial, sans-serif; font-size: 11px; fill: #7f8c8d; }
+      .point-label { font-family: Arial, sans-serif; font-size: 10px; fill: #2c3e50; }
+      .annotation { font-family: Arial, sans-serif; font-size: 12px; fill: #27ae60; font-weight: bold; }
+      .dim-label { font-family: Arial, sans-serif; font-size: 11px; fill: #e74c3c; font-style: italic; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="400" fill="#fafbfc"/>
+
+  <!-- Title -->
+  <text x="350" y="35" text-anchor="middle" class="title">Single Objective: Maximize Horsepower</text>
+  <text x="350" y="58" text-anchor="middle" class="subtitle">f(car) = horsepower | Goal: Find HIGHEST value</text>
+
+  <!-- 1D indicator -->
+  <rect x="540" y="20" width="130" height="45" rx="5" fill="#fef3c7" stroke="#f59e0b"/>
+  <text x="605" y="38" text-anchor="middle" class="dim-label">ONE Dimension</text>
+  <text x="605" y="53" text-anchor="middle" class="dim-label">Only HP matters!</text>
+
+  <!-- Main horizontal axis line -->
+  <line x1="60" y1="220" x2="660" y2="220" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+  <!-- Axis label -->
+  <text x="360" y="280" text-anchor="middle" class="axis-label">Horsepower (HP)</text>
+
+  <!-- Tick marks and labels -->
+  <g stroke="#2c3e50" stroke-width="2">
+    <line x1="80" y1="215" x2="80" y2="225"/>
+    <line x1="180" y1="215" x2="180" y2="225"/>
+    <line x1="280" y1="215" x2="280" y2="225"/>
+    <line x1="380" y1="215" x2="380" y2="225"/>
+    <line x1="480" y1="215" x2="480" y2="225"/>
+    <line x1="580" y1="215" x2="580" y2="225"/>
+    <line x1="640" y1="215" x2="640" y2="225"/>
+  </g>
+  <text x="80" y="250" text-anchor="middle" class="tick-label">100</text>
+  <text x="180" y="250" text-anchor="middle" class="tick-label">200</text>
+  <text x="280" y="250" text-anchor="middle" class="tick-label">300</text>
+  <text x="380" y="250" text-anchor="middle" class="tick-label">400</text>
+  <text x="480" y="250" text-anchor="middle" class="tick-label">500</text>
+  <text x="580" y="250" text-anchor="middle" class="tick-label">600</text>
+  <text x="640" y="250" text-anchor="middle" class="tick-label">700</text>
+
+  <!-- Data points on 1D line -->
+  <!-- HP values: 139, 150, 200, 248, 323, 370, 416, 493, 589, 678 -->
+  <!-- X scale: x = 80 + (HP - 100) * (560/600) = 80 + (HP - 100) * 0.933 -->
+
+  <!-- Car 91: 139 HP - x = 80 + 39*0.933 = 116 -->
+  <circle cx="116" cy="220" r="8" fill="#27ae60"/>
+  <text x="116" y="200" text-anchor="middle" class="point-label">139</text>
+
+  <!-- Car 7: 150 HP - x = 80 + 50*0.933 = 127 -->
+  <circle cx="127" cy="220" r="8" fill="#27ae60"/>
+  <text x="127" y="310" text-anchor="middle" class="point-label">150</text>
+
+  <!-- Car 95: 200 HP - x = 80 + 100*0.933 = 173 -->
+  <circle cx="173" cy="220" r="8" fill="#27ae60"/>
+  <text x="173" y="200" text-anchor="middle" class="point-label">200</text>
+
+  <!-- Car 99: 248 HP - x = 80 + 148*0.933 = 218 -->
+  <circle cx="218" cy="220" r="8" fill="#27ae60"/>
+  <text x="218" y="310" text-anchor="middle" class="point-label">248</text>
+
+  <!-- Car 86: 323 HP - x = 80 + 223*0.933 = 288 -->
+  <circle cx="288" cy="220" r="8" fill="#27ae60"/>
+  <text x="288" y="200" text-anchor="middle" class="point-label">323</text>
+
+  <!-- Car 44: 370 HP - x = 80 + 270*0.933 = 332 -->
+  <circle cx="332" cy="220" r="8" fill="#27ae60"/>
+  <text x="332" y="310" text-anchor="middle" class="point-label">370</text>
+
+  <!-- Car 34: 416 HP - x = 80 + 316*0.933 = 375 -->
+  <circle cx="375" cy="220" r="8" fill="#27ae60"/>
+  <text x="375" y="200" text-anchor="middle" class="point-label">416</text>
+
+  <!-- Car 38: 493 HP - x = 80 + 393*0.933 = 447 -->
+  <circle cx="447" cy="220" r="8" fill="#27ae60"/>
+  <text x="447" y="310" text-anchor="middle" class="point-label">493</text>
+
+  <!-- Car 56: 589 HP - x = 80 + 489*0.933 = 536 -->
+  <circle cx="536" cy="220" r="8" fill="#27ae60"/>
+  <text x="536" y="200" text-anchor="middle" class="point-label">589</text>
+
+  <!-- Best car (Car 5: 678 HP) - x = 80 + 578*0.933 = 619 - Gold star -->
+  <polygon points="619,220 623,232 636,232 625,240 630,253 619,245 608,253 613,240 602,232 615,232"
+           fill="#f1c40f" stroke="#f39c12" stroke-width="1.5"/>
+
+  <!-- Best car annotation with arrow -->
+  <line x1="619" y1="170" x2="619" y2="195" stroke="#f39c12" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <rect x="559" y="130" width="120" height="40" rx="5" fill="#d5f5e3" stroke="#27ae60"/>
+  <text x="619" y="148" text-anchor="middle" class="annotation">BEST: 678 HP</text>
+  <text x="619" y="163" text-anchor="middle" class="point-label" style="fill: #f39c12;">Car_005</text>
+
+  <!-- Explanation box -->
+  <rect x="50" y="330" width="600" height="55" rx="8" fill="#e8f8f5" stroke="#1abc9c"/>
+  <text x="350" y="352" text-anchor="middle" class="point-label" style="font-weight: bold; fill: #1abc9c; font-size: 13px;">With ONE objective, choosing is EASY:</text>
+  <text x="350" y="372" text-anchor="middle" class="point-label" style="fill: #1abc9c; font-size: 12px;">Just pick the point furthest to the right (highest HP). No trade-offs needed!</text>
+</svg>

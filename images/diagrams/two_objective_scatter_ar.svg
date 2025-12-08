@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 500" width="700" height="500">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#27ae60"/>
+    </marker>
+    <marker id="arrowhead-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#f97316"/>
+    </marker>
+    <style>
+      .title { font-family: 'Cairo', Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; direction: rtl; }
+      .subtitle { font-family: 'Cairo', Arial, sans-serif; font-size: 13px; fill: #7f8c8d; direction: rtl; }
+      .axis-label { font-family: 'Cairo', Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #2c3e50; direction: rtl; }
+      .tick-label { font-family: 'Cairo', Arial, sans-serif; font-size: 11px; fill: #7f8c8d; }
+      .point-label { font-family: 'Cairo', Arial, sans-serif; font-size: 9px; fill: #2c3e50; direction: rtl; }
+      .annotation { font-family: 'Cairo', Arial, sans-serif; font-size: 11px; font-style: italic; direction: rtl; }
+      .legend-text { font-family: 'Cairo', Arial, sans-serif; font-size: 11px; fill: #2c3e50; direction: rtl; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="500" fill="#fafbfc"/>
+
+  <!-- Title -->
+  <text x="350" y="30" text-anchor="middle" class="title">هدفان: قوة المحرك مقابل التكلفة</text>
+  <text x="350" y="50" text-anchor="middle" class="subtitle">كل سيارة هي نقطة في فضاء ثنائي الأبعاد - أيها "الأفضل"؟</text>
+
+  <!-- Grid lines -->
+  <g stroke="#e1e4e8" stroke-width="1">
+    <!-- Horizontal grid -->
+    <line x1="100" y1="120" x2="620" y2="120"/>
+    <line x1="100" y1="180" x2="620" y2="180"/>
+    <line x1="100" y1="240" x2="620" y2="240"/>
+    <line x1="100" y1="300" x2="620" y2="300"/>
+    <line x1="100" y1="360" x2="620" y2="360"/>
+    <line x1="100" y1="420" x2="620" y2="420"/>
+    <!-- Vertical grid -->
+    <line x1="187" y1="80" x2="187" y2="420"/>
+    <line x1="274" y1="80" x2="274" y2="420"/>
+    <line x1="361" y1="80" x2="361" y2="420"/>
+    <line x1="448" y1="80" x2="448" y2="420"/>
+    <line x1="535" y1="80" x2="535" y2="420"/>
+  </g>
+
+  <!-- Axes -->
+  <line x1="100" y1="420" x2="640" y2="420" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="100" y1="420" x2="100" y2="65" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- X-axis label and ticks (Horsepower) -->
+  <text x="370" y="465" text-anchor="middle" class="axis-label">قوة المحرك (حصان)</text>
+  <text x="100" y="438" text-anchor="middle" class="tick-label">١٠٠</text>
+  <text x="187" y="438" text-anchor="middle" class="tick-label">٢٠٠</text>
+  <text x="274" y="438" text-anchor="middle" class="tick-label">٣٠٠</text>
+  <text x="361" y="438" text-anchor="middle" class="tick-label">٤٠٠</text>
+  <text x="448" y="438" text-anchor="middle" class="tick-label">٥٠٠</text>
+  <text x="535" y="438" text-anchor="middle" class="tick-label">٦٠٠</text>
+  <text x="622" y="438" text-anchor="middle" class="tick-label">٧٠٠</text>
+
+  <!-- Y-axis label and ticks (Cost) -->
+  <text x="45" y="250" text-anchor="middle" class="axis-label" transform="rotate(-90, 45, 250)">التكلفة ($)</text>
+  <text x="90" y="424" text-anchor="end" class="tick-label">$١٠ك</text>
+  <text x="90" y="364" text-anchor="end" class="tick-label">$٣٠ك</text>
+  <text x="90" y="304" text-anchor="end" class="tick-label">$٥٠ك</text>
+  <text x="90" y="244" text-anchor="end" class="tick-label">$٧٠ك</text>
+  <text x="90" y="184" text-anchor="end" class="tick-label">$٩٠ك</text>
+  <text x="90" y="124" text-anchor="end" class="tick-label">$١١٠ك</text>
+
+  <!-- Direction annotations -->
+  <!-- Higher HP is better (right arrow) -->
+  <line x1="550" y1="475" x2="620" y2="475" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+  <text x="500" y="479" class="annotation" fill="#27ae60">الأعلى أفضل</text>
+
+  <!-- Lower Cost is better -->
+  <line x1="660" y1="350" x2="660" y2="400" stroke="#f97316" stroke-width="2" marker-end="url(#arrowhead-orange)"/>
+  <text x="660" y="340" text-anchor="middle" class="annotation" fill="#f97316">الأقل</text>
+  <text x="660" y="352" text-anchor="middle" class="annotation" fill="#f97316">أفضل</text>
+
+  <!-- Data points (10 sample cars) -->
+  <g fill="#3498db" stroke="#2980b9" stroke-width="1">
+    <!-- Car 91: 139 HP, $15,000 -->
+    <circle cx="134" cy="405" r="8"/>
+
+    <!-- Car 7: 150 HP, $15,070 -->
+    <circle cx="143" cy="405" r="8"/>
+
+    <!-- Car 95: 200 HP, $23,806 -->
+    <circle cx="187" cy="378" r="8"/>
+
+    <!-- Car 99: 248 HP, $33,847 -->
+    <circle cx="229" cy="348" r="8"/>
+
+    <!-- Car 86: 323 HP, $48,148 -->
+    <circle cx="294" cy="305" r="8"/>
+
+    <!-- Car 44: 370 HP, $56,954 -->
+    <circle cx="335" cy="279" r="8"/>
+
+    <!-- Car 34: 416 HP, $62,494 -->
+    <circle cx="375" cy="262" r="8"/>
+
+    <!-- Car 38: 493 HP, $79,069 -->
+    <circle cx="442" cy="212" r="8"/>
+
+    <!-- Car 56: 589 HP, $95,701 -->
+    <circle cx="525" cy="162" r="8"/>
+
+    <!-- Car 5: 678 HP, $109,888 -->
+    <circle cx="603" cy="120" r="8"/>
+  </g>
+
+  <!-- Labels for key cars -->
+  <text x="120" y="398" class="point-label">رخيصة لكن بطيئة</text>
+  <text x="603" y="108" text-anchor="middle" class="point-label">سريعة لكن غالية</text>
+  <text x="375" y="252" text-anchor="middle" class="point-label">متوازنة؟</text>
+
+  <!-- Question annotation box -->
+  <rect x="140" y="140" width="200" height="55" rx="5" fill="#fff3cd" stroke="#f39c12"/>
+  <text x="240" y="160" text-anchor="middle" class="legend-text" style="font-weight: bold; fill: #856404;">أي سيارة "الأفضل"؟</text>
+  <text x="240" y="177" text-anchor="middle" class="legend-text" style="fill: #856404;">يعتمد على ما</text>
+  <text x="240" y="190" text-anchor="middle" class="legend-text" style="fill: #856404;">تقدره أكثر!</text>
+
+  <!-- Trade-off zone indication -->
+  <rect x="450" y="70" width="120" height="50" rx="5" fill="#e8f6f3" stroke="#1abc9c"/>
+  <text x="510" y="88" text-anchor="middle" class="legend-text" style="fill: #1abc9c;">لا يوجد "أفضل" واحد</text>
+  <text x="510" y="103" text-anchor="middle" class="legend-text" style="fill: #1abc9c;">فقط مفاضلات!</text>
+</svg>
