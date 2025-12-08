@@ -30,6 +30,7 @@
             <li><a href="#heuristics">4. Heuristic Functions</a></li>
             <li><a href="#search-approaches">5. Different Search Approaches</a></li>
             <li><a href="#optimization">6. From Constraints to Optimization</a></li>
+            <li><a href="#objective-functions">6.5 Understanding Objective Functions</a></li>
             <li><a href="#multi-objective">7. Multi-Objective Optimization</a></li>
             <li><a href="#simple-heuristics">8. Simple Heuristics for Our Card Game</a></li>
             <li><a href="#why-matters">9. Why This Matters for AI</a></li>
@@ -460,6 +461,83 @@ Turn 2: Flip card 3 → See 7! Remember position 1 had 7!
                 🎴 Play De-Anonymization Attack Demo
             </a>
             <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">Concepts: Linkage Attack, Quasi-identifiers, k-Anonymity, Data Privacy</p>
+        </section>
+
+        <!-- Section 6.5: Understanding Objective Functions -->
+        <section id="objective-functions" class="content-section">
+            <h2>6.5 Understanding Objective Functions</h2>
+
+            <div class="definition">
+                <h4>What is an Objective Function?</h4>
+                <p><strong>Objective Function (دالة الهدف)</strong> = A mathematical formula that measures how "good" a solution is. In optimization, we try to <strong>maximize</strong> or <strong>minimize</strong> this value.</p>
+            </div>
+
+            <h3>Single Objective: Maximize Horsepower</h3>
+
+            <p>When we have <strong>ONE goal</strong>, finding the best solution is straightforward - just find the highest (or lowest) value!</p>
+
+            <div class="example">
+                <pre><code>Objective Function: f(car) = horsepower
+Goal: Find the car with HIGHEST f(car)
+
+Car A: f = 234 HP
+Car B: f = 678 HP  ← WINNER! Highest value
+Car C: f = 150 HP
+
+With ONE objective, there's always a clear winner!</code></pre>
+            </div>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/single_objective_hp.svg" alt="Line chart showing horsepower values for 10 cars, with the highest value marked as best" class="content-image">
+                <figcaption>Single Objective Optimization: Each car has one score (horsepower). The best car is simply the one with the highest score - Car 5 with 678 HP.</figcaption>
+            </figure>
+
+            <div class="key-message">
+                <strong>Single Objective = Easy!</strong> Just sort by the objective and pick the best.
+            </div>
+
+            <h3>Two Objectives: Horsepower AND Cost</h3>
+
+            <p>What if we care about <strong>TWO things</strong>? Now each car has <strong>TWO scores</strong>!</p>
+
+            <div class="example">
+                <pre><code>Objective 1: f₁(car) = horsepower     (MAXIMIZE - higher is better)
+Objective 2: f₂(car) = -cost          (MAXIMIZE - lower cost is better)
+
+Car A: f₁ = 678 HP, cost = $109,888   (Fast but expensive!)
+Car B: f₁ = 150 HP, cost = $15,070    (Cheap but slow!)
+Car C: f₁ = 464 HP, cost = $71,869    (Balanced?)
+
+Which is "best"? It depends on what YOU value more!</code></pre>
+            </div>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/two_objective_scatter.svg" alt="Scatter plot showing horsepower vs cost for 10 cars, demonstrating the trade-off between speed and price" class="content-image">
+                <figcaption>Two Objectives: Each car is now a POINT in 2D space. There's no single "best" solution - just different trade-offs between speed and cost!</figcaption>
+            </figure>
+
+            <div class="key-pattern">
+                <h4>The Multi-Objective Challenge</h4>
+                <p>With multiple objectives that <strong>conflict</strong> with each other:</p>
+                <ul>
+                    <li>Want more horsepower? → Usually costs more money!</li>
+                    <li>Want to save money? → Usually get less horsepower!</li>
+                </ul>
+                <p>There's often <strong>NO single best solution</strong> - just different <em>trade-offs</em>.</p>
+            </div>
+
+            <div class="key-message">
+                <strong>The Big Question:</strong> With conflicting objectives, how do we find the "best" solutions? This leads us to the concept of the <em>Pareto Front</em>...
+            </div>
+        </section>
+
+        <!-- Interactive Demo Banner for Objective Functions -->
+        <section class="content-section" style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); color: white; border-radius: 12px; text-align: center; padding: 1.5rem; margin-top: 1rem;">
+            <h3 style="color: white; border: none; margin-top: 0;">🚗 Try the Interactive Car Optimization Demo!</h3>
+            <p style="font-size: 1rem; margin-bottom: 1rem;">Explore single vs multi-objective optimization with real car data. See how different objectives lead to different "best" solutions!</p>
+            <a href="objective_function_demo.html" style="display: inline-block; padding: 0.8rem 1.5rem; background: white; color: #27ae60; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1rem; transition: transform 0.3s, box-shadow 0.3s;">
+                🎯 Launch Objective Function Demo
+            </a>
         </section>
 
         <!-- Section 7: Multi-Objective Optimization -->
