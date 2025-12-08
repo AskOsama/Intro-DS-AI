@@ -39,7 +39,7 @@
   <circle cx="250" cy="92" r="4" class="marriage-dot"/>
 
   <!-- Line down to Ahmed -->
-  <line x1="250" y1="115" x2="250" y2="155" stroke="#7f8c8d" stroke-width="2" marker-end="url(#child-arrow)"/>
+  <line x1="250" y1="115" x2="200" y2="155" stroke="#7f8c8d" stroke-width="2" marker-end="url(#child-arrow)"/>
 
   <!-- ===== GENERATION 2: Ahmed & Nour ===== -->
   <!-- Ahmed (male - blue) -->
