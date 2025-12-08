@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="Arabic">
+    <meta name="direction" content="rtl">
+    <meta name="description" content="الأنظمة القائمة على المعرفة - الأسبوع 4، الجلسة 2 - فهم كيف تستدل أنظمة الذكاء الاصطناعي بالقواعد والحقائق">
+    <meta name="keywords" content="الذكاء الاصطناعي, الأنظمة القائمة على المعرفة, Prolog, Datalog, OWL, الويب الدلالي, الاستدلال">
+    <title>الأنظمة القائمة على المعرفة | الأسبوع 4، الجلسة 2</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="session2_week4.html" class="lang-button" title="Switch to English">English</a>
+    </div>
+
+    <header>
+        <h1>الأنظمة القائمة على المعرفة</h1>
+        <p class="subtitle">الأسبوع 4، الجلسة 2 - مقرر الذكاء الاصطناعي وعلم البيانات</p>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="table-of-contents no-print">
+        <h2>المحتويات</h2>
+        <ul>
+            <li><a href="#objectives">أهداف التعلم</a></li>
+            <li><a href="#motivation">1. الدافع: مشكلة الجد</a></li>
+            <li><a href="#db-limits">2. حدود قواعد البيانات</a></li>
+            <li><a href="#three-components">3. نموذج المكونات الثلاثة</a></li>
+            <li><a href="#inference">4. كيف يعمل الاستدلال</a></li>
+            <li><a href="#aima">5. بنية AIMA</a></li>
+            <li><a href="#technologies">6. المشهد التقني</a></li>
+            <li><a href="#prolog">6.1 Prolog</a></li>
+            <li><a href="#datalog">6.2 Datalog</a></li>
+            <li><a href="#ontologies">6.3 الأنطولوجيات والمنطق الوصفي</a></li>
+            <li><a href="#semantic-web">6.4 الويب الدلالي</a></li>
+            <li><a href="#unifying">7. رؤية موحدة</a></li>
+            <li><a href="#applications">8. التطبيقات العملية</a></li>
+            <li><a href="#summary">9. الملخص</a></li>
+            <li><a href="#practice">10. أسئلة للتمرين</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="objectives" class="learning-objectives">
+            <h2>أهداف التعلم</h2>
+            <p>بنهاية هذه الجلسة، ستكون قادراً على:</p>
+            <ul>
+                <li>فهم <strong>قيود قواعد البيانات</strong> في مهام الاستدلال</li>
+                <li>شرح نموذج <strong>البيانات + القواعد + الاستعلام</strong></li>
+                <li>تتبع <strong>خطوات الاستدلال</strong> لاشتقاق معرفة جديدة</li>
+                <li>مقارنة <strong>تقنيات الأنظمة القائمة على المعرفة</strong> (Prolog, Datalog, OWL, الويب الدلالي)</li>
+                <li>تحديد <strong>التطبيقات الواقعية</strong> للأنظمة القائمة على المعرفة</li>
+                <li>فهم <strong>المفاضلة بين التعبيرية وقابلية الحل</strong></li>
+            </ul>
+        </section>
+
+        <!-- Interactive Demo Banner -->
+        <section class="content-section" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); color: white; border-radius: 12px; text-align: center; padding: 2rem; border: none;">
+            <h2 style="color: white; border: none; margin-top: 0;">جرّب العرض التفاعلي!</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">شاهد كيف يستدل النظام القائم على المعرفة من خلال الاستعلامات خطوة بخطوة!</p>
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <a href="family_inference_demo_ar.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #9b59b6; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; transition: transform 0.3s, box-shadow 0.3s;">
+                    🧠 عرض استدلال العائلة
+                </a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">يستخدم: قواعد نمط Prolog، التسلسل الخلفي، استبدال المتغيرات</p>
+        </section>
+
+        <!-- Section 1: Motivation -->
+        <section id="motivation" class="content-section">
+            <h2>1. الدافع: مشكلة الجد</h2>
+
+            <p>أنظمة إدارة قواعد البيانات (DBMS) ناجحة بشكل مذهل. إنها تشغّل تقريباً كل تطبيق يخزن ويسترجع بيانات منظمة. لكن لديها قيد أساسي: <strong>يمكنها فقط إخبارك بما خزنته صراحةً</strong>.</p>
+
+            <h3>قاعدة بيانات العائلة</h3>
+            <p>لنفترض أننا نبني تطبيق شجرة العائلة مع هذا الجدول:</p>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>الوالد</th>
+                        <th>الطفل</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>خالد</td><td>أحمد</td></tr>
+                    <tr><td>فاطمة</td><td>أحمد</td></tr>
+                    <tr><td>أحمد</td><td>يوسف</td></tr>
+                    <tr><td>أحمد</td><td>ليلى</td></tr>
+                    <tr><td>نور</td><td>يوسف</td></tr>
+                    <tr><td>نور</td><td>ليلى</td></tr>
+                    <tr><td>يوسف</td><td>سارة</td></tr>
+                </tbody>
+            </table>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/family_tree_kbs_ar.svg" alt="شجرة العائلة تُظهر ثلاثة أجيال: خالد وفاطمة كأجداد، أحمد ونور كوالدين، يوسف وليلى وسارة كأصغر جيل" class="content-image">
+                <figcaption>شجرة العائلة الممثلة بـ 7 حقائق والد-طفل</figcaption>
+            </figure>
+
+            <h3>أسئلة يمكن لقاعدة البيانات الإجابة عليها</h3>
+            <div class="definition">
+                <h4>أسئلة البحث المباشر</h4>
+                <ul>
+                    <li><strong>"من هم أطفال أحمد؟"</strong> ← يوسف، ليلى (مخزنة مباشرة)</li>
+                    <li><strong>"من هم والدا يوسف؟"</strong> ← أحمد، نور (مخزنة مباشرة)</li>
+                    <li><strong>"هل لدى خالد أطفال؟"</strong> ← نعم (الصف موجود)</li>
+                </ul>
+            </div>
+
+            <h3>أسئلة لا تستطيع قاعدة البيانات الإجابة عليها</h3>
+            <div class="limitations-box">
+                <h4>أسئلة تتطلب الاستدلال</h4>
+                <ul>
+                    <li><strong>"من هم أحفاد خالد؟"</strong> ← يوسف، ليلى (غير مخزنة!)</li>
+                    <li><strong>"هل خالد سلف لسارة؟"</strong> ← نعم (يتطلب سلسلة: خالد←أحمد←يوسف←سارة)</li>
+                    <li><strong>"من هم جميع ذرية خالد؟"</strong> ← أحمد، يوسف، ليلى، سارة (تكراري!)</li>
+                </ul>
+            </div>
+
+            <div class="key-message">
+                <strong>المشكلة الجوهرية:</strong> لا تفهم قاعدة البيانات ما <em>تعنيه</em> البيانات. لا تعرف أن "الحفيد" يعني "طفل طفل المرء" أو أن "السلف" يتضمن سلسلة متعدية من العلاقات.
+            </div>
+        </section>
+
+        <!-- Section 2: Limits of Databases -->
+        <section id="db-limits" class="content-section">
+            <h2>2. حدود قواعد البيانات</h2>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/database_system_simple_ar.svg" alt="مخطط نظام قاعدة البيانات يُظهر تدفق البيانات عبر الاستعلام لإنتاج النتيجة - ما تخزنه هو ما تحصل عليه" class="content-image">
+                <figcaption>قاعدة البيانات يمكنها فقط استرجاع ما تم تخزينه صراحةً</figcaption>
+            </figure>
+
+            <h3>الحلول البديلة ومشاكلها</h3>
+
+            <div class="key-pattern">
+                <h4>الحل البديل 1: حساب كل شيء مسبقاً</h4>
+                <p>إنشاء جداول إضافية للأجداد والأسلاف، إلخ.</p>
+                <p><strong>المشاكل:</strong></p>
+                <ul>
+                    <li>يجب حساب جميع العلاقات مسبقاً</li>
+                    <li>كل تغيير يتطلب إعادة حساب جميع الجداول المشتقة</li>
+                    <li>التخزين ينمو بسرعة (جدول الأسلاف قد يكون ضخماً)</li>
+                    <li>ماذا عن أجداد الأجداد؟ أبناء العم؟ العمات؟</li>
+                </ul>
+            </div>
+
+            <div class="key-pattern">
+                <h4>الحل البديل 2: كتابة منطق استعلام مخصص</h4>
+                <p>كتابة كود إجرائي أو استعلامات SQL تكرارية.</p>
+                <p><strong>المشاكل:</strong></p>
+                <ul>
+                    <li>كل نوع علاقة جديد يتطلب كوداً جديداً</li>
+                    <li>الاستعلامات التكرارية معقدة وعرضة للخطأ</li>
+                    <li>منطق "الجد" منفصل عن "السلف"</li>
+                    <li>إذا تغير النموذج، يجب تحديث جميع الاستعلامات</li>
+                </ul>
+            </div>
+
+            <h3>المشكلة الجوهرية</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>ما تملكه قاعدة البيانات</th>
+                        <th>ما تفتقده قاعدة البيانات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>البيانات (حقائق في جداول)</td><td>الفهم (ما تعنيه الحقائق)</td></tr>
+                    <tr><td>قدرة الاستعلام</td><td>قدرة الاستدلال</td></tr>
+                    <tr><td>الاسترجاع</td><td>الاستنتاج</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 3: Three-Component Model -->
+        <section id="three-components" class="content-section">
+            <h2>3. نموذج المكونات الثلاثة</h2>
+
+            <p>الأنظمة القائمة على المعرفة تضيف <strong>القواعد</strong> إلى الصورة. القواعد تشفّر <em>معنى</em> العلاقات:</p>
+
+            <div class="example">
+                <h4>إضافة القواعد</h4>
+                <pre><code>grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).</code></pre>
+            </div>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/database_vs_kbs_comparison_ar.svg" alt="مقارنة جنباً إلى جنب: قاعدة البيانات (البيانات + الاستعلام = النتيجة) مقابل النظام القائم على المعرفة (البيانات + القواعد + الاستعلام = النتيجة المشتقة)" class="content-image">
+                <figcaption>نظام قاعدة البيانات مقابل النظام القائم على المعرفة: إضافة القواعد تمكّن الاستدلال</figcaption>
+            </figure>
+
+            <h3>المكونات الثلاثة</h3>
+
+            <div class="definition">
+                <h4>1. البيانات (الحقائق)</h4>
+                <p>تأكيدات عن كيانات محددة في العالم.</p>
+                <pre><code>parent(khalid, ahmed).
+parent(ahmed, yusuf).
+temperature(patient_1, 38.5).
+owns(omar, car_17).</code></pre>
+            </div>
+
+            <div class="definition">
+                <h4>2. القواعد (قواعد الاستدلال / البديهيات)</h4>
+                <p>أنماط معرفة عامة تنطبق على مواقف كثيرة.</p>
+                <pre><code>grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).
+fever(Patient) :- temperature(Patient, T), T > 37.5.</code></pre>
+            </div>
+
+            <div class="definition">
+                <h4>3. الاستعلام</h4>
+                <p>أسئلة تحفّز الاستدلال، وليس مجرد الاسترجاع.</p>
+                <pre><code>?- grandparent(khalid, yusuf).     % يُرجع: true
+?- ancestor(khalid, Who).          % يُرجع: Who = ahmed; Who = yusuf; ...
+?- fever(patient_1).               % يُرجع: true</code></pre>
+            </div>
+
+            <div class="key-message">
+                <strong>النموذج التصريحي:</strong> نعلن <em>ماهية</em> الجد، وليس <em>كيفية</em> إيجاده. النظام يكتشف الحساب تلقائياً.
+            </div>
+        </section>
+
+        <!-- Section 4: How Inference Works -->
+        <section id="inference" class="content-section">
+            <h2>4. كيف يعمل الاستدلال</h2>
+
+            <p>دعنا نتتبع كيف يجيب النظام القائم على المعرفة على: <code>?- grandparent(khalid, yusuf)</code></p>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/grandparent_inference_ar.svg" alt="عملية الاستدلال خطوة بخطوة تُظهر كيف يطابق النظام القواعد، ويستبدل المتغيرات، ويشتق الجواب TRUE" class="content-image">
+                <figcaption>محرك الاستدلال يشتق معرفة جديدة من خلال الاستدلال المنطقي</figcaption>
+            </figure>
+
+            <h3>عملية الاستدلال</h3>
+            <ol>
+                <li><strong>مطابقة الاستعلام مع رأس القاعدة:</strong> <code>grandparent(khalid, yusuf)</code> يطابق <code>grandparent(X, Z)</code> مع الاستبدال X=khalid, Z=yusuf</li>
+                <li><strong>إثبات جسم القاعدة:</strong> يجب إثبات <code>parent(khalid, Y)</code> و <code>parent(Y, yusuf)</code></li>
+                <li><strong>إيجاد Y:</strong> البحث يجد <code>parent(khalid, ahmed)</code> ← Y=ahmed</li>
+                <li><strong>التحقق من الشرط الثاني:</strong> هل <code>parent(ahmed, yusuf)</code> صحيح؟ موجود في الحقائق ← نعم!</li>
+                <li><strong>الاستنتاج:</strong> جميع الشروط مستوفاة ← <strong>صحيح (TRUE)</strong></li>
+            </ol>
+
+            <div class="key-pattern">
+                <h4>الذكاء الاصطناعي وراء الاستدلال</h4>
+                <p>محرك الاستدلال يستخدم تقنيات ذكاء اصطناعي متطورة:</p>
+                <ul>
+                    <li><strong>خوارزميات البحث:</strong> العمق أولاً، العرض أولاً، التعميق التكراري</li>
+                    <li><strong>الدوال التوجيهية:</strong> إعطاء الأولوية لمسارات الاستدلال الواعدة</li>
+                    <li><strong>التخزين المؤقت:</strong> حفظ النتائج الوسيطة لإعادة الاستخدام</li>
+                    <li><strong>الفهرسة:</strong> بحث سريع عن الحقائق ذات الصلة</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 5: AIMA Architecture -->
+        <section id="aima" class="content-section">
+            <h2>5. بنية AIMA</h2>
+
+            <p>يوفر كتاب راسل ونورفيغ <em>الذكاء الاصطناعي: نهج حديث</em> رؤية معمارية مفصلة:</p>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/knowledge_based_agent_ar.svg" alt="بنية الوكيل القائم على المعرفة تُظهر قاعدة المعرفة (الحقائق + القواعد)، محرك الاستدلال، عمليات TELL/ASK، والاتصالات بالمشاهدات والإجراءات" class="content-image">
+                <figcaption>بنية الوكيل القائم على المعرفة من AIMA</figcaption>
+            </figure>
+
+            <h3>المكونات الرئيسية</h3>
+
+            <div class="definition">
+                <h4>قاعدة المعرفة (KB)</h4>
+                <p>المستودع المركزي الذي يحتوي على:</p>
+                <ul>
+                    <li><strong>الحقائق (ABox):</strong> تأكيدات عن أفراد محددين</li>
+                    <li><strong>القواعد/الأنطولوجيا (TBox):</strong> تعريفات وبديهيات عامة</li>
+                </ul>
+            </div>
+
+            <div class="definition">
+                <h4>عملية TELL (أخبر)</h4>
+                <p>تضيف معرفة جديدة إلى النظام:</p>
+                <pre><code>TELL(KB, temperature(room, 22))           % إضافة حقيقة
+TELL(KB, fever(X) :- temp(X,T), T > 37.5)  % إضافة قاعدة</code></pre>
+            </div>
+
+            <div class="definition">
+                <h4>عملية ASK (اسأل)</h4>
+                <p>تستعلم قاعدة المعرفة، محفّزة الاستدلال:</p>
+                <pre><code>ASK(KB, grandparent(khalid, charlie))
+    ← محرك الاستدلال يطبق القواعد على الحقائق
+    ← يُرجع: TRUE</code></pre>
+            </div>
+
+            <div class="definition">
+                <h4>محرك الاستدلال</h4>
+                <p>آلية الاستدلال التي تشتق معرفة جديدة:</p>
+                <ul>
+                    <li><strong>التسلسل الأمامي:</strong> ابدأ من الحقائق، اشتق حقائق جديدة حتى يُجاب الاستعلام</li>
+                    <li><strong>التسلسل الخلفي:</strong> ابدأ من الاستعلام، اعمل للخلف لإيجاد حقائق داعمة</li>
+                    <li><strong>الحل:</strong> حوّل إلى جمل وطبّق استدلال الحل</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 6: Technology Landscape -->
+        <section id="technologies" class="content-section">
+            <h2>6. المشهد التقني</h2>
+
+            <p>نموذج المكونات الثلاثة (البيانات + القواعد + الاستعلام) يتحقق عبر تقنيات متعددة:</p>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>التقنية</th>
+                        <th>البيانات</th>
+                        <th>القواعد</th>
+                        <th>الاستعلام</th>
+                        <th>الاستدلال</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Prolog</strong></td>
+                        <td>حقائق (ذرات أساسية)</td>
+                        <td>جمل/قواعد</td>
+                        <td>أهداف</td>
+                        <td>تسلسل خلفي</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Datalog</strong></td>
+                        <td>حقائق (EDB)</td>
+                        <td>قواعد (IDB)</td>
+                        <td>استعلامات Datalog</td>
+                        <td>تقييم من أسفل لأعلى</td>
+                    </tr>
+                    <tr>
+                        <td><strong>OWL/DL</strong></td>
+                        <td>أفراد (ABox)</td>
+                        <td>بديهيات الفئات (TBox)</td>
+                        <td>استعلامات DL</td>
+                        <td>خوارزميات Tableaux</td>
+                    </tr>
+                    <tr>
+                        <td><strong>الويب الدلالي</strong></td>
+                        <td>ثلاثيات RDF</td>
+                        <td>RDFS/OWL/SWRL</td>
+                        <td>SPARQL</td>
+                        <td>يختلف حسب المحرك</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 6.1: Prolog -->
+        <section id="prolog" class="content-section">
+            <h3>6.1 Prolog</h3>
+
+            <p>Prolog (البرمجة بالمنطق) هي لغة برمجة منطقية حيث تتكون البرامج من حقائق وقواعد.</p>
+
+            <div class="example">
+                <h4>علاقات العائلة في Prolog</h4>
+                <pre><code>% ===== الحقائق =====
+parent(khalid, ahmed).
+parent(fatima, ahmed).
+parent(ahmed, yusuf).
+parent(ahmed, layla).
+parent(nour, yusuf).
+parent(nour, layla).
+parent(yusuf, sara).
+
+male(khalid). male(ahmed). male(yusuf).
+female(fatima). female(nour). female(layla). female(sara).
+
+% ===== القواعد =====
+father(X, Y) :- parent(X, Y), male(X).
+mother(X, Y) :- parent(X, Y), female(X).
+grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
+grandfather(X, Z) :- grandparent(X, Z), male(X).
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).
+sibling(X, Y) :- parent(P, X), parent(P, Y), X \= Y.
+
+% ===== الاستعلامات =====
+% ?- grandparent(khalid, yusuf).   % true
+% ?- grandfather(khalid, Who).     % Who = yusuf ; Who = layla
+% ?- ancestor(khalid, sara).       % true
+% ?- sibling(yusuf, layla).        % true</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h4>كيف يعمل Prolog</h4>
+                <p>يستخدم Prolog <strong>التسلسل الخلفي مع حل SLD</strong>:</p>
+                <ol>
+                    <li>حاول توحيد الاستعلام مع حقيقة (مطابقة مباشرة) أو رأس قاعدة</li>
+                    <li>إذا طابقت قاعدة، أثبت جسم القاعدة بشكل متكرر</li>
+                    <li>استخدم التراجع لاستكشاف حلول بديلة</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Section 6.2: Datalog -->
+        <section id="datalog" class="content-section">
+            <h3>6.2 Datalog</h3>
+
+            <p>Datalog هي لغة استعلام تصريحية مصممة لتطبيقات قواعد البيانات. تقيّد Prolog لضمان الانتهاء والتقييم الفعال.</p>
+
+            <div class="example">
+                <h4>الوصول في الرسم البياني بـ Datalog</h4>
+                <pre><code>% ===== الحقائق (EDB - قاعدة البيانات الموسعة) =====
+edge(a, b).
+edge(b, c).
+edge(c, d).
+edge(a, e).
+edge(e, f).
+edge(f, c).
+
+% ===== القواعد (IDB - قاعدة البيانات المقصودة) =====
+path(X, Y) :- edge(X, Y).
+path(X, Z) :- edge(X, Y), path(Y, Z).
+
+% ===== الاستعلامات =====
+% ?- path(a, d).    % true (a→b→c→d)
+% ?- path(a, X).    % X = b, c, d, e, f</code></pre>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>الجانب</th>
+                        <th>Datalog</th>
+                        <th>Prolog</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>رموز الدوال</td><td>غير مسموحة</td><td>مسموحة</td></tr>
+                    <tr><td>النفي</td><td>طبقي فقط</td><td>عام</td></tr>
+                    <tr><td>الانتهاء</td><td>مضمون</td><td>غير مضمون</td></tr>
+                    <tr><td>التقييم</td><td>من أسفل لأعلى (عادةً)</td><td>من أعلى لأسفل</td></tr>
+                    <tr><td>حالة الاستخدام</td><td>قواعد البيانات، التحليل</td><td>البرمجة العامة</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 6.3: Ontologies -->
+        <section id="ontologies" class="content-section">
+            <h3>6.3 الأنطولوجيات والمنطق الوصفي</h3>
+
+            <p>الأنطولوجيات تعرّف المفاهيم والعلاقات والقيود رسمياً. OWL (لغة أنطولوجيا الويب) تعتمد على المنطق الوصفي.</p>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/ontology_abox_tbox_ar.svg" alt="بنية الأنطولوجيا تُظهر TBox (المخطط - تعريفات المفاهيم) و ABox (البيانات - تأكيدات الأفراد)" class="content-image">
+                <figcaption>التمييز بين TBox/ABox في الأنطولوجيات</figcaption>
+            </figure>
+
+            <div class="example">
+                <h4>مثال أنطولوجيا الحيوانات</h4>
+                <pre><code>% ===== TBox (المصطلحات) =====
+Animal ⊑ LivingThing            % الحيوانات كائنات حية
+Mammal ⊑ Animal                 % الثدييات حيوانات
+Bird ⊑ Animal                   % الطيور حيوانات
+Penguin ⊑ Bird                  % البطاريق طيور
+Penguin ⊑ ¬∃locomotion.Flying   % البطاريق لا تستطيع الطيران
+
+% ===== ABox (التأكيدات) =====
+Penguin(tweety)                 % تويتي بطريق
+Mammal(fido)                    % فيدو ثديي
+
+% ===== الاستعلامات =====
+% هل تويتي حيوان؟    ← نعم (Penguin ⊑ Bird ⊑ Animal)
+% هل يستطيع تويتي الطيران؟ ← لا (Penguin ⊑ ¬∃locomotion.Flying)</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 6.4: Semantic Web -->
+        <section id="semantic-web" class="content-section">
+            <h3>6.4 تقنيات الويب الدلالي</h3>
+
+            <p>الويب الدلالي يطبّق تمثيل المعرفة على الويب العالمي باستخدام صيغ موحدة.</p>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/semantic_web_stack_ar.svg" alt="مكدس الويب الدلالي من الأسفل إلى الأعلى: URIs, RDF, RDFS, OWL, SPARQL" class="content-image">
+                <figcaption>مكدس تقنيات الويب الدلالي</figcaption>
+            </figure>
+
+            <div class="example">
+                <h4>بيانات RDF واستعلام SPARQL</h4>
+                <pre><code># ===== بيانات RDF (صيغة Turtle) =====
+@prefix : &lt;http://example.org/family#&gt; .
+
+:khalid a :Person .
+:ahmed a :Person .
+:yusuf a :Person .
+
+:khalid :hasChild :ahmed .
+:ahmed :hasChild :yusuf .
+
+# ===== استعلام SPARQL =====
+PREFIX : &lt;http://example.org/family#&gt;
+
+SELECT ?grandparent ?grandchild
+WHERE {
+    ?grandparent :hasChild ?parent .
+    ?parent :hasChild ?grandchild .
+}
+
+# النتيجة:
+# | grandparent | grandchild |
+# | :khalid     | :yusuf     |</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 7: Unifying View -->
+        <section id="unifying" class="content-section">
+            <h2>7. رؤية موحدة</h2>
+
+            <p>رغم اختلاف الصيغة ومجالات التطبيق، جميع هذه التقنيات تشترك في نفس البنية الأساسية:</p>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/kbs_unified_architecture_ar.svg" alt="البنية الموحدة للأنظمة القائمة على المعرفة تُظهر كيف تتوافق Prolog و Datalog و OWL و RDF مع نفس نمط البيانات + القواعد + الاستعلام" class="content-image">
+                <figcaption>جميع تقنيات الأنظمة القائمة على المعرفة تتبع نفس النمط الأساسي</figcaption>
+            </figure>
+
+            <h3>المفاضلة بين التعبيرية وقابلية الحل</h3>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/expressiveness_tractability_ar.svg" alt="الطيف من منطق الدرجة العليا (الأكثر تعبيرية، غير قابل للحل) إلى المنطق القضوي (الأقل تعبيرية، NP-complete)" class="content-image">
+                <figcaption>اختيار المنطق الصحيح: الموازنة بين التعبيرية والجدوى الحسابية</figcaption>
+            </figure>
+
+            <div class="key-message">
+                <strong>المفاضلة:</strong> اللغات الأكثر تعبيرية يمكنها تمثيل معرفة أغنى، لكن الاستدلال يصبح أصعب حسابياً. اختر المنطق الذي يوازن احتياجاتك!
+            </div>
+        </section>
+
+        <!-- Section 8: Practical Applications -->
+        <section id="applications" class="content-section">
+            <h2>8. التطبيقات العملية</h2>
+
+            <h3>8.1 نظام التشخيص الطبي</h3>
+            <div class="example">
+                <pre><code>% الحقائق (بيانات المريض)
+has_symptom(patient1, fever).
+has_symptom(patient1, cough).
+has_symptom(patient1, fatigue).
+temperature(patient1, 39.2).
+
+has_symptom(patient2, headache).
+has_symptom(patient2, stiff_neck).
+has_symptom(patient2, sensitivity_to_light).
+
+% القواعد (المعرفة الطبية)
+high_fever(Patient) :- temperature(Patient, Temp), Temp > 38.5.
+
+possible_flu(Patient) :-
+    has_symptom(Patient, fever),
+    has_symptom(Patient, cough),
+    has_symptom(Patient, fatigue).
+
+possible_meningitis(Patient) :-
+    has_symptom(Patient, headache),
+    has_symptom(Patient, stiff_neck),
+    has_symptom(Patient, sensitivity_to_light).
+
+urgent_care_needed(Patient) :- possible_meningitis(Patient).
+urgent_care_needed(Patient) :- high_fever(Patient).
+
+% الاستعلامات
+% ?- possible_flu(patient1).          % true
+% ?- urgent_care_needed(patient1).    % true (حمى عالية)
+% ?- urgent_care_needed(patient2).    % true (التهاب سحايا محتمل)</code></pre>
+            </div>
+
+            <h3>8.2 تصنيف منتجات التجارة الإلكترونية</h3>
+            <div class="example">
+                <pre><code># تسلسل هرمي لمنتجات RDF
+:Electronics rdfs:subClassOf :Product .
+:Computer rdfs:subClassOf :Electronics .
+:Laptop rdfs:subClassOf :Computer .
+:Desktop rdfs:subClassOf :Computer .
+
+# أمثلة المنتجات
+:macbookPro2023 a :Laptop ;
+    :price 1999 ;
+    :manufacturer :Apple .
+
+:imac2023 a :Desktop ;
+    :price 1299 ;
+    :manufacturer :Apple .
+
+# SPARQL: ابحث عن جميع أجهزة Apple بأقل من 1500$
+SELECT ?product ?price
+WHERE {
+    ?product a/rdfs:subClassOf* :Computer .
+    ?product :manufacturer :Apple .
+    ?product :price ?price .
+    FILTER (?price < 1500)
+}
+# النتيجة: :imac2023, $1299</code></pre>
+            </div>
+
+            <h3>8.3 نظام التحكم في الوصول</h3>
+            <div class="example">
+                <pre><code>% الحقائق
+role(alice, admin).
+role(alice, developer).
+role(bob, developer).
+role(charlie, intern).
+
+resource(source_code, confidential).
+resource(documentation, public).
+
+% قواعد التحكم في الوصول
+can_read(User, Resource) :- resource(Resource, public).
+can_read(User, Resource) :- role(User, admin).
+can_read(User, Resource) :- role(User, developer), resource(Resource, confidential).
+can_write(User, Resource) :- role(User, admin).
+
+% الاستعلامات
+% ?- can_read(bob, source_code).      % true (مطور + سري)
+% ?- can_read(charlie, source_code).  % false (متدرب)
+% ?- can_write(alice, source_code).   % true (مدير)</code></pre>
+            </div>
+
+            <h3>8.4 الاستدلال القانوني</h3>
+            <div class="example">
+                <pre><code>% الحقائق
+citizen(john, usa).
+age(john, 35).
+years_resident(john, usa, 20).
+born_in(john, usa).
+
+citizen(maria, usa).
+age(maria, 28).
+born_in(maria, canada).
+
+% القواعد الدستورية (أهلية الرئاسة الأمريكية)
+natural_born_citizen(Person) :-
+    citizen(Person, usa), born_in(Person, usa).
+
+meets_age_requirement(Person) :-
+    age(Person, Age), Age >= 35.
+
+meets_residency_requirement(Person) :-
+    years_resident(Person, usa, Years), Years >= 14.
+
+eligible_for_president(Person) :-
+    natural_born_citizen(Person),
+    meets_age_requirement(Person),
+    meets_residency_requirement(Person).
+
+% الاستعلامات
+% ?- eligible_for_president(john).   % true
+% ?- eligible_for_president(maria).  % false (العمر < 35)</code></pre>
+            </div>
+
+            <div class="key-message">
+                <strong>لماذا الأنظمة القائمة على المعرفة لهذه التطبيقات؟</strong>
+                <ul>
+                    <li><strong>قابلية الشرح:</strong> يمكن تتبع الاستدلال لتبرير الاستنتاجات</li>
+                    <li><strong>المرونة:</strong> القواعد العامة تتعامل مع مواقف جديدة</li>
+                    <li><strong>سهولة الصيانة:</strong> المعرفة التصريحية أسهل في التحديث</li>
+                    <li><strong>قابلية التدقيق:</strong> القواعد يمكن التحقق منها والتصديق عليها</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 9: Summary -->
+        <section id="summary" class="content-section">
+            <h2>9. الملخص: النقاط الرئيسية</h2>
+
+            <div class="key-pattern">
+                <h4>المعادلة الأساسية</h4>
+                <p style="text-align: center; font-size: 1.2em; font-weight: bold;">
+                    البيانات + القواعد + الاستعلام = النظام القائم على المعرفة
+                </p>
+            </div>
+
+            <h3>المفاهيم الرئيسية</h3>
+            <ul>
+                <li><strong>قواعد البيانات تخزن الحقائق</strong> لكن لا تستطيع الاستدلال منها</li>
+                <li><strong>الأنظمة القائمة على المعرفة تضيف قواعد</strong> تشفّر المعنى</li>
+                <li><strong>الاستدلال يشتق معرفة جديدة</strong> تلقائياً</li>
+                <li><strong>النموذج التصريحي</strong> يفصل "ماذا" عن "كيف"</li>
+                <li><strong>تقنيات متعددة</strong> (Prolog, Datalog, OWL, SPARQL) تطبق نفس النمط</li>
+                <li><strong>توجد مفاضلات</strong> بين التعبيرية وقابلية الحل الحسابية</li>
+            </ul>
+
+            <h3>قيمة الأنظمة القائمة على المعرفة</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>الفائدة</th>
+                        <th>الوصف</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>قابلية الشرح</td><td>يمكن تتبع الاستدلال لتبرير الاستنتاجات</td></tr>
+                    <tr><td>المرونة</td><td>القواعد العامة تتعامل مع مواقف جديدة</td></tr>
+                    <tr><td>سهولة الصيانة</td><td>المعرفة التصريحية أسهل في التحديث</td></tr>
+                    <tr><td>التكامل</td><td>يجمع مصادر معرفة متعددة</td></tr>
+                    <tr><td>التكامل</td><td>يعمل جنباً إلى جنب مع الأساليب الإحصائية/تعلم الآلة</td></tr>
+                </tbody>
+            </table>
+
+            <div class="key-message">
+                <strong>فكرة ختامية:</strong> "بتمثيل ليس فقط ما هو صحيح ولكن أيضاً ما يترتب على ما هو صحيح، يمكننا بناء أنظمة تستدل حقاً — أنظمة تعرف أكثر مما أُخبرت به."
+            </div>
+        </section>
+
+        <!-- Section 10: Practice Questions -->
+        <section id="practice" class="content-section">
+            <h2>10. أسئلة للتمرين</h2>
+
+            <h3>أسئلة مفاهيمية</h3>
+            <ol>
+                <li>ما هو القيد الأساسي لقواعد البيانات التقليدية الذي تعالجه الأنظمة القائمة على المعرفة؟</li>
+                <li>اشرح المكونات الثلاثة للنظام القائم على المعرفة مع أمثلة.</li>
+                <li>ما الفرق بين التسلسل الأمامي والتسلسل الخلفي؟</li>
+                <li>لماذا توجد مفاضلة بين التعبيرية وقابلية الحل في أنظمة المنطق؟</li>
+            </ol>
+
+            <h3>تتبع الاستدلال</h3>
+            <p>بالنظر إلى هذه الحقائق والقواعد:</p>
+            <div class="example">
+                <pre><code>parent(sara, ali).
+parent(ali, omar).
+parent(ali, hana).
+
+grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
+sibling(X, Y) :- parent(P, X), parent(P, Y), X \= Y.</code></pre>
+            </div>
+            <ol start="5">
+                <li>تتبع الاستدلال لـ: <code>?- grandparent(sara, omar)</code></li>
+                <li>ماذا سيُرجع <code>?- sibling(omar, Who)</code>؟</li>
+            </ol>
+
+            <h3>تصميم التطبيقات</h3>
+            <ol start="7">
+                <li>صمم مجموعة قواعد Prolog لنظام مكتبة يمكنه الإجابة على: "هل يستطيع هذا المستخدم استعارة هذا الكتاب؟"</li>
+                <li>كيف ستمثل نظام المتطلبات المسبقة للمقررات في Datalog؟</li>
+            </ol>
+        </section>
+
+    </main>
+
+    <footer>
+        <p><a href="index_ar.html">→ العودة إلى فهرس المقرر</a></p>
+        <p>&copy; 2025 مقرر علم البيانات والذكاء الاصطناعي | مورد تعليمي مفتوح</p>
+    </footer>
+</body>
+</html>

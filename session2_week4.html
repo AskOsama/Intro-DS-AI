@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Knowledge-Based Systems - Week 4, Session 2 - Understanding how AI systems reason with rules and facts">
+    <meta name="keywords" content="AI, Knowledge-Based Systems, Prolog, Datalog, OWL, Semantic Web, Inference">
+    <title>Knowledge-Based Systems | Week 4, Session 2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="session2_week4_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <header>
+        <h1>Knowledge-Based Systems</h1>
+        <p class="subtitle">Week 4, Session 2 - AI & Data Science Course</p>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="table-of-contents no-print">
+        <h2>Contents</h2>
+        <ul>
+            <li><a href="#objectives">Learning Objectives</a></li>
+            <li><a href="#motivation">1. Motivation: The Grandparent Problem</a></li>
+            <li><a href="#db-limits">2. The Limits of Databases</a></li>
+            <li><a href="#three-components">3. The Three-Component Model</a></li>
+            <li><a href="#inference">4. How Inference Works</a></li>
+            <li><a href="#aima">5. The AIMA Architecture</a></li>
+            <li><a href="#technologies">6. The Technology Landscape</a></li>
+            <li><a href="#prolog">6.1 Prolog</a></li>
+            <li><a href="#datalog">6.2 Datalog</a></li>
+            <li><a href="#ontologies">6.3 Ontologies & Description Logics</a></li>
+            <li><a href="#semantic-web">6.4 Semantic Web</a></li>
+            <li><a href="#unifying">7. A Unifying View</a></li>
+            <li><a href="#applications">8. Practical Applications</a></li>
+            <li><a href="#summary">9. Summary</a></li>
+            <li><a href="#practice">10. Practice Questions</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="objectives" class="learning-objectives">
+            <h2>Learning Objectives</h2>
+            <p>By the end of this session, you will be able to:</p>
+            <ul>
+                <li>Understand <strong>database limitations</strong> for reasoning tasks</li>
+                <li>Explain the <strong>Data + Rules + Query</strong> paradigm</li>
+                <li>Trace through <strong>inference steps</strong> to derive new knowledge</li>
+                <li>Compare <strong>KBS technologies</strong> (Prolog, Datalog, OWL, Semantic Web)</li>
+                <li>Identify <strong>real-world applications</strong> of knowledge-based systems</li>
+                <li>Understand the <strong>expressiveness vs tractability</strong> trade-off</li>
+            </ul>
+        </section>
+
+        <!-- Interactive Demo Banner -->
+        <section class="content-section" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); color: white; border-radius: 12px; text-align: center; padding: 2rem; border: none;">
+            <h2 style="color: white; border: none; margin-top: 0;">Try the Interactive Demo!</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">Watch how a knowledge-based system reasons through queries step by step!</p>
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <a href="family_inference_demo.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #9b59b6; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; transition: transform 0.3s, box-shadow 0.3s;">
+                    🧠 Family Inference Demo
+                </a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">Uses: Prolog-style rules, Backward chaining, Variable substitution</p>
+        </section>
+
+        <!-- Section 1: Motivation -->
+        <section id="motivation" class="content-section">
+            <h2>1. Motivation: The Grandparent Problem</h2>
+
+            <p>Database Management Systems (DBMS) are incredibly successful. They power virtually every application that stores and retrieves structured data. But they have a fundamental limitation: <strong>they can only tell you what you explicitly stored</strong>.</p>
+
+            <h3>A Family Database</h3>
+            <p>Suppose we're building a family tree application with this table:</p>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Parent</th>
+                        <th>Child</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Khalid</td><td>Ahmed</td></tr>
+                    <tr><td>Fatima</td><td>Ahmed</td></tr>
+                    <tr><td>Ahmed</td><td>Yusuf</td></tr>
+                    <tr><td>Ahmed</td><td>Layla</td></tr>
+                    <tr><td>Nour</td><td>Yusuf</td></tr>
+                    <tr><td>Nour</td><td>Layla</td></tr>
+                    <tr><td>Yusuf</td><td>Sara</td></tr>
+                </tbody>
+            </table>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/family_tree_kbs.svg" alt="Family tree showing three generations: Khalid and Fatima as grandparents, Ahmed and Nour as parents, Yusuf, Layla, and Sara as the youngest generation" class="content-image">
+                <figcaption>The family tree represented by our 7 parent-child facts</figcaption>
+            </figure>
+
+            <h3>Questions the Database Can Answer</h3>
+            <div class="definition">
+                <h4>Direct Lookup Questions</h4>
+                <ul>
+                    <li><strong>"Who are Ahmed's children?"</strong> → Yusuf, Layla (directly stored)</li>
+                    <li><strong>"Who are Yusuf's parents?"</strong> → Ahmed, Nour (directly stored)</li>
+                    <li><strong>"Does Khalid have any children?"</strong> → Yes (row exists)</li>
+                </ul>
+            </div>
+
+            <h3>Questions the Database Cannot Answer</h3>
+            <div class="limitations-box">
+                <h4>Questions Requiring Reasoning</h4>
+                <ul>
+                    <li><strong>"Who are Khalid's grandchildren?"</strong> → Yusuf, Layla (not stored!)</li>
+                    <li><strong>"Is Khalid an ancestor of Sara?"</strong> → Yes (requires chain: Khalid→Ahmed→Yusuf→Sara)</li>
+                    <li><strong>"Who are all of Khalid's descendants?"</strong> → Ahmed, Yusuf, Layla, Sara (recursive!)</li>
+                </ul>
+            </div>
+
+            <div class="key-message">
+                <strong>The Core Problem:</strong> The database has no understanding of what the data <em>means</em>. It doesn't know that "grandchild" means "child of one's child" or that "ancestor" involves a transitive chain of relationships.
+            </div>
+        </section>
+
+        <!-- Section 2: Limits of Databases -->
+        <section id="db-limits" class="content-section">
+            <h2>2. The Limits of Databases</h2>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/database_system_simple.svg" alt="Database system diagram showing DATA flows through Query to produce RESULT - what you store is what you get" class="content-image">
+                <figcaption>A database can only retrieve what was explicitly stored</figcaption>
+            </figure>
+
+            <h3>Workarounds and Their Problems</h3>
+
+            <div class="key-pattern">
+                <h4>Workaround 1: Pre-compute Everything</h4>
+                <p>Create additional tables for grandparents, ancestors, etc.</p>
+                <p><strong>Problems:</strong></p>
+                <ul>
+                    <li>Must compute all relationships in advance</li>
+                    <li>Every change requires recomputing all derived tables</li>
+                    <li>Storage grows rapidly (ancestors table can be huge)</li>
+                    <li>What about great-great-grandparents? Cousins? Aunts?</li>
+                </ul>
+            </div>
+
+            <div class="key-pattern">
+                <h4>Workaround 2: Write Custom Query Logic</h4>
+                <p>Write procedural code or recursive SQL queries.</p>
+                <p><strong>Problems:</strong></p>
+                <ul>
+                    <li>Every new relationship type requires new code</li>
+                    <li>Recursive queries are complex and error-prone</li>
+                    <li>Logic for "grandparent" is separate from "ancestor"</li>
+                    <li>If the model changes, all queries must be updated</li>
+                </ul>
+            </div>
+
+            <h3>The Fundamental Problem</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>What the Database Has</th>
+                        <th>What the Database Lacks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Data (facts in tables)</td><td>Understanding (what facts mean)</td></tr>
+                    <tr><td>Query capability</td><td>Reasoning capability</td></tr>
+                    <tr><td>Retrieval</td><td>Inference</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 3: Three-Component Model -->
+        <section id="three-components" class="content-section">
+            <h2>3. The Three-Component Model</h2>
+
+            <p>Knowledge-based systems add <strong>rules</strong> to the picture. Rules encode the <em>meaning</em> of relationships:</p>
+
+            <div class="example">
+                <h4>Adding Rules</h4>
+                <pre><code>grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).</code></pre>
+            </div>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/database_vs_kbs_comparison.svg" alt="Side-by-side comparison: Database (Data + Query = Result) vs Knowledge-Based System (Data + Rules + Query = Derived Result)" class="content-image">
+                <figcaption>Database System vs Knowledge-Based System: the addition of rules enables inference</figcaption>
+            </figure>
+
+            <h3>The Three Components</h3>
+
+            <div class="definition">
+                <h4>1. Data (Facts)</h4>
+                <p>Assertions about specific entities in the world.</p>
+                <pre><code>parent(khalid, ahmed).
+parent(ahmed, yusuf).
+temperature(patient_1, 38.5).
+owns(omar, car_17).</code></pre>
+            </div>
+
+            <div class="definition">
+                <h4>2. Rules (Inference Rules / Axioms)</h4>
+                <p>General knowledge patterns that hold across many situations.</p>
+                <pre><code>grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).
+fever(Patient) :- temperature(Patient, T), T > 37.5.</code></pre>
+            </div>
+
+            <div class="definition">
+                <h4>3. Query</h4>
+                <p>Questions that trigger inference, not just retrieval.</p>
+                <pre><code>?- grandparent(khalid, yusuf).     % Returns: true
+?- ancestor(khalid, Who).          % Returns: Who = ahmed; Who = yusuf; ...
+?- fever(patient_1).               % Returns: true</code></pre>
+            </div>
+
+            <div class="key-message">
+                <strong>The Declarative Paradigm:</strong> We declare <em>what</em> a grandparent is, not <em>how</em> to find one. The system figures out the computation automatically.
+            </div>
+        </section>
+
+        <!-- Section 4: How Inference Works -->
+        <section id="inference" class="content-section">
+            <h2>4. How Inference Works</h2>
+
+            <p>Let's trace through how a knowledge-based system answers: <code>?- grandparent(khalid, yusuf)</code></p>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/grandparent_inference.svg" alt="Step-by-step inference process showing how the system matches rules, substitutes variables, and derives the answer TRUE" class="content-image">
+                <figcaption>The inference engine derives new knowledge through logical reasoning</figcaption>
+            </figure>
+
+            <h3>The Inference Process</h3>
+            <ol>
+                <li><strong>Match query with rule head:</strong> <code>grandparent(khalid, yusuf)</code> matches <code>grandparent(X, Z)</code> with substitution X=khalid, Z=yusuf</li>
+                <li><strong>Prove rule body:</strong> Need to prove <code>parent(khalid, Y)</code> AND <code>parent(Y, yusuf)</code></li>
+                <li><strong>Find Y:</strong> Lookup finds <code>parent(khalid, ahmed)</code> → Y=ahmed</li>
+                <li><strong>Check second condition:</strong> Is <code>parent(ahmed, yusuf)</code> true? Found in facts → Yes!</li>
+                <li><strong>Conclusion:</strong> All conditions satisfied → <strong>TRUE</strong></li>
+            </ol>
+
+            <div class="key-pattern">
+                <h4>The AI Behind Inference</h4>
+                <p>The inference engine uses sophisticated AI techniques:</p>
+                <ul>
+                    <li><strong>Search algorithms:</strong> Depth-first, breadth-first, iterative deepening</li>
+                    <li><strong>Heuristics:</strong> Prioritizing promising inference paths</li>
+                    <li><strong>Caching:</strong> Storing intermediate results for reuse</li>
+                    <li><strong>Indexing:</strong> Fast lookup of relevant facts</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 5: AIMA Architecture -->
+        <section id="aima" class="content-section">
+            <h2>5. The AIMA Architecture</h2>
+
+            <p>Russell and Norvig's textbook <em>Artificial Intelligence: A Modern Approach</em> provides a detailed architectural view:</p>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/knowledge_based_agent.svg" alt="Knowledge-Based Agent architecture showing Knowledge Base (Facts + Rules), Inference Engine, TELL/ASK operations, and connections to Observations and Actions" class="content-image">
+                <figcaption>The Knowledge-Based Agent architecture from AIMA</figcaption>
+            </figure>
+
+            <h3>Key Components</h3>
+
+            <div class="definition">
+                <h4>Knowledge Base (KB)</h4>
+                <p>The central repository containing:</p>
+                <ul>
+                    <li><strong>Facts (ABox):</strong> Assertions about specific individuals</li>
+                    <li><strong>Rules/Ontology (TBox):</strong> General definitions and axioms</li>
+                </ul>
+            </div>
+
+            <div class="definition">
+                <h4>TELL Operation</h4>
+                <p>Adds new knowledge to the system:</p>
+                <pre><code>TELL(KB, temperature(room, 22))           % Add a fact
+TELL(KB, fever(X) :- temp(X,T), T > 37.5)  % Add a rule</code></pre>
+            </div>
+
+            <div class="definition">
+                <h4>ASK Operation</h4>
+                <p>Queries the knowledge base, triggering inference:</p>
+                <pre><code>ASK(KB, grandparent(khalid, charlie))
+    → Inference engine applies rules to facts
+    → Returns: TRUE</code></pre>
+            </div>
+
+            <div class="definition">
+                <h4>Inference Engine</h4>
+                <p>The reasoning mechanism that derives new knowledge:</p>
+                <ul>
+                    <li><strong>Forward Chaining:</strong> Start from facts, derive new facts until query answered</li>
+                    <li><strong>Backward Chaining:</strong> Start from query, work backward to find supporting facts</li>
+                    <li><strong>Resolution:</strong> Convert to clauses and apply resolution inference</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 6: Technology Landscape -->
+        <section id="technologies" class="content-section">
+            <h2>6. The Technology Landscape</h2>
+
+            <p>The three-component model (Data + Rules + Query) is realized across multiple technologies:</p>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Technology</th>
+                        <th>Data</th>
+                        <th>Rules</th>
+                        <th>Query</th>
+                        <th>Inference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Prolog</strong></td>
+                        <td>Facts (ground atoms)</td>
+                        <td>Clauses/Rules</td>
+                        <td>Goals</td>
+                        <td>Backward chaining</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Datalog</strong></td>
+                        <td>Facts (EDB)</td>
+                        <td>Rules (IDB)</td>
+                        <td>Datalog queries</td>
+                        <td>Bottom-up evaluation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>OWL/DL</strong></td>
+                        <td>Individuals (ABox)</td>
+                        <td>Class axioms (TBox)</td>
+                        <td>DL queries</td>
+                        <td>Tableaux algorithms</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Semantic Web</strong></td>
+                        <td>RDF triples</td>
+                        <td>RDFS/OWL/SWRL</td>
+                        <td>SPARQL</td>
+                        <td>Varies by reasoner</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 6.1: Prolog -->
+        <section id="prolog" class="content-section">
+            <h3>6.1 Prolog</h3>
+
+            <p>Prolog (Programming in Logic) is a logic programming language where programs consist of facts and rules.</p>
+
+            <div class="example">
+                <h4>Family Relationships in Prolog</h4>
+                <pre><code>% ===== FACTS =====
+parent(khalid, ahmed).
+parent(fatima, ahmed).
+parent(ahmed, yusuf).
+parent(ahmed, layla).
+parent(nour, yusuf).
+parent(nour, layla).
+parent(yusuf, sara).
+
+male(khalid). male(ahmed). male(yusuf).
+female(fatima). female(nour). female(layla). female(sara).
+
+% ===== RULES =====
+father(X, Y) :- parent(X, Y), male(X).
+mother(X, Y) :- parent(X, Y), female(X).
+grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
+grandfather(X, Z) :- grandparent(X, Z), male(X).
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).
+sibling(X, Y) :- parent(P, X), parent(P, Y), X \= Y.
+
+% ===== QUERIES =====
+% ?- grandparent(khalid, yusuf).   % true
+% ?- grandfather(khalid, Who).     % Who = yusuf ; Who = layla
+% ?- ancestor(khalid, sara).       % true
+% ?- sibling(yusuf, layla).        % true</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h4>How Prolog Works</h4>
+                <p>Prolog uses <strong>backward chaining with SLD resolution</strong>:</p>
+                <ol>
+                    <li>Try to unify the query with a fact (direct match) or rule head</li>
+                    <li>If a rule matches, recursively prove the rule body</li>
+                    <li>Use backtracking to explore alternative solutions</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Section 6.2: Datalog -->
+        <section id="datalog" class="content-section">
+            <h3>6.2 Datalog</h3>
+
+            <p>Datalog is a declarative query language designed for database applications. It restricts Prolog to ensure termination and efficient evaluation.</p>
+
+            <div class="example">
+                <h4>Graph Reachability in Datalog</h4>
+                <pre><code>% ===== FACTS (Extensional Database - EDB) =====
+edge(a, b).
+edge(b, c).
+edge(c, d).
+edge(a, e).
+edge(e, f).
+edge(f, c).
+
+% ===== RULES (Intensional Database - IDB) =====
+path(X, Y) :- edge(X, Y).
+path(X, Z) :- edge(X, Y), path(Y, Z).
+
+% ===== QUERIES =====
+% ?- path(a, d).    % true (a→b→c→d)
+% ?- path(a, X).    % X = b, c, d, e, f</code></pre>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Datalog</th>
+                        <th>Prolog</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Function symbols</td><td>Not allowed</td><td>Allowed</td></tr>
+                    <tr><td>Negation</td><td>Stratified only</td><td>General</td></tr>
+                    <tr><td>Termination</td><td>Guaranteed</td><td>Not guaranteed</td></tr>
+                    <tr><td>Evaluation</td><td>Bottom-up (usually)</td><td>Top-down</td></tr>
+                    <tr><td>Use case</td><td>Databases, analysis</td><td>General programming</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 6.3: Ontologies -->
+        <section id="ontologies" class="content-section">
+            <h3>6.3 Ontologies & Description Logics</h3>
+
+            <p>Ontologies formally define concepts, relationships, and constraints. OWL (Web Ontology Language) is based on Description Logic.</p>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/ontology_abox_tbox.svg" alt="Ontology structure showing TBox (Schema - concept definitions) and ABox (Data - individual assertions)" class="content-image">
+                <figcaption>The TBox/ABox distinction in ontologies</figcaption>
+            </figure>
+
+            <div class="example">
+                <h4>Animal Ontology Example</h4>
+                <pre><code>% ===== TBox (Terminology) =====
+Animal ⊑ LivingThing            % Animals are living things
+Mammal ⊑ Animal                 % Mammals are animals
+Bird ⊑ Animal                   % Birds are animals
+Penguin ⊑ Bird                  % Penguins are birds
+Penguin ⊑ ¬∃locomotion.Flying   % Penguins cannot fly
+
+% ===== ABox (Assertions) =====
+Penguin(tweety)                 % Tweety is a penguin
+Mammal(fido)                    % Fido is a mammal
+
+% ===== Queries =====
+% Is Tweety an Animal?    → Yes (Penguin ⊑ Bird ⊑ Animal)
+% Can Tweety fly?         → No (Penguin ⊑ ¬∃locomotion.Flying)</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 6.4: Semantic Web -->
+        <section id="semantic-web" class="content-section">
+            <h3>6.4 Semantic Web Technologies</h3>
+
+            <p>The Semantic Web applies knowledge representation to the World Wide Web using standardized formats.</p>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/semantic_web_stack.svg" alt="Semantic Web stack from bottom to top: URIs, RDF, RDFS, OWL, SPARQL" class="content-image">
+                <figcaption>The Semantic Web Technology Stack</figcaption>
+            </figure>
+
+            <div class="example">
+                <h4>RDF Data and SPARQL Query</h4>
+                <pre><code># ===== RDF DATA (Turtle format) =====
+@prefix : &lt;http://example.org/family#&gt; .
+
+:khalid a :Person .
+:ahmed a :Person .
+:yusuf a :Person .
+
+:khalid :hasChild :ahmed .
+:ahmed :hasChild :yusuf .
+
+# ===== SPARQL QUERY =====
+PREFIX : &lt;http://example.org/family#&gt;
+
+SELECT ?grandparent ?grandchild
+WHERE {
+    ?grandparent :hasChild ?parent .
+    ?parent :hasChild ?grandchild .
+}
+
+# Result:
+# | grandparent | grandchild |
+# | :khalid     | :yusuf     |</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 7: Unifying View -->
+        <section id="unifying" class="content-section">
+            <h2>7. A Unifying View</h2>
+
+            <p>Despite different syntax and application domains, all these technologies share the same fundamental structure:</p>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/kbs_unified_architecture.svg" alt="Unified KBS architecture showing how Prolog, Datalog, OWL, and RDF all map to the same Data + Rules + Query pattern" class="content-image">
+                <figcaption>All KBS technologies follow the same fundamental pattern</figcaption>
+            </figure>
+
+            <h3>The Expressiveness-Tractability Trade-off</h3>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/expressiveness_tractability.svg" alt="Spectrum from Higher-Order Logic (most expressive, undecidable) to Propositional Logic (least expressive, NP-complete)" class="content-image">
+                <figcaption>Choosing the right logic: balancing expressiveness with computational feasibility</figcaption>
+            </figure>
+
+            <div class="key-message">
+                <strong>The Trade-off:</strong> More expressive languages can represent richer knowledge, but reasoning becomes computationally harder. Choose the logic that balances your needs!
+            </div>
+        </section>
+
+        <!-- Section 8: Practical Applications -->
+        <section id="applications" class="content-section">
+            <h2>8. Practical Applications</h2>
+
+            <h3>8.1 Medical Diagnosis System</h3>
+            <div class="example">
+                <pre><code>% Facts (Patient Data)
+has_symptom(patient1, fever).
+has_symptom(patient1, cough).
+has_symptom(patient1, fatigue).
+temperature(patient1, 39.2).
+
+has_symptom(patient2, headache).
+has_symptom(patient2, stiff_neck).
+has_symptom(patient2, sensitivity_to_light).
+
+% Rules (Medical Knowledge)
+high_fever(Patient) :- temperature(Patient, Temp), Temp > 38.5.
+
+possible_flu(Patient) :-
+    has_symptom(Patient, fever),
+    has_symptom(Patient, cough),
+    has_symptom(Patient, fatigue).
+
+possible_meningitis(Patient) :-
+    has_symptom(Patient, headache),
+    has_symptom(Patient, stiff_neck),
+    has_symptom(Patient, sensitivity_to_light).
+
+urgent_care_needed(Patient) :- possible_meningitis(Patient).
+urgent_care_needed(Patient) :- high_fever(Patient).
+
+% Queries
+% ?- possible_flu(patient1).          % true
+% ?- urgent_care_needed(patient1).    % true (high fever)
+% ?- urgent_care_needed(patient2).    % true (possible meningitis)</code></pre>
+            </div>
+
+            <h3>8.2 E-Commerce Product Classification</h3>
+            <div class="example">
+                <pre><code># RDF Product Hierarchy
+:Electronics rdfs:subClassOf :Product .
+:Computer rdfs:subClassOf :Electronics .
+:Laptop rdfs:subClassOf :Computer .
+:Desktop rdfs:subClassOf :Computer .
+
+# Product Instances
+:macbookPro2023 a :Laptop ;
+    :price 1999 ;
+    :manufacturer :Apple .
+
+:imac2023 a :Desktop ;
+    :price 1299 ;
+    :manufacturer :Apple .
+
+# SPARQL: Find all Apple computers under $1500
+SELECT ?product ?price
+WHERE {
+    ?product a/rdfs:subClassOf* :Computer .
+    ?product :manufacturer :Apple .
+    ?product :price ?price .
+    FILTER (?price < 1500)
+}
+# Result: :imac2023, $1299</code></pre>
+            </div>
+
+            <h3>8.3 Access Control System</h3>
+            <div class="example">
+                <pre><code>% Facts
+role(alice, admin).
+role(alice, developer).
+role(bob, developer).
+role(charlie, intern).
+
+resource(source_code, confidential).
+resource(documentation, public).
+
+% Access Control Rules
+can_read(User, Resource) :- resource(Resource, public).
+can_read(User, Resource) :- role(User, admin).
+can_read(User, Resource) :- role(User, developer), resource(Resource, confidential).
+can_write(User, Resource) :- role(User, admin).
+
+% Queries
+% ?- can_read(bob, source_code).      % true (developer + confidential)
+% ?- can_read(charlie, source_code).  % false (intern)
+% ?- can_write(alice, source_code).   % true (admin)</code></pre>
+            </div>
+
+            <h3>8.4 Legal Reasoning</h3>
+            <div class="example">
+                <pre><code>% Facts
+citizen(john, usa).
+age(john, 35).
+years_resident(john, usa, 20).
+born_in(john, usa).
+
+citizen(maria, usa).
+age(maria, 28).
+born_in(maria, canada).
+
+% Constitutional Rules (US Presidential Eligibility)
+natural_born_citizen(Person) :-
+    citizen(Person, usa), born_in(Person, usa).
+
+meets_age_requirement(Person) :-
+    age(Person, Age), Age >= 35.
+
+meets_residency_requirement(Person) :-
+    years_resident(Person, usa, Years), Years >= 14.
+
+eligible_for_president(Person) :-
+    natural_born_citizen(Person),
+    meets_age_requirement(Person),
+    meets_residency_requirement(Person).
+
+% Queries
+% ?- eligible_for_president(john).   % true
+% ?- eligible_for_president(maria).  % false (age < 35)</code></pre>
+            </div>
+
+            <div class="key-message">
+                <strong>Why KBS for These Applications?</strong>
+                <ul>
+                    <li><strong>Explainability:</strong> Can trace reasoning to justify conclusions</li>
+                    <li><strong>Flexibility:</strong> General rules handle novel situations</li>
+                    <li><strong>Maintainability:</strong> Declarative knowledge is easier to update</li>
+                    <li><strong>Auditability:</strong> Rules can be verified and validated</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 9: Summary -->
+        <section id="summary" class="content-section">
+            <h2>9. Summary: Key Takeaways</h2>
+
+            <div class="key-pattern">
+                <h4>The Fundamental Equation</h4>
+                <p style="text-align: center; font-size: 1.2em; font-weight: bold;">
+                    Data + Rules + Query = Knowledge-Based System
+                </p>
+            </div>
+
+            <h3>Key Concepts</h3>
+            <ul>
+                <li><strong>Databases store facts</strong> but cannot reason about them</li>
+                <li><strong>Knowledge-based systems add rules</strong> that encode meaning</li>
+                <li><strong>Inference derives new knowledge</strong> automatically</li>
+                <li><strong>The declarative paradigm</strong> separates "what" from "how"</li>
+                <li><strong>Multiple technologies</strong> (Prolog, Datalog, OWL, SPARQL) implement the same pattern</li>
+                <li><strong>Trade-offs exist</strong> between expressiveness and computational tractability</li>
+            </ul>
+
+            <h3>The Value of Knowledge-Based Systems</h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Benefit</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Explainability</td><td>Can trace reasoning to justify conclusions</td></tr>
+                    <tr><td>Flexibility</td><td>General rules handle novel situations</td></tr>
+                    <tr><td>Maintainability</td><td>Declarative knowledge is easier to update</td></tr>
+                    <tr><td>Integration</td><td>Combines multiple knowledge sources</td></tr>
+                    <tr><td>Complementarity</td><td>Works alongside statistical/ML approaches</td></tr>
+                </tbody>
+            </table>
+
+            <div class="key-message">
+                <strong>Closing Thought:</strong> "By representing not just what is true but also what follows from what is true, we can build systems that genuinely reason—systems that know more than they have been told."
+            </div>
+        </section>
+
+        <!-- Section 10: Practice Questions -->
+        <section id="practice" class="content-section">
+            <h2>10. Practice Questions</h2>
+
+            <h3>Conceptual Questions</h3>
+            <ol>
+                <li>What is the fundamental limitation of traditional databases that knowledge-based systems address?</li>
+                <li>Explain the three components of a knowledge-based system with examples.</li>
+                <li>What is the difference between forward chaining and backward chaining?</li>
+                <li>Why is there a trade-off between expressiveness and tractability in logic systems?</li>
+            </ol>
+
+            <h3>Inference Tracing</h3>
+            <p>Given these facts and rules:</p>
+            <div class="example">
+                <pre><code>parent(sara, ali).
+parent(ali, omar).
+parent(ali, hana).
+
+grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
+sibling(X, Y) :- parent(P, X), parent(P, Y), X \= Y.</code></pre>
+            </div>
+            <ol start="5">
+                <li>Trace through the inference for: <code>?- grandparent(sara, omar)</code></li>
+                <li>What would <code>?- sibling(omar, Who)</code> return?</li>
+            </ol>
+
+            <h3>Application Design</h3>
+            <ol start="7">
+                <li>Design a set of Prolog rules for a library system that can answer: "Can this user borrow this book?"</li>
+                <li>How would you represent a course prerequisite system in Datalog?</li>
+            </ol>
+        </section>
+
+    </main>
+
+    <footer>
+        <p><a href="index.html">← Back to Course Index</a></p>
+        <p>&copy; 2025 DS-AI Educational Course | Open Educational Resource</p>
+    </footer>
+</body>
+</html>
