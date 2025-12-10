@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="Arabic">
+    <meta name="direction" content="rtl">
+    <meta name="description" content="دليل تطبيقات الذكاء الاصطناعي للهواتف الذكية - تطبيقات موثوقة من كبرى شركات التقنية">
+    <meta name="keywords" content="تطبيقات الذكاء الاصطناعي, ChatGPT, Claude, Gemini, Copilot, Perplexity, الهواتف الذكية">
+    <title>تطبيقات الذكاء الاصطناعي للهواتف | تطبيقات موثوقة من شركات كبرى</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', 'Segoe UI', Arial, sans-serif;
+        }
+
+        /* Resource page specific styles */
+        .resource-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .resource-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .resource-header p {
+            margin: 0.5rem 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .resource-nav {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .resource-nav a {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .resource-nav a:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--secondary-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        /* Company-specific colors */
+        .app-card.openai { border-top-color: #10a37f; }
+        .app-card.google { border-top-color: #4285f4; }
+        .app-card.anthropic { border-top-color: #d4a574; }
+        .app-card.microsoft { border-top-color: #00a4ef; }
+        .app-card.perplexity { border-top-color: #1fb8cd; }
+        .app-card.quora { border-top-color: #b92b27; }
+        .app-card.elsa { border-top-color: #ff6b6b; }
+        .app-card.grammarly { border-top-color: #15c39a; }
+        .app-card.adobe { border-top-color: #ff0000; }
+        .app-card.notion { border-top-color: #000000; }
+
+        .app-card h3 {
+            margin: 0 0 0.25rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .app-card.openai h3 { color: #10a37f; }
+        .app-card.google h3 { color: #4285f4; }
+        .app-card.anthropic h3 { color: #d4a574; }
+        .app-card.microsoft h3 { color: #00a4ef; }
+        .app-card.perplexity h3 { color: #1fb8cd; }
+        .app-card.quora h3 { color: #b92b27; }
+        .app-card.elsa h3 { color: #ff6b6b; }
+        .app-card.grammarly h3 { color: #15c39a; }
+        .app-card.adobe h3 { color: #ff0000; }
+        .app-card.notion h3 { color: #000000; }
+
+        .company-badge {
+            font-size: 0.75rem;
+            background: #f0f0f0;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: #666;
+            font-weight: normal;
+        }
+
+        .app-card .description {
+            color: #555;
+            font-size: 0.95rem;
+            margin: 0.75rem 0;
+            line-height: 1.7;
+        }
+
+        .platform-badges {
+            display: flex;
+            gap: 0.5rem;
+            margin: 0.75rem 0;
+            flex-wrap: wrap;
+        }
+
+        .platform-badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .platform-badge.ios {
+            background: #007aff;
+            color: white;
+        }
+
+        .platform-badge.android {
+            background: #3ddc84;
+            color: white;
+        }
+
+        .platform-badge.web {
+            background: #6c757d;
+            color: white;
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .pricing-badge.free {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .pricing-badge.freemium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .pricing-badge.paid {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .app-card .features {
+            margin: 1rem 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .app-card .features li {
+            padding: 0.3rem 0;
+            padding-right: 1.2rem;
+            position: relative;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .app-card .features li::before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .rating {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.85rem;
+            color: #f39c12;
+            margin-right: 0.5rem;
+            direction: ltr;
+        }
+
+        .intro-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .intro-section h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .conclusion-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-right: 4px solid var(--secondary-color);
+            border-left: none;
+        }
+
+        .conclusion-section h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        /* RTL-specific adjustments */
+        .content-section {
+            border-right: 4px solid var(--secondary-color);
+            border-left: none;
+            padding-right: var(--spacing-lg);
+            padding-left: 0;
+        }
+
+        .pricing-info {
+            direction: ltr;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .resource-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .app-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="ai_smartphone_apps.html" class="lang-button" title="Switch to English">English</a>
+    </div>
+
+    <div class="resource-header">
+        <h1>دليل تطبيقات الذكاء الاصطناعي للهواتف</h1>
+        <p>تطبيقات ذكاء اصطناعي موثوقة من كبرى شركات التقنية لأنظمة iOS و Android</p>
+    </div>
+
+    <main style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;">
+        <!-- Quick Navigation -->
+        <nav class="resource-nav">
+            <a href="#major-tech">الشركات التقنية الكبرى</a>
+            <a href="#perplexity">تطبيقات Perplexity</a>
+            <a href="#specialized">تطبيقات متخصصة</a>
+            <a href="#conclusion">الخلاصة</a>
+        </nav>
+
+        <!-- Introduction -->
+        <div class="intro-section">
+            <h2>عن هذا الدليل</h2>
+            <p>
+                يستعرض هذا الدليل قائمة شاملة بتطبيقات الذكاء الاصطناعي المتوفرة للهواتف الذكية
+                والتي تم تطويرها من قبل شركات ومؤسسات تقنية معروفة وموثوقة. جميع التطبيقات المذكورة
+                متوفرة على متاجر التطبيقات الرئيسية (Google Play Store لنظام Android و Apple App Store لنظام iOS).
+            </p>
+        </div>
+
+        <!-- Section 1: Major Tech Companies -->
+        <section id="major-tech" class="content-section">
+            <h2>تطبيقات الذكاء الاصطناعي من الشركات التقنية الكبرى</h2>
+            <p>هذه مساعدات الذكاء الاصطناعي المطورة من قبل الشركات التقنية الرائدة في العالم:</p>
+
+            <div class="app-grid">
+                <!-- ChatGPT -->
+                <div class="app-card openai">
+                    <h3>ChatGPT <span class="company-badge">OpenAI</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge freemium">مجاني جزئياً</span>
+                    </div>
+                    <p class="description">
+                        مساعد ذكاء اصطناعي تحاوري يساعد في إنشاء المحتوى، والإجابة على الأسئلة،
+                        والعصف الذهني، والمساعدة في البرمجة، وحل المشكلات. يتميز بمعالجة متقدمة
+                        للغة الطبيعية وتكامل مع خدمات مثل Spotify و Figma و Canva و Zillow.
+                    </p>
+                    <ul class="features">
+                        <li>فهم متقدم للغة الطبيعية</li>
+                        <li>توليد الأكواد والتصحيح</li>
+                        <li>إنشاء الصور (DALL-E)</li>
+                        <li>المحادثات الصوتية</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>التسعير:</strong> <span class="pricing-info">مستوى مجاني متاح، Plus بسعر 20 دولار/شهرياً</span>
+                    </p>
+                </div>
+
+                <!-- Google Gemini -->
+                <div class="app-card google">
+                    <h3>Google Gemini <span class="company-badge">Google</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge freemium">مجاني جزئياً</span>
+                    </div>
+                    <p class="description">
+                        المساعد الذكي الرائد من Google مع تكامل عميق عبر نظام Google البيئي
+                        بما في ذلك Gmail و Chrome و YouTube و Google Photos و Docs وغيرها.
+                        مصمم لحالات الاستخدام متعددة الأغراض ويأتي مثبتاً مسبقاً على هواتف Android.
+                    </p>
+                    <ul class="features">
+                        <li>تكامل عميق مع خدمات Google</li>
+                        <li>قدرات متعددة الوسائط</li>
+                        <li>مثبت مسبقاً على أجهزة Android</li>
+                        <li>تجربة سلسة عبر الأجهزة</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>التسعير:</strong> <span class="pricing-info">مجاني، AI Pro بسعر 19.99 دولار/شهرياً</span>
+                    </p>
+                </div>
+
+                <!-- Claude -->
+                <div class="app-card anthropic">
+                    <h3>Claude <span class="company-badge">Anthropic</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="platform-badge web">الويب</span>
+                        <span class="pricing-badge freemium">مجاني جزئياً</span>
+                    </div>
+                    <p class="description">
+                        يتفوق Claude في التعامل مع السياقات الطويلة ويمكنه تحليل المستندات وملفات PDF
+                        و Word والصور. يحتوي على أداة Artifacts لمعاينة واختبار مخرجات الأكواد البرمجية.
+                        معروف بردوده المدروسة والدقيقة.
+                    </p>
+                    <ul class="features">
+                        <li>نافذة سياق ممتدة</li>
+                        <li>تحليل المستندات و PDF</li>
+                        <li>Artifacts لمعاينة الأكواد</li>
+                        <li>فهم الصور</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>التسعير:</strong> <span class="pricing-info">مستوى مجاني متاح، خيارات Pro متوفرة</span>
+                    </p>
+                </div>
+
+                <!-- Microsoft Copilot -->
+                <div class="app-card microsoft">
+                    <h3>Microsoft Copilot <span class="company-badge">Microsoft</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge free">مجاني</span>
+                    </div>
+                    <p class="description">
+                        مصمم لأتمتة المهام وتعزيز الإنتاجية، يتكامل Copilot بسلاسة مع مجموعة
+                        تطبيقات Microsoft بما في ذلك Office 365 و Teams و Windows.
+                    </p>
+                    <ul class="features">
+                        <li>تكامل مع Microsoft 365</li>
+                        <li>أتمتة المهام</li>
+                        <li>المساعدة في المستندات</li>
+                        <li>إكمال الأكواد</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>التسعير:</strong> <span class="pricing-info">وصول مجاني</span>
+                    </p>
+                </div>
+
+                <!-- Bing Chat -->
+                <div class="app-card microsoft">
+                    <h3>Bing: Chat with AI & GPT-4 <span class="company-badge">Microsoft</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge free">مجاني</span>
+                        <span class="rating">4.6/5</span>
+                    </div>
+                    <p class="description">
+                        تطبيق محادثة ذكي مع أكثر من 100 مليون عملية تنزيل على متجر Play.
+                        يوفر الوصول إلى قدرات GPT-4 من خلال واجهة سهلة الاستخدام على الهاتف المحمول.
+                    </p>
+                    <ul class="features">
+                        <li>ردود مدعومة بـ GPT-4</li>
+                        <li>إنشاء الصور مع DALL-E</li>
+                        <li>تكامل البحث على الويب</li>
+                        <li>أكثر من 100 مليون تنزيل</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>التسعير:</strong> <span class="pricing-info">مجاني تماماً</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Perplexity AI -->
+        <section id="perplexity" class="content-section">
+            <h2>تطبيقات Perplexity AI</h2>
+            <p>تقدم Perplexity AI تجارب بحث وتصفح مبتكرة مدعومة بالذكاء الاصطناعي:</p>
+
+            <div class="app-grid">
+                <!-- Perplexity AI -->
+                <div class="app-card perplexity">
+                    <h3>Perplexity AI <span class="company-badge">Perplexity</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge freemium">مجاني جزئياً</span>
+                    </div>
+                    <p class="description">
+                        أداة بحث ذكاء اصطناعي مع إمكانيات البحث على الويب في الوقت الفعلي،
+                        والاستشهاد بالمصادر، والوضع الصوتي. يوفر استعلامات مجانية غير محدودة
+                        مع عمليات بحث Pro يومية محدودة.
+                    </p>
+                    <ul class="features">
+                        <li>بحث الويب في الوقت الفعلي</li>
+                        <li>الاستشهاد بالمصادر للدقة</li>
+                        <li>وضع التفاعل الصوتي</li>
+                        <li>استعلامات مجانية غير محدودة</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>التسعير:</strong> <span class="pricing-info">مستوى مجاني، Pro من 20 دولار/شهرياً</span>
+                    </p>
+                </div>
+
+                <!-- Comet Browser -->
+                <div class="app-card perplexity">
+                    <h3>Comet: AI Browser & Assistant <span class="company-badge">Perplexity</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge free">مجاني</span>
+                    </div>
+                    <p class="description">
+                        متصفح ويب مدعوم بالذكاء الاصطناعي الوكيل يعيد تصور تجربة التصفح مع
+                        مساعد ذكاء اصطناعي متكامل. مبني على بنية Chromium لوظائف مألوفة.
+                    </p>
+                    <ul class="features">
+                        <li>الدردشة مع علامات التبويب باستخدام التعرف على الصوت</li>
+                        <li>تلخيص المحتوى عبر جميع علامات التبويب المفتوحة</li>
+                        <li>الوصول إلى البريد الإلكتروني والتقويمات وسجل التصفح</li>
+                        <li>بحث Perplexity AI المدمج</li>
+                        <li>أتمتة المهام (الجدولة، التلخيص)</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>ملاحظة:</strong> إصدار iOS غير متاح بعد. إصدار سطح المكتب (Mac/Windows) في مرحلة البيتا.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Specialized AI Apps -->
+        <section id="specialized" class="content-section">
+            <h2>تطبيقات ذكاء اصطناعي متخصصة أخرى</h2>
+            <p>هذه التطبيقات تقدم قدرات ذكاء اصطناعي متخصصة لحالات استخدام محددة:</p>
+
+            <div class="app-grid">
+                <!-- Poe -->
+                <div class="app-card quora">
+                    <h3>Poe: Fast AI Chat <span class="company-badge">Quora</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge freemium">مجاني جزئياً</span>
+                        <span class="rating">4.6/5</span>
+                    </div>
+                    <p class="description">
+                        يوفر الوصول إلى عدة روبوتات محادثة ذكية في منصة واحدة. تحدث مع نماذج ذكاء
+                        اصطناعي مختلفة بما في ذلك GPT-4 و Claude وغيرها من خلال واجهة موحدة.
+                    </p>
+                    <ul class="features">
+                        <li>نماذج ذكاء اصطناعي متعددة في تطبيق واحد</li>
+                        <li>إنشاء روبوتات مخصصة</li>
+                        <li>أوقات استجابة سريعة</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>التسعير:</strong> <span class="pricing-info">مجاني، Pro من 19.99 دولار/شهرياً</span>
+                    </p>
+                </div>
+
+                <!-- ELSA -->
+                <div class="app-card elsa">
+                    <h3>ELSA: AI Learn & Speak English <span class="company-badge">ELSA Speak</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge freemium">مجاني جزئياً</span>
+                        <span class="rating">4.7/5</span>
+                    </div>
+                    <p class="description">
+                        مساعد ذكاء اصطناعي لتعلم اللغة الإنجليزية يوفر ملاحظات مخصصة ولعب أدوار
+                        وتتبع تقدم مُلعب للمتعلمين.
+                    </p>
+                    <ul class="features">
+                        <li>ملاحظات على النطق</li>
+                        <li>محادثات لعب الأدوار</li>
+                        <li>التعلم الملعب</li>
+                        <li>تتبع التقدم</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>التسعير:</strong> <span class="pricing-info">نسخة مجانية متاحة، ترقيات مدفوعة</span>
+                    </p>
+                </div>
+
+                <!-- Grammarly -->
+                <div class="app-card grammarly">
+                    <h3>Grammarly <span class="company-badge">Grammarly Inc.</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge freemium">مجاني جزئياً</span>
+                    </div>
+                    <p class="description">
+                        تطبيق مساعدة في الكتابة مدعوم بالذكاء الاصطناعي يساعد في القواعد النحوية
+                        والإملاء والتأليف عبر منصات وأجهزة متعددة.
+                    </p>
+                    <ul class="features">
+                        <li>فحص القواعد والإملاء</li>
+                        <li>اكتشاف نبرة الكتابة</li>
+                        <li>اقتراحات الكتابة</li>
+                        <li>دعم عبر المنصات</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>التسعير:</strong> <span class="pricing-info">أساسي مجاني، Premium متاح</span>
+                    </p>
+                </div>
+
+                <!-- Adobe Firefly -->
+                <div class="app-card adobe">
+                    <h3>Adobe Firefly <span class="company-badge">Adobe</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="platform-badge web">الويب</span>
+                        <span class="pricing-badge freemium">مجاني جزئياً</span>
+                    </div>
+                    <p class="description">
+                        أداة إنشاء الصور والفيديو من Adobe مدعومة بالذكاء الاصطناعي مع قدرات
+                        التعبئة التوليدية. أنشئ صوراً مذهلة باستخدام النصوص ومساعدة الذكاء الاصطناعي.
+                    </p>
+                    <ul class="features">
+                        <li>توليد صور من النص</li>
+                        <li>التعبئة التوليدية</li>
+                        <li>نقل الأنماط</li>
+                        <li>تكامل Creative Cloud</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>التسعير:</strong> <span class="pricing-info">رصيد مجاني محدود، خطط مدفوعة متاحة</span>
+                    </p>
+                </div>
+
+                <!-- Notion AI -->
+                <div class="app-card notion">
+                    <h3>Notion AI <span class="company-badge">Notion Labs</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="platform-badge web">الويب</span>
+                        <span class="pricing-badge freemium">مجاني جزئياً</span>
+                    </div>
+                    <p class="description">
+                        مساحة عمل ذكية للملاحظات والتخطيط وتوليد الأفكار متكاملة ضمن منصة
+                        الإنتاجية الشهيرة Notion.
+                    </p>
+                    <ul class="features">
+                        <li>مساعدة الكتابة بالذكاء الاصطناعي</li>
+                        <li>تلخيص المحتوى</li>
+                        <li>إدارة المهام</li>
+                        <li>تكامل قاعدة المعرفة</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>التسعير:</strong> <span class="pricing-info">مستوى Notion المجاني، إضافة AI متاحة</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section id="conclusion" class="conclusion-section">
+            <h2>الخلاصة</h2>
+            <p>
+                جميع التطبيقات المذكورة في هذا الدليل مطورة من قبل شركات أو منصات راسخة ذات سمعة
+                قوية في صناعة التقنية. وهي متوفرة على متاجر التطبيقات الرئيسية (Google Play Store
+                لنظام Android و Apple App Store لنظام iOS)، مما يضمن تجربة تنزيل آمنة وموثوقة.
+            </p>
+            <p>
+                عند اختيار تطبيق ذكاء اصطناعي، ضع في اعتبارك احتياجاتك المحددة: المساعدات متعددة
+                الأغراض مثل ChatGPT و Gemini و Claude رائعة للمهام اليومية؛ التطبيقات المتخصصة
+                مثل ELSA و Grammarly تتفوق في مجالاتها المحددة؛ وأدوات البحث المركزة مثل Perplexity
+                مثالية للبحث واكتشاف الحقائق.
+            </p>
+        </section>
+
+        <!-- Back Links -->
+        <div style="margin: 2rem 0;">
+            <a href="index_ar.html" class="back-link">العودة إلى الصفحة الرئيسية &rarr;</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 مقرر مقدمة في علم البيانات والذكاء الاصطناعي</p>
+    </footer>
+</body>
+</html>

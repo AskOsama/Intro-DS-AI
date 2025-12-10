@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Smartphone Apps Guide - Trusted AI applications from major tech companies for iOS and Android">
+    <meta name="keywords" content="AI Apps, ChatGPT, Claude, Gemini, Copilot, Perplexity, Mobile AI, Smartphone AI">
+    <title>AI Smartphone Apps | Trusted Apps from Major Tech Companies</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Resource page specific styles */
+        .resource-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .resource-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .resource-header p {
+            margin: 0.5rem 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .resource-nav {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .resource-nav a {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .resource-nav a:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--secondary-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        /* Company-specific colors */
+        .app-card.openai { border-top-color: #10a37f; }
+        .app-card.google { border-top-color: #4285f4; }
+        .app-card.anthropic { border-top-color: #d4a574; }
+        .app-card.microsoft { border-top-color: #00a4ef; }
+        .app-card.perplexity { border-top-color: #1fb8cd; }
+        .app-card.quora { border-top-color: #b92b27; }
+        .app-card.elsa { border-top-color: #ff6b6b; }
+        .app-card.grammarly { border-top-color: #15c39a; }
+        .app-card.adobe { border-top-color: #ff0000; }
+        .app-card.notion { border-top-color: #000000; }
+
+        .app-card h3 {
+            margin: 0 0 0.25rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .app-card.openai h3 { color: #10a37f; }
+        .app-card.google h3 { color: #4285f4; }
+        .app-card.anthropic h3 { color: #d4a574; }
+        .app-card.microsoft h3 { color: #00a4ef; }
+        .app-card.perplexity h3 { color: #1fb8cd; }
+        .app-card.quora h3 { color: #b92b27; }
+        .app-card.elsa h3 { color: #ff6b6b; }
+        .app-card.grammarly h3 { color: #15c39a; }
+        .app-card.adobe h3 { color: #ff0000; }
+        .app-card.notion h3 { color: #000000; }
+
+        .company-badge {
+            font-size: 0.75rem;
+            background: #f0f0f0;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: #666;
+            font-weight: normal;
+        }
+
+        .app-card .description {
+            color: #555;
+            font-size: 0.95rem;
+            margin: 0.75rem 0;
+            line-height: 1.5;
+        }
+
+        .platform-badges {
+            display: flex;
+            gap: 0.5rem;
+            margin: 0.75rem 0;
+            flex-wrap: wrap;
+        }
+
+        .platform-badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .platform-badge.ios {
+            background: #007aff;
+            color: white;
+        }
+
+        .platform-badge.android {
+            background: #3ddc84;
+            color: white;
+        }
+
+        .platform-badge.web {
+            background: #6c757d;
+            color: white;
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .pricing-badge.free {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .pricing-badge.freemium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .pricing-badge.paid {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .app-card .features {
+            margin: 1rem 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .app-card .features li {
+            padding: 0.3rem 0;
+            padding-left: 1.2rem;
+            position: relative;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .app-card .features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .rating {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.85rem;
+            color: #f39c12;
+            margin-left: 0.5rem;
+        }
+
+        .intro-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .intro-section h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .conclusion-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .conclusion-section h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .resource-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .app-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="ai_smartphone_apps_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <div class="resource-header">
+        <h1>AI Smartphone Apps Guide</h1>
+        <p>Trusted AI applications from major tech companies for iOS and Android</p>
+    </div>
+
+    <main style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;">
+        <!-- Quick Navigation -->
+        <nav class="resource-nav">
+            <a href="#major-tech">Major Tech Companies</a>
+            <a href="#perplexity">Perplexity AI</a>
+            <a href="#specialized">Specialized Apps</a>
+            <a href="#conclusion">Conclusion</a>
+        </nav>
+
+        <!-- Introduction -->
+        <div class="intro-section">
+            <h2>About This Guide</h2>
+            <p>
+                This guide presents a comprehensive list of AI applications available for smartphones,
+                developed by well-known and trusted technology companies and organizations. All apps listed
+                are available on major app stores (Google Play Store for Android and Apple App Store for iOS).
+            </p>
+        </div>
+
+        <!-- Section 1: Major Tech Companies -->
+        <section id="major-tech" class="content-section">
+            <h2>AI Apps from Major Tech Companies</h2>
+            <p>These are AI assistants developed by the leading technology companies in the world:</p>
+
+            <div class="app-grid">
+                <!-- ChatGPT -->
+                <div class="app-card openai">
+                    <h3>ChatGPT <span class="company-badge">OpenAI</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge freemium">Freemium</span>
+                    </div>
+                    <p class="description">
+                        A conversational AI assistant that helps with content creation, answering questions,
+                        brainstorming, coding assistance, and problem-solving. Features advanced natural
+                        language processing and integrates with services like Spotify, Figma, Canva, and Zillow.
+                    </p>
+                    <ul class="features">
+                        <li>Advanced natural language understanding</li>
+                        <li>Code generation and debugging</li>
+                        <li>Image generation (DALL-E)</li>
+                        <li>Voice conversations</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>Pricing:</strong> Free tier available, Plus at $20/month
+                    </p>
+                </div>
+
+                <!-- Google Gemini -->
+                <div class="app-card google">
+                    <h3>Google Gemini <span class="company-badge">Google</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge freemium">Freemium</span>
+                    </div>
+                    <p class="description">
+                        Google's flagship AI assistant with deep integration across the Google ecosystem
+                        including Gmail, Chrome, YouTube, Google Photos, Docs, and more. Designed for
+                        multi-purpose use cases and comes pre-installed on Android smartphones.
+                    </p>
+                    <ul class="features">
+                        <li>Deep Google services integration</li>
+                        <li>Multi-modal capabilities</li>
+                        <li>Pre-installed on Android devices</li>
+                        <li>Seamless cross-device experience</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>Pricing:</strong> Free, AI Pro at $19.99/month
+                    </p>
+                </div>
+
+                <!-- Claude -->
+                <div class="app-card anthropic">
+                    <h3>Claude <span class="company-badge">Anthropic</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="platform-badge web">Web</span>
+                        <span class="pricing-badge freemium">Freemium</span>
+                    </div>
+                    <p class="description">
+                        Claude excels at handling long contexts and can analyze documents, PDFs, Word files,
+                        and images. Features the Artifacts tool for previewing and testing code outputs.
+                        Known for thoughtful, nuanced responses.
+                    </p>
+                    <ul class="features">
+                        <li>Extended context window</li>
+                        <li>Document and PDF analysis</li>
+                        <li>Artifacts for code preview</li>
+                        <li>Image understanding</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>Pricing:</strong> Free tier available, Pro options available
+                    </p>
+                </div>
+
+                <!-- Microsoft Copilot -->
+                <div class="app-card microsoft">
+                    <h3>Microsoft Copilot <span class="company-badge">Microsoft</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge free">Free</span>
+                    </div>
+                    <p class="description">
+                        Designed for task automation and productivity enhancement, Copilot integrates
+                        seamlessly with the Microsoft suite of applications including Office 365,
+                        Teams, and Windows.
+                    </p>
+                    <ul class="features">
+                        <li>Microsoft 365 integration</li>
+                        <li>Task automation</li>
+                        <li>Document assistance</li>
+                        <li>Code completion</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>Pricing:</strong> Free access
+                    </p>
+                </div>
+
+                <!-- Bing Chat -->
+                <div class="app-card microsoft">
+                    <h3>Bing: Chat with AI & GPT-4 <span class="company-badge">Microsoft</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge free">Free</span>
+                        <span class="rating">4.6/5</span>
+                    </div>
+                    <p class="description">
+                        An intelligent chat application with over 100 million downloads on the Play Store.
+                        Provides access to GPT-4 capabilities through an easy-to-use mobile interface.
+                    </p>
+                    <ul class="features">
+                        <li>GPT-4 powered responses</li>
+                        <li>Image creation with DALL-E</li>
+                        <li>Web search integration</li>
+                        <li>100M+ downloads</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>Pricing:</strong> Completely free
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Perplexity AI -->
+        <section id="perplexity" class="content-section">
+            <h2>Perplexity AI Apps</h2>
+            <p>Perplexity AI offers innovative AI-powered search and browsing experiences:</p>
+
+            <div class="app-grid">
+                <!-- Perplexity AI -->
+                <div class="app-card perplexity">
+                    <h3>Perplexity AI <span class="company-badge">Perplexity</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge freemium">Freemium</span>
+                    </div>
+                    <p class="description">
+                        An AI search tool with real-time web search capabilities, source citations,
+                        and voice mode. Provides unlimited free queries with limited daily Pro searches.
+                    </p>
+                    <ul class="features">
+                        <li>Real-time web search</li>
+                        <li>Source citations for accuracy</li>
+                        <li>Voice interaction mode</li>
+                        <li>Unlimited free queries</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>Pricing:</strong> Free tier, Pro from $20/month
+                    </p>
+                </div>
+
+                <!-- Comet Browser -->
+                <div class="app-card perplexity">
+                    <h3>Comet: AI Browser & Assistant <span class="company-badge">Perplexity</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge free">Free</span>
+                    </div>
+                    <p class="description">
+                        An agentic AI-powered web browser that reimagines the browsing experience with
+                        an integrated AI assistant. Built on Chromium architecture for familiar functionality.
+                    </p>
+                    <ul class="features">
+                        <li>Chat with tabs using voice recognition</li>
+                        <li>Summarize content across all open tabs</li>
+                        <li>Access emails, calendars, and browsing history</li>
+                        <li>Built-in Perplexity AI search</li>
+                        <li>Task automation (scheduling, summarizing)</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>Note:</strong> iOS version not yet available. Desktop version (Mac/Windows) in beta.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Specialized AI Apps -->
+        <section id="specialized" class="content-section">
+            <h2>Other Specialized AI Apps</h2>
+            <p>These apps offer specialized AI capabilities for specific use cases:</p>
+
+            <div class="app-grid">
+                <!-- Poe -->
+                <div class="app-card quora">
+                    <h3>Poe: Fast AI Chat <span class="company-badge">Quora</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge freemium">Freemium</span>
+                        <span class="rating">4.6/5</span>
+                    </div>
+                    <p class="description">
+                        Access multiple AI chatbots in one platform. Chat with different AI models
+                        including GPT-4, Claude, and others through a single unified interface.
+                    </p>
+                    <ul class="features">
+                        <li>Multiple AI models in one app</li>
+                        <li>Create custom bots</li>
+                        <li>Fast response times</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>Pricing:</strong> Free, Pro from $19.99/month
+                    </p>
+                </div>
+
+                <!-- ELSA -->
+                <div class="app-card elsa">
+                    <h3>ELSA: AI Learn & Speak English <span class="company-badge">ELSA Speak</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge freemium">Freemium</span>
+                        <span class="rating">4.7/5</span>
+                    </div>
+                    <p class="description">
+                        An AI-powered English language learning assistant that provides personalized
+                        feedback, role-playing exercises, and gamified progress tracking.
+                    </p>
+                    <ul class="features">
+                        <li>Pronunciation feedback</li>
+                        <li>Role-play conversations</li>
+                        <li>Gamified learning</li>
+                        <li>Progress tracking</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>Pricing:</strong> Free version available, premium upgrades
+                    </p>
+                </div>
+
+                <!-- Grammarly -->
+                <div class="app-card grammarly">
+                    <h3>Grammarly <span class="company-badge">Grammarly Inc.</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="pricing-badge freemium">Freemium</span>
+                    </div>
+                    <p class="description">
+                        AI-powered writing assistance application that helps with grammar, spelling,
+                        and composition across multiple platforms and devices.
+                    </p>
+                    <ul class="features">
+                        <li>Grammar and spelling checks</li>
+                        <li>Tone detection</li>
+                        <li>Writing suggestions</li>
+                        <li>Cross-platform support</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>Pricing:</strong> Free basic, Premium available
+                    </p>
+                </div>
+
+                <!-- Adobe Firefly -->
+                <div class="app-card adobe">
+                    <h3>Adobe Firefly <span class="company-badge">Adobe</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="platform-badge web">Web</span>
+                        <span class="pricing-badge freemium">Freemium</span>
+                    </div>
+                    <p class="description">
+                        Adobe's AI-powered image and video creation tool with generative fill capabilities.
+                        Create stunning visuals using text prompts and AI assistance.
+                    </p>
+                    <ul class="features">
+                        <li>Text-to-image generation</li>
+                        <li>Generative fill</li>
+                        <li>Style transfer</li>
+                        <li>Creative Cloud integration</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>Pricing:</strong> Limited free credits, paid plans available
+                    </p>
+                </div>
+
+                <!-- Notion AI -->
+                <div class="app-card notion">
+                    <h3>Notion AI <span class="company-badge">Notion Labs</span></h3>
+                    <div class="platform-badges">
+                        <span class="platform-badge ios">iOS</span>
+                        <span class="platform-badge android">Android</span>
+                        <span class="platform-badge web">Web</span>
+                        <span class="pricing-badge freemium">Freemium</span>
+                    </div>
+                    <p class="description">
+                        An intelligent workspace for notes, planning, and idea generation integrated
+                        within the popular Notion productivity platform.
+                    </p>
+                    <ul class="features">
+                        <li>AI writing assistance</li>
+                        <li>Content summarization</li>
+                        <li>Task management</li>
+                        <li>Knowledge base integration</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.75rem;">
+                        <strong>Pricing:</strong> Notion free tier, AI add-on available
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section id="conclusion" class="conclusion-section">
+            <h2>Conclusion</h2>
+            <p>
+                All applications listed in this guide are developed by established companies or platforms
+                with strong reputations in the technology industry. They are available on major app stores
+                (Google Play Store for Android and Apple App Store for iOS), ensuring a secure and
+                reliable download experience.
+            </p>
+            <p>
+                When choosing an AI app, consider your specific needs: general-purpose assistants like
+                ChatGPT, Gemini, and Claude are great for everyday tasks; specialized apps like ELSA
+                and Grammarly excel in their specific domains; and search-focused tools like Perplexity
+                are ideal for research and fact-finding.
+            </p>
+        </section>
+
+        <!-- Back Links -->
+        <div style="margin: 2rem 0;">
+            <a href="index.html" class="back-link">&larr; Back to Course Home</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Introduction to Data Science & AI Course</p>
+    </footer>
+</body>
+</html>

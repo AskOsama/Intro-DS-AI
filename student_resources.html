@@ -1,0 +1,2257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find your personalized learning path for Data Science and AI based on your background and goals">
+    <meta name="keywords" content="AI learning path, Data Science courses, Python courses, Machine Learning resources">
+    <title>Find Your Learning Path | DS-AI Course</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ============================================
+           STUDENT RESOURCES FORM STYLES
+           ============================================ */
+
+        .resource-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: -1rem -1rem 2rem -1rem;
+        }
+
+        .resource-header h1 {
+            font-size: 2.5rem;
+            margin: 0 0 0.5rem 0;
+            border: none;
+        }
+
+        .resource-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        /* Resume Modal */
+        .resume-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .resume-modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .resume-modal-content h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .resume-modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        /* Assessment Wizard Container */
+        .assessment-wizard {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto 2rem auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Progress Bar */
+        .wizard-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .wizard-progress::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 60px;
+            right: 60px;
+            height: 3px;
+            background: #e0e0e0;
+            z-index: 0;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-step.active .step-number {
+            background: #3498db;
+            color: white;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .progress-step.completed .step-number {
+            background: #28a745;
+            color: white;
+        }
+
+        .progress-step.completed .step-number::after {
+            content: '\2713';
+        }
+
+        .progress-step.completed .step-number span {
+            display: none;
+        }
+
+        .step-label {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .progress-step.active .step-label {
+            color: #3498db;
+            font-weight: 600;
+        }
+
+        .progress-step.completed .step-label {
+            color: #28a745;
+        }
+
+        /* Wizard Steps */
+        .wizard-step {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .wizard-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            border: none;
+        }
+
+        .step-description {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        /* Question Cards */
+        .question-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
+
+        .question-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-text {
+            font-size: 1rem;
+            color: #333;
+            flex: 1;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 32px;
+            flex-shrink: 0;
+            margin-left: 1rem;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e0e0e0;
+            transition: 0.3s;
+            border-radius: 32px;
+        }
+
+        .toggle-slider::before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background-color: #28a745;
+        }
+
+        .toggle-switch input:checked + .toggle-slider::before {
+            transform: translateX(28px);
+        }
+
+        .toggle-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 4px;
+            padding: 0 4px;
+        }
+
+        /* Track Selection Cards */
+        .tracks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .track-card {
+            background: white;
+            border: 2px solid #e1e4e8;
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .track-card:hover {
+            border-color: #3498db;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .track-card.selected {
+            border-color: #3498db;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e8f4fd 100%);
+        }
+
+        .track-card.selected::after {
+            content: '\2713';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 24px;
+            height: 24px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        .track-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .track-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .track-card p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .track-card input[type="radio"] {
+            display: none;
+        }
+
+        /* Depth Selection */
+        .depth-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e1e4e8;
+        }
+
+        .depth-section h4 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .depth-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .depth-option {
+            flex: 1;
+            min-width: 150px;
+            background: white;
+            border: 2px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .depth-option:hover {
+            border-color: #3498db;
+        }
+
+        .depth-option.selected {
+            border-color: #3498db;
+            background: #f0f9ff;
+        }
+
+        .depth-option input[type="radio"] {
+            display: none;
+        }
+
+        /* Preferences Section */
+        .preference-group {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .preference-group h4 {
+            color: #2c3e50;
+            margin: 0 0 1rem 0;
+            font-size: 1.1rem;
+        }
+
+        .radio-options, .checkbox-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .radio-option:hover, .checkbox-option:hover {
+            background: #e8f4fd;
+        }
+
+        .radio-option input[type="radio"],
+        .checkbox-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #3498db;
+        }
+
+        .radio-option label, .checkbox-option label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        /* Time commitment visual */
+        .time-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .time-option {
+            background: white;
+            border: 2px solid #e1e4e8;
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .time-option:hover {
+            border-color: #3498db;
+        }
+
+        .time-option.selected {
+            border-color: #3498db;
+            background: #f0f9ff;
+        }
+
+        .time-option input[type="radio"] {
+            display: none;
+        }
+
+        .time-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .time-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .time-desc {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* Navigation Buttons */
+        .wizard-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e1e4e8;
+        }
+
+        .wizard-navigation .btn {
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .wizard-navigation .btn-secondary {
+            background: white;
+            color: #3498db;
+            border: 2px solid #3498db;
+        }
+
+        .wizard-navigation .btn-secondary:hover {
+            background: #f0f9ff;
+        }
+
+        .wizard-navigation .btn-primary {
+            background: #3498db;
+            color: white;
+            border: 2px solid #3498db;
+        }
+
+        .wizard-navigation .btn-primary:hover {
+            background: #2980b9;
+            border-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        /* ============================================
+           RESULTS SECTION STYLES
+           ============================================ */
+
+        .results-section {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Profile Summary */
+        .profile-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            color: white;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .profile-summary h2 {
+            margin: 0 0 1rem 0;
+            font-size: 1.8rem;
+            border: none;
+            color: white;
+        }
+
+        .profile-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .profile-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Learning Path Visual */
+        .learning-path-visual {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .learning-path-visual h3 {
+            color: #2c3e50;
+            margin: 0 0 1.5rem 0;
+            border: none;
+        }
+
+        .path-stages {
+            position: relative;
+        }
+
+        .path-stage {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .path-stage::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 30px;
+            bottom: -1.5rem;
+            width: 2px;
+            background: #e0e0e0;
+        }
+
+        .path-stage:last-child::before {
+            display: none;
+        }
+
+        .stage-marker {
+            position: absolute;
+            left: 0;
+            width: 32px;
+            height: 32px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .path-stage.completed .stage-marker {
+            background: #28a745;
+        }
+
+        .path-stage.current .stage-marker {
+            background: #f39c12;
+            box-shadow: 0 0 0 4px rgba(243, 156, 18, 0.3);
+        }
+
+        .stage-content {
+            flex: 1;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+        }
+
+        .stage-content h4 {
+            margin: 0 0 0.5rem 0;
+            color: #2c3e50;
+        }
+
+        .stage-content p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .stage-skills {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.75rem;
+        }
+
+        .skill-tag {
+            background: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #3498db;
+            border: 1px solid #3498db;
+        }
+
+        /* Course Recommendations */
+        .course-recommendations {
+            margin-bottom: 2rem;
+        }
+
+        .course-recommendations h3 {
+            color: #2c3e50;
+            margin: 0 0 1.5rem 0;
+            border: none;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .course-card-header {
+            padding: 1rem 1.5rem;
+            background: #3498db;
+            color: white;
+        }
+
+        .course-card-header.beginner { background: #28a745; }
+        .course-card-header.intermediate { background: #f39c12; }
+        .course-card-header.advanced { background: #e74c3c; }
+
+        .course-platform {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-bottom: 0.25rem;
+        }
+
+        .course-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .course-card-body {
+            padding: 1.5rem;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .course-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .course-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .course-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .course-tag {
+            background: #f0f9ff;
+            color: #3498db;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        .course-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .course-link:hover {
+            color: #2980b9;
+            gap: 0.75rem;
+        }
+
+        /* Results Actions */
+        .results-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .results-actions .btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .resource-header {
+                padding: 2rem 1rem;
+            }
+
+            .resource-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .assessment-wizard {
+                padding: 1.5rem;
+                margin: 0 0.5rem 1.5rem 0.5rem;
+            }
+
+            .wizard-progress {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .wizard-progress::before {
+                display: none;
+            }
+
+            .progress-step {
+                flex: 0 0 calc(50% - 0.5rem);
+            }
+
+            .step-label {
+                font-size: 0.75rem;
+            }
+
+            .tracks-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .depth-options {
+                flex-direction: column;
+            }
+
+            .time-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .wizard-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .wizard-navigation .btn {
+                width: 100%;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .path-stage {
+                padding-left: 2.5rem;
+            }
+
+            .stage-marker {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .wizard-navigation,
+            .results-actions,
+            .language-switcher {
+                display: none;
+            }
+
+            .course-card {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="student_resources_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <!-- Header -->
+    <header class="resource-header">
+        <h1>Find Your Learning Path</h1>
+        <p>Get personalized course recommendations based on your background and goals</p>
+    </header>
+
+    <main>
+        <!-- Resume Modal -->
+        <div class="resume-modal" id="resumeModal">
+            <div class="resume-modal-content">
+                <h3>Welcome Back!</h3>
+                <p>You have a saved assessment in progress. Would you like to continue where you left off?</p>
+                <div class="resume-modal-buttons">
+                    <button class="btn btn-secondary" id="startFreshBtn">Start Fresh</button>
+                    <button class="btn btn-primary" id="resumeBtn">Continue</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assessment Wizard -->
+        <div class="assessment-wizard" id="assessmentWizard">
+            <!-- Progress Bar -->
+            <div class="wizard-progress">
+                <div class="progress-step active" data-step="1">
+                    <div class="step-number"><span>1</span></div>
+                    <span class="step-label">Background</span>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-number"><span>2</span></div>
+                    <span class="step-label">Goals</span>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-number"><span>3</span></div>
+                    <span class="step-label">Preferences</span>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <div class="step-number"><span>4</span></div>
+                    <span class="step-label">Results</span>
+                </div>
+            </div>
+
+            <!-- Step 1: Background Assessment -->
+            <div class="wizard-step active" data-step="1">
+                <h2 class="step-title">Tell Us About Your Background</h2>
+                <p class="step-description">Answer these questions to help us understand your current level. Don't worry - there are no wrong answers!</p>
+
+                <div class="question-card">
+                    <span class="question-text">Have you programmed before in any language?</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" name="bg_programming" id="bg_programming">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="question-card">
+                    <span class="question-text">Have you used Python before?</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" name="bg_python" id="bg_python">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="question-card">
+                    <span class="question-text">Do you know how to work with databases (SQL)?</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" name="bg_databases" id="bg_databases">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="question-card">
+                    <span class="question-text">Are you comfortable with Excel/spreadsheets?</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" name="bg_excel" id="bg_excel">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="question-card">
+                    <span class="question-text">Do you have experience with data analysis?</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" name="bg_data_analysis" id="bg_data_analysis">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="question-card">
+                    <span class="question-text">Have you studied statistics or mathematics?</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" name="bg_math" id="bg_math">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Step 2: Learning Goals -->
+            <div class="wizard-step" data-step="2">
+                <h2 class="step-title">What Do You Want to Learn?</h2>
+                <p class="step-description">Select the track that best matches your learning goals.</p>
+
+                <div class="tracks-grid">
+                    <label class="track-card" data-track="technical">
+                        <input type="radio" name="track" value="technical">
+                        <div class="track-icon">💻</div>
+                        <h4>Technical / Programming</h4>
+                        <p>Learn to code and build AI systems. Master Python, machine learning algorithms, and neural networks.</p>
+                    </label>
+
+                    <label class="track-card" data-track="data">
+                        <input type="radio" name="track" value="data">
+                        <div class="track-icon">📊</div>
+                        <h4>Data Analysis</h4>
+                        <p>Focus on data manipulation, visualization, and extracting insights. Work with Pandas, SQL, and BI tools.</p>
+                    </label>
+
+                    <label class="track-card" data-track="ai-tools">
+                        <input type="radio" name="track" value="ai-tools">
+                        <div class="track-icon">🤖</div>
+                        <h4>AI Tools</h4>
+                        <p>Learn to leverage AI tools like ChatGPT, Copilot, and no-code platforms without deep programming.</p>
+                    </label>
+
+                    <label class="track-card" data-track="business">
+                        <input type="radio" name="track" value="business">
+                        <div class="track-icon">💼</div>
+                        <h4>Business / General</h4>
+                        <p>Understand AI concepts for strategic decision-making. Learn how AI impacts business and society.</p>
+                    </label>
+                </div>
+
+                <div class="depth-section">
+                    <h4>How deep do you want to go?</h4>
+                    <div class="depth-options">
+                        <label class="depth-option" data-depth="basics">
+                            <input type="radio" name="depth" value="basics">
+                            <div>Just the basics</div>
+                        </label>
+                        <label class="depth-option" data-depth="moderate">
+                            <input type="radio" name="depth" value="moderate">
+                            <div>Moderate depth</div>
+                        </label>
+                        <label class="depth-option" data-depth="deep">
+                            <input type="radio" name="depth" value="deep">
+                            <div>Deep dive</div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Preferences -->
+            <div class="wizard-step" data-step="3">
+                <h2 class="step-title">Your Learning Preferences</h2>
+                <p class="step-description">Help us tailor recommendations to your preferences.</p>
+
+                <div class="preference-group">
+                    <h4>Language Preference</h4>
+                    <div class="radio-options">
+                        <div class="radio-option">
+                            <input type="radio" name="language" value="en" id="lang_en">
+                            <label for="lang_en">English only</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="language" value="ar" id="lang_ar">
+                            <label for="lang_ar">Arabic only (العربية فقط)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="language" value="both" id="lang_both">
+                            <label for="lang_both">Both languages (doesn't matter)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="language" value="ar-preferred" id="lang_ar_pref">
+                            <label for="lang_ar_pref">Arabic preferred, English if unavailable</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preference-group">
+                    <h4>Learning Style (select all that apply)</h4>
+                    <div class="checkbox-options">
+                        <div class="checkbox-option">
+                            <input type="checkbox" name="style" value="video" id="style_video">
+                            <label for="style_video">Video courses</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" name="style" value="interactive" id="style_interactive">
+                            <label for="style_interactive">Interactive tutorials / coding exercises</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" name="style" value="reading" id="style_reading">
+                            <label for="style_reading">Reading / documentation</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" name="style" value="projects" id="style_projects">
+                            <label for="style_projects">Project-based learning</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" name="style" value="structured" id="style_structured">
+                            <label for="style_structured">Structured courses with certificates</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preference-group">
+                    <h4>Time Commitment</h4>
+                    <div class="time-options">
+                        <label class="time-option" data-time="1-2">
+                            <input type="radio" name="time" value="1-2">
+                            <div class="time-icon">🕐</div>
+                            <div class="time-label">1-2 hrs/week</div>
+                            <div class="time-desc">Casual</div>
+                        </label>
+                        <label class="time-option" data-time="3-5">
+                            <input type="radio" name="time" value="3-5">
+                            <div class="time-icon">🕒</div>
+                            <div class="time-label">3-5 hrs/week</div>
+                            <div class="time-desc">Moderate</div>
+                        </label>
+                        <label class="time-option" data-time="5-10">
+                            <input type="radio" name="time" value="5-10">
+                            <div class="time-icon">🕔</div>
+                            <div class="time-label">5-10 hrs/week</div>
+                            <div class="time-desc">Committed</div>
+                        </label>
+                        <label class="time-option" data-time="10+">
+                            <input type="radio" name="time" value="10+">
+                            <div class="time-icon">🕖</div>
+                            <div class="time-label">10+ hrs/week</div>
+                            <div class="time-desc">Intensive</div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="wizard-navigation">
+                <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">Previous</button>
+                <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <!-- Profile Summary (dynamically generated) -->
+            <div class="profile-summary" id="profileSummary">
+                <!-- Populated by JavaScript -->
+            </div>
+
+            <!-- Learning Path Visual -->
+            <div class="learning-path-visual" id="learningPathVisual">
+                <h3>Your Learning Path</h3>
+                <div class="path-stages" id="pathStages">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Course Recommendations -->
+            <div class="course-recommendations">
+                <h3>Recommended Courses & Resources</h3>
+                <div class="courses-grid" id="coursesGrid">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="results-actions">
+                <button class="btn btn-secondary" onclick="window.print()">Print Results</button>
+                <button class="btn btn-secondary" onclick="restartAssessment()">Retake Assessment</button>
+                <a href="index.html" class="btn btn-primary">Back to Course</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <section class="footer-content">
+            <div class="footer-info">
+                <p>Part of the DS-AI Course - An open educational resource for learning Data Science and AI.</p>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="index.html">Course Home</a></li>
+                    <li><a href="ml_resources.html">Additional Resources</a></li>
+                </ul>
+            </div>
+        </section>
+    </footer>
+
+    <script>
+        // ============================================
+        // RESOURCE DATABASE
+        // ============================================
+        const RESOURCES = {
+            // ===== BEGINNER - PROGRAMMING (ARABIC) =====
+            python_satr_basics: {
+                id: 'python_satr_basics',
+                title: 'أساسيات لغة بايثون',
+                titleEn: 'Python Basics',
+                platform: 'Satr (سطر)',
+                language: 'ar',
+                url: 'https://satr.codes/paths/HrdkDvMPCe/view',
+                levels: ['beginner'],
+                tracks: ['technical', 'data'],
+                isFree: true,
+                duration: '20 hours',
+                description: 'Complete Python basics course in Arabic from the Satr platform.',
+                tags: ['Python', 'Arabic', 'Free'],
+                priority: 10
+            },
+            cs50_arabic: {
+                id: 'cs50_arabic',
+                title: 'CS50 مترجم للعربية',
+                titleEn: 'CS50 Arabic',
+                platform: 'YouTube',
+                language: 'ar',
+                url: 'https://www.youtube.com/playlist?list=PLnrlZUDQofUv7JE4QIahAyztrQU9bnJmd',
+                levels: ['beginner'],
+                tracks: ['technical'],
+                isFree: true,
+                duration: '40+ hours',
+                description: 'Harvard CS50 course translated to Arabic - comprehensive computer science introduction.',
+                tags: ['CS50', 'Arabic', 'Free', 'University'],
+                priority: 9
+            },
+            python_eldesouki: {
+                id: 'python_eldesouki',
+                title: 'برمجة بايثون - محمد الدسوقي',
+                titleEn: 'Python Programming',
+                platform: 'YouTube',
+                language: 'ar',
+                url: 'https://www.youtube.com/playlist?list=PL1DUmTEdeA6JCaY0EKssdqbiqq4sgRlUC',
+                levels: ['beginner'],
+                tracks: ['technical', 'data'],
+                isFree: true,
+                duration: '15+ hours',
+                description: 'Popular Arabic Python course by Dr. Mohamed El-Desouki.',
+                tags: ['Python', 'Arabic', 'Free'],
+                priority: 8
+            },
+
+            // ===== BEGINNER - PROGRAMMING (ENGLISH) =====
+            python_for_everybody: {
+                id: 'python_for_everybody',
+                title: 'Python for Everybody',
+                titleEn: 'Python for Everybody',
+                platform: 'Coursera',
+                language: 'en',
+                url: 'https://www.coursera.org/specializations/python',
+                levels: ['beginner'],
+                tracks: ['technical', 'data'],
+                isFree: true,
+                duration: '8 months',
+                description: 'Learn to program using Python by Dr. Chuck. One of the most popular programming courses.',
+                tags: ['Python', 'Certificate', 'University'],
+                priority: 10
+            },
+            automate_boring_stuff: {
+                id: 'automate_boring_stuff',
+                title: 'Automate the Boring Stuff',
+                titleEn: 'Automate the Boring Stuff with Python',
+                platform: 'Free Book/Udemy',
+                language: 'en',
+                url: 'https://automatetheboringstuff.com/',
+                levels: ['beginner'],
+                tracks: ['technical', 'data'],
+                isFree: true,
+                duration: '15+ hours',
+                description: 'Practical Python programming for total beginners. Free book and video course.',
+                tags: ['Python', 'Free', 'Practical'],
+                priority: 9
+            },
+            freecodecamp_python: {
+                id: 'freecodecamp_python',
+                title: 'Scientific Computing with Python',
+                titleEn: 'Scientific Computing with Python',
+                platform: 'freeCodeCamp',
+                language: 'en',
+                url: 'https://www.freecodecamp.org/learn/scientific-computing-with-python/',
+                levels: ['beginner'],
+                tracks: ['technical', 'data'],
+                isFree: true,
+                duration: '300 hours',
+                description: 'Free certification in Python programming with projects.',
+                tags: ['Python', 'Free', 'Certificate', 'Projects'],
+                priority: 8
+            },
+            cs50x: {
+                id: 'cs50x',
+                title: 'CS50: Introduction to Computer Science',
+                titleEn: 'CS50x',
+                platform: 'edX',
+                language: 'en',
+                url: 'https://www.edx.org/course/introduction-computer-science-harvardx-cs50x',
+                levels: ['beginner'],
+                tracks: ['technical'],
+                isFree: true,
+                duration: '12 weeks',
+                description: 'Harvard\'s famous intro to CS. Covers C, Python, SQL, and web development.',
+                tags: ['CS', 'Free', 'University', 'Certificate'],
+                priority: 9
+            },
+
+            // ===== BEGINNER - DATA (ARABIC) =====
+            data_analysis_python_ar: {
+                id: 'data_analysis_python_ar',
+                title: 'تحليل البيانات باستخدام Python',
+                titleEn: 'Data Analysis with Python',
+                platform: 'Coursera',
+                language: 'ar',
+                url: 'https://www.coursera.org/learn/data-analysis-with-python',
+                levels: ['beginner', 'some-background'],
+                tracks: ['data'],
+                isFree: true,
+                duration: '6 weeks',
+                description: 'Learn data analysis with Python - Arabic subtitles available.',
+                tags: ['Data', 'Python', 'Arabic Subtitles'],
+                priority: 9
+            },
+            sql_satr: {
+                id: 'sql_satr',
+                title: 'أساسيات SQL',
+                titleEn: 'SQL Basics',
+                platform: 'Satr (سطر)',
+                language: 'ar',
+                url: 'https://satr.codes/courses/mxgNDdBPgd/view',
+                levels: ['beginner'],
+                tracks: ['data', 'technical'],
+                isFree: true,
+                duration: '10 hours',
+                description: 'Learn SQL basics in Arabic on the Satr platform.',
+                tags: ['SQL', 'Arabic', 'Free'],
+                priority: 8
+            },
+
+            // ===== BEGINNER - DATA (ENGLISH) =====
+            google_data_analytics: {
+                id: 'google_data_analytics',
+                title: 'Google Data Analytics Certificate',
+                titleEn: 'Google Data Analytics Professional Certificate',
+                platform: 'Coursera',
+                language: 'en',
+                url: 'https://www.coursera.org/professional-certificates/google-data-analytics',
+                levels: ['beginner'],
+                tracks: ['data', 'business'],
+                isFree: false,
+                duration: '6 months',
+                description: 'Professional certificate from Google covering spreadsheets, SQL, R, and Tableau.',
+                tags: ['Google', 'Certificate', 'Professional'],
+                priority: 10
+            },
+            freecodecamp_data: {
+                id: 'freecodecamp_data',
+                title: 'Data Analysis with Python',
+                titleEn: 'Data Analysis with Python',
+                platform: 'freeCodeCamp',
+                language: 'en',
+                url: 'https://www.freecodecamp.org/learn/data-analysis-with-python/',
+                levels: ['beginner', 'some-background'],
+                tracks: ['data'],
+                isFree: true,
+                duration: '300 hours',
+                description: 'Free certification covering NumPy, Pandas, Matplotlib, and Seaborn.',
+                tags: ['Data', 'Free', 'Certificate', 'Projects'],
+                priority: 9
+            },
+            ibm_data_science: {
+                id: 'ibm_data_science',
+                title: 'IBM Data Science Professional Certificate',
+                titleEn: 'IBM Data Science Professional Certificate',
+                platform: 'Coursera',
+                language: 'en',
+                url: 'https://www.coursera.org/professional-certificates/ibm-data-science',
+                levels: ['beginner', 'some-background'],
+                tracks: ['data', 'technical'],
+                isFree: true,
+                duration: '11 months',
+                description: 'Comprehensive data science program from IBM with hands-on projects.',
+                tags: ['IBM', 'Certificate', 'Professional'],
+                priority: 8
+            },
+
+            // ===== BEGINNER - AI TOOLS =====
+            ai_for_everyone: {
+                id: 'ai_for_everyone',
+                title: 'AI for Everyone',
+                titleEn: 'AI for Everyone',
+                platform: 'Coursera',
+                language: 'both',
+                url: 'https://www.coursera.org/learn/ai-for-everyone',
+                levels: ['beginner'],
+                tracks: ['ai-tools', 'business'],
+                isFree: true,
+                duration: '4 weeks',
+                description: 'Non-technical introduction to AI by Andrew Ng. Understand what AI can and cannot do.',
+                tags: ['AI', 'Non-technical', 'Andrew Ng'],
+                priority: 10
+            },
+            generative_ai_everyone: {
+                id: 'generative_ai_everyone',
+                title: 'Generative AI for Everyone',
+                titleEn: 'Generative AI for Everyone',
+                platform: 'Coursera',
+                language: 'en',
+                url: 'https://www.coursera.org/learn/generative-ai-for-everyone',
+                levels: ['beginner'],
+                tracks: ['ai-tools', 'business'],
+                isFree: true,
+                duration: '3 weeks',
+                description: 'Learn about generative AI, including ChatGPT and image generation by Andrew Ng.',
+                tags: ['GenAI', 'ChatGPT', 'Andrew Ng'],
+                priority: 10
+            },
+            prompt_engineering: {
+                id: 'prompt_engineering',
+                title: 'Prompt Engineering for ChatGPT',
+                titleEn: 'Prompt Engineering for ChatGPT',
+                platform: 'Coursera',
+                language: 'en',
+                url: 'https://www.coursera.org/learn/prompt-engineering',
+                levels: ['beginner'],
+                tracks: ['ai-tools'],
+                isFree: true,
+                duration: '6 hours',
+                description: 'Learn how to write effective prompts for large language models.',
+                tags: ['ChatGPT', 'Prompts', 'Practical'],
+                priority: 9
+            },
+            microsoft_copilot: {
+                id: 'microsoft_copilot',
+                title: 'Microsoft Copilot Essentials',
+                titleEn: 'Microsoft Copilot Essentials',
+                platform: 'Microsoft Learn',
+                language: 'en',
+                url: 'https://learn.microsoft.com/training/paths/copilot/',
+                levels: ['beginner'],
+                tracks: ['ai-tools', 'business'],
+                isFree: true,
+                duration: '4 hours',
+                description: 'Learn to use Microsoft Copilot for productivity.',
+                tags: ['Microsoft', 'Copilot', 'Free'],
+                priority: 8
+            },
+
+            // ===== INTERMEDIATE - TECHNICAL =====
+            ml_specialization: {
+                id: 'ml_specialization',
+                title: 'Machine Learning Specialization',
+                titleEn: 'Machine Learning Specialization',
+                platform: 'Coursera',
+                language: 'en',
+                url: 'https://www.coursera.org/specializations/machine-learning-introduction',
+                levels: ['some-background', 'intermediate'],
+                tracks: ['technical'],
+                isFree: true,
+                duration: '3 months',
+                description: 'Updated ML course by Andrew Ng covering supervised/unsupervised learning and neural networks.',
+                tags: ['ML', 'Andrew Ng', 'Stanford'],
+                priority: 10
+            },
+            deep_learning_specialization: {
+                id: 'deep_learning_specialization',
+                title: 'Deep Learning Specialization',
+                titleEn: 'Deep Learning Specialization',
+                platform: 'Coursera',
+                language: 'en',
+                url: 'https://www.coursera.org/specializations/deep-learning',
+                levels: ['intermediate', 'advanced'],
+                tracks: ['technical'],
+                isFree: true,
+                duration: '5 months',
+                description: 'Master deep learning with TensorFlow. Covers CNNs, RNNs, and transformers.',
+                tags: ['Deep Learning', 'Andrew Ng', 'TensorFlow'],
+                priority: 9
+            },
+            fastai: {
+                id: 'fastai',
+                title: 'Practical Deep Learning for Coders',
+                titleEn: 'Practical Deep Learning for Coders',
+                platform: 'fast.ai',
+                language: 'en',
+                url: 'https://course.fast.ai/',
+                levels: ['some-background', 'intermediate'],
+                tracks: ['technical'],
+                isFree: true,
+                duration: '7 weeks',
+                description: 'Top-down approach to deep learning. Build models from day one.',
+                tags: ['Deep Learning', 'Free', 'Practical'],
+                priority: 9
+            },
+            ml_youtube_ar: {
+                id: 'ml_youtube_ar',
+                title: 'تعلم الآلة بالعربي',
+                titleEn: 'Machine Learning in Arabic',
+                platform: 'YouTube',
+                language: 'ar',
+                url: 'https://www.youtube.com/results?search_query=%D8%AA%D8%B9%D9%84%D9%85+%D8%A7%D9%84%D8%A2%D9%84%D8%A9',
+                levels: ['some-background', 'intermediate'],
+                tracks: ['technical'],
+                isFree: true,
+                duration: 'Varies',
+                description: 'Various Arabic YouTube channels covering machine learning topics.',
+                tags: ['ML', 'Arabic', 'Free'],
+                priority: 7
+            },
+
+            // ===== BUSINESS TRACK =====
+            ai_for_business: {
+                id: 'ai_for_business',
+                title: 'AI for Business',
+                titleEn: 'AI for Business',
+                platform: 'Coursera',
+                language: 'en',
+                url: 'https://www.coursera.org/specializations/ai-for-business-wharton',
+                levels: ['beginner', 'some-background'],
+                tracks: ['business'],
+                isFree: true,
+                duration: '4 months',
+                description: 'Wharton specialization on AI strategy and applications for business leaders.',
+                tags: ['Business', 'Strategy', 'Wharton'],
+                priority: 9
+            },
+            executive_data_science: {
+                id: 'executive_data_science',
+                title: 'Executive Data Science',
+                titleEn: 'Executive Data Science',
+                platform: 'Coursera',
+                language: 'en',
+                url: 'https://www.coursera.org/specializations/executive-data-science',
+                levels: ['beginner', 'some-background'],
+                tracks: ['business'],
+                isFree: true,
+                duration: '4 months',
+                description: 'Johns Hopkins specialization for executives managing data science teams.',
+                tags: ['Executive', 'Leadership', 'Johns Hopkins'],
+                priority: 8
+            },
+
+            // ===== ADVANCED =====
+            mlops: {
+                id: 'mlops',
+                title: 'MLOps Specialization',
+                titleEn: 'Machine Learning Engineering for Production',
+                platform: 'Coursera',
+                language: 'en',
+                url: 'https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops',
+                levels: ['intermediate', 'advanced'],
+                tracks: ['technical'],
+                isFree: true,
+                duration: '4 months',
+                description: 'Learn to deploy ML models in production. Covers data pipelines, model serving, and monitoring.',
+                tags: ['MLOps', 'Production', 'Advanced'],
+                priority: 8
+            },
+            pyspark: {
+                id: 'pyspark',
+                title: 'Big Data with PySpark',
+                titleEn: 'Big Data with Apache Spark and Python',
+                platform: 'Coursera',
+                language: 'en',
+                url: 'https://www.coursera.org/specializations/big-data-pyspark',
+                levels: ['intermediate', 'advanced'],
+                tracks: ['data', 'technical'],
+                isFree: true,
+                duration: '4 months',
+                description: 'Process big data using Apache Spark. Essential for large-scale data processing.',
+                tags: ['Big Data', 'Spark', 'Advanced'],
+                priority: 7
+            },
+
+            // ===== SATR PLATFORM - AI/DATA SCIENCE PATH =====
+            satr_ai_ds_path: {
+                id: 'satr_ai_ds_path',
+                title: 'مسار علم البيانات والذكاء الاصطناعي',
+                titleEn: 'Data Science & AI Path',
+                platform: 'Satr (سطر)',
+                language: 'ar',
+                url: 'https://satr.codes/',
+                levels: ['beginner', 'some-background'],
+                tracks: ['technical', 'data'],
+                isFree: true,
+                duration: '40+ hours',
+                description: 'مسار شامل يغطي تحليل البيانات، التصور، التعلم الآلي والتعلم العميق.',
+                tags: ['Arabic', 'Free', 'Path', 'AI', 'Data Science'],
+                priority: 10
+            },
+            satr_programming_youth: {
+                id: 'satr_programming_youth',
+                title: 'مبادرة أبشر طويق - البرمجة للناشئين',
+                titleEn: 'Tuwaiq Programming for Youth',
+                platform: 'Satr (سطر)',
+                language: 'ar',
+                url: 'https://satr.codes/',
+                levels: ['beginner'],
+                tracks: ['technical'],
+                isFree: true,
+                duration: '5h 42m',
+                description: 'أساسيات البرمجة بـ Python: المتغيرات، الشروط، الحلقات، الدوال.',
+                tags: ['Arabic', 'Free', 'Beginner', 'Python'],
+                priority: 9
+            },
+            satr_encryption: {
+                id: 'satr_encryption',
+                title: 'مبادئ التشفير',
+                titleEn: 'Encryption Principles',
+                platform: 'Satr (سطر)',
+                language: 'ar',
+                url: 'https://satr.codes/',
+                levels: ['some-background', 'intermediate'],
+                tracks: ['technical'],
+                isFree: true,
+                duration: '1h 24m',
+                description: 'التشفير المتماثل وغير المتماثل، RSA، إدارة المفاتيح.',
+                tags: ['Arabic', 'Free', 'Security', 'Encryption'],
+                priority: 6
+            },
+
+            // ===== NLP & ADVANCED COURSES =====
+            nlp_specialization: {
+                id: 'nlp_specialization',
+                title: 'Natural Language Processing Specialization',
+                titleEn: 'NLP Specialization (DeepLearning.AI)',
+                platform: 'Coursera',
+                language: 'en',
+                url: 'https://www.coursera.org/specializations/natural-language-processing',
+                levels: ['intermediate', 'advanced'],
+                tracks: ['technical'],
+                isFree: true,
+                duration: '4 months',
+                description: '4 courses covering NLP from classification to attention models and transformers.',
+                tags: ['NLP', 'Deep Learning', 'Transformers', 'Advanced'],
+                priority: 8
+            },
+            stanford_cs224n: {
+                id: 'stanford_cs224n',
+                title: 'Stanford CS224n: NLP with Deep Learning',
+                titleEn: 'CS224n: Natural Language Processing with Deep Learning',
+                platform: 'YouTube/Stanford',
+                language: 'en',
+                url: 'https://www.youtube.com/playlist?list=PLoROMvodv4rOSH4v6133s9LFPRHjEmbmJ',
+                levels: ['intermediate', 'advanced'],
+                tracks: ['technical'],
+                isFree: true,
+                duration: '20+ hours',
+                description: 'Stanford\'s famous NLP course. Covers word vectors, RNNs, transformers, BERT.',
+                tags: ['NLP', 'Stanford', 'Free', 'University', 'Advanced'],
+                priority: 8
+            },
+            tensorflow_cert: {
+                id: 'tensorflow_cert',
+                title: 'TensorFlow Developer Professional Certificate',
+                titleEn: 'TensorFlow Developer Certificate',
+                platform: 'Coursera',
+                language: 'en',
+                url: 'https://www.coursera.org/professional-certificates/tensorflow-in-practice',
+                levels: ['some-background', 'intermediate'],
+                tracks: ['technical'],
+                isFree: true,
+                duration: '4 months',
+                description: 'Build AI applications with TensorFlow. Covers CNNs, NLP, and time series.',
+                tags: ['TensorFlow', 'Certificate', 'Practical'],
+                priority: 8
+            },
+
+            // ===== ARABIC YOUTUBE CHANNELS =====
+            rakoan_channel: {
+                id: 'rakoan_channel',
+                title: 'قناة راكوان - Python',
+                titleEn: 'Rakoan Channel - Python',
+                platform: 'YouTube',
+                language: 'ar',
+                url: 'https://www.youtube.com/@rakoan',
+                levels: ['beginner', 'some-background'],
+                tracks: ['technical'],
+                isFree: true,
+                duration: 'Varies',
+                description: 'من أفضل القنوات العربية لتعلم بايثون. شروحات حديثة ومتوافقة مع آخر التحديثات.',
+                tags: ['YouTube', 'Arabic', 'Python', 'Free'],
+                priority: 8
+            },
+            python_arabic_community: {
+                id: 'python_arabic_community',
+                title: 'Python Arabic Community',
+                titleEn: 'Python Arabic Community',
+                platform: 'YouTube',
+                language: 'ar',
+                url: 'https://www.youtube.com/@PythonArabic',
+                levels: ['beginner', 'some-background'],
+                tracks: ['technical', 'data'],
+                isFree: true,
+                duration: 'Varies',
+                description: 'مجتمع بايثون العربي - شروحات البرمجة والذكاء الاصطناعي.',
+                tags: ['YouTube', 'Arabic', 'Python', 'AI', 'Free'],
+                priority: 7
+            },
+            freecodecamp_arabic: {
+                id: 'freecodecamp_arabic',
+                title: 'freeCodeCamp العربية',
+                titleEn: 'freeCodeCamp Arabic',
+                platform: 'YouTube',
+                language: 'ar',
+                url: 'https://www.youtube.com/@faborabi',
+                levels: ['beginner'],
+                tracks: ['technical', 'data'],
+                isFree: true,
+                duration: 'Varies',
+                description: 'محتوى freeCodeCamp مترجم ومشروح بالعربية.',
+                tags: ['YouTube', 'Arabic', 'Free', 'freeCodeCamp'],
+                priority: 7
+            }
+        };
+
+        // ============================================
+        // LEARNING PATHS
+        // ============================================
+        const LEARNING_PATHS = {
+            technical: {
+                beginner: [
+                    { name: 'Programming Foundations', skills: ['Python Basics', 'Data Types', 'Control Flow', 'Functions'] },
+                    { name: 'Data Structures & Algorithms', skills: ['Lists', 'Dictionaries', 'Sorting', 'Searching'] },
+                    { name: 'Libraries & Tools', skills: ['NumPy', 'Pandas', 'Matplotlib', 'Git'] },
+                    { name: 'Introduction to ML', skills: ['ML Concepts', 'Scikit-learn', 'Model Evaluation'] }
+                ],
+                'some-background': [
+                    { name: 'Advanced Python', skills: ['OOP', 'Decorators', 'Generators', 'Testing'] },
+                    { name: 'Data Science Tools', skills: ['Pandas Advanced', 'SQL', 'Data Cleaning'] },
+                    { name: 'Machine Learning', skills: ['Supervised Learning', 'Unsupervised Learning', 'Model Selection'] },
+                    { name: 'Deep Learning Intro', skills: ['Neural Networks', 'TensorFlow/PyTorch', 'CNNs'] }
+                ],
+                intermediate: [
+                    { name: 'Deep Learning', skills: ['CNNs', 'RNNs', 'Transformers', 'Transfer Learning'] },
+                    { name: 'NLP & Computer Vision', skills: ['Text Processing', 'Image Classification', 'Object Detection'] },
+                    { name: 'MLOps Basics', skills: ['Model Deployment', 'APIs', 'Docker', 'Cloud'] }
+                ],
+                advanced: [
+                    { name: 'Advanced ML', skills: ['Reinforcement Learning', 'GANs', 'AutoML'] },
+                    { name: 'Production Systems', skills: ['MLOps', 'Monitoring', 'Scaling', 'A/B Testing'] },
+                    { name: 'Research & Innovation', skills: ['Paper Reading', 'Experimentation', 'State-of-the-art'] }
+                ]
+            },
+            data: {
+                beginner: [
+                    { name: 'Data Foundations', skills: ['Excel/Sheets', 'Basic Statistics', 'Data Types'] },
+                    { name: 'SQL & Databases', skills: ['SQL Queries', 'Joins', 'Aggregations', 'Database Design'] },
+                    { name: 'Python for Data', skills: ['Pandas', 'Data Cleaning', 'CSV/Excel Files'] },
+                    { name: 'Data Visualization', skills: ['Charts', 'Dashboards', 'Storytelling'] }
+                ],
+                'some-background': [
+                    { name: 'Advanced Analytics', skills: ['Statistical Analysis', 'Hypothesis Testing', 'A/B Testing'] },
+                    { name: 'BI Tools', skills: ['Tableau', 'Power BI', 'Looker'] },
+                    { name: 'Data Engineering Basics', skills: ['ETL', 'Data Pipelines', 'Data Warehouses'] }
+                ],
+                intermediate: [
+                    { name: 'Advanced SQL', skills: ['Window Functions', 'CTEs', 'Query Optimization'] },
+                    { name: 'Big Data Tools', skills: ['Spark', 'Hadoop', 'Cloud Platforms'] },
+                    { name: 'ML for Analysts', skills: ['Predictive Modeling', 'Clustering', 'Time Series'] }
+                ]
+            },
+            'ai-tools': {
+                beginner: [
+                    { name: 'AI Fundamentals', skills: ['What is AI', 'Types of AI', 'AI Applications'] },
+                    { name: 'ChatGPT & LLMs', skills: ['Prompt Writing', 'Use Cases', 'Limitations'] },
+                    { name: 'AI Productivity', skills: ['Writing', 'Research', 'Coding Assistance'] },
+                    { name: 'No-Code AI', skills: ['AI Builders', 'Automation', 'Integration'] }
+                ],
+                'some-background': [
+                    { name: 'Advanced Prompting', skills: ['Chain of Thought', 'Few-shot Learning', 'System Prompts'] },
+                    { name: 'AI for Specific Tasks', skills: ['Image Generation', 'Data Analysis', 'Content Creation'] },
+                    { name: 'Building with AI', skills: ['APIs', 'Agents', 'Custom GPTs'] }
+                ]
+            },
+            business: {
+                beginner: [
+                    { name: 'AI Literacy', skills: ['AI Concepts', 'Capabilities', 'Limitations', 'Ethics'] },
+                    { name: 'AI in Business', skills: ['Use Cases', 'ROI', 'Implementation'] },
+                    { name: 'Data-Driven Decisions', skills: ['Analytics', 'KPIs', 'Dashboards'] },
+                    { name: 'AI Strategy', skills: ['Roadmap', 'Team Building', 'Vendor Selection'] }
+                ],
+                'some-background': [
+                    { name: 'AI Leadership', skills: ['Project Management', 'Change Management', 'Governance'] },
+                    { name: 'Advanced Analytics', skills: ['Predictive Analytics', 'Customer Analytics', 'Operations'] },
+                    { name: 'AI Ethics & Policy', skills: ['Bias', 'Privacy', 'Regulation', 'Responsible AI'] }
+                ]
+            }
+        };
+
+        // ============================================
+        // LOCAL STORAGE
+        // ============================================
+        const STORAGE_KEY = 'ds_ai_assessment_progress';
+
+        function saveProgress() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(formState));
+            } catch (e) {
+                console.warn('Could not save progress:', e);
+            }
+        }
+
+        function loadProgress() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    return JSON.parse(saved);
+                }
+            } catch (e) {
+                console.warn('Could not load progress:', e);
+            }
+            return null;
+        }
+
+        function clearProgress() {
+            try {
+                localStorage.removeItem(STORAGE_KEY);
+            } catch (e) {
+                console.warn('Could not clear progress:', e);
+            }
+        }
+
+        // ============================================
+        // FORM STATE
+        // ============================================
+        const formState = {
+            currentStep: 1,
+            totalSteps: 4,
+            answers: {
+                background: {},
+                goals: {},
+                preferences: {}
+            }
+        };
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeForm();
+            checkSavedProgress();
+        });
+
+        function initializeForm() {
+            // Track card selection
+            document.querySelectorAll('.track-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    document.querySelectorAll('.track-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    card.querySelector('input[type="radio"]').checked = true;
+                });
+            });
+
+            // Depth option selection
+            document.querySelectorAll('.depth-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    document.querySelectorAll('.depth-option').forEach(o => o.classList.remove('selected'));
+                    option.classList.add('selected');
+                    option.querySelector('input[type="radio"]').checked = true;
+                });
+            });
+
+            // Time option selection
+            document.querySelectorAll('.time-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    document.querySelectorAll('.time-option').forEach(o => o.classList.remove('selected'));
+                    option.classList.add('selected');
+                    option.querySelector('input[type="radio"]').checked = true;
+                });
+            });
+
+            // Navigation buttons
+            document.getElementById('nextBtn').addEventListener('click', nextStep);
+            document.getElementById('prevBtn').addEventListener('click', prevStep);
+        }
+
+        function checkSavedProgress() {
+            const saved = loadProgress();
+            if (saved && saved.currentStep > 1) {
+                document.getElementById('resumeModal').style.display = 'flex';
+
+                document.getElementById('resumeBtn').onclick = () => {
+                    Object.assign(formState, saved);
+                    restoreFormValues();
+                    showStep(formState.currentStep);
+                    document.getElementById('resumeModal').style.display = 'none';
+                };
+
+                document.getElementById('startFreshBtn').onclick = () => {
+                    clearProgress();
+                    document.getElementById('resumeModal').style.display = 'none';
+                };
+            }
+        }
+
+        function restoreFormValues() {
+            // Restore background checkboxes
+            Object.entries(formState.answers.background).forEach(([key, value]) => {
+                const checkbox = document.getElementById(key);
+                if (checkbox) checkbox.checked = value;
+            });
+
+            // Restore track selection
+            if (formState.answers.goals.track) {
+                const trackCard = document.querySelector(`[data-track="${formState.answers.goals.track}"]`);
+                if (trackCard) {
+                    trackCard.classList.add('selected');
+                    trackCard.querySelector('input').checked = true;
+                }
+            }
+
+            // Restore depth selection
+            if (formState.answers.goals.depth) {
+                const depthOption = document.querySelector(`[data-depth="${formState.answers.goals.depth}"]`);
+                if (depthOption) {
+                    depthOption.classList.add('selected');
+                    depthOption.querySelector('input').checked = true;
+                }
+            }
+
+            // Restore language preference
+            if (formState.answers.preferences.language) {
+                const langRadio = document.querySelector(`input[name="language"][value="${formState.answers.preferences.language}"]`);
+                if (langRadio) langRadio.checked = true;
+            }
+
+            // Restore learning styles
+            if (formState.answers.preferences.style) {
+                formState.answers.preferences.style.forEach(style => {
+                    const checkbox = document.querySelector(`input[name="style"][value="${style}"]`);
+                    if (checkbox) checkbox.checked = true;
+                });
+            }
+
+            // Restore time commitment
+            if (formState.answers.preferences.time) {
+                const timeOption = document.querySelector(`[data-time="${formState.answers.preferences.time}"]`);
+                if (timeOption) {
+                    timeOption.classList.add('selected');
+                    timeOption.querySelector('input').checked = true;
+                }
+            }
+        }
+
+        // ============================================
+        // NAVIGATION
+        // ============================================
+        function showStep(step) {
+            // Update step visibility
+            document.querySelectorAll('.wizard-step').forEach(el => {
+                el.classList.remove('active');
+            });
+            const stepEl = document.querySelector(`.wizard-step[data-step="${step}"]`);
+            if (stepEl) stepEl.classList.add('active');
+
+            // Update progress bar
+            updateProgressBar(step);
+
+            // Update navigation buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            prevBtn.style.display = step === 1 ? 'none' : 'inline-flex';
+            nextBtn.textContent = step === 3 ? 'Get Results' : 'Next';
+
+            formState.currentStep = step;
+            saveProgress();
+        }
+
+        function updateProgressBar(currentStep) {
+            document.querySelectorAll('.progress-step').forEach((el, index) => {
+                const stepNum = index + 1;
+                el.classList.remove('active', 'completed');
+                if (stepNum < currentStep) {
+                    el.classList.add('completed');
+                } else if (stepNum === currentStep) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        function nextStep() {
+            collectCurrentStepAnswers();
+
+            if (!validateCurrentStep()) {
+                return;
+            }
+
+            if (formState.currentStep < 3) {
+                formState.currentStep++;
+                showStep(formState.currentStep);
+            } else {
+                showResults();
+            }
+        }
+
+        function prevStep() {
+            if (formState.currentStep > 1) {
+                formState.currentStep--;
+                showStep(formState.currentStep);
+            }
+        }
+
+        function collectCurrentStepAnswers() {
+            const step = formState.currentStep;
+
+            if (step === 1) {
+                // Collect background answers
+                formState.answers.background = {
+                    bg_programming: document.getElementById('bg_programming').checked,
+                    bg_python: document.getElementById('bg_python').checked,
+                    bg_databases: document.getElementById('bg_databases').checked,
+                    bg_excel: document.getElementById('bg_excel').checked,
+                    bg_data_analysis: document.getElementById('bg_data_analysis').checked,
+                    bg_math: document.getElementById('bg_math').checked
+                };
+            } else if (step === 2) {
+                // Collect goals
+                const trackRadio = document.querySelector('input[name="track"]:checked');
+                const depthRadio = document.querySelector('input[name="depth"]:checked');
+                formState.answers.goals = {
+                    track: trackRadio ? trackRadio.value : null,
+                    depth: depthRadio ? depthRadio.value : null
+                };
+            } else if (step === 3) {
+                // Collect preferences
+                const langRadio = document.querySelector('input[name="language"]:checked');
+                const styleCheckboxes = document.querySelectorAll('input[name="style"]:checked');
+                const timeRadio = document.querySelector('input[name="time"]:checked');
+
+                formState.answers.preferences = {
+                    language: langRadio ? langRadio.value : null,
+                    style: Array.from(styleCheckboxes).map(cb => cb.value),
+                    time: timeRadio ? timeRadio.value : null
+                };
+            }
+
+            saveProgress();
+        }
+
+        function validateCurrentStep() {
+            const step = formState.currentStep;
+
+            if (step === 2) {
+                if (!formState.answers.goals.track) {
+                    alert('Please select a learning track.');
+                    return false;
+                }
+                if (!formState.answers.goals.depth) {
+                    alert('Please select your preferred depth level.');
+                    return false;
+                }
+            } else if (step === 3) {
+                if (!formState.answers.preferences.language) {
+                    alert('Please select your language preference.');
+                    return false;
+                }
+                if (!formState.answers.preferences.time) {
+                    alert('Please select your time commitment.');
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        // ============================================
+        // PROFILE CALCULATION
+        // ============================================
+        function calculateProfile() {
+            const background = formState.answers.background;
+            const goals = formState.answers.goals;
+            const preferences = formState.answers.preferences;
+
+            // Count background "yes" answers
+            const backgroundScore = Object.values(background).filter(v => v === true).length;
+
+            // Determine level
+            let level;
+            if (backgroundScore <= 1) level = 'beginner';
+            else if (backgroundScore <= 3) level = 'some-background';
+            else if (backgroundScore <= 5) level = 'intermediate';
+            else level = 'advanced';
+
+            return {
+                level,
+                levelLabel: getLevelLabel(level),
+                backgroundScore,
+                track: goals.track,
+                trackLabel: getTrackLabel(goals.track),
+                depth: goals.depth,
+                languagePreference: preferences.language,
+                learningStyle: preferences.style || [],
+                timeCommitment: preferences.time
+            };
+        }
+
+        function getLevelLabel(level) {
+            const labels = {
+                'beginner': 'Complete Beginner',
+                'some-background': 'Some Background',
+                'intermediate': 'Intermediate',
+                'advanced': 'Advanced'
+            };
+            return labels[level] || level;
+        }
+
+        function getTrackLabel(track) {
+            const labels = {
+                'technical': 'Technical / Programming',
+                'data': 'Data Analysis',
+                'ai-tools': 'AI Tools',
+                'business': 'Business / General'
+            };
+            return labels[track] || track;
+        }
+
+        // ============================================
+        // RECOMMENDATIONS
+        // ============================================
+        function generateRecommendations(profile) {
+            // Filter resources based on profile
+            const matchingResources = Object.values(RESOURCES).filter(resource => {
+                // Match language preference
+                let langMatch = false;
+                if (profile.languagePreference === 'both') {
+                    langMatch = true;
+                } else if (profile.languagePreference === 'ar-preferred') {
+                    langMatch = resource.language === 'ar' || resource.language === 'both';
+                } else if (profile.languagePreference === 'ar') {
+                    langMatch = resource.language === 'ar' || resource.language === 'both';
+                } else if (profile.languagePreference === 'en') {
+                    langMatch = resource.language === 'en' || resource.language === 'both';
+                }
+
+                // For ar-preferred, also include English resources but with lower priority
+                if (profile.languagePreference === 'ar-preferred' && resource.language === 'en') {
+                    langMatch = true;
+                }
+
+                // Match level
+                const levelMatch = resource.levels.includes(profile.level);
+
+                // Match track
+                const trackMatch = resource.tracks.includes(profile.track);
+
+                return langMatch && levelMatch && trackMatch;
+            });
+
+            // Sort by relevance
+            matchingResources.sort((a, b) => {
+                // Prioritize language match for ar-preferred
+                if (profile.languagePreference === 'ar-preferred') {
+                    if (a.language === 'ar' && b.language !== 'ar') return -1;
+                    if (b.language === 'ar' && a.language !== 'ar') return 1;
+                }
+                // Then by priority
+                return (b.priority || 0) - (a.priority || 0);
+            });
+
+            return {
+                courses: matchingResources.slice(0, 6),
+                path: LEARNING_PATHS[profile.track]?.[profile.level] || []
+            };
+        }
+
+        // ============================================
+        // RESULTS DISPLAY
+        // ============================================
+        function showResults() {
+            collectCurrentStepAnswers();
+
+            const profile = calculateProfile();
+            const recommendations = generateRecommendations(profile);
+
+            // Hide wizard, show results
+            document.getElementById('assessmentWizard').style.display = 'none';
+            document.getElementById('resultsSection').style.display = 'block';
+
+            // Update progress bar to show completion
+            document.querySelectorAll('.progress-step').forEach(el => {
+                el.classList.add('completed');
+            });
+
+            // Render results
+            renderProfileSummary(profile);
+            renderLearningPath(profile, recommendations.path);
+            renderCourseCards(recommendations.courses, profile.level);
+
+            // Clear saved progress
+            clearProgress();
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderProfileSummary(profile) {
+            const container = document.getElementById('profileSummary');
+            container.innerHTML = `
+                <h2>Your Learning Profile</h2>
+                <div class="profile-badges">
+                    <span class="profile-badge">Level: ${profile.levelLabel}</span>
+                    <span class="profile-badge">Track: ${profile.trackLabel}</span>
+                    <span class="profile-badge">Time: ${profile.timeCommitment} hrs/week</span>
+                </div>
+            `;
+        }
+
+        function renderLearningPath(profile, path) {
+            const container = document.getElementById('pathStages');
+
+            if (!path || path.length === 0) {
+                container.innerHTML = '<p>Custom learning path based on your selections.</p>';
+                return;
+            }
+
+            let html = '';
+            path.forEach((stage, index) => {
+                const status = index === 0 ? 'current' : '';
+                html += `
+                    <div class="path-stage ${status}">
+                        <div class="stage-marker">${index + 1}</div>
+                        <div class="stage-content">
+                            <h4>${stage.name}</h4>
+                            <div class="stage-skills">
+                                ${stage.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function renderCourseCards(courses, level) {
+            const container = document.getElementById('coursesGrid');
+
+            if (!courses || courses.length === 0) {
+                container.innerHTML = '<p>No specific courses found for your profile. Please try different preferences.</p>';
+                return;
+            }
+
+            let html = '';
+            courses.forEach(course => {
+                const levelClass = course.levels[0];
+                html += `
+                    <div class="course-card">
+                        <div class="course-card-header ${levelClass}">
+                            <div class="course-platform">${course.platform}</div>
+                            <div class="course-title">${course.language === 'ar' ? course.title : course.titleEn}</div>
+                        </div>
+                        <div class="course-card-body">
+                            <div class="course-meta">
+                                <span class="course-meta-item">⏱️ ${course.duration}</span>
+                                <span class="course-meta-item">${course.isFree ? '✅ Free' : '💰 Paid'}</span>
+                                <span class="course-meta-item">${course.language === 'ar' ? '🇸🇦 Arabic' : course.language === 'both' ? '🌐 Both' : '🇬🇧 English'}</span>
+                            </div>
+                            <p class="course-description">${course.description}</p>
+                            <div class="course-tags">
+                                ${course.tags.map(tag => `<span class="course-tag">${tag}</span>`).join('')}
+                            </div>
+                            <a href="${course.url}" target="_blank" rel="noopener" class="course-link">
+                                View Course →
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function restartAssessment() {
+            clearProgress();
+
+            // Reset form state
+            formState.currentStep = 1;
+            formState.answers = {
+                background: {},
+                goals: {},
+                preferences: {}
+            };
+
+            // Reset form UI
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+            document.querySelectorAll('.track-card, .depth-option, .time-option').forEach(el => el.classList.remove('selected'));
+
+            // Show wizard, hide results
+            document.getElementById('assessmentWizard').style.display = 'block';
+            document.getElementById('resultsSection').style.display = 'none';
+
+            showStep(1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

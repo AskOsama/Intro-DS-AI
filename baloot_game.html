@@ -1,0 +1,3060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baloot Card Game - AI Arena | DS-AI Course</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ============================================================
+         * SECTION 1: CSS VARIABLES & ROOT STYLES
+         * ============================================================ */
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-card: #21262d;
+            --bg-hover: #30363d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --border-color: #30363d;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-red: #f85149;
+            --accent-yellow: #d29922;
+            --accent-purple: #a371f7;
+            --card-red: #e74c3c;
+            --card-black: #2c3e50;
+            --team1-color: #3498db;
+            --team2-color: #e67e22;
+            --trump-glow: rgba(241, 196, 15, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* ============================================================
+         * SECTION 2: LAYOUT COMPONENTS
+         * ============================================================ */
+        .demo-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .demo-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .demo-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 280px 1fr 280px;
+            gap: 1rem;
+            padding: 1rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            min-height: calc(100vh - 120px);
+        }
+
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+        }
+
+        .panel-header {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ============================================================
+         * SECTION 3: GAME TABLE LAYOUT
+         * ============================================================ */
+        .game-table {
+            display: grid;
+            grid-template-areas:
+                ".     north  ."
+                "west  center east"
+                ".     south  .";
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: auto 1fr auto;
+            gap: 0.5rem;
+            height: 100%;
+            min-height: 500px;
+        }
+
+        .player-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem;
+        }
+
+        .player-area[data-position="north"] { grid-area: north; }
+        .player-area[data-position="south"] { grid-area: south; }
+        .player-area[data-position="east"] {
+            grid-area: east;
+            flex-direction: row;
+        }
+        .player-area[data-position="west"] {
+            grid-area: west;
+            flex-direction: row-reverse;
+        }
+
+        .player-info {
+            background: var(--bg-card);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .player-info.team1 { border-left: 3px solid var(--team1-color); }
+        .player-info.team2 { border-left: 3px solid var(--team2-color); }
+        .player-info.current-turn {
+            box-shadow: 0 0 10px var(--accent-yellow);
+            border-color: var(--accent-yellow);
+        }
+
+        .player-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .player-agent {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .hand {
+            display: flex;
+            gap: -30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            min-height: 100px;
+        }
+
+        .player-area[data-position="east"] .hand,
+        .player-area[data-position="west"] .hand {
+            flex-direction: column;
+            gap: -50px;
+        }
+
+        /* ============================================================
+         * SECTION 4: CARD STYLES
+         * ============================================================ */
+        .card {
+            width: 70px;
+            height: 100px;
+            background: linear-gradient(145deg, #ffffff 0%, #f5f5f5 100%);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            user-select: none;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .card.legal {
+            box-shadow: 0 0 12px var(--accent-green);
+        }
+
+        .card.selected {
+            transform: translateY(-15px);
+            box-shadow: 0 0 15px var(--accent-blue);
+        }
+
+        .card.trump {
+            box-shadow: 0 0 12px var(--trump-glow);
+        }
+
+        .card.face-down {
+            background: linear-gradient(145deg, #2c3e50 0%, #1a252f 100%);
+        }
+
+        .card.face-down::after {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+
+        .card-rank {
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+
+        .card-suit {
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+
+        .card[data-suit="hearts"] .card-suit,
+        .card[data-suit="diamonds"] .card-suit,
+        .card[data-suit="hearts"] .card-rank,
+        .card[data-suit="diamonds"] .card-rank {
+            color: var(--card-red);
+        }
+
+        .card[data-suit="clubs"] .card-suit,
+        .card[data-suit="spades"] .card-suit,
+        .card[data-suit="clubs"] .card-rank,
+        .card[data-suit="spades"] .card-rank {
+            color: var(--card-black);
+        }
+
+        .card.playing {
+            animation: playCard 0.3s ease-out forwards;
+        }
+
+        @keyframes playCard {
+            to {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+        }
+
+        /* ============================================================
+         * SECTION 5: CENTER/TRICK AREA
+         * ============================================================ */
+        .center-area {
+            grid-area: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .trick-area {
+            background: radial-gradient(ellipse at center, #1a4d1a 0%, #0d260d 100%);
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            display: grid;
+            grid-template-areas:
+                ".     north  ."
+                "west  center east"
+                ".     south  .";
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            padding: 1rem;
+            position: relative;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.5), 0 4px 20px rgba(0,0,0,0.3);
+            border: 4px solid #2d5a2d;
+        }
+
+        .trick-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .trick-card[data-position="north"] { grid-area: north; }
+        .trick-card[data-position="south"] { grid-area: south; }
+        .trick-card[data-position="east"] { grid-area: east; }
+        .trick-card[data-position="west"] { grid-area: west; }
+
+        .trick-card .card {
+            transform: scale(0.9);
+        }
+
+        .trick-info {
+            position: absolute;
+            bottom: -30px;
+            background: var(--bg-card);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .game-info {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .trump-indicator {
+            background: var(--bg-card);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .trump-indicator.sun {
+            border: 2px solid var(--accent-yellow);
+            color: var(--accent-yellow);
+        }
+
+        .trump-indicator.hokum {
+            border: 2px solid var(--accent-purple);
+        }
+
+        .trump-suit {
+            font-size: 1.5rem;
+        }
+
+        /* ============================================================
+         * SECTION 6: SCOREBOARD
+         * ============================================================ */
+        .scoreboard {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .team-score {
+            background: var(--bg-card);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .team-score.team1 {
+            border-top: 3px solid var(--team1-color);
+        }
+
+        .team-score.team2 {
+            border-top: 3px solid var(--team2-color);
+        }
+
+        .team-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .score-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .score-target {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .round-info {
+            text-align: center;
+            padding: 0.5rem;
+            background: var(--bg-card);
+            border-radius: 6px;
+        }
+
+        /* ============================================================
+         * SECTION 7: BIDDING OVERLAY
+         * ============================================================ */
+        .bidding-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bidding-overlay.active {
+            display: flex;
+        }
+
+        .bidding-panel {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid var(--border-color);
+        }
+
+        .bidding-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .bidding-header h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .bidding-card-display {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .bidding-card-display .card {
+            transform: scale(1.3);
+        }
+
+        .bid-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .bid-btn {
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .bid-btn:hover:not(:disabled) {
+            background: var(--bg-hover);
+            border-color: var(--accent-blue);
+        }
+
+        .bid-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .bid-btn.hokum { border-color: var(--accent-purple); }
+        .bid-btn.sun { border-color: var(--accent-yellow); }
+        .bid-btn.pass { border-color: var(--text-muted); }
+
+        .bid-history {
+            background: var(--bg-card);
+            border-radius: 6px;
+            padding: 1rem;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .bid-entry {
+            padding: 0.25rem 0;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .bid-entry:last-child {
+            border-bottom: none;
+        }
+
+        /* ============================================================
+         * SECTION 8: SUIT SELECTION MODAL
+         * ============================================================ */
+        .suit-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 110;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .suit-modal.active {
+            display: flex;
+        }
+
+        .suit-panel {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .suit-options {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .suit-btn {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 3rem;
+            transition: all 0.2s;
+        }
+
+        .suit-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--accent-blue);
+        }
+
+        .suit-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* ============================================================
+         * SECTION 9: PROJECTS MODAL
+         * ============================================================ */
+        .projects-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .projects-modal.active {
+            display: flex;
+        }
+
+        .projects-panel {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .project-item {
+            background: var(--bg-card);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-cards {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .project-cards .card {
+            transform: scale(0.6);
+        }
+
+        .project-points {
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        /* ============================================================
+         * SECTION 10: DOUBLING PANEL
+         * ============================================================ */
+        .double-panel {
+            background: var(--bg-card);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .double-btns {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .double-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .double-btn:hover:not(:disabled) {
+            border-color: var(--accent-red);
+        }
+
+        .double-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .double-level {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--accent-yellow);
+        }
+
+        /* ============================================================
+         * SECTION 11: GAME CONTROLS
+         * ============================================================ */
+        .controls-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .control-group {
+            background: var(--bg-card);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .control-group select,
+        .control-group input[type="range"] {
+            width: 100%;
+            padding: 0.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-primary);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #4393e6;
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-hover);
+        }
+
+        .btn-danger {
+            background: var(--accent-red);
+            color: white;
+        }
+
+        /* ============================================================
+         * SECTION 12: AI UPLOAD
+         * ============================================================ */
+        .ai-upload-section {
+            margin-top: 1rem;
+        }
+
+        .ai-upload-group {
+            background: var(--bg-card);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+        }
+
+        .ai-upload-group.team1 {
+            border-left: 3px solid var(--team1-color);
+        }
+
+        .ai-upload-group.team2 {
+            border-left: 3px solid var(--team2-color);
+        }
+
+        .ai-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            width: 100%;
+            padding: 0.5rem;
+            background: var(--bg-secondary);
+            border: 1px dashed var(--border-color);
+            border-radius: 4px;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* ============================================================
+         * SECTION 13: REPLAY CONTROLS
+         * ============================================================ */
+        .replay-section {
+            background: var(--bg-card);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .replay-slider {
+            width: 100%;
+            margin: 1rem 0;
+        }
+
+        .replay-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .replay-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .replay-btn:hover {
+            background: var(--bg-hover);
+        }
+
+        .replay-info {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            max-height: 100px;
+            overflow-y: auto;
+            background: var(--bg-secondary);
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        /* ============================================================
+         * SECTION 14: TIMER
+         * ============================================================ */
+        .timer-display {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .timer-bar {
+            height: 6px;
+            background: var(--bg-card);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .timer-fill {
+            height: 100%;
+            background: var(--accent-green);
+            transition: width 0.1s linear;
+        }
+
+        .timer-fill.warning {
+            background: var(--accent-red);
+        }
+
+        .timer-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* ============================================================
+         * SECTION 15: GAME LOG
+         * ============================================================ */
+        .game-log {
+            background: var(--bg-card);
+            border-radius: 6px;
+            padding: 0.75rem;
+            height: 200px;
+            overflow-y: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 0.8rem;
+        }
+
+        .log-entry {
+            padding: 0.25rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+
+        .log-entry.info { color: var(--text-secondary); }
+        .log-entry.success { color: var(--accent-green); }
+        .log-entry.warning { color: var(--accent-yellow); }
+        .log-entry.error { color: var(--accent-red); }
+        .log-entry.bid { color: var(--accent-purple); }
+        .log-entry.play { color: var(--accent-blue); }
+
+        .log-time {
+            color: var(--text-muted);
+            margin-right: 0.5rem;
+        }
+
+        /* ============================================================
+         * SECTION 16: GAME END OVERLAY
+         * ============================================================ */
+        .game-end-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .game-end-overlay.active {
+            display: flex;
+        }
+
+        .game-end-panel {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            border: 2px solid var(--accent-yellow);
+        }
+
+        .game-end-panel h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .final-scores {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        .final-score {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+        }
+
+        .final-score.winner {
+            background: rgba(59, 185, 80, 0.2);
+            border: 2px solid var(--accent-green);
+        }
+
+        .final-score .score {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        /* ============================================================
+         * SECTION 17: RESPONSIVE
+         * ============================================================ */
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .game-table {
+                min-height: 400px;
+            }
+
+            .trick-area {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                width: 50px;
+                height: 72px;
+            }
+
+            .card-rank { font-size: 1rem; }
+            .card-suit { font-size: 1.2rem; }
+
+            .trick-area {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================================
+         HEADER
+         ============================================================ -->
+    <header class="demo-header">
+        <h1>Baloot Card Game - AI Arena</h1>
+        <p>Watch AI agents compete in the classic Saudi Arabian card game</p>
+    </header>
+
+    <!-- ============================================================
+         MAIN CONTAINER
+         ============================================================ -->
+    <div class="main-container">
+        <!-- LEFT PANEL: Controls & AI Upload -->
+        <aside class="panel">
+            <div class="panel-header">Game Controls</div>
+
+            <div class="controls-section">
+                <!-- Game Actions -->
+                <div class="control-group">
+                    <button class="btn btn-primary" id="startGameBtn" onclick="GameController.startNewGame()">
+                        Start New Game
+                    </button>
+                </div>
+
+                <!-- Speed Control -->
+                <div class="control-group">
+                    <label>Animation Speed</label>
+                    <select id="speedSelect" onchange="GameController.setSpeed(this.value)">
+                        <option value="slow">Slow</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="fast">Fast</option>
+                        <option value="instant">Instant</option>
+                    </select>
+                </div>
+
+                <!-- Timer Control -->
+                <div class="control-group">
+                    <label>AI Decision Timeout: <span id="timeoutValue">5</span>s</label>
+                    <input type="range" id="timeoutSlider" min="1" max="30" value="5"
+                           oninput="document.getElementById('timeoutValue').textContent = this.value; gameState.config.aiDecisionTimeout = this.value * 1000;">
+                </div>
+            </div>
+
+            <!-- AI Upload Section -->
+            <div class="ai-upload-section">
+                <div class="panel-header">AI Agents</div>
+
+                <div class="ai-upload-group team1">
+                    <div class="ai-name">Team 1 (North-South)</div>
+                    <div id="team1AgentName">GreedyAI</div>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="team1AIUpload" accept=".js" onchange="AIUploadSystem.handleUpload(event, 0)">
+                    </div>
+                </div>
+
+                <div class="ai-upload-group team2">
+                    <div class="ai-name">Team 2 (East-West)</div>
+                    <div id="team2AgentName">StrategicAI</div>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="team2AIUpload" accept=".js" onchange="AIUploadSystem.handleUpload(event, 1)">
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem;" onclick="AIUploadSystem.downloadTemplate()">
+                    Download AI Template
+                </button>
+                <button class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem; background: var(--accent-purple); border-color: var(--accent-purple);" onclick="AIUploadSystem.downloadDeveloperGuide()">
+                    Download Developer Guide
+                </button>
+            </div>
+
+            <!-- Timer Display -->
+            <div id="timerDisplay" class="timer-display"></div>
+        </aside>
+
+        <!-- CENTER: Game Table -->
+        <main class="panel">
+            <div class="game-table">
+                <!-- North Player (Team 1) -->
+                <div class="player-area" data-position="north">
+                    <div class="player-info team1" id="playerInfo0">
+                        <div class="player-name">North</div>
+                        <div class="player-agent">GreedyAI</div>
+                    </div>
+                    <div class="hand" id="hand0"></div>
+                </div>
+
+                <!-- West Player (Team 2) -->
+                <div class="player-area" data-position="west">
+                    <div class="player-info team2" id="playerInfo3">
+                        <div class="player-name">West</div>
+                        <div class="player-agent">StrategicAI</div>
+                    </div>
+                    <div class="hand" id="hand3"></div>
+                </div>
+
+                <!-- Center: Trick Area -->
+                <div class="center-area">
+                    <div class="game-info">
+                        <div class="trump-indicator" id="trumpIndicator">
+                            <span>Waiting...</span>
+                        </div>
+                    </div>
+
+                    <div class="trick-area" id="trickArea">
+                        <div class="trick-card" data-position="north"></div>
+                        <div class="trick-card" data-position="west"></div>
+                        <div class="trick-card" data-position="east"></div>
+                        <div class="trick-card" data-position="south"></div>
+                        <div class="trick-info" id="trickInfo">Trick 0/8</div>
+                    </div>
+                </div>
+
+                <!-- East Player (Team 2) -->
+                <div class="player-area" data-position="east">
+                    <div class="player-info team2" id="playerInfo1">
+                        <div class="player-name">East</div>
+                        <div class="player-agent">StrategicAI</div>
+                    </div>
+                    <div class="hand" id="hand1"></div>
+                </div>
+
+                <!-- South Player (Team 1) -->
+                <div class="player-area" data-position="south">
+                    <div class="player-info team1" id="playerInfo2">
+                        <div class="player-name">South</div>
+                        <div class="player-agent">GreedyAI</div>
+                    </div>
+                    <div class="hand" id="hand2"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- RIGHT PANEL: Scoreboard & Log -->
+        <aside class="panel">
+            <div class="panel-header">Scoreboard</div>
+
+            <div class="scoreboard">
+                <div class="team-score team1">
+                    <div class="team-label">Team 1 (North-South)</div>
+                    <div class="score-value" id="team1Score">0</div>
+                    <div class="score-target">/ 152</div>
+                </div>
+
+                <div class="round-info">
+                    <span>Round: <strong id="roundNumber">1</strong></span>
+                    <span id="buyerInfo"></span>
+                </div>
+
+                <div class="team-score team2">
+                    <div class="team-label">Team 2 (East-West)</div>
+                    <div class="score-value" id="team2Score">0</div>
+                    <div class="score-target">/ 152</div>
+                </div>
+            </div>
+
+            <!-- Replay Section -->
+            <div class="replay-section" style="margin-top: 1rem;">
+                <div class="panel-header">Replay</div>
+                <input type="range" class="replay-slider" id="replaySlider" min="0" max="0" value="0"
+                       oninput="ReplaySystem.goToAction(parseInt(this.value))">
+                <div class="replay-buttons">
+                    <button class="replay-btn" onclick="ReplaySystem.goToStart()" title="Start">|&lt;</button>
+                    <button class="replay-btn" onclick="ReplaySystem.stepBack()" title="Previous">&lt;</button>
+                    <button class="replay-btn" id="replayPlayBtn" onclick="ReplaySystem.toggleAutoPlay()" title="Play/Pause">&#9654;</button>
+                    <button class="replay-btn" onclick="ReplaySystem.stepForward()" title="Next">&gt;</button>
+                    <button class="replay-btn" onclick="ReplaySystem.goToEnd()" title="End">&gt;|</button>
+                </div>
+                <div class="replay-info" id="replayInfo"></div>
+            </div>
+
+            <!-- Game Log -->
+            <div style="margin-top: 1rem;">
+                <div class="panel-header">Game Log</div>
+                <div class="game-log" id="gameLog"></div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- ============================================================
+         BIDDING OVERLAY
+         ============================================================ -->
+    <div class="bidding-overlay" id="biddingOverlay">
+        <div class="bidding-panel">
+            <div class="bidding-header">
+                <h2>Bidding Phase</h2>
+                <p id="biddingStatus">Waiting for bids...</p>
+            </div>
+
+            <div class="bidding-card-display" id="biddingCardDisplay"></div>
+
+            <div class="bid-options" id="bidOptions"></div>
+
+            <div class="bid-history" id="bidHistory">
+                <div style="color: var(--text-muted); text-align: center;">Bids will appear here...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         SUIT SELECTION MODAL
+         ============================================================ -->
+    <div class="suit-modal" id="suitModal">
+        <div class="suit-panel">
+            <h3>Choose Trump Suit</h3>
+            <p>Select a suit different from the bidding card</p>
+            <div class="suit-options" id="suitOptions"></div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         PROJECTS MODAL
+         ============================================================ -->
+    <div class="projects-modal" id="projectsModal">
+        <div class="projects-panel">
+            <h3>Projects Declared</h3>
+            <div id="projectsList"></div>
+            <button class="btn btn-primary" style="margin-top: 1rem;" onclick="UIRenderer.closeProjectsModal()">Continue</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         GAME END OVERLAY
+         ============================================================ -->
+    <div class="game-end-overlay" id="gameEndOverlay">
+        <div class="game-end-panel">
+            <h2 id="winnerText">Game Over!</h2>
+            <div class="final-scores">
+                <div class="final-score" id="finalScore1">
+                    <div class="team-label">Team 1</div>
+                    <div class="score">0</div>
+                </div>
+                <div class="final-score" id="finalScore2">
+                    <div class="team-label">Team 2</div>
+                    <div class="score">0</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="GameController.startNewGame()">Play Again</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         JAVASCRIPT
+         ============================================================ -->
+    <script>
+        // ============================================================
+        // SECTION 1: CONSTANTS & ENUMS
+        // ============================================================
+
+        const SUITS = Object.freeze({
+            CLUBS: 'clubs',
+            DIAMONDS: 'diamonds',
+            HEARTS: 'hearts',
+            SPADES: 'spades'
+        });
+
+        const RANKS = Object.freeze({
+            SEVEN: '7',
+            EIGHT: '8',
+            NINE: '9',
+            TEN: '10',
+            JACK: 'J',
+            QUEEN: 'Q',
+            KING: 'K',
+            ACE: 'A'
+        });
+
+        const SUIT_SYMBOLS = {
+            clubs: '\u2663',
+            diamonds: '\u2666',
+            hearts: '\u2665',
+            spades: '\u2660'
+        };
+
+        const SUIT_NAMES = {
+            clubs: 'Clubs',
+            diamonds: 'Diamonds',
+            hearts: 'Hearts',
+            spades: 'Spades'
+        };
+
+        const BID_TYPES = Object.freeze({
+            PASS: 'pass',
+            HOKUM: 'hokum',
+            SUN: 'sun',
+            HOKUM_SECOND: 'hokum2',
+            ASHKAL: 'ashkal'
+        });
+
+        const POSITIONS = ['north', 'east', 'south', 'west'];
+        const POSITION_TO_INDEX = { north: 0, east: 1, south: 2, west: 3 };
+
+        // ============================================================
+        // SECTION 2: CARD SYSTEM
+        // ============================================================
+
+        class Card {
+            constructor(suit, rank) {
+                this.suit = suit;
+                this.rank = rank;
+                this.id = `${rank}-${suit}`;
+            }
+
+            getPointValue(gameType, isTrump) {
+                if (gameType === 'hokum' && isTrump) {
+                    const trumpValues = { 'J': 20, '9': 14, 'A': 11, '10': 10, 'K': 4, 'Q': 3, '8': 0, '7': 0 };
+                    return trumpValues[this.rank];
+                }
+                const normalValues = { 'A': 11, '10': 10, 'K': 4, 'Q': 3, 'J': 2, '9': 0, '8': 0, '7': 0 };
+                return normalValues[this.rank];
+            }
+
+            getRankingPower(gameType, isTrump) {
+                if (gameType === 'hokum' && isTrump) {
+                    const trumpRanking = { 'J': 7, '9': 6, 'A': 5, '10': 4, 'K': 3, 'Q': 2, '8': 1, '7': 0 };
+                    return trumpRanking[this.rank];
+                }
+                const normalRanking = { 'A': 7, '10': 6, 'K': 5, 'Q': 4, 'J': 3, '9': 2, '8': 1, '7': 0 };
+                return normalRanking[this.rank];
+            }
+
+            getSequenceValue() {
+                const sequenceValues = { '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 };
+                return sequenceValues[this.rank];
+            }
+
+            toElement(faceDown = false) {
+                const el = document.createElement('div');
+                el.className = 'card' + (faceDown ? ' face-down' : '');
+                el.dataset.suit = this.suit;
+                el.dataset.rank = this.rank;
+                el.dataset.id = this.id;
+
+                if (!faceDown) {
+                    el.innerHTML = `
+                        <span class="card-rank">${this.rank}</span>
+                        <span class="card-suit">${SUIT_SYMBOLS[this.suit]}</span>
+                    `;
+                }
+                return el;
+            }
+
+            toString() {
+                return `${this.rank}${SUIT_SYMBOLS[this.suit]}`;
+            }
+        }
+
+        // ============================================================
+        // SECTION 3: GAME STATE
+        // ============================================================
+
+        const initialRoundState = {
+            phase: 'waiting',
+            gameType: null,
+            trumpSuit: null,
+            buyer: null,
+            buyingTeam: null,
+            biddingCard: null,
+            biddingRound: 1,
+            bids: [],
+            currentBidder: null,
+            hokumDeclared: false,
+            doubleLevel: 0,
+            isLocked: false,
+            currentTrick: [],
+            trickNumber: 0,
+            trickLeader: null,
+            currentPlayer: null,
+            team1Tricks: [],
+            team2Tricks: [],
+            declaredProjects: { team1: [], team2: [] },
+            balootDeclared: { team1: false, team2: false }
+        };
+
+        const gameState = {
+            config: {
+                winningScore: 152,
+                aiDecisionTimeout: 5000,
+                animationSpeed: 'normal'
+            },
+            match: {
+                team1Score: 0,
+                team2Score: 0,
+                roundNumber: 1,
+                dealerIndex: 0,
+                winner: null,
+                isRunning: false
+            },
+            round: JSON.parse(JSON.stringify(initialRoundState)),
+            players: [
+                { index: 0, position: 'north', teamIndex: 0, hand: [], agent: null, name: 'North' },
+                { index: 1, position: 'east', teamIndex: 1, hand: [], agent: null, name: 'East' },
+                { index: 2, position: 'south', teamIndex: 0, hand: [], agent: null, name: 'South' },
+                { index: 3, position: 'west', teamIndex: 1, hand: [], agent: null, name: 'West' }
+            ],
+            deck: { cards: [] },
+            history: { actions: [], currentIndex: -1, isReplaying: false },
+            timer: { startTime: null, remaining: null, timerId: null }
+        };
+
+        // ============================================================
+        // SECTION 4: DECK & DEALING
+        // ============================================================
+
+        const DeckManager = {
+            createDeck() {
+                const deck = [];
+                for (const suit of Object.values(SUITS)) {
+                    for (const rank of Object.values(RANKS)) {
+                        deck.push(new Card(suit, rank));
+                    }
+                }
+                return deck;
+            },
+
+            shuffle(deck) {
+                const shuffled = [...deck];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            },
+
+            deal(phase) {
+                const deck = gameState.deck.cards;
+                const dealerIndex = gameState.match.dealerIndex;
+
+                // Counter-clockwise from dealer's right
+                const dealOrder = [
+                    (dealerIndex + 1) % 4,
+                    (dealerIndex + 2) % 4,
+                    (dealerIndex + 3) % 4,
+                    dealerIndex
+                ];
+
+                if (phase === 1) {
+                    // Clear hands
+                    gameState.players.forEach(p => p.hand = []);
+
+                    // Deal 3 cards each
+                    for (let round = 0; round < 3; round++) {
+                        for (const idx of dealOrder) {
+                            gameState.players[idx].hand.push(deck.pop());
+                        }
+                    }
+
+                    // Deal 2 more cards each
+                    for (let round = 0; round < 2; round++) {
+                        for (const idx of dealOrder) {
+                            gameState.players[idx].hand.push(deck.pop());
+                        }
+                    }
+
+                    // Face-up bidding card
+                    gameState.round.biddingCard = deck.pop();
+
+                } else if (phase === 2) {
+                    const buyerIdx = gameState.round.buyer;
+
+                    // Buyer gets bidding card + 2 from deck
+                    gameState.players[buyerIdx].hand.push(gameState.round.biddingCard);
+                    gameState.players[buyerIdx].hand.push(deck.pop());
+                    gameState.players[buyerIdx].hand.push(deck.pop());
+
+                    // Others get 3 cards
+                    for (const idx of dealOrder) {
+                        if (idx !== buyerIdx) {
+                            for (let i = 0; i < 3; i++) {
+                                gameState.players[idx].hand.push(deck.pop());
+                            }
+                        }
+                    }
+                }
+
+                // Sort hands
+                gameState.players.forEach(p => {
+                    p.hand = this.sortHand(p.hand, gameState.round.trumpSuit);
+                });
+            },
+
+            sortHand(hand, trumpSuit) {
+                const suitOrder = trumpSuit
+                    ? [trumpSuit, ...Object.values(SUITS).filter(s => s !== trumpSuit)]
+                    : ['spades', 'hearts', 'diamonds', 'clubs'];
+
+                return hand.sort((a, b) => {
+                    const suitDiff = suitOrder.indexOf(a.suit) - suitOrder.indexOf(b.suit);
+                    if (suitDiff !== 0) return suitDiff;
+                    return b.getSequenceValue() - a.getSequenceValue();
+                });
+            }
+        };
+
+        // ============================================================
+        // SECTION 5: BIDDING SYSTEM
+        // ============================================================
+
+        const BiddingSystem = {
+            getValidBids() {
+                const currentPlayer = gameState.round.currentBidder;
+                const dealerIndex = gameState.match.dealerIndex;
+                const isFirstRound = gameState.round.biddingRound === 1;
+                const validBids = [];
+
+                if (isFirstRound) {
+                    if (!gameState.round.hokumDeclared) {
+                        validBids.push(BID_TYPES.HOKUM);
+                    }
+                    validBids.push(BID_TYPES.SUN);
+                    validBids.push(BID_TYPES.PASS);
+                } else {
+                    validBids.push(BID_TYPES.SUN);
+                    validBids.push(BID_TYPES.HOKUM_SECOND);
+                    validBids.push(BID_TYPES.PASS);
+                }
+
+                return validBids;
+            },
+
+            processBid(playerIndex, bidType, suitChoice = null) {
+                if (playerIndex !== gameState.round.currentBidder) {
+                    return { success: false, message: 'Not your turn' };
+                }
+
+                gameState.round.bids.push({
+                    playerIndex,
+                    bidType,
+                    suitChoice,
+                    timestamp: Date.now()
+                });
+
+                const biddingCardSuit = gameState.round.biddingCard.suit;
+
+                switch (bidType) {
+                    case BID_TYPES.SUN:
+                        gameState.round.gameType = 'sun';
+                        gameState.round.trumpSuit = null;
+                        gameState.round.buyer = playerIndex;
+                        gameState.round.buyingTeam = gameState.players[playerIndex].teamIndex;
+                        return { success: true, endBidding: true };
+
+                    case BID_TYPES.HOKUM:
+                        gameState.round.hokumDeclared = true;
+                        gameState.round.gameType = 'hokum';
+                        gameState.round.trumpSuit = biddingCardSuit;
+                        gameState.round.buyer = playerIndex;
+                        gameState.round.buyingTeam = gameState.players[playerIndex].teamIndex;
+                        this.advanceToNextBidder();
+                        return { success: true, endBidding: false };
+
+                    case BID_TYPES.HOKUM_SECOND:
+                        if (!suitChoice || suitChoice === biddingCardSuit) {
+                            return { success: false, message: 'Must choose different suit' };
+                        }
+                        gameState.round.gameType = 'hokum';
+                        gameState.round.trumpSuit = suitChoice;
+                        gameState.round.buyer = playerIndex;
+                        gameState.round.buyingTeam = gameState.players[playerIndex].teamIndex;
+                        return { success: true, endBidding: true };
+
+                    case BID_TYPES.PASS:
+                        this.advanceToNextBidder();
+
+                        const passCount = gameState.round.bids.filter(b => b.bidType === BID_TYPES.PASS).length;
+
+                        if (gameState.round.biddingRound === 1) {
+                            if (passCount === 4 && !gameState.round.hokumDeclared) {
+                                gameState.round.biddingRound = 2;
+                                gameState.round.bids = [];
+                                gameState.round.currentBidder = (gameState.match.dealerIndex + 1) % 4;
+                                return { success: true, endBidding: false, newRound: true };
+                            } else if (gameState.round.hokumDeclared && this.allOthersPassed()) {
+                                return { success: true, endBidding: true };
+                            }
+                        } else {
+                            if (passCount === 4) {
+                                return { success: true, endBidding: true, reshuffle: true };
+                            }
+                        }
+                        return { success: true, endBidding: false };
+                }
+            },
+
+            advanceToNextBidder() {
+                gameState.round.currentBidder = (gameState.round.currentBidder + 1) % 4;
+            },
+
+            allOthersPassed() {
+                const hokumIndex = gameState.round.bids.findIndex(b => b.bidType === BID_TYPES.HOKUM);
+                const bidsAfterHokum = gameState.round.bids.slice(hokumIndex + 1);
+                return bidsAfterHokum.length === 3 && bidsAfterHokum.every(b => b.bidType === BID_TYPES.PASS);
+            },
+
+            startBidding() {
+                gameState.round.phase = 'bidding';
+                gameState.round.biddingRound = 1;
+                gameState.round.currentBidder = (gameState.match.dealerIndex + 1) % 4;
+                gameState.round.bids = [];
+                gameState.round.hokumDeclared = false;
+            }
+        };
+
+        // ============================================================
+        // SECTION 6: TRICK SYSTEM
+        // ============================================================
+
+        const TrickSystem = {
+            getLegalCards(playerIndex) {
+                const hand = gameState.players[playerIndex].hand;
+                const trick = gameState.round.currentTrick;
+
+                if (trick.length === 0) {
+                    return this.getLegalLeadCards(playerIndex);
+                }
+
+                const ledSuit = trick[0].card.suit;
+                const trumpSuit = gameState.round.trumpSuit;
+                const gameType = gameState.round.gameType;
+
+                const suitCards = hand.filter(c => c.suit === ledSuit);
+
+                if (suitCards.length > 0) {
+                    return suitCards;
+                }
+
+                if (gameType === 'sun') {
+                    return hand;
+                }
+
+                const trumpCards = hand.filter(c => c.suit === trumpSuit);
+
+                if (trumpCards.length === 0) {
+                    return hand;
+                }
+
+                const partnerIndex = (playerIndex + 2) % 4;
+                const winner = this.getCurrentWinner();
+                const partnerIsWinning = winner && winner.playerIndex === partnerIndex;
+
+                if (partnerIsWinning) {
+                    return hand;
+                }
+
+                const highestTrumpInTrick = this.getHighestTrumpInTrick();
+
+                if (highestTrumpInTrick) {
+                    const higherTrumps = trumpCards.filter(c =>
+                        c.getRankingPower(gameType, true) > highestTrumpInTrick.card.getRankingPower(gameType, true)
+                    );
+                    if (higherTrumps.length > 0) {
+                        return higherTrumps;
+                    }
+                }
+
+                return trumpCards.length > 0 ? trumpCards : hand;
+            },
+
+            getLegalLeadCards(playerIndex) {
+                const hand = gameState.players[playerIndex].hand;
+                const isBuyer = playerIndex === gameState.round.buyer;
+                const isLocked = gameState.round.isLocked;
+                const trumpSuit = gameState.round.trumpSuit;
+
+                if (isLocked && isBuyer && trumpSuit) {
+                    const nonTrumpCards = hand.filter(c => c.suit !== trumpSuit);
+                    if (nonTrumpCards.length > 0) {
+                        return nonTrumpCards;
+                    }
+                }
+
+                return hand;
+            },
+
+            playCard(playerIndex, card) {
+                if (playerIndex !== gameState.round.currentPlayer) {
+                    return { success: false, message: 'Not your turn' };
+                }
+
+                const hand = gameState.players[playerIndex].hand;
+                const cardIndex = hand.findIndex(c => c.id === card.id);
+
+                if (cardIndex === -1) {
+                    return { success: false, message: 'Card not in hand' };
+                }
+
+                const legalCards = this.getLegalCards(playerIndex);
+                if (!legalCards.some(c => c.id === card.id)) {
+                    return { success: false, message: 'Illegal play' };
+                }
+
+                hand.splice(cardIndex, 1);
+
+                gameState.round.currentTrick.push({
+                    playerIndex,
+                    card,
+                    timestamp: Date.now()
+                });
+
+                if (gameState.round.currentTrick.length === 4) {
+                    return { success: true, trickComplete: true };
+                }
+
+                gameState.round.currentPlayer = (gameState.round.currentPlayer + 1) % 4;
+                return { success: true, trickComplete: false };
+            },
+
+            getCurrentWinner() {
+                const trick = gameState.round.currentTrick;
+                if (trick.length === 0) return null;
+
+                const gameType = gameState.round.gameType;
+                const trumpSuit = gameState.round.trumpSuit;
+                const ledSuit = trick[0].card.suit;
+
+                let winner = trick[0];
+
+                for (let i = 1; i < trick.length; i++) {
+                    if (this.cardBeats(trick[i].card, winner.card, ledSuit, trumpSuit, gameType)) {
+                        winner = trick[i];
+                    }
+                }
+
+                return winner;
+            },
+
+            getHighestTrumpInTrick() {
+                const trick = gameState.round.currentTrick;
+                const trumpSuit = gameState.round.trumpSuit;
+                if (!trumpSuit) return null;
+
+                const trumpPlays = trick.filter(p => p.card.suit === trumpSuit);
+                if (trumpPlays.length === 0) return null;
+
+                return trumpPlays.reduce((highest, play) =>
+                    play.card.getRankingPower('hokum', true) > highest.card.getRankingPower('hokum', true)
+                        ? play : highest
+                );
+            },
+
+            cardBeats(cardA, cardB, ledSuit, trumpSuit, gameType) {
+                const aIsTrump = trumpSuit && cardA.suit === trumpSuit;
+                const bIsTrump = trumpSuit && cardB.suit === trumpSuit;
+
+                if (aIsTrump && !bIsTrump) return true;
+                if (!aIsTrump && bIsTrump) return false;
+
+                if (aIsTrump && bIsTrump) {
+                    return cardA.getRankingPower(gameType, true) > cardB.getRankingPower(gameType, true);
+                }
+
+                const aIsLed = cardA.suit === ledSuit;
+                const bIsLed = cardB.suit === ledSuit;
+
+                if (aIsLed && !bIsLed) return true;
+                if (!aIsLed && bIsLed) return false;
+
+                if (cardA.suit === cardB.suit) {
+                    return cardA.getRankingPower(gameType, false) > cardB.getRankingPower(gameType, false);
+                }
+
+                return false;
+            },
+
+            resolveTrick() {
+                const winner = this.getCurrentWinner();
+                const winnerTeam = gameState.players[winner.playerIndex].teamIndex;
+
+                const trickCards = gameState.round.currentTrick.map(p => p.card);
+
+                if (winnerTeam === 0) {
+                    gameState.round.team1Tricks.push(...trickCards);
+                } else {
+                    gameState.round.team2Tricks.push(...trickCards);
+                }
+
+                const result = {
+                    winner: winner.playerIndex,
+                    winnerTeam,
+                    trickNumber: gameState.round.trickNumber,
+                    cards: trickCards
+                };
+
+                gameState.round.currentTrick = [];
+                gameState.round.trickNumber++;
+                gameState.round.trickLeader = winner.playerIndex;
+                gameState.round.currentPlayer = winner.playerIndex;
+
+                return result;
+            }
+        };
+
+        // ============================================================
+        // SECTION 7: PROJECT DETECTION
+        // ============================================================
+
+        const ProjectSystem = {
+            detectProjects(hand, gameType, trumpSuit) {
+                const projects = [];
+
+                // Group by suit
+                const bySuit = {};
+                for (const suit of Object.values(SUITS)) {
+                    bySuit[suit] = hand.filter(c => c.suit === suit)
+                        .sort((a, b) => a.getSequenceValue() - b.getSequenceValue());
+                }
+
+                // Detect sequences
+                for (const [suit, cards] of Object.entries(bySuit)) {
+                    const sequences = this.findSequences(cards);
+                    for (const seq of sequences) {
+                        if (seq.length >= 5) {
+                            projects.push({
+                                type: 'mia',
+                                subtype: 'sequence',
+                                cards: seq,
+                                suit,
+                                points: gameType === 'hokum' ? 10 : 20
+                            });
+                        } else if (seq.length === 4) {
+                            projects.push({
+                                type: 'khamsin',
+                                cards: seq,
+                                suit,
+                                points: gameType === 'hokum' ? 5 : 10
+                            });
+                        } else if (seq.length === 3) {
+                            projects.push({
+                                type: 'sira',
+                                cards: seq,
+                                suit,
+                                points: gameType === 'hokum' ? 2 : 4
+                            });
+                        }
+                    }
+                }
+
+                // Detect four-of-a-kind
+                const byRank = {};
+                for (const rank of Object.values(RANKS)) {
+                    byRank[rank] = hand.filter(c => c.rank === rank);
+                }
+
+                for (const [rank, cards] of Object.entries(byRank)) {
+                    if (cards.length === 4) {
+                        if (rank === 'A') {
+                            projects.push({
+                                type: gameType === 'sun' ? 'arba3mia' : 'mia',
+                                subtype: 'four-aces',
+                                cards,
+                                rank,
+                                points: gameType === 'sun' ? 40 : 10
+                            });
+                        } else if (['10', 'J', 'Q', 'K'].includes(rank)) {
+                            projects.push({
+                                type: 'mia',
+                                subtype: 'four-of-kind',
+                                cards,
+                                rank,
+                                points: gameType === 'hokum' ? 10 : 20
+                            });
+                        }
+                    }
+                }
+
+                return projects;
+            },
+
+            findSequences(sortedCards) {
+                if (sortedCards.length < 3) return [];
+
+                const sequences = [];
+                let currentSeq = [sortedCards[0]];
+
+                for (let i = 1; i < sortedCards.length; i++) {
+                    const prev = sortedCards[i - 1];
+                    const curr = sortedCards[i];
+
+                    if (curr.getSequenceValue() === prev.getSequenceValue() + 1) {
+                        currentSeq.push(curr);
+                    } else {
+                        if (currentSeq.length >= 3) {
+                            sequences.push([...currentSeq]);
+                        }
+                        currentSeq = [curr];
+                    }
+                }
+
+                if (currentSeq.length >= 3) {
+                    sequences.push(currentSeq);
+                }
+
+                return sequences;
+            },
+
+            resolveProjectConflicts(team1Projects, team2Projects) {
+                const priority = {
+                    'arba3mia': 5,
+                    'mia-sequence': 4,
+                    'mia-four-of-kind': 3,
+                    'mia-four-aces': 3,
+                    'khamsin': 2,
+                    'sira': 1
+                };
+
+                const getKey = (p) => p.type + (p.subtype ? '-' + p.subtype : '');
+
+                const team1Max = Math.max(0, ...team1Projects.map(p => priority[getKey(p)] || 0));
+                const team2Max = Math.max(0, ...team2Projects.map(p => priority[getKey(p)] || 0));
+
+                if (team1Max > team2Max) {
+                    return { team1: team1Projects, team2: [] };
+                } else if (team2Max > team1Max) {
+                    return { team1: [], team2: team2Projects };
+                }
+
+                return { team1: team1Projects, team2: team2Projects };
+            }
+        };
+
+        // ============================================================
+        // SECTION 8: SCORING SYSTEM
+        // ============================================================
+
+        const ScoringSystem = {
+            calculateRoundScore() {
+                const gameType = gameState.round.gameType;
+                const trumpSuit = gameState.round.trumpSuit;
+                const buyingTeam = gameState.round.buyingTeam;
+
+                let team1Bunts = this.calculateTrickPoints(gameState.round.team1Tricks, gameType, trumpSuit);
+                let team2Bunts = this.calculateTrickPoints(gameState.round.team2Tricks, gameType, trumpSuit);
+
+                // Last trick bonus
+                const team1TrickCount = Math.floor(gameState.round.team1Tricks.length / 4);
+                const team2TrickCount = Math.floor(gameState.round.team2Tricks.length / 4);
+
+                if (team1TrickCount >= team2TrickCount && gameState.round.team1Tricks.length > 0) {
+                    team1Bunts += 10;
+                } else if (gameState.round.team2Tricks.length > 0) {
+                    team2Bunts += 10;
+                }
+
+                // Check Kapoot
+                const isKapoot = team1TrickCount === 8 || team2TrickCount === 8;
+
+                // Add project points
+                let team1ProjectPoints = gameState.round.declaredProjects.team1.reduce((s, p) => s + p.points, 0);
+                let team2ProjectPoints = gameState.round.declaredProjects.team2.reduce((s, p) => s + p.points, 0);
+
+                team1Bunts += team1ProjectPoints;
+                team2Bunts += team2ProjectPoints;
+
+                let team1Points, team2Points, result;
+
+                if (isKapoot) {
+                    const kapootValue = gameType === 'sun' ? 44 : 26;
+                    if (team1TrickCount === 8) {
+                        team1Points = kapootValue;
+                        team2Points = 0;
+                        result = 'kapoot';
+                    } else {
+                        team1Points = 0;
+                        team2Points = kapootValue;
+                        result = 'kapoot';
+                    }
+                } else {
+                    const buyerBunts = buyingTeam === 0 ? team1Bunts : team2Bunts;
+                    const opponentBunts = buyingTeam === 0 ? team2Bunts : team1Bunts;
+
+                    if (gameType === 'hokum') {
+                        if (buyerBunts > opponentBunts) {
+                            result = 'buyer-wins';
+                        } else if (buyerBunts === 81 && opponentBunts === 81) {
+                            result = 'tie';
+                        } else {
+                            result = 'buyer-loses';
+                        }
+                    } else {
+                        result = buyerBunts > opponentBunts ? 'buyer-wins' : 'buyer-loses';
+                    }
+
+                    team1Points = this.buntsToPoints(team1Bunts, gameType);
+                    team2Points = this.buntsToPoints(team2Bunts, gameType);
+
+                    if (result === 'buyer-loses') {
+                        const totalPoints = team1Points + team2Points;
+                        if (buyingTeam === 0) {
+                            team1Points = 0;
+                            team2Points = totalPoints;
+                        } else {
+                            team1Points = totalPoints;
+                            team2Points = 0;
+                        }
+                    }
+                }
+
+                // Apply doubling
+                const doubleMultiplier = Math.pow(2, gameState.round.doubleLevel);
+                team1Points = Math.round(team1Points * doubleMultiplier);
+                team2Points = Math.round(team2Points * doubleMultiplier);
+
+                return { team1Bunts, team2Bunts, team1Points, team2Points, result, isKapoot };
+            },
+
+            calculateTrickPoints(cards, gameType, trumpSuit) {
+                return cards.reduce((sum, card) => {
+                    const isTrump = trumpSuit && card.suit === trumpSuit;
+                    return sum + card.getPointValue(gameType, isTrump);
+                }, 0);
+            },
+
+            buntsToPoints(bunts, gameType) {
+                if (gameType === 'hokum') {
+                    return Math.round(bunts / 10);
+                }
+                return Math.round(bunts / 10) * 2;
+            }
+        };
+
+        // ============================================================
+        // SECTION 9: AI AGENT INTERFACE
+        // ============================================================
+
+        class BalootAIAgent {
+            constructor(playerIndex, teamIndex) {
+                this.playerIndex = playerIndex;
+                this.teamIndex = teamIndex;
+                this.name = 'AI Agent';
+                this.version = '1.0.0';
+            }
+
+            onRoundStart(roundInfo) {}
+            onReceiveHand(hand) {}
+
+            async decideBid(biddingState) {
+                throw new Error('decideBid must be implemented');
+            }
+
+            async declareProjects(detectedProjects) {
+                return detectedProjects.sort((a, b) => b.points - a.points).slice(0, 2);
+            }
+
+            async decideCard(trickState, legalCards) {
+                throw new Error('decideCard must be implemented');
+            }
+
+            async decideDouble(gameState) {
+                return false;
+            }
+
+            onCardPlayed(playerIndex, card) {}
+            onTrickWon(winnerIndex, trickCards) {}
+        }
+
+        // ============================================================
+        // SECTION 10: DEFAULT AI AGENTS
+        // ============================================================
+
+        class GreedyAI extends BalootAIAgent {
+            constructor(playerIndex, teamIndex) {
+                super(playerIndex, teamIndex);
+                this.name = 'GreedyAI';
+                this.hand = [];
+            }
+
+            onReceiveHand(hand) {
+                this.hand = [...hand];
+            }
+
+            async decideBid(biddingState) {
+                const { biddingCard, biddingRound } = biddingState;
+                const hand = this.hand;
+                const biddingCardSuit = biddingCard.suit;
+
+                const suitCount = hand.filter(c => c.suit === biddingCardSuit).length;
+                const hasJack = hand.some(c => c.suit === biddingCardSuit && c.rank === 'J');
+                const hasNine = hand.some(c => c.suit === biddingCardSuit && c.rank === '9');
+
+                if (biddingRound === 1) {
+                    if (suitCount >= 3 && (hasJack || hasNine)) {
+                        return { bidType: BID_TYPES.HOKUM };
+                    }
+                    const highCards = hand.filter(c => ['A', '10', 'K'].includes(c.rank)).length;
+                    if (highCards >= 5) {
+                        return { bidType: BID_TYPES.SUN };
+                    }
+                    return { bidType: BID_TYPES.PASS };
+                } else {
+                    const suits = Object.values(SUITS).filter(s => s !== biddingCardSuit);
+                    let bestSuit = null;
+                    let bestScore = 0;
+
+                    for (const suit of suits) {
+                        const cards = hand.filter(c => c.suit === suit);
+                        let score = cards.length * 10;
+                        if (cards.some(c => c.rank === 'J')) score += 30;
+                        if (cards.some(c => c.rank === '9')) score += 20;
+                        if (score > bestScore) {
+                            bestScore = score;
+                            bestSuit = suit;
+                        }
+                    }
+
+                    if (bestScore >= 40) {
+                        return { bidType: BID_TYPES.HOKUM_SECOND, suitChoice: bestSuit };
+                    }
+                    return { bidType: BID_TYPES.PASS };
+                }
+            }
+
+            async decideCard(trickState, legalCards) {
+                const { currentTrick, trumpSuit, gameType } = trickState;
+                const partnerIndex = (this.playerIndex + 2) % 4;
+
+                if (currentTrick.length === 0) {
+                    const nonTrump = legalCards.filter(c => c.suit !== trumpSuit);
+                    if (nonTrump.length > 0) {
+                        return this.getHighestCard(nonTrump, gameType, false);
+                    }
+                    return this.getHighestCard(legalCards, gameType, true);
+                }
+
+                const ledSuit = currentTrick[0].card.suit;
+                const currentWinner = TrickSystem.getCurrentWinner();
+                const partnerIsWinning = currentWinner && currentWinner.playerIndex === partnerIndex;
+
+                if (partnerIsWinning) {
+                    return this.getLowestCard(legalCards, gameType, ledSuit === trumpSuit);
+                }
+
+                const winningCards = legalCards.filter(card =>
+                    TrickSystem.cardBeats(card, currentWinner.card, ledSuit, trumpSuit, gameType)
+                );
+
+                if (winningCards.length > 0) {
+                    return this.getLowestCard(winningCards, gameType, legalCards[0]?.suit === trumpSuit);
+                }
+
+                return this.getLowestCard(legalCards, gameType, false);
+            }
+
+            getHighestCard(cards, gameType, isTrump) {
+                return cards.reduce((best, card) =>
+                    card.getRankingPower(gameType, isTrump) > best.getRankingPower(gameType, isTrump)
+                        ? card : best
+                );
+            }
+
+            getLowestCard(cards, gameType, isTrump) {
+                return cards.reduce((lowest, card) =>
+                    card.getRankingPower(gameType, isTrump) < lowest.getRankingPower(gameType, isTrump)
+                        ? card : lowest
+                );
+            }
+        }
+
+        class StrategicAI extends BalootAIAgent {
+            constructor(playerIndex, teamIndex) {
+                super(playerIndex, teamIndex);
+                this.name = 'StrategicAI';
+                this.hand = [];
+                this.playedCards = [];
+                this.suitCounts = { clubs: 8, diamonds: 8, hearts: 8, spades: 8 };
+            }
+
+            onRoundStart(roundInfo) {
+                this.playedCards = [];
+                this.suitCounts = { clubs: 8, diamonds: 8, hearts: 8, spades: 8 };
+            }
+
+            onReceiveHand(hand) {
+                this.hand = [...hand];
+                for (const card of hand) {
+                    this.suitCounts[card.suit]--;
+                }
+            }
+
+            async decideBid(biddingState) {
+                const { biddingCard, biddingRound } = biddingState;
+                const hand = this.hand;
+
+                const handScore = this.evaluateHand(hand, biddingCard.suit);
+
+                if (biddingRound === 1) {
+                    if (handScore.hokumScore > 65) {
+                        return { bidType: BID_TYPES.HOKUM };
+                    }
+                    if (handScore.sunScore > 75) {
+                        return { bidType: BID_TYPES.SUN };
+                    }
+                    return { bidType: BID_TYPES.PASS };
+                } else {
+                    let bestSuit = null;
+                    let bestScore = 0;
+
+                    for (const suit of Object.values(SUITS)) {
+                        if (suit !== biddingCard.suit) {
+                            const score = this.evaluateSuitAsHokum(hand, suit);
+                            if (score > bestScore) {
+                                bestScore = score;
+                                bestSuit = suit;
+                            }
+                        }
+                    }
+
+                    if (bestScore > 55) {
+                        return { bidType: BID_TYPES.HOKUM_SECOND, suitChoice: bestSuit };
+                    }
+                    if (handScore.sunScore > 55) {
+                        return { bidType: BID_TYPES.SUN };
+                    }
+                    return { bidType: BID_TYPES.PASS };
+                }
+            }
+
+            evaluateHand(hand, potentialTrump) {
+                let hokumScore = 0;
+                let sunScore = 0;
+
+                const trumpCards = hand.filter(c => c.suit === potentialTrump);
+                hokumScore += trumpCards.length * 12;
+                if (trumpCards.some(c => c.rank === 'J')) hokumScore += 25;
+                if (trumpCards.some(c => c.rank === '9')) hokumScore += 18;
+
+                const aces = hand.filter(c => c.rank === 'A').length;
+                const tens = hand.filter(c => c.rank === '10').length;
+                sunScore += aces * 15;
+                sunScore += tens * 8;
+
+                return { hokumScore, sunScore };
+            }
+
+            evaluateSuitAsHokum(hand, suit) {
+                const suitCards = hand.filter(c => c.suit === suit);
+                let score = suitCards.length * 12;
+                if (suitCards.some(c => c.rank === 'J')) score += 25;
+                if (suitCards.some(c => c.rank === '9')) score += 18;
+                return score;
+            }
+
+            async decideCard(trickState, legalCards) {
+                const { currentTrick, trumpSuit, gameType, trickNumber } = trickState;
+                const partnerIndex = (this.playerIndex + 2) % 4;
+
+                if (currentTrick.length === 0) {
+                    return this.decideLead(legalCards, trumpSuit, gameType, trickNumber);
+                }
+
+                const ledSuit = currentTrick[0].card.suit;
+                const currentWinner = TrickSystem.getCurrentWinner();
+                const partnerIsWinning = currentWinner && currentWinner.playerIndex === partnerIndex;
+
+                if (partnerIsWinning) {
+                    return this.getLowestCard(legalCards, gameType, false);
+                }
+
+                const trickValue = currentTrick.reduce((sum, play) =>
+                    sum + play.card.getPointValue(gameType, play.card.suit === trumpSuit), 0
+                );
+
+                const winningCards = legalCards.filter(card =>
+                    TrickSystem.cardBeats(card, currentWinner.card, ledSuit, trumpSuit, gameType)
+                );
+
+                if (winningCards.length > 0 && trickValue >= 15) {
+                    return this.getLowestCard(winningCards, gameType, legalCards[0]?.suit === trumpSuit);
+                }
+
+                return this.getLowestPointCard(legalCards, gameType, trumpSuit);
+            }
+
+            decideLead(cards, trumpSuit, gameType, trickNumber) {
+                if (trickNumber >= 6 && trumpSuit) {
+                    const trumps = cards.filter(c => c.suit === trumpSuit);
+                    if (trumps.length > 0 && this.suitCounts[trumpSuit] <= 3) {
+                        return this.getHighestCard(trumps, gameType, true);
+                    }
+                }
+
+                const nonTrump = cards.filter(c => c.suit !== trumpSuit);
+                if (nonTrump.length > 0) {
+                    return this.getHighestCard(nonTrump, gameType, false);
+                }
+                return this.getHighestCard(cards, gameType, true);
+            }
+
+            getHighestCard(cards, gameType, isTrump) {
+                return cards.reduce((best, card) =>
+                    card.getRankingPower(gameType, isTrump) > best.getRankingPower(gameType, isTrump)
+                        ? card : best
+                );
+            }
+
+            getLowestCard(cards, gameType, isTrump) {
+                return cards.reduce((lowest, card) =>
+                    card.getRankingPower(gameType, isTrump) < lowest.getRankingPower(gameType, isTrump)
+                        ? card : lowest
+                );
+            }
+
+            getLowestPointCard(cards, gameType, trumpSuit) {
+                return cards.reduce((lowest, card) => {
+                    const cardPoints = card.getPointValue(gameType, card.suit === trumpSuit);
+                    const lowestPoints = lowest.getPointValue(gameType, lowest.suit === trumpSuit);
+                    return cardPoints < lowestPoints ? card : lowest;
+                });
+            }
+
+            onCardPlayed(playerIndex, card) {
+                this.playedCards.push({ playerIndex, card });
+                this.suitCounts[card.suit]--;
+            }
+        }
+
+        // AI Registry
+        const AIAgentRegistry = {
+            agents: new Map([
+                ['GreedyAI', GreedyAI],
+                ['StrategicAI', StrategicAI]
+            ]),
+
+            register(name, AgentClass) {
+                this.agents.set(name, AgentClass);
+            },
+
+            create(name, playerIndex, teamIndex) {
+                const AgentClass = this.agents.get(name);
+                if (!AgentClass) throw new Error(`Agent '${name}' not found`);
+                return new AgentClass(playerIndex, teamIndex);
+            },
+
+            list() {
+                return Array.from(this.agents.keys());
+            }
+        };
+
+        // ============================================================
+        // SECTION 11: GAME CONTROLLER
+        // ============================================================
+
+        const GameController = {
+            async startNewGame() {
+                // Reset state
+                gameState.match = {
+                    team1Score: 0,
+                    team2Score: 0,
+                    roundNumber: 1,
+                    dealerIndex: Math.floor(Math.random() * 4),
+                    winner: null,
+                    isRunning: true
+                };
+                gameState.history = { actions: [], currentIndex: -1, isReplaying: false };
+
+                // Create agents - use registry name from data attribute, fallback to textContent for defaults
+                const team1El = document.getElementById('team1AgentName');
+                const team2El = document.getElementById('team2AgentName');
+                const team1Agent = team1El.dataset.registryName || team1El.textContent;
+                const team2Agent = team2El.dataset.registryName || team2El.textContent;
+
+                gameState.players[0].agent = AIAgentRegistry.create(team1Agent, 0, 0);
+                gameState.players[1].agent = AIAgentRegistry.create(team2Agent, 1, 1);
+                gameState.players[2].agent = AIAgentRegistry.create(team1Agent, 2, 0);
+                gameState.players[3].agent = AIAgentRegistry.create(team2Agent, 3, 1);
+
+                // Update UI
+                UIRenderer.updatePlayerInfo();
+                UIRenderer.renderScoreboard();
+                UIRenderer.log('New game started!', 'success');
+                document.getElementById('gameEndOverlay').classList.remove('active');
+
+                this.recordAction('gameStart', {});
+                await this.startRound();
+            },
+
+            async startRound() {
+                // Reset round state
+                gameState.round = JSON.parse(JSON.stringify(initialRoundState));
+                gameState.round.phase = 'dealing';
+
+                // Create and shuffle deck
+                gameState.deck.cards = DeckManager.shuffle(DeckManager.createDeck());
+
+                // Deal phase 1
+                DeckManager.deal(1);
+
+                // Notify agents
+                for (const player of gameState.players) {
+                    player.agent.onRoundStart({ dealerIndex: gameState.match.dealerIndex });
+                    player.agent.onReceiveHand([...player.hand]);
+                }
+
+                this.recordAction('roundStart', { roundNumber: gameState.match.roundNumber });
+
+                UIRenderer.renderAllHands();
+                UIRenderer.renderScoreboard();
+                UIRenderer.log(`Round ${gameState.match.roundNumber} - Dealing...`, 'info');
+
+                await this.delay(500);
+                await this.runBiddingPhase();
+            },
+
+            async runBiddingPhase() {
+                BiddingSystem.startBidding();
+                UIRenderer.showBiddingOverlay();
+
+                let biddingComplete = false;
+                let reshuffle = false;
+
+                while (!biddingComplete && gameState.match.isRunning) {
+                    const currentPlayer = gameState.round.currentBidder;
+                    const agent = gameState.players[currentPlayer].agent;
+
+                    UIRenderer.updateBiddingStatus(currentPlayer);
+                    TimerSystem.start(currentPlayer);
+
+                    const validBids = BiddingSystem.getValidBids();
+
+                    let bidDecision;
+                    try {
+                        bidDecision = await this.withTimeout(
+                            agent.decideBid({
+                                biddingCard: gameState.round.biddingCard,
+                                biddingRound: gameState.round.biddingRound,
+                                bids: gameState.round.bids,
+                                validBids
+                            }),
+                            gameState.config.aiDecisionTimeout
+                        );
+                    } catch (e) {
+                        bidDecision = { bidType: BID_TYPES.PASS };
+                    }
+
+                    TimerSystem.stop();
+
+                    if (!bidDecision || !validBids.includes(bidDecision.bidType)) {
+                        bidDecision = { bidType: BID_TYPES.PASS };
+                    }
+
+                    const result = BiddingSystem.processBid(currentPlayer, bidDecision.bidType, bidDecision.suitChoice);
+
+                    this.recordAction('bid', { playerIndex: currentPlayer, ...bidDecision, result });
+                    UIRenderer.addBidToHistory(currentPlayer, bidDecision);
+                    UIRenderer.log(`${gameState.players[currentPlayer].name} bids: ${bidDecision.bidType}`, 'bid');
+
+                    await this.delay(600);
+
+                    if (result.endBidding) {
+                        biddingComplete = true;
+                        reshuffle = result.reshuffle || false;
+                    }
+                }
+
+                UIRenderer.hideBiddingOverlay();
+
+                if (reshuffle) {
+                    UIRenderer.log('All passed - reshuffling...', 'warning');
+                    gameState.match.dealerIndex = (gameState.match.dealerIndex + 1) % 4;
+                    await this.delay(1000);
+                    await this.startRound();
+                    return;
+                }
+
+                // Deal phase 2
+                DeckManager.deal(2);
+
+                // Re-sort hands with trump
+                gameState.players.forEach(p => {
+                    p.hand = DeckManager.sortHand(p.hand, gameState.round.trumpSuit);
+                    p.agent.onReceiveHand([...p.hand]);
+                });
+
+                UIRenderer.renderAllHands();
+                UIRenderer.updateTrumpIndicator();
+                UIRenderer.log(`${gameState.players[gameState.round.buyer].name} buys with ${gameState.round.gameType.toUpperCase()}${gameState.round.trumpSuit ? ' (' + SUIT_SYMBOLS[gameState.round.trumpSuit] + ')' : ''}`, 'success');
+
+                await this.delay(800);
+                await this.runPlayingPhase();
+            },
+
+            async runPlayingPhase() {
+                gameState.round.phase = 'playing';
+                gameState.round.trickNumber = 1;
+                gameState.round.trickLeader = (gameState.match.dealerIndex + 1) % 4;
+                gameState.round.currentPlayer = gameState.round.trickLeader;
+
+                // Detect and declare projects
+                await this.handleProjects();
+
+                // Play 8 tricks
+                while (gameState.round.trickNumber <= 8 && gameState.match.isRunning) {
+                    await this.playTrick();
+                }
+
+                if (gameState.match.isRunning) {
+                    await this.endRound();
+                }
+            },
+
+            async handleProjects() {
+                for (const player of gameState.players) {
+                    const projects = ProjectSystem.detectProjects(
+                        player.hand,
+                        gameState.round.gameType,
+                        gameState.round.trumpSuit
+                    );
+
+                    if (projects.length > 0) {
+                        const declared = await player.agent.declareProjects(projects);
+                        const teamProjects = player.teamIndex === 0
+                            ? gameState.round.declaredProjects.team1
+                            : gameState.round.declaredProjects.team2;
+
+                        teamProjects.push(...declared.map(p => ({
+                            ...p,
+                            declaredBy: player.index
+                        })));
+
+                        if (declared.length > 0) {
+                            UIRenderer.log(`${player.name} declares: ${declared.map(p => p.type).join(', ')}`, 'success');
+                        }
+                    }
+                }
+
+                const resolved = ProjectSystem.resolveProjectConflicts(
+                    gameState.round.declaredProjects.team1,
+                    gameState.round.declaredProjects.team2
+                );
+                gameState.round.declaredProjects = resolved;
+
+                if (resolved.team1.length > 0 || resolved.team2.length > 0) {
+                    UIRenderer.showProjectsModal(resolved);
+                    await this.delay(2000);
+                    UIRenderer.closeProjectsModal();
+                }
+            },
+
+            async playTrick() {
+                gameState.round.currentTrick = [];
+                UIRenderer.clearTrickArea();
+                UIRenderer.updateTrickInfo();
+
+                for (let i = 0; i < 4 && gameState.match.isRunning; i++) {
+                    const playerIndex = gameState.round.currentPlayer;
+                    const agent = gameState.players[playerIndex].agent;
+
+                    UIRenderer.highlightCurrentPlayer(playerIndex);
+                    TimerSystem.start(playerIndex);
+
+                    const legalCards = TrickSystem.getLegalCards(playerIndex);
+                    UIRenderer.highlightLegalCards(playerIndex, legalCards);
+
+                    let card;
+                    try {
+                        card = await this.withTimeout(
+                            agent.decideCard({
+                                currentTrick: gameState.round.currentTrick,
+                                trumpSuit: gameState.round.trumpSuit,
+                                gameType: gameState.round.gameType,
+                                trickNumber: gameState.round.trickNumber
+                            }, legalCards),
+                            gameState.config.aiDecisionTimeout
+                        );
+                    } catch (e) {
+                        card = legalCards[0];
+                    }
+
+                    TimerSystem.stop();
+
+                    if (!card || !legalCards.some(c => c.id === card.id)) {
+                        card = legalCards[0];
+                    }
+
+                    const result = TrickSystem.playCard(playerIndex, card);
+
+                    // Notify agents
+                    for (const player of gameState.players) {
+                        player.agent.onCardPlayed(playerIndex, card);
+                    }
+
+                    this.recordAction('playCard', { playerIndex, card: card.id, trickNumber: gameState.round.trickNumber });
+
+                    UIRenderer.renderCardInTrick(playerIndex, card);
+                    UIRenderer.renderPlayerHand(playerIndex);
+                    UIRenderer.log(`${gameState.players[playerIndex].name} plays ${card.toString()}`, 'play');
+
+                    await this.delay(400);
+                }
+
+                // Resolve trick
+                const trickResult = TrickSystem.resolveTrick();
+
+                for (const player of gameState.players) {
+                    player.agent.onTrickWon(trickResult.winner, trickResult.cards);
+                }
+
+                this.recordAction('trickWon', trickResult);
+                UIRenderer.log(`${gameState.players[trickResult.winner].name} wins trick ${trickResult.trickNumber}`, 'success');
+
+                await this.delay(800);
+                UIRenderer.clearTrickArea();
+            },
+
+            async endRound() {
+                gameState.round.phase = 'scoring';
+
+                const scoreResult = ScoringSystem.calculateRoundScore();
+
+                gameState.match.team1Score += scoreResult.team1Points;
+                gameState.match.team2Score += scoreResult.team2Points;
+
+                this.recordAction('roundEnd', scoreResult);
+
+                UIRenderer.renderScoreboard();
+                UIRenderer.log(`Round ${gameState.match.roundNumber} - Team 1: +${scoreResult.team1Points}, Team 2: +${scoreResult.team2Points} (${scoreResult.result})`, 'info');
+
+                await this.delay(1500);
+
+                // Check winner
+                if (gameState.match.team1Score >= 152) {
+                    gameState.match.winner = 0;
+                    UIRenderer.showGameEnd(0);
+                    gameState.match.isRunning = false;
+                    return;
+                } else if (gameState.match.team2Score >= 152) {
+                    gameState.match.winner = 1;
+                    UIRenderer.showGameEnd(1);
+                    gameState.match.isRunning = false;
+                    return;
+                }
+
+                // Next round
+                gameState.match.dealerIndex = (gameState.match.dealerIndex + 1) % 4;
+                gameState.match.roundNumber++;
+                await this.startRound();
+            },
+
+            recordAction(type, data) {
+                gameState.history.actions.push({
+                    timestamp: Date.now(),
+                    type,
+                    data
+                });
+                gameState.history.currentIndex = gameState.history.actions.length - 1;
+                document.getElementById('replaySlider').max = gameState.history.currentIndex;
+                document.getElementById('replaySlider').value = gameState.history.currentIndex;
+            },
+
+            setSpeed(speed) {
+                gameState.config.animationSpeed = speed;
+            },
+
+            async withTimeout(promise, ms) {
+                return Promise.race([
+                    promise,
+                    new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), ms))
+                ]);
+            },
+
+            delay(ms) {
+                const multiplier = {
+                    slow: 2,
+                    normal: 1,
+                    fast: 0.5,
+                    instant: 0.05
+                }[gameState.config.animationSpeed];
+                return new Promise(resolve => setTimeout(resolve, ms * multiplier));
+            }
+        };
+
+        // ============================================================
+        // SECTION 12: UI RENDERING
+        // ============================================================
+
+        const UIRenderer = {
+            renderAllHands() {
+                for (let i = 0; i < 4; i++) {
+                    this.renderPlayerHand(i);
+                }
+            },
+
+            renderPlayerHand(playerIndex) {
+                const player = gameState.players[playerIndex];
+                const el = document.getElementById(`hand${playerIndex}`);
+                el.innerHTML = '';
+
+                for (const card of player.hand) {
+                    const cardEl = card.toElement();
+                    if (gameState.round.trumpSuit && card.suit === gameState.round.trumpSuit) {
+                        cardEl.classList.add('trump');
+                    }
+                    el.appendChild(cardEl);
+                }
+            },
+
+            highlightLegalCards(playerIndex, legalCards) {
+                const el = document.getElementById(`hand${playerIndex}`);
+                const cardEls = el.querySelectorAll('.card');
+                cardEls.forEach(cardEl => {
+                    const isLegal = legalCards.some(c => c.id === cardEl.dataset.id);
+                    cardEl.classList.toggle('legal', isLegal);
+                });
+            },
+
+            highlightCurrentPlayer(playerIndex) {
+                document.querySelectorAll('.player-info').forEach(el => el.classList.remove('current-turn'));
+                document.getElementById(`playerInfo${playerIndex}`).classList.add('current-turn');
+            },
+
+            renderCardInTrick(playerIndex, card) {
+                const position = gameState.players[playerIndex].position;
+                const trickCardEl = document.querySelector(`.trick-card[data-position="${position}"]`);
+                trickCardEl.innerHTML = '';
+                trickCardEl.appendChild(card.toElement());
+            },
+
+            clearTrickArea() {
+                document.querySelectorAll('.trick-card').forEach(el => el.innerHTML = '');
+            },
+
+            updateTrickInfo() {
+                document.getElementById('trickInfo').textContent = `Trick ${gameState.round.trickNumber}/8`;
+            },
+
+            updateTrumpIndicator() {
+                const el = document.getElementById('trumpIndicator');
+                if (gameState.round.gameType === 'sun') {
+                    el.className = 'trump-indicator sun';
+                    el.innerHTML = '<span>SUN (No Trump)</span>';
+                } else {
+                    el.className = 'trump-indicator hokum';
+                    el.innerHTML = `<span>HOKUM</span><span class="trump-suit" style="color: ${gameState.round.trumpSuit === 'hearts' || gameState.round.trumpSuit === 'diamonds' ? 'var(--card-red)' : 'var(--text-primary)'}">${SUIT_SYMBOLS[gameState.round.trumpSuit]}</span>`;
+                }
+            },
+
+            renderScoreboard() {
+                document.getElementById('team1Score').textContent = gameState.match.team1Score;
+                document.getElementById('team2Score').textContent = gameState.match.team2Score;
+                document.getElementById('roundNumber').textContent = gameState.match.roundNumber;
+
+                if (gameState.round.buyer !== null) {
+                    document.getElementById('buyerInfo').textContent = ` | Buyer: ${gameState.players[gameState.round.buyer].name}`;
+                } else {
+                    document.getElementById('buyerInfo').textContent = '';
+                }
+            },
+
+            updatePlayerInfo() {
+                for (let i = 0; i < 4; i++) {
+                    const player = gameState.players[i];
+                    const el = document.getElementById(`playerInfo${i}`);
+                    el.querySelector('.player-name').textContent = player.name;
+                    el.querySelector('.player-agent').textContent = player.agent.name;
+                }
+            },
+
+            showBiddingOverlay() {
+                const overlay = document.getElementById('biddingOverlay');
+                overlay.classList.add('active');
+
+                const cardDisplay = document.getElementById('biddingCardDisplay');
+                cardDisplay.innerHTML = '';
+                cardDisplay.appendChild(gameState.round.biddingCard.toElement());
+
+                document.getElementById('bidHistory').innerHTML = '<div style="color: var(--text-muted); text-align: center;">Bids will appear here...</div>';
+            },
+
+            hideBiddingOverlay() {
+                document.getElementById('biddingOverlay').classList.remove('active');
+            },
+
+            updateBiddingStatus(playerIndex) {
+                document.getElementById('biddingStatus').textContent = `${gameState.players[playerIndex].name}'s turn to bid (Round ${gameState.round.biddingRound})`;
+            },
+
+            addBidToHistory(playerIndex, bidDecision) {
+                const history = document.getElementById('bidHistory');
+                if (history.querySelector('div[style]')) {
+                    history.innerHTML = '';
+                }
+
+                const entry = document.createElement('div');
+                entry.className = 'bid-entry';
+                entry.textContent = `${gameState.players[playerIndex].name}: ${bidDecision.bidType}${bidDecision.suitChoice ? ' (' + SUIT_SYMBOLS[bidDecision.suitChoice] + ')' : ''}`;
+                history.appendChild(entry);
+            },
+
+            showProjectsModal(projects) {
+                const modal = document.getElementById('projectsModal');
+                const list = document.getElementById('projectsList');
+                list.innerHTML = '';
+
+                const addProjects = (teamProjects, teamName) => {
+                    if (teamProjects.length > 0) {
+                        const header = document.createElement('h4');
+                        header.textContent = teamName;
+                        header.style.marginTop = '1rem';
+                        list.appendChild(header);
+
+                        for (const p of teamProjects) {
+                            const item = document.createElement('div');
+                            item.className = 'project-item';
+                            item.innerHTML = `
+                                <span>${p.type} - ${gameState.players[p.declaredBy].name}</span>
+                                <span class="project-points">+${p.points}</span>
+                            `;
+                            list.appendChild(item);
+                        }
+                    }
+                };
+
+                addProjects(projects.team1, 'Team 1');
+                addProjects(projects.team2, 'Team 2');
+
+                modal.classList.add('active');
+            },
+
+            closeProjectsModal() {
+                document.getElementById('projectsModal').classList.remove('active');
+            },
+
+            showGameEnd(winnerTeam) {
+                const overlay = document.getElementById('gameEndOverlay');
+                document.getElementById('winnerText').textContent = `Team ${winnerTeam + 1} Wins!`;
+
+                const score1 = document.getElementById('finalScore1');
+                const score2 = document.getElementById('finalScore2');
+
+                score1.querySelector('.score').textContent = gameState.match.team1Score;
+                score2.querySelector('.score').textContent = gameState.match.team2Score;
+
+                score1.classList.toggle('winner', winnerTeam === 0);
+                score2.classList.toggle('winner', winnerTeam === 1);
+
+                overlay.classList.add('active');
+                this.log(`Game Over! Team ${winnerTeam + 1} wins with ${winnerTeam === 0 ? gameState.match.team1Score : gameState.match.team2Score} points!`, 'success');
+            },
+
+            log(message, type = 'info') {
+                const logEl = document.getElementById('gameLog');
+                const entry = document.createElement('div');
+                entry.className = `log-entry ${type}`;
+
+                const time = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                entry.innerHTML = `<span class="log-time">[${time}]</span> ${message}`;
+
+                logEl.appendChild(entry);
+                logEl.scrollTop = logEl.scrollHeight;
+            }
+        };
+
+        // ============================================================
+        // SECTION 13: REPLAY SYSTEM
+        // ============================================================
+
+        const ReplaySystem = {
+            currentIndex: 0,
+            isPlaying: false,
+
+            goToAction(index) {
+                if (index < 0 || index >= gameState.history.actions.length) return;
+                this.currentIndex = index;
+                document.getElementById('replaySlider').value = index;
+
+                const action = gameState.history.actions[index];
+                document.getElementById('replayInfo').innerHTML = `
+                    <strong>${action.type}</strong><br>
+                    ${JSON.stringify(action.data, null, 2).substring(0, 200)}
+                `;
+            },
+
+            goToStart() {
+                this.goToAction(0);
+            },
+
+            goToEnd() {
+                this.goToAction(gameState.history.actions.length - 1);
+            },
+
+            stepBack() {
+                this.goToAction(this.currentIndex - 1);
+            },
+
+            stepForward() {
+                this.goToAction(this.currentIndex + 1);
+            },
+
+            async toggleAutoPlay() {
+                const btn = document.getElementById('replayPlayBtn');
+                this.isPlaying = !this.isPlaying;
+                btn.innerHTML = this.isPlaying ? '&#10074;&#10074;' : '&#9654;';
+
+                while (this.isPlaying && this.currentIndex < gameState.history.actions.length - 1) {
+                    this.stepForward();
+                    await new Promise(r => setTimeout(r, 500));
+                }
+
+                this.isPlaying = false;
+                btn.innerHTML = '&#9654;';
+            }
+        };
+
+        // ============================================================
+        // SECTION 14: TIMER SYSTEM
+        // ============================================================
+
+        const TimerSystem = {
+            start(playerIndex) {
+                this.stop();
+
+                gameState.timer.startTime = Date.now();
+                gameState.timer.remaining = gameState.config.aiDecisionTimeout;
+
+                this.updateDisplay();
+
+                gameState.timer.timerId = setInterval(() => {
+                    const elapsed = Date.now() - gameState.timer.startTime;
+                    gameState.timer.remaining = Math.max(0, gameState.config.aiDecisionTimeout - elapsed);
+                    this.updateDisplay();
+                }, 100);
+            },
+
+            stop() {
+                if (gameState.timer.timerId) {
+                    clearInterval(gameState.timer.timerId);
+                    gameState.timer.timerId = null;
+                }
+                gameState.timer.remaining = null;
+                document.getElementById('timerDisplay').innerHTML = '';
+            },
+
+            updateDisplay() {
+                const el = document.getElementById('timerDisplay');
+                if (gameState.timer.remaining !== null) {
+                    const seconds = (gameState.timer.remaining / 1000).toFixed(1);
+                    const percent = (gameState.timer.remaining / gameState.config.aiDecisionTimeout) * 100;
+                    const isWarning = percent < 20;
+
+                    el.innerHTML = `
+                        <div class="timer-bar">
+                            <div class="timer-fill ${isWarning ? 'warning' : ''}" style="width: ${percent}%"></div>
+                        </div>
+                        <div class="timer-text">${seconds}s</div>
+                    `;
+                }
+            }
+        };
+
+        // ============================================================
+        // SECTION 15: AI UPLOAD SYSTEM
+        // ============================================================
+
+        const AIUploadSystem = {
+            async handleUpload(event, teamIndex) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                if (!file.name.endsWith('.js')) {
+                    UIRenderer.log('Error: Please upload a .js file', 'error');
+                    return;
+                }
+
+                try {
+                    const code = await file.text();
+                    const AgentClass = this.loadAgentCode(code);
+
+                    if (!AgentClass) {
+                        UIRenderer.log('Error: Invalid agent code - must define CustomAgent class', 'error');
+                        return;
+                    }
+
+                    const agentName = `Custom_${teamIndex === 0 ? 'T1' : 'T2'}_${Date.now()}`;
+                    AIAgentRegistry.register(agentName, AgentClass);
+
+                    const testAgent = new AgentClass(0, 0);
+                    const displayName = testAgent.name || agentName;
+
+                    const nameEl = document.getElementById(`team${teamIndex + 1}AgentName`);
+                    nameEl.textContent = displayName;
+                    nameEl.dataset.registryName = agentName;  // Store actual registry name
+                    UIRenderer.log(`Team ${teamIndex + 1} AI loaded: ${displayName}`, 'success');
+
+                } catch (err) {
+                    UIRenderer.log(`Error loading AI: ${err.message}`, 'error');
+                    console.error(err);
+                }
+            },
+
+            loadAgentCode(code) {
+                try {
+                    const wrappedCode = `
+                        (function(BalootAIAgent, BID_TYPES, SUITS, SUIT_SYMBOLS) {
+                            ${code}
+                            return typeof CustomAgent !== 'undefined' ? CustomAgent : null;
+                        })
+                    `;
+
+                    const factory = eval(wrappedCode);
+                    const AgentClass = factory(BalootAIAgent, BID_TYPES, SUITS, SUIT_SYMBOLS);
+
+                    if (!AgentClass) return null;
+
+                    // Validate required methods
+                    const proto = AgentClass.prototype;
+                    if (typeof proto.decideBid !== 'function' || typeof proto.decideCard !== 'function') {
+                        throw new Error('Missing required methods: decideBid, decideCard');
+                    }
+
+                    return AgentClass;
+                } catch (err) {
+                    console.error('Failed to load agent:', err);
+                    throw err;
+                }
+            },
+
+            downloadTemplate() {
+                const template = `// Custom Baloot AI Agent Template
+// Rename 'CustomAgent' class - do not change the class name!
+
+class CustomAgent extends BalootAIAgent {
+    constructor(playerIndex, teamIndex) {
+        super(playerIndex, teamIndex);
+        this.name = 'My Custom AI';  // Change this!
+        this.version = '1.0.0';
+        this.hand = [];
+    }
+
+    onRoundStart(roundInfo) {
+        // Called when a new round starts
+        // roundInfo: { dealerIndex }
+    }
+
+    onReceiveHand(hand) {
+        // Called when you receive your cards
+        // hand: Array of Card objects with { suit, rank, id }
+        this.hand = [...hand];
+    }
+
+    async decideBid(biddingState) {
+        // REQUIRED: Return your bid decision
+        // biddingState: { biddingCard, biddingRound, bids, validBids }
+        //
+        // Return: { bidType: 'pass' | 'hokum' | 'sun' | 'hokum2', suitChoice?: 'clubs'|'diamonds'|'hearts'|'spades' }
+        //
+        // BID_TYPES available: PASS, HOKUM, SUN, HOKUM_SECOND
+
+        // Example: Simple random bidding
+        const validBids = biddingState.validBids;
+        const randomBid = validBids[Math.floor(Math.random() * validBids.length)];
+
+        if (randomBid === 'hokum2') {
+            // Must choose a different suit than bidding card
+            const suits = ['clubs', 'diamonds', 'hearts', 'spades'];
+            const availableSuits = suits.filter(s => s !== biddingState.biddingCard.suit);
+            return { bidType: randomBid, suitChoice: availableSuits[0] };
+        }
+
+        return { bidType: randomBid };
+    }
+
+    async decideCard(trickState, legalCards) {
+        // REQUIRED: Return the card you want to play
+        // trickState: { currentTrick, trumpSuit, gameType, trickNumber }
+        // legalCards: Array of Card objects you can legally play
+        //
+        // Return: One Card object from legalCards
+
+        // Example: Play random legal card
+        return legalCards[Math.floor(Math.random() * legalCards.length)];
+    }
+
+    async declareProjects(detectedProjects) {
+        // Optional: Choose which projects to declare
+        // detectedProjects: Array of { type, cards, points }
+        // Return: Array of projects to declare (max 2)
+        return detectedProjects.slice(0, 2);
+    }
+
+    onCardPlayed(playerIndex, card) {
+        // Called when any player plays a card
+        // Use this to track played cards
+    }
+
+    onTrickWon(winnerIndex, trickCards) {
+        // Called when a trick is won
+    }
+}
+`;
+
+                const blob = new Blob([template], { type: 'text/javascript' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'custom_ai_template.js';
+                a.click();
+                URL.revokeObjectURL(url);
+
+                UIRenderer.log('AI template downloaded!', 'success');
+            },
+
+            downloadDeveloperGuide() {
+                const a = document.createElement('a');
+                a.href = 'docs/ai_comprehensive_guide.md';
+                a.download = 'ai_comprehensive_guide.md';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                UIRenderer.log('Developer guide downloaded!', 'success');
+            }
+        };
+
+        // ============================================================
+        // SECTION 16: INITIALIZATION
+        // ============================================================
+
+        function init() {
+            UIRenderer.log('Baloot AI Arena loaded. Click "Start New Game" to begin!', 'info');
+            UIRenderer.renderScoreboard();
+        }
+
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
