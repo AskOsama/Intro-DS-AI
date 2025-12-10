@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تعلم الآلة والشبكات العصبية - الأسبوع 4، الجلسة 3 - الختام الكبير للدورة">
+    <meta name="keywords" content="تعلم الآلة، الشبكات العصبية، التصنيف، التعلم العميق، الذكاء الاصطناعي">
+    <title>تعلم الآلة والشبكات العصبية | الأسبوع 4، الجلسة 3 - الختام الكبير</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Demo-specific styles for embedded classification demo */
+        .demo-container {
+            background: #1a1a2e;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            color: #fff;
+        }
+
+        .demo-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            background: #16213e;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .demo-control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .demo-control-group label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #9ca3af;
+            font-weight: bold;
+        }
+
+        .demo-control-group input[type="range"] {
+            width: 120px;
+        }
+
+        .demo-control-group select {
+            padding: 0.4rem;
+            border-radius: 6px;
+            border: 1px solid #374151;
+            background: #1f2937;
+            color: #fff;
+        }
+
+        .demo-btn-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .demo-btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .demo-btn-primary { background: #3498db; color: white; }
+        .demo-btn-primary:hover { background: #2980b9; transform: translateY(-2px); }
+        .demo-btn-secondary { background: #1f2937; color: #fff; border: 2px solid #374151; }
+        .demo-btn-success { background: #27ae60; color: white; }
+        .demo-btn-success:hover { background: #219a52; }
+
+        .demo-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            background: #1f2937;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-metric { text-align: center; }
+        .demo-metric .value { font-size: 1.4rem; font-weight: bold; }
+        .demo-metric .label { font-size: 0.7rem; text-transform: uppercase; color: #9ca3af; }
+        .demo-metric.equation .value { font-family: 'Courier New', monospace; color: #f1c40f; }
+        .demo-metric.accuracy .value { color: #27ae60; }
+        .demo-metric.errors .value { color: #e74c3c; }
+        .demo-metric.loss .value { color: #f97316; }
+
+        .demo-plot-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: #1f2937;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .demo-plot { position: relative; width: 100%; height: 100%; }
+        .demo-axis-label { position: absolute; font-size: 0.75rem; color: #9ca3af; }
+        .demo-axis-label.x-axis { bottom: 8px; left: 50%; transform: translateX(-50%); }
+        .demo-axis-label.y-axis { left: 8px; top: 50%; transform: rotate(-90deg) translateX(-50%); transform-origin: left center; }
+
+        .demo-point {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .demo-point.class-a { background: #3498db; border: 2px solid #2980b9; }
+        .demo-point.class-b { background: #e74c3c; border: 2px solid #c0392b; }
+        .demo-point.misclassified { box-shadow: 0 0 8px #f1c40f; }
+        .demo-point:hover { transform: translate(-50%, -50%) scale(1.3); z-index: 20; }
+
+        .demo-decision-line {
+            position: absolute;
+            background: #f1c40f;
+            height: 3px;
+            transform-origin: left center;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .demo-grid-line { position: absolute; background: rgba(255, 255, 255, 0.05); }
+        .demo-grid-line.horizontal { width: 100%; height: 1px; }
+        .demo-grid-line.vertical { width: 1px; height: 100%; }
+        .demo-tick { position: absolute; font-size: 0.65rem; color: #6b7280; }
+
+        .demo-legend { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }
+        .demo-legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; }
+        .demo-legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .demo-legend-dot.class-a { background: #3498db; }
+        .demo-legend-dot.class-b { background: #e74c3c; }
+        .demo-legend-dot.line { background: #f1c40f; width: 20px; height: 3px; border-radius: 0; }
+
+        .demo-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 0.4rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            pointer-events: none;
+            z-index: 100;
+            display: none;
+        }
+
+        /* Journey timeline styles */
+        .journey-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            position: relative;
+        }
+
+        .journey-timeline::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background: linear-gradient(270deg, #3498db, #9b59b6, #e74c3c, #27ae60);
+            border-radius: 2px;
+        }
+
+        .journey-week {
+            text-align: center;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .journey-week .week-num {
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-weight: bold;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .journey-week.week-1 .week-num { background: #3498db; }
+        .journey-week.week-2 .week-num { background: #9b59b6; }
+        .journey-week.week-3 .week-num { background: #e74c3c; }
+        .journey-week.week-4 .week-num { background: #27ae60; }
+
+        .journey-week .week-title { font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+        .journey-week .week-topics { font-size: 0.75rem; color: #666; line-height: 1.4; }
+
+        /* ML Types cards */
+        .ml-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .ml-type-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-right: 4px solid var(--secondary-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .ml-type-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .ml-type-card.supervised { border-right-color: #3498db; }
+        .ml-type-card.unsupervised { border-right-color: #9b59b6; }
+        .ml-type-card.reinforcement { border-right-color: #e74c3c; }
+
+        .ml-type-card h4 { margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.5rem; }
+        .ml-type-card .examples { font-size: 0.85rem; color: #666; margin-top: 0.5rem; }
+
+        /* Optimization table */
+        .optimization-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        .optimization-table th, .optimization-table td { padding: 0.75rem; border: 1px solid var(--border-color); text-align: center; }
+        .optimization-table th { background: #f8f9fa; font-weight: bold; }
+        .optimization-table .minimize { color: #e74c3c; }
+        .optimization-table .maximize { color: #27ae60; }
+
+        /* Neural network visualization */
+        .nn-visual { background: #f8f9fa; padding: 1.5rem; border-radius: 12px; text-align: center; margin: 1rem 0; }
+        .nn-layers { display: flex; justify-content: center; align-items: center; gap: 3rem; margin: 1rem 0; flex-direction: row-reverse; }
+        .nn-layer { display: flex; flex-direction: column; gap: 0.5rem; align-items: center; }
+        .nn-neuron {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        .nn-layer.input .nn-neuron { border-color: #3498db; background: rgba(52, 152, 219, 0.1); }
+        .nn-layer.hidden .nn-neuron { border-color: #9b59b6; background: rgba(155, 89, 182, 0.1); }
+        .nn-layer.output .nn-neuron { border-color: #27ae60; background: rgba(39, 174, 96, 0.1); }
+        .nn-arrow { font-size: 2rem; color: #ccc; }
+        .nn-layer-label { font-size: 0.8rem; color: #666; margin-top: 0.5rem; }
+
+        @media (max-width: 768px) {
+            .journey-timeline { flex-direction: column; gap: 1rem; }
+            .journey-timeline::before { display: none; }
+            .demo-controls { flex-direction: column; }
+            .demo-plot-container { height: 300px; }
+            .nn-layers { flex-wrap: wrap; gap: 1rem; }
+        }
+
+        /* Ensure code blocks are always left-to-right */
+        pre, code {
+            direction: ltr;
+            text-align: left;
+            unicode-bidi: embed;
+        }
+
+        .example pre {
+            direction: ltr;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="session3_week4.html" class="lang-button" title="Switch to English">English</a>
+    </div>
+
+    <header>
+        <h1>تعلم الآلة والشبكات العصبية</h1>
+        <p class="subtitle">الأسبوع 4، الجلسة 3 - الختام الكبير للدورة</p>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="table-of-contents no-print">
+        <h2>المحتويات</h2>
+        <ul>
+            <li><a href="#objectives">أهداف التعلم</a></li>
+            <li><a href="#journey">١. رحلة التعلم</a></li>
+            <li><a href="#ml-types">٢. أنواع تعلم الآلة</a></li>
+            <li><a href="#classification">٣. التصنيف: تعلم القرار</a></li>
+            <li><a href="#training">٤. عملية التدريب</a></li>
+            <li><a href="#optimization">٥. إطار التحسين</a></li>
+            <li><a href="#deep-learning">٦. من تعلم الآلة إلى التعلم العميق</a></li>
+            <li><a href="#activation">٧. دوال التنشيط</a></li>
+            <li><a href="#dag-nn">٨. الرسوم البيانية الموجهة والشبكات العصبية</a></li>
+            <li><a href="#ann">٩. الشبكات العصبية الاصطناعية</a></li>
+            <li><a href="#wrap-up">١٠. ربط كل شيء</a></li>
+            <li><a href="#resources">١١. الموارد والخطوات التالية</a></li>
+            <li><a href="#summary">١٢. الملخص والتمارين</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="objectives" class="learning-objectives">
+            <h2>أهداف التعلم</h2>
+            <p>مرحباً بكم في <strong>الختام الكبير</strong>! بنهاية هذه الجلسة، ستتمكن من:</p>
+            <ul>
+                <li>التمييز بين <strong>التعلم الموجه، غير الموجه، والتعزيزي</strong></li>
+                <li>فهم كيف يجد <strong>التصنيف</strong> حدود القرار من خلال التحسين</li>
+                <li>شرح دور <strong>دوال الهدف</strong> في تدريب تعلم الآلة</li>
+                <li>وصف كيف تمكّن <strong>دوال التنشيط</strong> التعلم العميق</li>
+                <li>ربط <strong>مفاهيم DAG</strong> ببنية الشبكات العصبية</li>
+                <li>رؤية كيف <strong>يترابط كل ما تعلمناه</strong> في هذه الدورة</li>
+            </ul>
+        </section>
+
+        <!-- Section 1: Course Journey -->
+        <section id="journey" class="content-section">
+            <h2>١. رحلة التعلم</h2>
+
+            <p>قبل الغوص في تعلم الآلة، دعونا نلقي نظرة على المسافة التي قطعناها! كل مفهوم تعلمناه يبني نحو هذه النهاية.</p>
+
+            <div class="journey-timeline">
+                <div class="journey-week week-4">
+                    <div class="week-num">أ٤</div>
+                    <div class="week-title">الذكاء</div>
+                    <div class="week-topics">البحث والتحسين<br>أنظمة المعرفة<br>تعلم الآلة</div>
+                </div>
+                <div class="journey-week week-3">
+                    <div class="week-num">أ٣</div>
+                    <div class="week-title">البيانات الضخمة</div>
+                    <div class="week-topics">خطوط DAG<br>المعالجة المتوازية<br>الحوسبة الموزعة</div>
+                </div>
+                <div class="journey-week week-2">
+                    <div class="week-num">أ٢</div>
+                    <div class="week-title">بايثون والبيانات</div>
+                    <div class="week-topics">إطارات Pandas<br>تنظيف البيانات<br>التصور</div>
+                </div>
+                <div class="journey-week week-1">
+                    <div class="week-num">أ١</div>
+                    <div class="week-title">ما هو الذكاء الاصطناعي؟</div>
+                    <div class="week-topics">وجهات نظر الذكاء الاصطناعي<br>الوكلاء الذكية<br>حل المشكلات</div>
+                </div>
+            </div>
+
+            <div class="key-message">
+                <strong>الصورة الكبيرة:</strong> تعلمنا <em>فهم الذكاء الاصطناعي</em>، ثم <em>التعامل مع البيانات</em>، ثم <em>المعالجة على نطاق واسع</em>، والآن سنتعلم كيف <em>تتعلم الآلات من البيانات</em> لتصبح ذكية!
+            </div>
+        </section>
+
+        <!-- Section 2: Types of ML -->
+        <section id="ml-types" class="content-section">
+            <h2>٢. أنواع تعلم الآلة</h2>
+
+            <p>لتعلم الآلة ثلاثة نماذج رئيسية، كل منها مناسب لأنواع مختلفة من المشاكل:</p>
+
+            <div class="ml-types-grid">
+                <div class="ml-type-card supervised">
+                    <h4>التعلم الموجه (Supervised)</h4>
+                    <p>التعلم من <strong>الأمثلة المُعلَّمة</strong>. يرى النموذج المدخلات والمخرجات الصحيحة أثناء التدريب.</p>
+                    <div class="examples">
+                        <strong>أمثلة:</strong> اكتشاف الرسائل المزعجة، التنبؤ بأسعار المنازل، التشخيص الطبي
+                    </div>
+                </div>
+
+                <div class="ml-type-card unsupervised">
+                    <h4>التعلم غير الموجه (Unsupervised)</h4>
+                    <p>إيجاد <strong>الأنماط المخفية</strong> في البيانات بدون تسميات. يكتشف النموذج البنية بنفسه.</p>
+                    <div class="examples">
+                        <strong>أمثلة:</strong> تقسيم العملاء، اكتشاف الشذوذ، نمذجة المواضيع
+                    </div>
+                </div>
+
+                <div class="ml-type-card reinforcement">
+                    <h4>التعلم التعزيزي (Reinforcement)</h4>
+                    <p>التعلم من خلال <strong>التجربة والخطأ</strong> مع المكافآت والعقوبات. يتعلم الوكيل الإجراءات المثلى.</p>
+                    <div class="examples">
+                        <strong>أمثلة:</strong> ألعاب (الشطرنج، Go)، الروبوتات، السيارات ذاتية القيادة
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-pattern">
+                <h4>مرجع سريع</h4>
+                <ul>
+                    <li><strong>لديك تسميات؟</strong> استخدم التعلم الموجه</li>
+                    <li><strong>تريد إيجاد أنماط؟</strong> استخدم التعلم غير الموجه</li>
+                    <li><strong>تحتاج لاتخاذ قرارات؟</strong> استخدم التعلم التعزيزي</li>
+                </ul>
+            </div>
+
+            <!-- ML Algorithm Comparison Demo Banner -->
+            <div style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; border-radius: 12px; text-align: center; padding: 2rem; margin: 2rem 0;">
+                <h3 style="color: white; margin-top: 0;">قارن خوارزميات تعلم الآلة تفاعلياً!</h3>
+                <p>شاهد كيف تحل الخوارزميات المختلفة (المصنف الخطي، شجرة القرار، K-Means) المشاكل</p>
+                <a href="ml-viz-v2.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #e74c3c; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                    عرض مقارنة خوارزميات تعلم الآلة
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 3: Classification -->
+        <section id="classification" class="content-section">
+            <h2>٣. التصنيف: تعلم القرار</h2>
+
+            <p>التصنيف هو أحد أكثر مهام تعلم الآلة شيوعاً. بالنظر إلى بيانات الإدخال، يتعلم النموذج التنبؤ بأي <strong>فئة</strong> تنتمي إليها.</p>
+
+            <div class="definition">
+                <h4>ما هو التصنيف؟</h4>
+                <p><strong>التصنيف</strong> = إيجاد أفضل <em>حد للقرار</em> يفصل بين فئات مختلفة من البيانات.</p>
+            </div>
+
+            <p>أمثلة من العالم الحقيقي:</p>
+            <ul>
+                <li><strong>البريد الإلكتروني:</strong> هل هذه الرسالة مزعجة أم لا؟</li>
+                <li><strong>الطب:</strong> هل هذا الورم حميد أم خبيث؟</li>
+                <li><strong>المالية:</strong> هل سيتخلف هذا العميل عن سداد قرضه؟</li>
+            </ul>
+
+            <h3>عرض تفاعلي: إيجاد أفضل حد للقرار</h3>
+
+            <p>استخدم هذا العرض التفاعلي لمشاهدة كيف يجد تعلم الآلة أفضل خط لفصل فئتين. شاهد <strong>دالة الهدف</strong> (الدقة، الأخطاء) تتحدث في الوقت الفعلي!</p>
+
+            <!-- EMBEDDED CLASSIFICATION DEMO -->
+            <div class="demo-container" id="classificationDemo">
+                <div class="demo-controls">
+                    <div class="demo-control-group">
+                        <label>الصعوبة</label>
+                        <select id="demoDifficulty">
+                            <option value="easy">سهل (فصل واضح)</option>
+                            <option value="medium" selected>متوسط</option>
+                            <option value="hard">صعب (تداخل)</option>
+                        </select>
+                    </div>
+                    <div class="demo-control-group">
+                        <label>الميل (m): <span id="slopeValue">0.0</span></label>
+                        <input type="range" id="demoSlope" min="-3" max="3" step="0.1" value="0">
+                    </div>
+                    <div class="demo-control-group">
+                        <label>التقاطع (c): <span id="interceptValue">2.0</span></label>
+                        <input type="range" id="demoIntercept" min="-5" max="5" step="0.1" value="2">
+                    </div>
+                    <div class="demo-control-group">
+                        <label>معدل التعلم</label>
+                        <input type="range" id="demoLR" min="0.001" max="0.1" step="0.001" value="0.01">
+                    </div>
+                    <div class="demo-btn-group">
+                        <button class="demo-btn demo-btn-secondary" id="demoGenerate">بيانات جديدة</button>
+                        <button class="demo-btn demo-btn-primary" id="demoStep">خطوة</button>
+                        <button class="demo-btn demo-btn-success" id="demoAutoFit">تلقائي</button>
+                        <button class="demo-btn demo-btn-secondary" id="demoReset">إعادة</button>
+                    </div>
+                </div>
+
+                <div class="demo-metrics">
+                    <div class="demo-metric equation">
+                        <div class="value" id="demoEquation">y = 0.0x + 2.0</div>
+                        <div class="label">حد القرار</div>
+                    </div>
+                    <div class="demo-metric accuracy">
+                        <div class="value" id="demoAccuracy">50%</div>
+                        <div class="label">الدقة</div>
+                    </div>
+                    <div class="demo-metric errors">
+                        <div class="value" id="demoErrors">25/50</div>
+                        <div class="label">خطأ</div>
+                    </div>
+                    <div class="demo-metric loss">
+                        <div class="value" id="demoLoss">0.693</div>
+                        <div class="label">الخسارة</div>
+                    </div>
+                </div>
+
+                <div class="demo-plot-container">
+                    <div class="demo-plot" id="demoPlot">
+                        <div class="demo-axis-label x-axis">الميزة X1</div>
+                        <div class="demo-axis-label y-axis">الميزة X2</div>
+                        <div class="demo-tooltip" id="demoTooltip"></div>
+                    </div>
+                </div>
+
+                <div class="demo-legend">
+                    <div class="demo-legend-item"><div class="demo-legend-dot class-a"></div> الفئة أ (أزرق)</div>
+                    <div class="demo-legend-item"><div class="demo-legend-dot class-b"></div> الفئة ب (أحمر)</div>
+                    <div class="demo-legend-item"><div class="demo-legend-dot line"></div> حد القرار</div>
+                </div>
+            </div>
+
+            <div class="key-message">
+                <strong>الفكرة الأساسية:</strong> تعلم الآلة هو في الأساس <em>مشكلة تحسين</em>. نبحث عن المعاملات (m و c) التي تقلل الأخطاء وتزيد الدقة. هذه هي <strong>دالة الهدف</strong> في العمل!
+            </div>
+        </section>
+
+        <!-- Section 4: Training Process -->
+        <section id="training" class="content-section">
+            <h2>٤. عملية التدريب</h2>
+
+            <p>كيف "تتعلم" الآلة فعلاً؟ من خلال عملية تكرارية تسمى <strong>التدريب</strong>:</p>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/supervised_training_loop.svg" alt="حلقة التدريب الموجه" class="content-image" onerror="this.style.display='none'">
+                <figcaption>حلقة التدريب: البيانات تتدفق للأمام، الأخطاء تتدفق للخلف</figcaption>
+            </figure>
+
+            <div class="definition">
+                <h4>حلقة التدريب</h4>
+                <ol>
+                    <li><strong>المرور الأمامي:</strong> تمرير البيانات عبر النموذج للحصول على تنبؤات</li>
+                    <li><strong>حساب الخسارة:</strong> مقارنة التنبؤات بالإجابات الفعلية (باستخدام دالة الهدف)</li>
+                    <li><strong>المرور الخلفي:</strong> حساب كيفية ضبط المعاملات لتقليل الخسارة</li>
+                    <li><strong>التحديث:</strong> ضبط المعاملات قليلاً في الاتجاه الصحيح</li>
+                    <li><strong>التكرار:</strong> القيام بهذا آلاف المرات حتى تقل الخسارة</li>
+                </ol>
+            </div>
+
+            <h3>الانحدار التدريجي: إيجاد أدنى نقطة</h3>
+
+            <p>تخيل أنك معصوب العينين على أرض تلية، تحاول إيجاد أدنى وادي. تشعر بميل الأرض وتتخذ خطوات صغيرة نحو الأسفل. هذا هو <strong>الانحدار التدريجي</strong>!</p>
+
+            <div class="example">
+                <pre><code># Gradient Descent in Python (simplified)
+def gradient_descent(X, y, learning_rate=0.01, epochs=1000):
+    m, c = 0, 0  # Start with random parameters
+
+    for _ in range(epochs):
+        # 1. Make predictions (إجراء التنبؤات)
+        predictions = m * X + c
+
+        # 2. Calculate error (loss) (حساب الخطأ)
+        error = predictions - y
+
+        # 3. Calculate gradients (حساب التدرجات)
+        dm = (2/len(X)) * sum(X * error)
+        dc = (2/len(X)) * sum(error)
+
+        # 4. Update parameters (تحديث المعاملات)
+        m = m - learning_rate * dm
+        c = c - learning_rate * dc
+
+    return m, c</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h4>لماذا "معدل التعلم" مهم</h4>
+                <ul>
+                    <li><strong>صغير جداً:</strong> التعلم بطيء جداً (خطوات صغيرة)</li>
+                    <li><strong>كبير جداً:</strong> يتجاوز النقطة المثلى (خطوات عملاقة تفوت الهدف)</li>
+                    <li><strong>مناسب:</strong> يتقارب بكفاءة نحو أفضل حل</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 5: Optimization Framework -->
+        <section id="optimization" class="content-section">
+            <h2>٥. إطار التحسين</h2>
+
+            <p>تذكر <strong>دوال الهدف</strong> من الجلسة ١؟ تعلم الآلة يدور كله حول التحسين!</p>
+
+            <div class="key-message">
+                <strong>الارتباط:</strong> خوارزميات البحث ودوال الهدف التي تعلمناها سابقاً هي بالضبط ما يشغّل تعلم الآلة. نحن نبحث عن أفضل معاملات النموذج!
+            </div>
+
+            <h3>التقليل مقابل التعظيم</h3>
+
+            <table class="optimization-table">
+                <thead>
+                    <tr>
+                        <th>الهدف</th>
+                        <th>ما نقيسه</th>
+                        <th>أمثلة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="minimize"><strong>تقليل</strong></td>
+                        <td>الأخطاء، الخسارة، التكلفة</td>
+                        <td>خسارة MSE، Cross-entropy، معدل الخطأ</td>
+                    </tr>
+                    <tr>
+                        <td class="maximize"><strong>تعظيم</strong></td>
+                        <td>الدقة، المكافآت، الربح</td>
+                        <td>دقة التصنيف، F1 score، العائد</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 6: From ML to Deep Learning -->
+        <section id="deep-learning" class="content-section">
+            <h2>٦. من تعلم الآلة إلى التعلم العميق</h2>
+
+            <p>تعلم الآلة التقليدي يعمل بشكل رائع للعديد من المشاكل، لكن ماذا عن الأنماط المعقدة مثل الصور والكلام واللغة؟</p>
+
+            <h3>محدودية النماذج الخطية</h3>
+
+            <p>الخط المستقيم يمكنه فقط فصل البيانات القابلة للفصل خطياً. لكن بيانات العالم الحقيقي غالباً ما تحتوي على <strong>أنماط معقدة غير خطية</strong>.</p>
+
+            <div class="key-message">
+                <strong>الحل:</strong> التعلم العميق يستخدم <em>دوال التنشيط</em> لإدخال اللاخطية، مما يسمح للنموذج بتعلم حدود قرار منحنية معقدة!
+            </div>
+
+            <h3>ما الذي يجعل التعلم العميق "عميقاً"؟</h3>
+
+            <ul>
+                <li><strong>طبقات متعددة:</strong> تكديس العديد من الدوال البسيطة لتعلم أنماط معقدة</li>
+                <li><strong>تنشيط غير خطي:</strong> تحويل المخرجات لالتقاط المنحنيات والأشكال</li>
+                <li><strong>تعلم الميزات التلقائي:</strong> لا حاجة لهندسة الميزات يدوياً</li>
+            </ul>
+        </section>
+
+        <!-- Section 7: Activation Functions -->
+        <section id="activation" class="content-section">
+            <h2>٧. دوال التنشيط</h2>
+
+            <p>دوال التنشيط هي المكون السري الذي يعطي الشبكات العصبية قوتها!</p>
+
+            <div class="definition">
+                <h4>ما هي دالة التنشيط؟</h4>
+                <p>دالة رياضية تُطبق على مخرج كل خلية عصبية لإدخال <strong>اللاخطية</strong>. بدونها، ستكون الشبكة العصبية مجرد نموذج خطي.</p>
+            </div>
+
+            <h3>دوال التنشيط الشائعة</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>الدالة</th>
+                        <th>الصيغة</th>
+                        <th>النطاق</th>
+                        <th>الأفضل لـ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Sigmoid</strong></td>
+                        <td><code>1 / (1 + e^(-x))</code></td>
+                        <td>(0, 1)</td>
+                        <td>مخرج التصنيف الثنائي</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ReLU</strong></td>
+                        <td><code>max(0, x)</code></td>
+                        <td>[0, inf)</td>
+                        <td>الطبقات المخفية (الأكثر شيوعاً)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tanh</strong></td>
+                        <td><code>(e^x - e^(-x)) / (e^x + e^(-x))</code></td>
+                        <td>(-1, 1)</td>
+                        <td>الطبقات المخفية، RNNs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Softmax</strong></td>
+                        <td><code>e^xi / sum(e^xj)</code></td>
+                        <td>(0, 1)، مجموع=1</td>
+                        <td>مخرج التصنيف متعدد الفئات</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Interactive Demo Banner -->
+            <div style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); color: white; border-radius: 12px; text-align: center; padding: 2rem; margin: 2rem 0;">
+                <h3 style="color: white; margin-top: 0;">استكشف دوال التنشيط تفاعلياً!</h3>
+                <p>شاهد كيف تحول كل دالة تنشيط المدخلات. اسحب الشريط وشاهد تغير المخرج!</p>
+                <a href="activation_functions_demo_ar.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #9b59b6; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                    عرض دوال التنشيط التفاعلي
+                </a>
+            </div>
+
+            <div class="example">
+                <pre><code># Activation Functions in Python
+import numpy as np
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def relu(x):
+    return np.maximum(0, x)
+
+def tanh(x):
+    return np.tanh(x)
+
+# Example: ReLU turns negative values to 0
+# مثال: ReLU يحول القيم السالبة إلى صفر
+print(relu(np.array([-2, -1, 0, 1, 2])))
+# Output: [0, 0, 0, 1, 2]</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 8: DAGs and Neural Networks -->
+        <section id="dag-nn" class="content-section">
+            <h2>٨. الرسوم البيانية الموجهة والشبكات العصبية</h2>
+
+            <p>تذكر <strong>DAGs (الرسوم البيانية الموجهة غير الدورية)</strong> من الأسبوع ٣؟ إليك ارتباط مذهل:</p>
+
+            <div class="key-message">
+                <strong>الشبكات العصبية هي DAGs!</strong> البيانات تتدفق في اتجاه واحد عبر طبقات من الخلايا العصبية، تماماً كما يعالج خط DAG البيانات عبر مراحل.
+            </div>
+
+            <h3>الارتباط</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>مفهوم DAG (الأسبوع ٣)</th>
+                        <th>المكافئ في الشبكة العصبية</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>العقدة</td><td>الخلية العصبية</td></tr>
+                    <tr><td>الحافة (موجهة)</td><td>اتصال الوزن</td></tr>
+                    <tr><td>البيانات المتدفقة عبر الخط</td><td>التنشيطات المتدفقة للأمام</td></tr>
+                    <tr><td>بدون دورات (غير دوري)</td><td>بنية التغذية الأمامية</td></tr>
+                    <tr><td>الفروع المتوازية</td><td>الخلايا العصبية في نفس الطبقة</td></tr>
+                </tbody>
+            </table>
+
+            <div class="key-pattern">
+                <h4>لماذا هذا مهم</h4>
+                <p>فهم DAGs يساعدك على فهم الشبكات العصبية! نفس مفاهيم المعالجة المتوازية من الحوسبة الموزعة تنطبق على التعلم العميق المُسرَّع بـ GPU.</p>
+            </div>
+        </section>
+
+        <!-- Section 9: Artificial Neural Networks -->
+        <section id="ann" class="content-section">
+            <h2>٩. الشبكات العصبية الاصطناعية</h2>
+
+            <p>الشبكة العصبية الاصطناعية (ANN) هي نموذج حسابي مستوحى من الخلايا العصبية البيولوجية في الدماغ.</p>
+
+            <h3>نظرة عامة على البنية</h3>
+
+            <div class="nn-visual">
+                <div class="nn-layers">
+                    <div class="nn-layer output">
+                        <div class="nn-neuron">y</div>
+                        <div class="nn-layer-label">المخرج</div>
+                    </div>
+                    <div class="nn-arrow">&larr;</div>
+                    <div class="nn-layer hidden">
+                        <div class="nn-neuron">h5</div>
+                        <div class="nn-neuron">h6</div>
+                        <div class="nn-layer-label">طبقة مخفية</div>
+                    </div>
+                    <div class="nn-arrow">&larr;</div>
+                    <div class="nn-layer hidden">
+                        <div class="nn-neuron">h1</div>
+                        <div class="nn-neuron">h2</div>
+                        <div class="nn-neuron">h3</div>
+                        <div class="nn-neuron">h4</div>
+                        <div class="nn-layer-label">طبقة مخفية</div>
+                    </div>
+                    <div class="nn-arrow">&larr;</div>
+                    <div class="nn-layer input">
+                        <div class="nn-neuron">x1</div>
+                        <div class="nn-neuron">x2</div>
+                        <div class="nn-neuron">x3</div>
+                        <div class="nn-layer-label">طبقة الإدخال</div>
+                    </div>
+                </div>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 1rem;">كل اتصال له <strong>وزن</strong> قابل للتعلم. التدريب يضبط هذه الأوزان لتقليل الخسارة.</p>
+            </div>
+
+            <h3>كيف تعمل الخلية العصبية الواحدة</h3>
+
+            <div class="definition">
+                <h4>حساب الخلية العصبية</h4>
+                <p><code>المخرج = التنشيط(مجموع(المدخلات * الأوزان) + الانحياز)</code></p>
+                <ol>
+                    <li>ضرب كل مدخل بوزنه</li>
+                    <li>جمع كل المدخلات الموزونة</li>
+                    <li>إضافة مصطلح الانحياز</li>
+                    <li>تطبيق دالة التنشيط</li>
+                </ol>
+            </div>
+
+            <div class="example">
+                <pre><code># Building a Neural Network with Keras
+from tensorflow import keras
+
+model = keras.Sequential([
+    # Input layer: 10 features (طبقة الإدخال: 10 ميزات)
+    keras.layers.Dense(64, activation='relu', input_shape=(10,)),
+
+    # Hidden layer (طبقة مخفية)
+    keras.layers.Dense(32, activation='relu'),
+
+    # Output layer: binary classification (طبقة المخرج: تصنيف ثنائي)
+    keras.layers.Dense(1, activation='sigmoid')
+])
+
+# Compile: define loss and optimizer (التجميع: تحديد الخسارة والمحسّن)
+model.compile(
+    optimizer='adam',
+    loss='binary_crossentropy',
+    metrics=['accuracy']
+)
+
+# Train: learn from data (التدريب: التعلم من البيانات)
+model.fit(X_train, y_train, epochs=10, validation_split=0.2)</code></pre>
+            </div>
+
+            <h3>الانتشار العكسي: كيف تتعلم الشبكات العصبية</h3>
+
+            <p><strong>الانتشار العكسي</strong> هو الخوارزمية التي تجعل التدريب ممكناً:</p>
+            <ol>
+                <li>المرور الأمامي: حساب التنبؤات</li>
+                <li>حساب الخسارة (الخطأ)</li>
+                <li>المرور الخلفي: حساب التدرجات لكل وزن (باستخدام قاعدة السلسلة)</li>
+                <li>تحديث الأوزان باستخدام الانحدار التدريجي</li>
+            </ol>
+
+            <div class="key-pattern">
+                <h4>سحر العمق</h4>
+                <p>كل طبقة تتعلم ميزات أكثر تجريداً. في التعرف على الصور:</p>
+                <ul>
+                    <li><strong>الطبقة ١:</strong> الحواف والخطوط</li>
+                    <li><strong>الطبقة ٢:</strong> الأشكال والقوام</li>
+                    <li><strong>الطبقة ٣:</strong> الأجزاء (العيون، العجلات)</li>
+                    <li><strong>الطبقة ٤:</strong> الكائنات (الوجوه، السيارات)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 10: Connecting Everything -->
+        <section id="wrap-up" class="content-section">
+            <h2>١٠. ربط كل شيء</h2>
+
+            <p>دعونا نرى كيف يترابط كل ما تعلمناه في هذه الدورة لبناء أنظمة ذكية!</p>
+
+            <div style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); color: white; border-radius: 12px; padding: 2rem; margin: 2rem 0;">
+                <h3 style="color: white; margin-top: 0;">خط أنابيب علم البيانات الكامل</h3>
+
+                <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.95); border-radius: 8px; overflow: hidden; color: #2c3e50;">
+                    <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                        <td style="padding: 1rem; font-weight: bold;">الأسبوع ١: الفهم</td>
+                        <td style="padding: 1rem;">ما هو الذكاء الاصطناعي؟ أنواع الذكاء، بنيات الوكلاء</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                        <td style="padding: 1rem; font-weight: bold;">الأسبوع ٢: معالجة البيانات</td>
+                        <td style="padding: 1rem;">Python، Pandas، تنظيف وتحضير البيانات</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                        <td style="padding: 1rem; font-weight: bold;">الأسبوع ٣: النطاق</td>
+                        <td style="padding: 1rem;">خطوط DAG، المعالجة المتوازية، الحوسبة الموزعة</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; font-weight: bold;">الأسبوع ٤: الذكاء</td>
+                        <td style="padding: 1rem;">البحث، التحسين، أنظمة المعرفة، تعلم الآلة</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>كيف يترابط كل شيء</h3>
+
+            <ul>
+                <li><strong>تنظيف البيانات (الأسبوع ٢)</strong> يُحضّر مدخلات عالية الجودة لنماذج تعلم الآلة</li>
+                <li><strong>خطوط DAG (الأسبوع ٣)</strong> تُنظّم التدفق في الشبكات العصبية</li>
+                <li><strong>المعالجة المتوازية (الأسبوع ٣)</strong> تُمكّن تدريب GPU للشبكات العميقة</li>
+                <li><strong>دوال الهدف (الأسبوع ٤)</strong> هي دوال الخسارة التي نقللها</li>
+                <li><strong>خوارزميات البحث (الأسبوع ٤)</strong> هي كيف نُحسّن المعاملات</li>
+            </ul>
+
+            <div class="key-message">
+                <strong>تهانينا!</strong> أنت الآن تفهم المفاهيم الأساسية التي تشغّل أنظمة الذكاء الاصطناعي الحديثة. من البيانات إلى الذكاء، رأيت الصورة الكاملة!
+            </div>
+        </section>
+
+        <!-- Section 11: Resources -->
+        <section id="resources" class="content-section">
+            <h2>١١. الموارد والخطوات التالية</h2>
+
+            <p>هل أنت مستعد لمواصلة رحلتك؟ إليك موارد لاستكشاف المزيد:</p>
+
+            <!-- Resources Link Banner -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; text-align: center; padding: 2rem; margin: 2rem 0;">
+                <h3 style="color: white; margin-top: 0;">موارد تعلم الآلة الشاملة</h3>
+                <p>أُطر الذكاء الاصطناعي، مجموعات البيانات، أنواع الشبكات العصبية، وأدلة البدء</p>
+                <a href="ml_resources_ar.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 0.5rem;">
+                    عرض صفحة موارد تعلم الآلة
+                </a>
+            </div>
+
+            <h3>مرجع سريع: الأُطر الشائعة</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr><th>الإطار</th><th>الأفضل لـ</th><th>الصعوبة</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>scikit-learn</strong></td><td>تعلم الآلة الكلاسيكي، المبتدئين</td><td>سهل</td></tr>
+                    <tr><td><strong>Keras</strong></td><td>الشبكات العصبية، النماذج الأولية</td><td>سهل</td></tr>
+                    <tr><td><strong>TensorFlow</strong></td><td>التعلم العميق للإنتاج</td><td>متوسط</td></tr>
+                    <tr><td><strong>PyTorch</strong></td><td>البحث، المرونة</td><td>متوسط</td></tr>
+                    <tr><td><strong>Hugging Face</strong></td><td>NLP، المحولات، LLMs</td><td>متوسط</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 12: Summary -->
+        <section id="summary" class="content-section">
+            <h2>١٢. الملخص والتمارين</h2>
+
+            <h3>المصطلحات الأساسية</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr><th>المصطلح بالإنجليزية</th><th>المصطلح بالعربية</th><th>التعريف</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Machine Learning</td><td>تعلم الآلة</td><td>أنظمة تتعلم من البيانات لعمل تنبؤات</td></tr>
+                    <tr><td>Classification</td><td>التصنيف</td><td>التنبؤ بأي فئة تنتمي إليها البيانات</td></tr>
+                    <tr><td>Gradient Descent</td><td>الانحدار التدريجي</td><td>خوارزمية تحسين تجد أقل خسارة</td></tr>
+                    <tr><td>Activation Function</td><td>دالة التنشيط</td><td>دالة غير خطية تُطبق على مخرجات الخلايا العصبية</td></tr>
+                    <tr><td>Neural Network</td><td>الشبكة العصبية</td><td>طبقات من الخلايا العصبية تتعلم الأنماط</td></tr>
+                    <tr><td>Loss Function</td><td>دالة الخسارة</td><td>تقيس مدى خطأ التنبؤات</td></tr>
+                    <tr><td>Backpropagation</td><td>الانتشار العكسي</td><td>خوارزمية لحساب التدرجات للتعلم</td></tr>
+                    <tr><td>Deep Learning</td><td>التعلم العميق</td><td>شبكات عصبية بعدة طبقات</td></tr>
+                </tbody>
+            </table>
+
+            <h3>أسئلة التمرين</h3>
+
+            <div class="example">
+                <h4>السؤال ١</h4>
+                <p>ما الفرق الرئيسي بين التعلم الموجه والتعلم غير الموجه؟</p>
+                <details>
+                    <summary>إظهار الإجابة</summary>
+                    <p><strong>التعلم الموجه</strong> يستخدم بيانات مُعلَّمة (مدخلات + مخرجات صحيحة) لتدريب النموذج. <strong>التعلم غير الموجه</strong> يجد الأنماط في البيانات غير المُعلَّمة بدون معرفة "الإجابات الصحيحة".</p>
+                </details>
+            </div>
+
+            <div class="example">
+                <h4>السؤال ٢</h4>
+                <p>لماذا تحتاج الشبكات العصبية إلى دوال التنشيط؟</p>
+                <details>
+                    <summary>إظهار الإجابة</summary>
+                    <p>بدون دوال التنشيط، ستكون الشبكة العصبية مجرد نموذج خطي (بغض النظر عن عدد الطبقات). دوال التنشيط تُدخل <strong>اللاخطية</strong>، مما يسمح للشبكة بتعلم أنماط معقدة مثل المنحنيات والأشكال.</p>
+                </details>
+            </div>
+
+            <div class="example">
+                <h4>السؤال ٣</h4>
+                <p>كيف تشبه الشبكة العصبية الرسم البياني الموجه غير الدوري (DAG)؟</p>
+                <details>
+                    <summary>إظهار الإجابة</summary>
+                    <p>في كلا البنيتين: (١) البيانات تتدفق في اتجاه واحد (موجه)، (٢) لا توجد دورات (غير دوري)، (٣) العقد (الخلايا العصبية) تعالج البيانات، (٤) الحواف (الأوزان) تربط العقد، (٥) الفروع المتوازية يمكنها المعالجة في وقت واحد.</p>
+                </details>
+            </div>
+
+            <div class="example">
+                <h4>السؤال ٤</h4>
+                <p>ما دور دالة الهدف في تعلم الآلة؟</p>
+                <details>
+                    <summary>إظهار الإجابة</summary>
+                    <p>دالة الهدف (دالة الخسارة) تقيس مدى جودة أداء النموذج. التدريب هو مشكلة تحسين حيث نبحث عن معاملات تقلل هذه الدالة. إنها توجه عملية التعلم بإخبار النموذج بكيفية التحسن.</p>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p class="no-print">
+            <a href="index_ar.html">&rarr; العودة إلى الصفحة الرئيسية</a>
+        </p>
+        <p>&copy; 2025 دورة مقدمة في علوم البيانات والذكاء الاصطناعي</p>
+    </footer>
+
+    <!-- Classification Demo JavaScript -->
+    <script>
+        // Classification Demo State
+        const demoState = {
+            points: [],
+            m: 0.0,       // Start horizontal (clearly wrong)
+            c: 2.0,       // Start high up
+            learningRate: 0.01,
+            isRunning: false,
+            difficulty: 'medium',
+            numPoints: 60
+        };
+
+        // DOM Elements
+        const demoElements = {
+            plot: document.getElementById('demoPlot'),
+            difficulty: document.getElementById('demoDifficulty'),
+            slope: document.getElementById('demoSlope'),
+            slopeValue: document.getElementById('slopeValue'),
+            intercept: document.getElementById('demoIntercept'),
+            interceptValue: document.getElementById('interceptValue'),
+            lr: document.getElementById('demoLR'),
+            equation: document.getElementById('demoEquation'),
+            accuracy: document.getElementById('demoAccuracy'),
+            errors: document.getElementById('demoErrors'),
+            loss: document.getElementById('demoLoss'),
+            tooltip: document.getElementById('demoTooltip'),
+            btnGenerate: document.getElementById('demoGenerate'),
+            btnStep: document.getElementById('demoStep'),
+            btnAutoFit: document.getElementById('demoAutoFit'),
+            btnReset: document.getElementById('demoReset')
+        };
+
+        function initDemo() {
+            generateData();
+            setupDemoListeners();
+        }
+
+        function generateData() {
+            demoState.points = [];
+            const difficulty = demoElements.difficulty.value;
+            const separation = { 'easy': 2.5, 'medium': 1.5, 'hard': 0.8 }[difficulty];
+
+            for (let i = 0; i < demoState.numPoints / 2; i++) {
+                const x = Math.random() * 8 - 4;
+                const y = x + separation + (Math.random() - 0.5) * 2;
+                demoState.points.push({ x, y, class: 'a' });
+            }
+
+            for (let i = 0; i < demoState.numPoints / 2; i++) {
+                const x = Math.random() * 8 - 4;
+                const y = x - separation + (Math.random() - 0.5) * 2;
+                demoState.points.push({ x, y, class: 'b' });
+            }
+
+            renderDemo();
+        }
+
+        function setupDemoListeners() {
+            demoElements.difficulty.addEventListener('change', generateData);
+
+            demoElements.slope.addEventListener('input', (e) => {
+                demoState.m = parseFloat(e.target.value);
+                demoElements.slopeValue.textContent = demoState.m.toFixed(1);
+                renderDemo();
+            });
+
+            demoElements.intercept.addEventListener('input', (e) => {
+                demoState.c = parseFloat(e.target.value);
+                demoElements.interceptValue.textContent = demoState.c.toFixed(1);
+                renderDemo();
+            });
+
+            demoElements.lr.addEventListener('input', (e) => {
+                demoState.learningRate = parseFloat(e.target.value);
+            });
+
+            demoElements.btnGenerate.addEventListener('click', generateData);
+            demoElements.btnStep.addEventListener('click', gradientStep);
+            demoElements.btnAutoFit.addEventListener('click', toggleAutoFit);
+            demoElements.btnReset.addEventListener('click', resetDemo);
+        }
+
+        function renderDemo() {
+            const existingPoints = demoElements.plot.querySelectorAll('.demo-point, .demo-decision-line, .demo-grid-line, .demo-tick');
+            existingPoints.forEach(el => el.remove());
+
+            const plotWidth = demoElements.plot.clientWidth;
+            const plotHeight = demoElements.plot.clientHeight;
+            const padding = { left: 20, right: 50, top: 20, bottom: 40 };
+
+            const xMin = -5, xMax = 5;
+            const yMin = -5, yMax = 5;
+
+            const xScale = (x) => padding.left + (x - xMin) / (xMax - xMin) * (plotWidth - padding.left - padding.right);
+            const yScale = (y) => plotHeight - padding.bottom - (y - yMin) / (yMax - yMin) * (plotHeight - padding.top - padding.bottom);
+
+            // Draw grid
+            for (let x = -4; x <= 4; x += 2) {
+                const line = document.createElement('div');
+                line.className = 'demo-grid-line vertical';
+                line.style.left = `${xScale(x)}px`;
+                line.style.top = `${padding.top}px`;
+                line.style.height = `${plotHeight - padding.top - padding.bottom}px`;
+                demoElements.plot.appendChild(line);
+
+                const tick = document.createElement('div');
+                tick.className = 'demo-tick';
+                tick.style.left = `${xScale(x)}px`;
+                tick.style.bottom = `${padding.bottom - 18}px`;
+                tick.style.transform = 'translateX(-50%)';
+                tick.textContent = x;
+                demoElements.plot.appendChild(tick);
+            }
+
+            for (let y = -4; y <= 4; y += 2) {
+                const line = document.createElement('div');
+                line.className = 'demo-grid-line horizontal';
+                line.style.left = `${padding.left}px`;
+                line.style.top = `${yScale(y)}px`;
+                line.style.width = `${plotWidth - padding.left - padding.right}px`;
+                demoElements.plot.appendChild(line);
+
+                const tick = document.createElement('div');
+                tick.className = 'demo-tick';
+                tick.style.right = `${padding.right - 25}px`;
+                tick.style.top = `${yScale(y)}px`;
+                tick.style.transform = 'translateY(-50%)';
+                tick.textContent = y;
+                demoElements.plot.appendChild(tick);
+            }
+
+            // Draw decision line
+            const x1 = xMin, x2 = xMax;
+            const y1 = demoState.m * x1 + demoState.c;
+            const y2 = demoState.m * x2 + demoState.c;
+
+            const lineX1 = xScale(x1), lineY1 = yScale(y1);
+            const lineX2 = xScale(x2), lineY2 = yScale(y2);
+
+            const lineLength = Math.sqrt(Math.pow(lineX2 - lineX1, 2) + Math.pow(lineY2 - lineY1, 2));
+            const lineAngle = Math.atan2(lineY1 - lineY2, lineX2 - lineX1);
+
+            const decisionLine = document.createElement('div');
+            decisionLine.className = 'demo-decision-line';
+            decisionLine.style.left = `${lineX1}px`;
+            decisionLine.style.top = `${lineY1}px`;
+            decisionLine.style.width = `${lineLength}px`;
+            decisionLine.style.transform = `rotate(${-lineAngle}rad)`;
+            demoElements.plot.appendChild(decisionLine);
+
+            let errors = 0;
+            let totalLoss = 0;
+
+            demoState.points.forEach((point, idx) => {
+                const predictedY = demoState.m * point.x + demoState.c;
+                const predictedClass = point.y > predictedY ? 'a' : 'b';
+                const isMisclassified = predictedClass !== point.class;
+
+                if (isMisclassified) errors++;
+
+                const distance = Math.abs(point.y - predictedY);
+                totalLoss += distance * distance;
+
+                const pointEl = document.createElement('div');
+                pointEl.className = `demo-point class-${point.class}`;
+                if (isMisclassified) pointEl.classList.add('misclassified');
+
+                pointEl.style.left = `${xScale(point.x)}px`;
+                pointEl.style.top = `${yScale(point.y)}px`;
+
+                pointEl.addEventListener('mouseenter', (e) => {
+                    demoElements.tooltip.style.display = 'block';
+                    demoElements.tooltip.innerHTML = `فئة ${point.class === 'a' ? 'أ' : 'ب'}<br>x: ${point.x.toFixed(2)}<br>y: ${point.y.toFixed(2)}`;
+                    demoElements.tooltip.style.left = `${xScale(point.x) + 15}px`;
+                    demoElements.tooltip.style.top = `${yScale(point.y) - 10}px`;
+                });
+
+                pointEl.addEventListener('mouseleave', () => {
+                    demoElements.tooltip.style.display = 'none';
+                });
+
+                demoElements.plot.appendChild(pointEl);
+            });
+
+            const accuracy = ((demoState.numPoints - errors) / demoState.numPoints * 100).toFixed(1);
+            const mse = (totalLoss / demoState.numPoints).toFixed(3);
+
+            demoElements.equation.textContent = `y = ${demoState.m.toFixed(2)}x + ${demoState.c.toFixed(2)}`;
+            demoElements.accuracy.textContent = `${accuracy}%`;
+            demoElements.errors.textContent = `${errors}/${demoState.numPoints}`;
+            demoElements.loss.textContent = mse;
+        }
+
+        function gradientStep() {
+            let dm = 0, dc = 0;
+            const n = demoState.points.length;
+
+            demoState.points.forEach(point => {
+                const predicted = demoState.m * point.x + demoState.c;
+                const target = point.class === 'a' ? point.y + 0.5 : point.y - 0.5;
+                const error = predicted - target;
+
+                dm += (2/n) * point.x * error;
+                dc += (2/n) * error;
+            });
+
+            demoState.m -= demoState.learningRate * dm * 10;
+            demoState.c -= demoState.learningRate * dc * 10;
+
+            demoState.m = Math.max(-3, Math.min(3, demoState.m));
+            demoState.c = Math.max(-5, Math.min(5, demoState.c));
+
+            demoElements.slope.value = demoState.m;
+            demoElements.slopeValue.textContent = demoState.m.toFixed(1);
+            demoElements.intercept.value = demoState.c;
+            demoElements.interceptValue.textContent = demoState.c.toFixed(1);
+
+            renderDemo();
+        }
+
+        function toggleAutoFit() {
+            if (demoState.isRunning) {
+                demoState.isRunning = false;
+                demoElements.btnAutoFit.textContent = 'تلقائي';
+            } else {
+                demoState.isRunning = true;
+                demoElements.btnAutoFit.textContent = 'إيقاف';
+                autoFitLoop();
+            }
+        }
+
+        function autoFitLoop() {
+            if (!demoState.isRunning) return;
+
+            gradientStep();
+
+            const currentErrors = parseInt(demoElements.errors.textContent.split('/')[0]);
+            if (currentErrors <= 2) {
+                demoState.isRunning = false;
+                demoElements.btnAutoFit.textContent = 'تلقائي';
+                return;
+            }
+
+            setTimeout(autoFitLoop, 100);
+        }
+
+        function resetDemo() {
+            demoState.m = 0.0;
+            demoState.c = 2.0;
+            demoState.isRunning = false;
+
+            demoElements.slope.value = 0.0;
+            demoElements.slopeValue.textContent = '0.0';
+            demoElements.intercept.value = 2.0;
+            demoElements.interceptValue.textContent = '2.0';
+            demoElements.btnAutoFit.textContent = 'تلقائي';
+
+            renderDemo();
+        }
+
+        window.addEventListener('resize', renderDemo);
+        document.addEventListener('DOMContentLoaded', initDemo);
+    </script>
+</body>
+</html>

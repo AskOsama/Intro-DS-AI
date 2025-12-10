@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="مصادر تعلم الآلة - أطر الذكاء الاصطناعي، مجموعات البيانات، أنواع الشبكات العصبية، وأدلة البدء السريع">
+    <meta name="keywords" content="تعلم الآلة, TensorFlow, PyTorch, Keras, Hugging Face, الشبكات العصبية, مجموعات البيانات">
+    <title>مصادر تعلم الآلة | أطر الذكاء الاصطناعي ومجموعات البيانات وأنواع الشبكات العصبية</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', 'Segoe UI', Arial, sans-serif;
+        }
+
+        /* Resource page specific styles */
+        .resource-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .resource-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .resource-header p {
+            margin: 0.5rem 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .resource-nav {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .resource-nav a {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .resource-nav a:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .framework-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .framework-table th, .framework-table td {
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            text-align: right;
+        }
+
+        .framework-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .framework-table tr:hover {
+            background: rgba(52, 152, 219, 0.05);
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .difficulty-easy {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty-hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .framework-logo {
+            width: 30px;
+            height: 30px;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .nn-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .nn-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--secondary-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nn-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .nn-card.cnn { border-top-color: #3498db; }
+        .nn-card.rnn { border-top-color: #9b59b6; }
+        .nn-card.lstm { border-top-color: #e74c3c; }
+        .nn-card.transformer { border-top-color: #27ae60; }
+
+        .nn-card h3 {
+            margin: 0 0 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nn-card.cnn h3 { color: #3498db; }
+        .nn-card.rnn h3 { color: #9b59b6; }
+        .nn-card.lstm h3 { color: #e74c3c; }
+        .nn-card.transformer h3 { color: #27ae60; }
+
+        .nn-card .subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .nn-card .key-concept {
+            background: #f8f9fa;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .nn-card .key-concept strong {
+            color: var(--primary-color);
+        }
+
+        .nn-card .applications {
+            font-size: 0.9rem;
+        }
+
+        .nn-card .applications ul {
+            margin: 0.5rem 1.5rem 0 0;
+            padding: 0;
+        }
+
+        .nn-card .applications li {
+            margin: 0.3rem 0;
+        }
+
+        .dataset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .dataset-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-right: 4px solid var(--secondary-color);
+        }
+
+        .dataset-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+        }
+
+        .dataset-card .url {
+            font-family: monospace;
+            background: #f8f9fa;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            word-break: break-all;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .dataset-card .description {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .code-block .comment { color: #6a9955; }
+        .code-block .keyword { color: #569cd6; }
+        .code-block .string { color: #ce9178; }
+        .code-block .function { color: #dcdcaa; }
+
+        .quick-start-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .quick-start-section h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .install-command {
+            background: #2d2d2d;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            margin: 0.5rem 0;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .install-command::before {
+            content: '$ ';
+            color: #27ae60;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .comparison-table th {
+            background: #f8f9fa;
+        }
+
+        .comparison-table .check {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .comparison-table .cross {
+            color: #e74c3c;
+        }
+
+        .content-section {
+            margin-bottom: 3rem;
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .key-pattern, .key-message {
+            background: #e8f4fc;
+            border-right: 4px solid var(--secondary-color);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .key-pattern h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .key-pattern ul {
+            margin: 0.5rem 1.5rem 0 0;
+        }
+
+        .example {
+            margin: 1.5rem 0;
+        }
+
+        .example h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .back-link {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .resource-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .framework-table {
+                font-size: 0.85rem;
+            }
+
+            .framework-table th, .framework-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="ml_resources.html" class="lang-button" title="Switch to English">English</a>
+    </div>
+
+    <div class="resource-header">
+        <h1>مصادر تعلم الآلة</h1>
+        <p>دليلك الشامل لأطر الذكاء الاصطناعي ومجموعات البيانات وبنى الشبكات العصبية</p>
+    </div>
+
+    <main style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;">
+        <!-- Quick Navigation -->
+        <nav class="resource-nav">
+            <a href="#frameworks">أطر الذكاء الاصطناعي</a>
+            <a href="#datasets">مصادر البيانات</a>
+            <a href="#nn-types">أنواع الشبكات العصبية</a>
+            <a href="#quick-start">أدلة البدء السريع</a>
+            <a href="#comparison">مقارنة الأطر</a>
+        </nav>
+
+        <!-- Section 1: AI Frameworks -->
+        <section id="frameworks" class="content-section">
+            <h2>أطر ومكتبات الذكاء الاصطناعي</h2>
+
+            <p>هذه هي أشهر الأدوات لبناء تطبيقات تعلم الآلة والتعلم العميق:</p>
+
+            <table class="framework-table">
+                <thead>
+                    <tr>
+                        <th>الإطار</th>
+                        <th>الاستخدام الرئيسي</th>
+                        <th>اللغة</th>
+                        <th>الصعوبة</th>
+                        <th>الأفضل لـ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>scikit-learn</strong></td>
+                        <td>تعلم الآلة الكلاسيكي</td>
+                        <td>Python</td>
+                        <td><span class="difficulty-badge difficulty-easy">سهل</span></td>
+                        <td>المبتدئين، البيانات الجدولية، الخوارزميات التقليدية</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Keras</strong></td>
+                        <td>الشبكات العصبية</td>
+                        <td>Python</td>
+                        <td><span class="difficulty-badge difficulty-easy">سهل</span></td>
+                        <td>النماذج الأولية، تعلم التعلم العميق، التجارب السريعة</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TensorFlow</strong></td>
+                        <td>التعلم العميق</td>
+                        <td>Python, JS, C++</td>
+                        <td><span class="difficulty-badge difficulty-medium">متوسط</span></td>
+                        <td>أنظمة الإنتاج، النشر على الموبايل/الويب، قابلية التوسع</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PyTorch</strong></td>
+                        <td>التعلم العميق</td>
+                        <td>Python</td>
+                        <td><span class="difficulty-badge difficulty-medium">متوسط</span></td>
+                        <td>البحث العلمي، الرسوم البيانية الديناميكية، المرونة، الأكاديميا</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hugging Face</strong></td>
+                        <td>معالجة اللغة / نماذج اللغة الكبيرة</td>
+                        <td>Python</td>
+                        <td><span class="difficulty-badge difficulty-medium">متوسط</span></td>
+                        <td>المحولات، نماذج اللغة، النماذج المدربة مسبقاً</td>
+                    </tr>
+                    <tr>
+                        <td><strong>OpenCV</strong></td>
+                        <td>الرؤية الحاسوبية</td>
+                        <td>Python, C++</td>
+                        <td><span class="difficulty-badge difficulty-medium">متوسط</span></td>
+                        <td>معالجة الصور، تحليل الفيديو، الرؤية في الوقت الفعلي</td>
+                    </tr>
+                    <tr>
+                        <td><strong>XGBoost</strong></td>
+                        <td>تعزيز التدرج</td>
+                        <td>Python, R</td>
+                        <td><span class="difficulty-badge difficulty-easy">سهل</span></td>
+                        <td>مسابقات البيانات الجدولية، البيانات المهيكلة</td>
+                    </tr>
+                    <tr>
+                        <td><strong>spaCy</strong></td>
+                        <td>معالجة اللغة الطبيعية</td>
+                        <td>Python</td>
+                        <td><span class="difficulty-badge difficulty-easy">سهل</span></td>
+                        <td>معالجة النصوص، التعرف على الكيانات، خطوط إنتاج NLP</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-pattern">
+                <h4>اختيار الإطار المناسب</h4>
+                <ul>
+                    <li><strong>مبتدئ؟</strong> ابدأ بـ scikit-learn و Keras</li>
+                    <li><strong>تعمل مع النصوص؟</strong> استخدم Hugging Face Transformers</li>
+                    <li><strong>تحتاج نشر للإنتاج؟</strong> TensorFlow أو PyTorch</li>
+                    <li><strong>تقوم ببحث علمي؟</strong> PyTorch هو المفضل أكاديمياً</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 2: Data Sources -->
+        <section id="datasets" class="content-section">
+            <h2>مصادر البيانات ومجموعات البيانات</h2>
+
+            <p>البيانات عالية الجودة ضرورية لتدريب نماذج تعلم الآلة. إليك أفضل الأماكن للعثور على مجموعات البيانات:</p>
+
+            <div class="dataset-grid">
+                <div class="dataset-card">
+                    <h4>مجموعات بيانات Keras المدمجة</h4>
+                    <p class="description">مجموعات بيانات جاهزة للتعلم: MNIST (الأرقام المكتوبة)، CIFAR (الصور)، IMDB (المشاعر)، Boston Housing، والمزيد.</p>
+                    <div class="url">keras.datasets.mnist.load_data()</div>
+                </div>
+
+                <div class="dataset-card">
+                    <h4>مجموعات بيانات Hugging Face</h4>
+                    <p class="description">آلاف من مجموعات بيانات معالجة اللغة والصوت والرؤية. تشمل SQuAD و GLUE و Common Voice ومجموعات ImageNet الفرعية.</p>
+                    <div class="url">huggingface.co/datasets</div>
+                </div>
+
+                <div class="dataset-card">
+                    <h4>Kaggle</h4>
+                    <p class="description">مجموعات بيانات المسابقات، دفاتر المجتمع، ومجموعات بيانات لكل مجال يمكن تخيله.</p>
+                    <div class="url">kaggle.com/datasets</div>
+                </div>
+
+                <div class="dataset-card">
+                    <h4>مستودع UCI لتعلم الآلة</h4>
+                    <p class="description">مجموعات بيانات تعلم الآلة الكلاسيكية المستخدمة في البحث الأكاديمي. Iris و Wine و Adult Census ومئات غيرها.</p>
+                    <div class="url">archive.ics.uci.edu/ml</div>
+                </div>
+
+                <div class="dataset-card">
+                    <h4>Google Dataset Search</h4>
+                    <p class="description">محرك بحث للعثور على مجموعات البيانات عبر الويب. يجمع من مصادر متعددة.</p>
+                    <div class="url">datasetsearch.research.google.com</div>
+                </div>
+
+                <div class="dataset-card">
+                    <h4>Papers with Code</h4>
+                    <p class="description">مجموعات بيانات مرتبطة بنتائج المعايير وكود التنفيذ. رائع للبحث العلمي.</p>
+                    <div class="url">paperswithcode.com/datasets</div>
+                </div>
+            </div>
+
+            <div class="example">
+                <h4>تحميل مجموعات البيانات في Python</h4>
+                <div class="code-block">
+<span class="comment"># Keras built-in datasets</span>
+<span class="keyword">from</span> tensorflow.keras.datasets <span class="keyword">import</span> mnist
+(X_train, y_train), (X_test, y_test) = mnist.<span class="function">load_data</span>()
+
+<span class="comment"># Hugging Face datasets</span>
+<span class="keyword">from</span> datasets <span class="keyword">import</span> load_dataset
+dataset = <span class="function">load_dataset</span>(<span class="string">"imdb"</span>)
+
+<span class="comment"># scikit-learn datasets</span>
+<span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris
+iris = <span class="function">load_iris</span>()
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Neural Network Types -->
+        <section id="nn-types" class="content-section">
+            <h2>بنى الشبكات العصبية</h2>
+
+            <p>تم تصميم بنى شبكات عصبية مختلفة لأنواع مختلفة من البيانات والمشاكل:</p>
+
+            <div class="nn-cards">
+                <div class="nn-card cnn">
+                    <h3>CNN</h3>
+                    <div class="subtitle">الشبكة العصبية التلافيفية (Convolutional Neural Network)</div>
+                    <p>متخصصة في معالجة البيانات الشبكية مثل الصور. تستخدم طبقات تلافيفية لتعلم الميزات المكانية تلقائياً.</p>
+                    <div class="key-concept">
+                        <strong>المفهوم الأساسي:</strong> المرشحات (النوى) تنزلق عبر الصورة للكشف عن أنماط مثل الحواف والقوام والأشكال.
+                    </div>
+                    <div class="applications">
+                        <strong>التطبيقات:</strong>
+                        <ul>
+                            <li>تصنيف الصور (قط مقابل كلب)</li>
+                            <li>اكتشاف الأجسام (العثور على الوجوه)</li>
+                            <li>التصوير الطبي (اكتشاف الأورام)</li>
+                            <li>السيارات ذاتية القيادة (التعرف على الطريق)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nn-card rnn">
+                    <h3>RNN</h3>
+                    <div class="subtitle">الشبكة العصبية المتكررة (Recurrent Neural Network)</div>
+                    <p>مصممة للبيانات التسلسلية حيث يهم الترتيب. لديها "ذاكرة" للمدخلات السابقة من خلال الاتصالات المتكررة.</p>
+                    <div class="key-concept">
+                        <strong>المفهوم الأساسي:</strong> المخرج من خطوة زمنية واحدة يصبح جزءاً من المدخل للخطوة التالية، مما يخلق حلقة تتذكر السياق.
+                    </div>
+                    <div class="applications">
+                        <strong>التطبيقات:</strong>
+                        <ul>
+                            <li>التنبؤ بالسلاسل الزمنية</li>
+                            <li>التنبؤ بأسعار الأسهم</li>
+                            <li>التنبؤ بالطقس</li>
+                            <li>توليد الموسيقى</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nn-card lstm">
+                    <h3>LSTM</h3>
+                    <div class="subtitle">الذاكرة الطويلة قصيرة المدى (Long Short-Term Memory)</div>
+                    <p>شبكة RNN متقدمة يمكنها تعلم التبعيات طويلة المدى. تحل مشكلة "تلاشي التدرج" في شبكات RNN الأساسية.</p>
+                    <div class="key-concept">
+                        <strong>المفهوم الأساسي:</strong> تستخدم بوابات (نسيان، إدخال، إخراج) للتحكم في المعلومات التي يجب الاحتفاظ بها أو إضافتها أو إخراجها من حالة الخلية.
+                    </div>
+                    <div class="applications">
+                        <strong>التطبيقات:</strong>
+                        <ul>
+                            <li>التعرف على الكلام</li>
+                            <li>الترجمة الآلية</li>
+                            <li>توليد النصوص</li>
+                            <li>توليد عناوين الفيديو</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nn-card transformer">
+                    <h3>المحوّل (Transformer)</h3>
+                    <div class="subtitle">البنية القائمة على الانتباه (Attention-Based Architecture)</div>
+                    <p>البنية وراء الذكاء الاصطناعي الحديث مثل ChatGPT و BERT و GPT-4. تعالج التسلسلات بالتوازي باستخدام الانتباه الذاتي.</p>
+                    <div class="key-concept">
+                        <strong>المفهوم الأساسي:</strong> الانتباه الذاتي يسمح لكل كلمة بـ"الانتباه" لجميع الكلمات الأخرى، مما يلتقط العلاقات بغض النظر عن المسافة.
+                    </div>
+                    <div class="applications">
+                        <strong>التطبيقات:</strong>
+                        <ul>
+                            <li>نماذج اللغة الكبيرة (ChatGPT, Claude)</li>
+                            <li>الترجمة الآلية (Google Translate)</li>
+                            <li>تلخيص النصوص</li>
+                            <li>توليد الصور (DALL-E)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-message">
+                <strong>التطور:</strong> RNN ← LSTM ← Transformer. كل بنية حلت قيود البنية السابقة. المحولات تهيمن الآن على الذكاء الاصطناعي الحديث بسبب التوازي وقدرتها على التقاط التبعيات طويلة المدى.
+            </div>
+        </section>
+
+        <!-- Section 4: Quick Start Guides -->
+        <section id="quick-start" class="content-section">
+            <h2>أدلة البدء السريع</h2>
+
+            <div class="quick-start-section">
+                <h3>أوامر التثبيت</h3>
+
+                <h4>الحزم الأساسية</h4>
+                <div class="install-command">pip install numpy pandas matplotlib scikit-learn</div>
+
+                <h4>التعلم العميق (TensorFlow/Keras)</h4>
+                <div class="install-command">pip install tensorflow</div>
+
+                <h4>التعلم العميق (PyTorch)</h4>
+                <div class="install-command">pip install torch torchvision</div>
+
+                <h4>معالجة اللغة مع المحولات</h4>
+                <div class="install-command">pip install transformers datasets</div>
+
+                <h4>الرؤية الحاسوبية</h4>
+                <div class="install-command">pip install opencv-python</div>
+            </div>
+
+            <h3>أول نموذج تعلم آلة لك (scikit-learn)</h3>
+            <div class="code-block">
+<span class="comment"># Complete example: Classification with scikit-learn</span>
+<span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score
+
+<span class="comment"># 1. Load data (تحميل البيانات)</span>
+iris = <span class="function">load_iris</span>()
+X, y = iris.data, iris.target
+
+<span class="comment"># 2. Split into train/test (تقسيم إلى تدريب/اختبار)</span>
+X_train, X_test, y_train, y_test = <span class="function">train_test_split</span>(X, y, test_size=0.2)
+
+<span class="comment"># 3. Create and train model (إنشاء وتدريب النموذج)</span>
+model = <span class="function">RandomForestClassifier</span>()
+model.<span class="function">fit</span>(X_train, y_train)
+
+<span class="comment"># 4. Make predictions (إجراء التنبؤات)</span>
+predictions = model.<span class="function">predict</span>(X_test)
+
+<span class="comment"># 5. Evaluate (التقييم)</span>
+accuracy = <span class="function">accuracy_score</span>(y_test, predictions)
+<span class="keyword">print</span>(f<span class="string">"Accuracy: {accuracy:.2%}"</span>)
+            </div>
+
+            <h3>أول شبكة عصبية لك (Keras)</h3>
+            <div class="code-block">
+<span class="comment"># Complete example: Neural Network with Keras</span>
+<span class="keyword">from</span> tensorflow <span class="keyword">import</span> keras
+<span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers
+
+<span class="comment"># 1. Load MNIST dataset (تحميل مجموعة بيانات MNIST)</span>
+(X_train, y_train), (X_test, y_test) = keras.datasets.mnist.<span class="function">load_data</span>()
+X_train = X_train.<span class="function">reshape</span>(-1, 784) / 255.0  <span class="comment"># Flatten and normalize</span>
+X_test = X_test.<span class="function">reshape</span>(-1, 784) / 255.0
+
+<span class="comment"># 2. Build model (بناء النموذج)</span>
+model = keras.<span class="function">Sequential</span>([
+    layers.<span class="function">Dense</span>(128, activation=<span class="string">'relu'</span>, input_shape=(784,)),
+    layers.<span class="function">Dropout</span>(0.2),
+    layers.<span class="function">Dense</span>(64, activation=<span class="string">'relu'</span>),
+    layers.<span class="function">Dense</span>(10, activation=<span class="string">'softmax'</span>)
+])
+
+<span class="comment"># 3. Compile (تجميع)</span>
+model.<span class="function">compile</span>(
+    optimizer=<span class="string">'adam'</span>,
+    loss=<span class="string">'sparse_categorical_crossentropy'</span>,
+    metrics=[<span class="string">'accuracy'</span>]
+)
+
+<span class="comment"># 4. Train (تدريب)</span>
+model.<span class="function">fit</span>(X_train, y_train, epochs=5, validation_split=0.1)
+
+<span class="comment"># 5. Evaluate (تقييم)</span>
+test_loss, test_acc = model.<span class="function">evaluate</span>(X_test, y_test)
+<span class="keyword">print</span>(f<span class="string">"Test accuracy: {test_acc:.2%}"</span>)
+            </div>
+        </section>
+
+        <!-- Section 5: Framework Comparison -->
+        <section id="comparison" class="content-section">
+            <h2>مقارنة الأطر</h2>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>الميزة</th>
+                        <th>scikit-learn</th>
+                        <th>TensorFlow</th>
+                        <th>PyTorch</th>
+                        <th>Keras</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>تعلم الآلة الكلاسيكي</strong></td>
+                        <td class="check">ممتاز</td>
+                        <td class="cross">محدود</td>
+                        <td class="cross">محدود</td>
+                        <td class="cross">محدود</td>
+                    </tr>
+                    <tr>
+                        <td><strong>التعلم العميق</strong></td>
+                        <td class="cross">لا</td>
+                        <td class="check">ممتاز</td>
+                        <td class="check">ممتاز</td>
+                        <td class="check">جيد</td>
+                    </tr>
+                    <tr>
+                        <td><strong>سهولة التعلم</strong></td>
+                        <td class="check">سهل جداً</td>
+                        <td>متوسط</td>
+                        <td>متوسط</td>
+                        <td class="check">سهل جداً</td>
+                    </tr>
+                    <tr>
+                        <td><strong>جاهز للإنتاج</strong></td>
+                        <td class="check">نعم</td>
+                        <td class="check">ممتاز</td>
+                        <td class="check">جيد</td>
+                        <td>جيد</td>
+                    </tr>
+                    <tr>
+                        <td><strong>مرونة البحث</strong></td>
+                        <td class="cross">منخفضة</td>
+                        <td>جيد</td>
+                        <td class="check">ممتاز</td>
+                        <td>منخفضة</td>
+                    </tr>
+                    <tr>
+                        <td><strong>حجم المجتمع</strong></td>
+                        <td class="check">كبير</td>
+                        <td class="check">كبير جداً</td>
+                        <td class="check">كبير جداً</td>
+                        <td class="check">كبير</td>
+                    </tr>
+                    <tr>
+                        <td><strong>دعم GPU</strong></td>
+                        <td class="cross">محدود</td>
+                        <td class="check">ممتاز</td>
+                        <td class="check">ممتاز</td>
+                        <td class="check">نعم (عبر TF)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-pattern">
+                <h4>ملخص التوصيات</h4>
+                <ul>
+                    <li><strong>للمبتدئين:</strong> ابدأ بـ scikit-learn لتعلم الآلة الكلاسيكي، ثم Keras للتعلم العميق</li>
+                    <li><strong>للصناعة/الإنتاج:</strong> TensorFlow لقابلية التوسع والنشر</li>
+                    <li><strong>للبحث/الأكاديميا:</strong> PyTorch للمرونة وتصحيح الأخطاء</li>
+                    <li><strong>لمشاريع معالجة اللغة:</strong> Hugging Face Transformers (يعمل مع TF و PyTorch)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Back Link -->
+        <div style="margin: 2rem 0;">
+            <a href="session3_week4_ar.html#resources" class="back-link">العودة للجلسة 3 &larr;</a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="index_ar.html" class="back-link">العودة للرئيسية &larr;</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 مقدمة في علم البيانات والذكاء الاصطناعي</p>
+    </footer>
+</body>
+</html>

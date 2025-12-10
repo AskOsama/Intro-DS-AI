@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Machine Learning and Neural Networks - Week 4, Session 3 - Course Grand Finale covering ML types, classification, optimization, and deep learning">
+    <meta name="keywords" content="Machine Learning, Neural Networks, Classification, Deep Learning, AI, Gradient Descent, Activation Functions">
+    <title>Machine Learning & Neural Networks | Week 4, Session 3 - Grand Finale</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Demo-specific styles for embedded classification demo */
+        .demo-container {
+            background: #1a1a2e;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            color: #fff;
+        }
+
+        .demo-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            background: #16213e;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .demo-control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .demo-control-group label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #9ca3af;
+            font-weight: bold;
+        }
+
+        .demo-control-group input[type="range"] {
+            width: 120px;
+        }
+
+        .demo-control-group select {
+            padding: 0.4rem;
+            border-radius: 6px;
+            border: 1px solid #374151;
+            background: #1f2937;
+            color: #fff;
+        }
+
+        .demo-btn-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .demo-btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .demo-btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .demo-btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .demo-btn-secondary {
+            background: #1f2937;
+            color: #fff;
+            border: 2px solid #374151;
+        }
+
+        .demo-btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .demo-btn-success:hover {
+            background: #219a52;
+        }
+
+        .demo-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            background: #1f2937;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-metric {
+            text-align: center;
+        }
+
+        .demo-metric .value {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .demo-metric .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #9ca3af;
+        }
+
+        .demo-metric.equation .value {
+            font-family: 'Courier New', monospace;
+            color: #f1c40f;
+        }
+
+        .demo-metric.accuracy .value { color: #27ae60; }
+        .demo-metric.errors .value { color: #e74c3c; }
+        .demo-metric.loss .value { color: #f97316; }
+
+        .demo-plot-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: #1f2937;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .demo-plot {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .demo-axis-label {
+            position: absolute;
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .demo-axis-label.x-axis {
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .demo-axis-label.y-axis {
+            left: 8px;
+            top: 50%;
+            transform: rotate(-90deg) translateX(-50%);
+            transform-origin: left center;
+        }
+
+        .demo-point {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .demo-point.class-a {
+            background: #3498db;
+            border: 2px solid #2980b9;
+        }
+
+        .demo-point.class-b {
+            background: #e74c3c;
+            border: 2px solid #c0392b;
+        }
+
+        .demo-point.misclassified {
+            box-shadow: 0 0 8px #f1c40f;
+        }
+
+        .demo-point:hover {
+            transform: translate(-50%, -50%) scale(1.3);
+            z-index: 20;
+        }
+
+        .demo-decision-line {
+            position: absolute;
+            background: #f1c40f;
+            height: 3px;
+            transform-origin: left center;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .demo-grid-line {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .demo-grid-line.horizontal { width: 100%; height: 1px; }
+        .demo-grid-line.vertical { width: 1px; height: 100%; }
+
+        .demo-tick {
+            position: absolute;
+            font-size: 0.65rem;
+            color: #6b7280;
+        }
+
+        .demo-legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .demo-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .demo-legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .demo-legend-dot.class-a { background: #3498db; }
+        .demo-legend-dot.class-b { background: #e74c3c; }
+        .demo-legend-dot.line { background: #f1c40f; width: 20px; height: 3px; border-radius: 0; }
+
+        .demo-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 0.4rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            pointer-events: none;
+            z-index: 100;
+            display: none;
+        }
+
+        /* Journey timeline styles */
+        .journey-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            position: relative;
+        }
+
+        .journey-timeline::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #9b59b6, #e74c3c, #27ae60);
+            border-radius: 2px;
+        }
+
+        .journey-week {
+            text-align: center;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .journey-week .week-num {
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-weight: bold;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .journey-week.week-1 .week-num { background: #3498db; }
+        .journey-week.week-2 .week-num { background: #9b59b6; }
+        .journey-week.week-3 .week-num { background: #e74c3c; }
+        .journey-week.week-4 .week-num { background: #27ae60; }
+
+        .journey-week .week-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .journey-week .week-topics {
+            font-size: 0.75rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* ML Types cards */
+        .ml-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .ml-type-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--secondary-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .ml-type-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .ml-type-card.supervised { border-left-color: #3498db; }
+        .ml-type-card.unsupervised { border-left-color: #9b59b6; }
+        .ml-type-card.reinforcement { border-left-color: #e74c3c; }
+
+        .ml-type-card h4 {
+            margin: 0 0 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ml-type-card .examples {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* Optimization table */
+        .optimization-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .optimization-table th, .optimization-table td {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .optimization-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .optimization-table .minimize { color: #e74c3c; }
+        .optimization-table .maximize { color: #27ae60; }
+
+        /* Neural network visualization */
+        .nn-visual {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .nn-layers {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            margin: 1rem 0;
+        }
+
+        .nn-layer {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .nn-neuron {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .nn-layer.input .nn-neuron { border-color: #3498db; background: rgba(52, 152, 219, 0.1); }
+        .nn-layer.hidden .nn-neuron { border-color: #9b59b6; background: rgba(155, 89, 182, 0.1); }
+        .nn-layer.output .nn-neuron { border-color: #27ae60; background: rgba(39, 174, 96, 0.1); }
+
+        .nn-arrow {
+            font-size: 2rem;
+            color: #ccc;
+        }
+
+        .nn-layer-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .journey-timeline {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .journey-timeline::before {
+                display: none;
+            }
+
+            .demo-controls {
+                flex-direction: column;
+            }
+
+            .demo-plot-container {
+                height: 300px;
+            }
+
+            .nn-layers {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <a href="session3_week4_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <header>
+        <h1>Machine Learning & Neural Networks</h1>
+        <p class="subtitle">Week 4, Session 3 - Course Grand Finale</p>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="table-of-contents no-print">
+        <h2>Contents</h2>
+        <ul>
+            <li><a href="#objectives">Learning Objectives</a></li>
+            <li><a href="#journey">1. Our Learning Journey</a></li>
+            <li><a href="#ml-types">2. Types of Machine Learning</a></li>
+            <li><a href="#classification">3. Classification: Learning to Decide</a></li>
+            <li><a href="#training">4. The Training Process</a></li>
+            <li><a href="#optimization">5. The Optimization Framework</a></li>
+            <li><a href="#deep-learning">6. From ML to Deep Learning</a></li>
+            <li><a href="#activation">7. Activation Functions</a></li>
+            <li><a href="#dag-nn">8. DAGs and Neural Networks</a></li>
+            <li><a href="#ann">9. Artificial Neural Networks</a></li>
+            <li><a href="#wrap-up">10. Connecting Everything</a></li>
+            <li><a href="#resources">11. Resources & Next Steps</a></li>
+            <li><a href="#summary">12. Summary & Practice</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Learning Objectives -->
+        <section id="objectives" class="learning-objectives">
+            <h2>Learning Objectives</h2>
+            <p>Welcome to the <strong>Grand Finale</strong>! By the end of this session, you will be able to:</p>
+            <ul>
+                <li>Distinguish between <strong>Supervised, Unsupervised, and Reinforcement Learning</strong></li>
+                <li>Understand how <strong>classification</strong> finds decision boundaries through optimization</li>
+                <li>Explain the role of <strong>objective functions</strong> in machine learning training</li>
+                <li>Describe how <strong>activation functions</strong> enable deep learning</li>
+                <li>Connect <strong>DAG concepts</strong> to neural network architectures</li>
+                <li>See how <strong>everything we learned</strong> in this course connects together</li>
+            </ul>
+        </section>
+
+        <!-- Section 1: Course Journey -->
+        <section id="journey" class="content-section">
+            <h2>1. Our Learning Journey</h2>
+
+            <p>Before we dive into Machine Learning, let's look at how far we've come! Every concept we've learned builds toward this finale.</p>
+
+            <div class="journey-timeline">
+                <div class="journey-week week-1">
+                    <div class="week-num">W1</div>
+                    <div class="week-title">What is AI?</div>
+                    <div class="week-topics">AI Perspectives<br>Intelligent Agents<br>Problem Solving</div>
+                </div>
+                <div class="journey-week week-2">
+                    <div class="week-num">W2</div>
+                    <div class="week-title">Python & Data</div>
+                    <div class="week-topics">Pandas DataFrames<br>Data Cleaning<br>Visualization</div>
+                </div>
+                <div class="journey-week week-3">
+                    <div class="week-num">W3</div>
+                    <div class="week-title">Big Data</div>
+                    <div class="week-topics">DAG Pipelines<br>Parallel Processing<br>Distributed Computing</div>
+                </div>
+                <div class="journey-week week-4">
+                    <div class="week-num">W4</div>
+                    <div class="week-title">Intelligence</div>
+                    <div class="week-topics">Search & Optimization<br>Knowledge Systems<br>Machine Learning</div>
+                </div>
+            </div>
+
+            <div class="key-message">
+                <strong>The Big Picture:</strong> We learned to <em>understand AI</em>, then <em>handle data</em>, then <em>process at scale</em>, and now we'll learn how machines <em>learn from data</em> to become intelligent!
+            </div>
+        </section>
+
+        <!-- Section 2: Types of ML -->
+        <section id="ml-types" class="content-section">
+            <h2>2. Types of Machine Learning</h2>
+
+            <p>Machine Learning has three main paradigms, each suited for different types of problems:</p>
+
+            <div class="ml-types-grid">
+                <div class="ml-type-card supervised">
+                    <h4>Supervised Learning</h4>
+                    <p>Learning from <strong>labeled examples</strong>. The model sees inputs AND correct outputs during training.</p>
+                    <div class="examples">
+                        <strong>Examples:</strong> Spam detection, house price prediction, medical diagnosis, image classification
+                    </div>
+                </div>
+
+                <div class="ml-type-card unsupervised">
+                    <h4>Unsupervised Learning</h4>
+                    <p>Finding <strong>hidden patterns</strong> in data without labels. The model discovers structure on its own.</p>
+                    <div class="examples">
+                        <strong>Examples:</strong> Customer segmentation, anomaly detection, topic modeling, compression
+                    </div>
+                </div>
+
+                <div class="ml-type-card reinforcement">
+                    <h4>Reinforcement Learning</h4>
+                    <p>Learning through <strong>trial and error</strong> with rewards and penalties. The agent learns optimal actions.</p>
+                    <div class="examples">
+                        <strong>Examples:</strong> Game playing (Chess, Go), robotics, autonomous vehicles, trading
+                    </div>
+                </div>
+            </div>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/ml_types_overview.svg" alt="Three types of Machine Learning" class="content-image" onerror="this.style.display='none'">
+                <figcaption>The three paradigms of Machine Learning</figcaption>
+            </figure>
+
+            <div class="key-pattern">
+                <h4>Quick Reference</h4>
+                <ul>
+                    <li><strong>Have labels?</strong> Use Supervised Learning</li>
+                    <li><strong>Want to find patterns?</strong> Use Unsupervised Learning</li>
+                    <li><strong>Need to make decisions?</strong> Use Reinforcement Learning</li>
+                </ul>
+            </div>
+
+            <!-- ML Algorithm Comparison Demo Banner -->
+            <div style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; border-radius: 12px; text-align: center; padding: 2rem; margin: 2rem 0;">
+                <h3 style="color: white; margin-top: 0;">Compare ML Algorithms Interactively!</h3>
+                <p>See how different algorithms (Linear Classifier, Decision Tree, K-Means) solve problems</p>
+                <a href="ml-viz-v2.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #e74c3c; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                    ML Algorithm Comparison Demo
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 3: Classification with Interactive Demo -->
+        <section id="classification" class="content-section">
+            <h2>3. Classification: Learning to Decide</h2>
+
+            <p>Classification is one of the most common ML tasks. Given input data, the model learns to predict which <strong>category</strong> (class) it belongs to.</p>
+
+            <div class="definition">
+                <h4>What is Classification?</h4>
+                <p><strong>Classification</strong> = Finding the best <em>decision boundary</em> that separates different classes of data.</p>
+            </div>
+
+            <p>Real-world examples:</p>
+            <ul>
+                <li><strong>Email:</strong> Is this message spam or not spam?</li>
+                <li><strong>Medical:</strong> Is this tumor benign or malignant?</li>
+                <li><strong>Finance:</strong> Will this customer default on their loan?</li>
+            </ul>
+
+            <h3>Interactive Demo: Finding the Best Decision Boundary</h3>
+
+            <p>Use this interactive demo to see how machine learning finds the best line to separate two classes. Watch the <strong>objective function</strong> (accuracy, errors) update in real-time!</p>
+
+            <!-- EMBEDDED CLASSIFICATION DEMO -->
+            <div class="demo-container" id="classificationDemo">
+                <div class="demo-controls">
+                    <div class="demo-control-group">
+                        <label>Difficulty</label>
+                        <select id="demoDifficulty">
+                            <option value="easy">Easy (Clear separation)</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="hard">Hard (Overlapping)</option>
+                        </select>
+                    </div>
+                    <div class="demo-control-group">
+                        <label>Slope (m): <span id="slopeValue">0.0</span></label>
+                        <input type="range" id="demoSlope" min="-3" max="3" step="0.1" value="0">
+                    </div>
+                    <div class="demo-control-group">
+                        <label>Intercept (c): <span id="interceptValue">2.0</span></label>
+                        <input type="range" id="demoIntercept" min="-5" max="5" step="0.1" value="2">
+                    </div>
+                    <div class="demo-control-group">
+                        <label>Learning Rate</label>
+                        <input type="range" id="demoLR" min="0.001" max="0.1" step="0.001" value="0.01">
+                    </div>
+                    <div class="demo-btn-group">
+                        <button class="demo-btn demo-btn-secondary" id="demoGenerate">New Data</button>
+                        <button class="demo-btn demo-btn-primary" id="demoStep">Step</button>
+                        <button class="demo-btn demo-btn-success" id="demoAutoFit">Auto-Fit</button>
+                        <button class="demo-btn demo-btn-secondary" id="demoReset">Reset</button>
+                    </div>
+                </div>
+
+                <div class="demo-metrics">
+                    <div class="demo-metric equation">
+                        <div class="value" id="demoEquation">y = 0.0x + 2.0</div>
+                        <div class="label">Decision Boundary</div>
+                    </div>
+                    <div class="demo-metric accuracy">
+                        <div class="value" id="demoAccuracy">50%</div>
+                        <div class="label">Accuracy</div>
+                    </div>
+                    <div class="demo-metric errors">
+                        <div class="value" id="demoErrors">25/50</div>
+                        <div class="label">Misclassified</div>
+                    </div>
+                    <div class="demo-metric loss">
+                        <div class="value" id="demoLoss">0.693</div>
+                        <div class="label">Loss (MSE)</div>
+                    </div>
+                </div>
+
+                <div class="demo-plot-container">
+                    <div class="demo-plot" id="demoPlot">
+                        <div class="demo-axis-label x-axis">Feature X1</div>
+                        <div class="demo-axis-label y-axis">Feature X2</div>
+                        <div class="demo-tooltip" id="demoTooltip"></div>
+                    </div>
+                </div>
+
+                <div class="demo-legend">
+                    <div class="demo-legend-item"><div class="demo-legend-dot class-a"></div> Class A (Blue)</div>
+                    <div class="demo-legend-item"><div class="demo-legend-dot class-b"></div> Class B (Red)</div>
+                    <div class="demo-legend-item"><div class="demo-legend-dot line"></div> Decision Boundary</div>
+                </div>
+            </div>
+
+            <div class="key-message">
+                <strong>Key Insight:</strong> Machine learning is essentially an <em>optimization problem</em>. We search for the parameters (m and c) that minimize errors and maximize accuracy. This is the <strong>objective function</strong> in action!
+            </div>
+        </section>
+
+        <!-- Section 4: Training Process -->
+        <section id="training" class="content-section">
+            <h2>4. The Training Process</h2>
+
+            <p>How does a machine actually "learn"? Through an iterative process called <strong>training</strong>:</p>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/supervised_training_loop.svg" alt="Supervised Learning Training Loop" class="content-image" onerror="this.style.display='none'">
+                <figcaption>The training loop: Data flows forward, errors flow backward</figcaption>
+            </figure>
+
+            <div class="definition">
+                <h4>The Training Loop</h4>
+                <ol>
+                    <li><strong>Forward Pass:</strong> Feed data through the model to get predictions</li>
+                    <li><strong>Calculate Loss:</strong> Compare predictions to actual answers (using objective function)</li>
+                    <li><strong>Backward Pass:</strong> Calculate how to adjust parameters to reduce loss</li>
+                    <li><strong>Update:</strong> Adjust parameters slightly in the right direction</li>
+                    <li><strong>Repeat:</strong> Do this thousands of times until loss is minimized</li>
+                </ol>
+            </div>
+
+            <h3>Gradient Descent: Finding the Lowest Point</h3>
+
+            <p>Imagine you're blindfolded on a hilly landscape, trying to find the lowest valley. You feel the ground's slope and take small steps downhill. This is <strong>Gradient Descent</strong>!</p>
+
+            <div class="example">
+                <pre><code># Gradient Descent in Python (simplified)
+def gradient_descent(X, y, learning_rate=0.01, epochs=1000):
+    m, c = 0, 0  # Start with random parameters
+
+    for _ in range(epochs):
+        # 1. Make predictions
+        predictions = m * X + c
+
+        # 2. Calculate error (loss)
+        error = predictions - y
+
+        # 3. Calculate gradients (which direction to move)
+        dm = (2/len(X)) * sum(X * error)  # Slope of loss w.r.t. m
+        dc = (2/len(X)) * sum(error)       # Slope of loss w.r.t. c
+
+        # 4. Update parameters (take a step downhill)
+        m = m - learning_rate * dm
+        c = c - learning_rate * dc
+
+    return m, c</code></pre>
+            </div>
+
+            <div class="key-pattern">
+                <h4>Why "Learning Rate" Matters</h4>
+                <ul>
+                    <li><strong>Too small:</strong> Learning is very slow (tiny steps)</li>
+                    <li><strong>Too large:</strong> Overshoots the optimal point (giant steps that miss the target)</li>
+                    <li><strong>Just right:</strong> Converges efficiently to the best solution</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 5: Optimization Framework -->
+        <section id="optimization" class="content-section">
+            <h2>5. The Optimization Framework</h2>
+
+            <p>Remember <strong>objective functions</strong> from Session 1? Machine learning is ALL about optimization!</p>
+
+            <div class="key-message">
+                <strong>Connection:</strong> The search algorithms and objective functions we learned earlier are exactly what powers machine learning. We're searching for the best model parameters!
+            </div>
+
+            <h3>Minimization vs Maximization</h3>
+
+            <table class="optimization-table">
+                <thead>
+                    <tr>
+                        <th>Goal</th>
+                        <th>What We Measure</th>
+                        <th>Examples</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="minimize"><strong>Minimize</strong></td>
+                        <td>Errors, Loss, Cost</td>
+                        <td>MSE Loss, Cross-entropy, Misclassification rate</td>
+                    </tr>
+                    <tr>
+                        <td class="maximize"><strong>Maximize</strong></td>
+                        <td>Accuracy, Rewards, Profit</td>
+                        <td>Classification accuracy, F1 score, ROI</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/optimization_framework.svg" alt="Optimization Framework in ML" class="content-image" onerror="this.style.display='none'">
+                <figcaption>The optimization landscape: finding the global minimum</figcaption>
+            </figure>
+
+            <h3>Common Loss Functions</h3>
+
+            <div class="definition">
+                <h4>Mean Squared Error (MSE)</h4>
+                <p>For regression problems: <code>MSE = (1/n) * sum((prediction - actual)^2)</code></p>
+                <p>Penalizes large errors more heavily.</p>
+            </div>
+
+            <div class="definition">
+                <h4>Cross-Entropy Loss</h4>
+                <p>For classification problems: Measures how different the predicted probability distribution is from the actual.</p>
+                <p>Perfect for binary classification (spam/not spam).</p>
+            </div>
+        </section>
+
+        <!-- Section 6: From ML to Deep Learning -->
+        <section id="deep-learning" class="content-section">
+            <h2>6. From ML to Deep Learning</h2>
+
+            <p>Traditional machine learning works great for many problems, but what about complex patterns like images, speech, or language?</p>
+
+            <h3>The Limitation of Linear Models</h3>
+
+            <p>A straight line can only separate linearly separable data. But real-world data often has <strong>complex, non-linear patterns</strong>.</p>
+
+            <div class="example">
+                <pre><code># Linear model: y = mx + c
+# Can only draw straight lines!
+
+# What if the boundary looks like a curve?
+# Or a spiral? Or a complex shape?
+# We need NON-LINEAR functions!</code></pre>
+            </div>
+
+            <div class="key-message">
+                <strong>Solution:</strong> Deep Learning uses <em>activation functions</em> to introduce non-linearity, allowing the model to learn complex curved decision boundaries!
+            </div>
+
+            <h3>What Makes Deep Learning "Deep"?</h3>
+
+            <ul>
+                <li><strong>Multiple Layers:</strong> Stack many simple functions to learn complex patterns</li>
+                <li><strong>Non-linear Activation:</strong> Transform outputs to capture curves and shapes</li>
+                <li><strong>Automatic Feature Learning:</strong> No need to manually engineer features</li>
+            </ul>
+        </section>
+
+        <!-- Section 7: Activation Functions -->
+        <section id="activation" class="content-section">
+            <h2>7. Activation Functions</h2>
+
+            <p>Activation functions are the secret ingredient that gives neural networks their power!</p>
+
+            <div class="definition">
+                <h4>What is an Activation Function?</h4>
+                <p>A mathematical function applied to each neuron's output that introduces <strong>non-linearity</strong>. Without it, a neural network would just be a fancy linear model.</p>
+            </div>
+
+            <h3>Common Activation Functions</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Function</th>
+                        <th>Formula</th>
+                        <th>Range</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Sigmoid</strong></td>
+                        <td><code>1 / (1 + e^(-x))</code></td>
+                        <td>(0, 1)</td>
+                        <td>Binary classification output</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ReLU</strong></td>
+                        <td><code>max(0, x)</code></td>
+                        <td>[0, inf)</td>
+                        <td>Hidden layers (most common)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tanh</strong></td>
+                        <td><code>(e^x - e^(-x)) / (e^x + e^(-x))</code></td>
+                        <td>(-1, 1)</td>
+                        <td>Hidden layers, RNNs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Softmax</strong></td>
+                        <td><code>e^xi / sum(e^xj)</code></td>
+                        <td>(0, 1), sum=1</td>
+                        <td>Multi-class classification output</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Interactive Demo Banner -->
+            <div style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); color: white; border-radius: 12px; text-align: center; padding: 2rem; margin: 2rem 0;">
+                <h3 style="color: white; margin-top: 0;">Explore Activation Functions Interactively!</h3>
+                <p>See how each activation function transforms inputs. Drag the slider and watch the output change!</p>
+                <a href="activation_functions_demo.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #9b59b6; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                    Interactive Activation Functions Demo
+                </a>
+            </div>
+
+            <div class="example">
+                <pre><code># Activation Functions in Python
+import numpy as np
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def relu(x):
+    return np.maximum(0, x)
+
+def tanh(x):
+    return np.tanh(x)
+
+# Example: ReLU turns negative values to 0
+print(relu(np.array([-2, -1, 0, 1, 2])))
+# Output: [0, 0, 0, 1, 2]</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 8: DAGs and Neural Networks -->
+        <section id="dag-nn" class="content-section">
+            <h2>8. DAGs and Neural Networks</h2>
+
+            <p>Remember <strong>DAGs (Directed Acyclic Graphs)</strong> from Week 3? Here's a fascinating connection:</p>
+
+            <div class="key-message">
+                <strong>Neural networks ARE DAGs!</strong> Data flows in one direction through layers of neurons, exactly like a DAG pipeline processes data through stages.
+            </div>
+
+            <h3>The Connection</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>DAG Concept (Week 3)</th>
+                        <th>Neural Network Equivalent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Node</td>
+                        <td>Neuron</td>
+                    </tr>
+                    <tr>
+                        <td>Edge (directed)</td>
+                        <td>Weight connection</td>
+                    </tr>
+                    <tr>
+                        <td>Data flowing through pipeline</td>
+                        <td>Activations flowing forward</td>
+                    </tr>
+                    <tr>
+                        <td>No cycles (acyclic)</td>
+                        <td>Feedforward architecture</td>
+                    </tr>
+                    <tr>
+                        <td>Parallel branches</td>
+                        <td>Neurons in same layer</td>
+                    </tr>
+                    <tr>
+                        <td>Dependencies</td>
+                        <td>Layer connections</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-pattern">
+                <h4>Why This Matters</h4>
+                <p>Understanding DAGs helps you understand neural networks! The same parallel processing concepts from distributed computing apply to GPU-accelerated deep learning.</p>
+            </div>
+
+            <figure class="diagram-container">
+                <img src="images/diagrams/dag_to_neural_network.svg" alt="DAG structure in Neural Networks" class="content-image" onerror="this.style.display='none'">
+                <figcaption>Neural networks follow DAG structure: data flows forward through layers</figcaption>
+            </figure>
+        </section>
+
+        <!-- Section 9: Artificial Neural Networks -->
+        <section id="ann" class="content-section">
+            <h2>9. Artificial Neural Networks</h2>
+
+            <p>An Artificial Neural Network (ANN) is a computational model inspired by biological neurons in the brain.</p>
+
+            <h3>Architecture Overview</h3>
+
+            <div class="nn-visual">
+                <div class="nn-layers">
+                    <div class="nn-layer input">
+                        <div class="nn-neuron">x1</div>
+                        <div class="nn-neuron">x2</div>
+                        <div class="nn-neuron">x3</div>
+                        <div class="nn-layer-label">Input Layer</div>
+                    </div>
+                    <div class="nn-arrow">&rarr;</div>
+                    <div class="nn-layer hidden">
+                        <div class="nn-neuron">h1</div>
+                        <div class="nn-neuron">h2</div>
+                        <div class="nn-neuron">h3</div>
+                        <div class="nn-neuron">h4</div>
+                        <div class="nn-layer-label">Hidden Layer</div>
+                    </div>
+                    <div class="nn-arrow">&rarr;</div>
+                    <div class="nn-layer hidden">
+                        <div class="nn-neuron">h5</div>
+                        <div class="nn-neuron">h6</div>
+                        <div class="nn-layer-label">Hidden Layer</div>
+                    </div>
+                    <div class="nn-arrow">&rarr;</div>
+                    <div class="nn-layer output">
+                        <div class="nn-neuron">y</div>
+                        <div class="nn-layer-label">Output</div>
+                    </div>
+                </div>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 1rem;">Each connection has a learnable <strong>weight</strong>. Training adjusts these weights to minimize loss.</p>
+            </div>
+
+            <h3>How a Single Neuron Works</h3>
+
+            <div class="definition">
+                <h4>Neuron Computation</h4>
+                <p><code>output = activation(sum(inputs * weights) + bias)</code></p>
+                <ol>
+                    <li>Multiply each input by its weight</li>
+                    <li>Sum all weighted inputs</li>
+                    <li>Add a bias term</li>
+                    <li>Apply activation function</li>
+                </ol>
+            </div>
+
+            <div class="example">
+                <pre><code># Building a Neural Network with Keras
+from tensorflow import keras
+
+model = keras.Sequential([
+    # Input layer: 10 features
+    keras.layers.Dense(64, activation='relu', input_shape=(10,)),
+
+    # Hidden layer
+    keras.layers.Dense(32, activation='relu'),
+
+    # Output layer: binary classification
+    keras.layers.Dense(1, activation='sigmoid')
+])
+
+# Compile: define loss and optimizer
+model.compile(
+    optimizer='adam',
+    loss='binary_crossentropy',
+    metrics=['accuracy']
+)
+
+# Train: learn from data
+model.fit(X_train, y_train, epochs=10, validation_split=0.2)</code></pre>
+            </div>
+
+            <h3>Backpropagation: How Neural Networks Learn</h3>
+
+            <p><strong>Backpropagation</strong> is the algorithm that makes training possible:</p>
+            <ol>
+                <li>Forward pass: compute predictions</li>
+                <li>Calculate loss (error)</li>
+                <li>Backward pass: calculate gradients for each weight (using chain rule)</li>
+                <li>Update weights using gradient descent</li>
+            </ol>
+
+            <div class="key-pattern">
+                <h4>The Magic of Depth</h4>
+                <p>Each layer learns increasingly abstract features. In image recognition:</p>
+                <ul>
+                    <li><strong>Layer 1:</strong> Edges, lines</li>
+                    <li><strong>Layer 2:</strong> Shapes, textures</li>
+                    <li><strong>Layer 3:</strong> Parts (eyes, wheels)</li>
+                    <li><strong>Layer 4:</strong> Objects (faces, cars)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 10: Connecting Everything -->
+        <section id="wrap-up" class="content-section">
+            <h2>10. Connecting Everything</h2>
+
+            <p>Let's see how everything we learned in this course connects to build intelligent systems!</p>
+
+            <div style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); color: white; border-radius: 12px; padding: 2rem; margin: 2rem 0;">
+                <h3 style="color: white; margin-top: 0;">The Complete Data Science Pipeline</h3>
+
+                <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.95); border-radius: 8px; overflow: hidden; color: #2c3e50;">
+                    <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                        <td style="padding: 1rem; font-weight: bold;">Week 1: Understanding</td>
+                        <td style="padding: 1rem;">What is AI? Types of intelligence, agent architectures</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                        <td style="padding: 1rem; font-weight: bold;">Week 2: Data Handling</td>
+                        <td style="padding: 1rem;">Python, Pandas, cleaning and preparing data</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                        <td style="padding: 1rem; font-weight: bold;">Week 3: Scale</td>
+                        <td style="padding: 1rem;">DAG pipelines, parallel processing, distributed computing</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; font-weight: bold;">Week 4: Intelligence</td>
+                        <td style="padding: 1rem;">Search, optimization, knowledge systems, machine learning</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>How It All Connects</h3>
+
+            <ul>
+                <li><strong>Data Cleaning (Week 2)</strong> prepares quality input for ML models</li>
+                <li><strong>DAG Pipelines (Week 3)</strong> structure the flow in neural networks</li>
+                <li><strong>Parallel Processing (Week 3)</strong> enables GPU training of deep networks</li>
+                <li><strong>Objective Functions (Week 4)</strong> are the loss functions we minimize</li>
+                <li><strong>Search Algorithms (Week 4)</strong> are how we optimize parameters</li>
+            </ul>
+
+            <div class="key-message">
+                <strong>Congratulations!</strong> You now understand the fundamental concepts that power modern AI systems. From data to intelligence, you've seen the complete picture!
+            </div>
+        </section>
+
+        <!-- Section 11: Resources -->
+        <section id="resources" class="content-section">
+            <h2>11. Resources & Next Steps</h2>
+
+            <p>Ready to continue your journey? Here are resources to explore further:</p>
+
+            <!-- Resources Link Banner -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; text-align: center; padding: 2rem; margin: 2rem 0;">
+                <h3 style="color: white; margin-top: 0;">Comprehensive ML Resources</h3>
+                <p>AI frameworks, datasets, neural network types, and getting started guides</p>
+                <a href="ml_resources.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 0.5rem;">
+                    View ML Resources Page
+                </a>
+            </div>
+
+            <h3>Quick Reference: Popular Frameworks</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Framework</th>
+                        <th>Best For</th>
+                        <th>Difficulty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>scikit-learn</strong></td>
+                        <td>Classical ML, beginners</td>
+                        <td>Easy</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Keras</strong></td>
+                        <td>Neural networks, prototyping</td>
+                        <td>Easy</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TensorFlow</strong></td>
+                        <td>Production deep learning</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PyTorch</strong></td>
+                        <td>Research, flexibility</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hugging Face</strong></td>
+                        <td>NLP, Transformers, LLMs</td>
+                        <td>Medium</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Quick Reference: Data Sources</h3>
+
+            <ul>
+                <li><strong>Keras Datasets:</strong> Built-in datasets (MNIST, CIFAR) - <code>keras.datasets</code></li>
+                <li><strong>Hugging Face:</strong> Thousands of NLP datasets - <code>huggingface.co/datasets</code></li>
+                <li><strong>Kaggle:</strong> Competition datasets and notebooks - <code>kaggle.com</code></li>
+                <li><strong>UCI ML Repository:</strong> Classic ML datasets - <code>archive.ics.uci.edu/ml</code></li>
+            </ul>
+        </section>
+
+        <!-- Section 12: Summary -->
+        <section id="summary" class="content-section">
+            <h2>12. Summary & Practice</h2>
+
+            <h3>Key Terms</h3>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Term</th>
+                        <th>Arabic</th>
+                        <th>Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Machine Learning</strong></td>
+                        <td>تعلم الآلة</td>
+                        <td>Systems that learn from data to make predictions</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Classification</strong></td>
+                        <td>التصنيف</td>
+                        <td>Predicting which category data belongs to</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gradient Descent</strong></td>
+                        <td>الانحدار التدريجي</td>
+                        <td>Optimization algorithm that finds minimum loss</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Activation Function</strong></td>
+                        <td>دالة التنشيط</td>
+                        <td>Non-linear function applied to neuron outputs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Neural Network</strong></td>
+                        <td>الشبكة العصبية</td>
+                        <td>Layers of neurons that learn patterns</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Loss Function</strong></td>
+                        <td>دالة الخسارة</td>
+                        <td>Measures how wrong predictions are</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Backpropagation</strong></td>
+                        <td>الانتشار العكسي</td>
+                        <td>Algorithm to calculate gradients for learning</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deep Learning</strong></td>
+                        <td>التعلم العميق</td>
+                        <td>Neural networks with many layers</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Practice Questions</h3>
+
+            <div class="example">
+                <h4>Question 1</h4>
+                <p>What is the main difference between Supervised and Unsupervised Learning?</p>
+                <details>
+                    <summary>Show Answer</summary>
+                    <p><strong>Supervised Learning</strong> uses labeled data (inputs + correct outputs) to train the model. <strong>Unsupervised Learning</strong> finds patterns in unlabeled data without knowing the "right answers."</p>
+                </details>
+            </div>
+
+            <div class="example">
+                <h4>Question 2</h4>
+                <p>Why do neural networks need activation functions?</p>
+                <details>
+                    <summary>Show Answer</summary>
+                    <p>Without activation functions, a neural network would just be a linear model (no matter how many layers). Activation functions introduce <strong>non-linearity</strong>, allowing the network to learn complex patterns like curves and shapes.</p>
+                </details>
+            </div>
+
+            <div class="example">
+                <h4>Question 3</h4>
+                <p>How is a neural network similar to a DAG (Directed Acyclic Graph)?</p>
+                <details>
+                    <summary>Show Answer</summary>
+                    <p>In both structures: (1) Data flows in one direction (directed), (2) There are no cycles (acyclic), (3) Nodes (neurons) process data, (4) Edges (weights) connect nodes, (5) Parallel branches can process simultaneously.</p>
+                </details>
+            </div>
+
+            <div class="example">
+                <h4>Question 4</h4>
+                <p>What role does the objective function play in machine learning?</p>
+                <details>
+                    <summary>Show Answer</summary>
+                    <p>The objective function (loss function) measures how well the model is doing. Training is an optimization problem where we search for parameters that minimize this function. It guides the learning process by telling the model how to improve.</p>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p class="no-print">
+            <a href="index.html">&larr; Back to Course Home</a>
+        </p>
+        <p>&copy; 2025 Introduction to Data Science & AI Course</p>
+    </footer>
+
+    <!-- Classification Demo JavaScript -->
+    <script>
+        // Classification Demo State
+        const demoState = {
+            points: [],
+            m: 0.0,       // Start horizontal (clearly wrong)
+            c: 2.0,       // Start high up
+            learningRate: 0.01,
+            isRunning: false,
+            difficulty: 'medium',
+            numPoints: 60
+        };
+
+        // DOM Elements
+        const demoElements = {
+            plot: document.getElementById('demoPlot'),
+            difficulty: document.getElementById('demoDifficulty'),
+            slope: document.getElementById('demoSlope'),
+            slopeValue: document.getElementById('slopeValue'),
+            intercept: document.getElementById('demoIntercept'),
+            interceptValue: document.getElementById('interceptValue'),
+            lr: document.getElementById('demoLR'),
+            equation: document.getElementById('demoEquation'),
+            accuracy: document.getElementById('demoAccuracy'),
+            errors: document.getElementById('demoErrors'),
+            loss: document.getElementById('demoLoss'),
+            tooltip: document.getElementById('demoTooltip'),
+            btnGenerate: document.getElementById('demoGenerate'),
+            btnStep: document.getElementById('demoStep'),
+            btnAutoFit: document.getElementById('demoAutoFit'),
+            btnReset: document.getElementById('demoReset')
+        };
+
+        // Initialize demo
+        function initDemo() {
+            generateData();
+            setupDemoListeners();
+        }
+
+        // Generate classification data
+        function generateData() {
+            demoState.points = [];
+            const difficulty = demoElements.difficulty.value;
+
+            // Separation based on difficulty
+            const separation = {
+                'easy': 2.5,
+                'medium': 1.5,
+                'hard': 0.8
+            }[difficulty];
+
+            // Generate Class A (above line y = x)
+            for (let i = 0; i < demoState.numPoints / 2; i++) {
+                const x = Math.random() * 8 - 4;
+                const y = x + separation + (Math.random() - 0.5) * 2;
+                demoState.points.push({ x, y, class: 'a' });
+            }
+
+            // Generate Class B (below line y = x)
+            for (let i = 0; i < demoState.numPoints / 2; i++) {
+                const x = Math.random() * 8 - 4;
+                const y = x - separation + (Math.random() - 0.5) * 2;
+                demoState.points.push({ x, y, class: 'b' });
+            }
+
+            renderDemo();
+        }
+
+        // Setup event listeners
+        function setupDemoListeners() {
+            demoElements.difficulty.addEventListener('change', generateData);
+
+            demoElements.slope.addEventListener('input', (e) => {
+                demoState.m = parseFloat(e.target.value);
+                demoElements.slopeValue.textContent = demoState.m.toFixed(1);
+                renderDemo();
+            });
+
+            demoElements.intercept.addEventListener('input', (e) => {
+                demoState.c = parseFloat(e.target.value);
+                demoElements.interceptValue.textContent = demoState.c.toFixed(1);
+                renderDemo();
+            });
+
+            demoElements.lr.addEventListener('input', (e) => {
+                demoState.learningRate = parseFloat(e.target.value);
+            });
+
+            demoElements.btnGenerate.addEventListener('click', generateData);
+            demoElements.btnStep.addEventListener('click', gradientStep);
+            demoElements.btnAutoFit.addEventListener('click', toggleAutoFit);
+            demoElements.btnReset.addEventListener('click', resetDemo);
+        }
+
+        // Render the demo
+        function renderDemo() {
+            // Clear existing elements
+            const existingPoints = demoElements.plot.querySelectorAll('.demo-point, .demo-decision-line, .demo-grid-line, .demo-tick');
+            existingPoints.forEach(el => el.remove());
+
+            const plotWidth = demoElements.plot.clientWidth;
+            const plotHeight = demoElements.plot.clientHeight;
+            const padding = { left: 50, right: 20, top: 20, bottom: 40 };
+
+            // Data range
+            const xMin = -5, xMax = 5;
+            const yMin = -5, yMax = 5;
+
+            // Scale functions
+            const xScale = (x) => padding.left + (x - xMin) / (xMax - xMin) * (plotWidth - padding.left - padding.right);
+            const yScale = (y) => plotHeight - padding.bottom - (y - yMin) / (yMax - yMin) * (plotHeight - padding.top - padding.bottom);
+
+            // Draw grid
+            for (let x = -4; x <= 4; x += 2) {
+                const line = document.createElement('div');
+                line.className = 'demo-grid-line vertical';
+                line.style.left = `${xScale(x)}px`;
+                line.style.top = `${padding.top}px`;
+                line.style.height = `${plotHeight - padding.top - padding.bottom}px`;
+                demoElements.plot.appendChild(line);
+
+                const tick = document.createElement('div');
+                tick.className = 'demo-tick';
+                tick.style.left = `${xScale(x)}px`;
+                tick.style.bottom = `${padding.bottom - 18}px`;
+                tick.style.transform = 'translateX(-50%)';
+                tick.textContent = x;
+                demoElements.plot.appendChild(tick);
+            }
+
+            for (let y = -4; y <= 4; y += 2) {
+                const line = document.createElement('div');
+                line.className = 'demo-grid-line horizontal';
+                line.style.left = `${padding.left}px`;
+                line.style.top = `${yScale(y)}px`;
+                line.style.width = `${plotWidth - padding.left - padding.right}px`;
+                demoElements.plot.appendChild(line);
+
+                const tick = document.createElement('div');
+                tick.className = 'demo-tick';
+                tick.style.left = `${padding.left - 25}px`;
+                tick.style.top = `${yScale(y)}px`;
+                tick.style.transform = 'translateY(-50%)';
+                tick.textContent = y;
+                demoElements.plot.appendChild(tick);
+            }
+
+            // Draw decision line
+            const x1 = xMin, x2 = xMax;
+            const y1 = demoState.m * x1 + demoState.c;
+            const y2 = demoState.m * x2 + demoState.c;
+
+            const lineX1 = xScale(x1), lineY1 = yScale(y1);
+            const lineX2 = xScale(x2), lineY2 = yScale(y2);
+
+            const lineLength = Math.sqrt(Math.pow(lineX2 - lineX1, 2) + Math.pow(lineY2 - lineY1, 2));
+            const lineAngle = Math.atan2(lineY1 - lineY2, lineX2 - lineX1);
+
+            const decisionLine = document.createElement('div');
+            decisionLine.className = 'demo-decision-line';
+            decisionLine.style.left = `${lineX1}px`;
+            decisionLine.style.top = `${lineY1}px`;
+            decisionLine.style.width = `${lineLength}px`;
+            decisionLine.style.transform = `rotate(${-lineAngle}rad)`;
+            demoElements.plot.appendChild(decisionLine);
+
+            // Calculate metrics
+            let errors = 0;
+            let totalLoss = 0;
+
+            // Draw points
+            demoState.points.forEach((point, idx) => {
+                const predictedY = demoState.m * point.x + demoState.c;
+                const predictedClass = point.y > predictedY ? 'a' : 'b';
+                const isMisclassified = predictedClass !== point.class;
+
+                if (isMisclassified) errors++;
+
+                // Calculate loss (distance from line)
+                const distance = Math.abs(point.y - predictedY);
+                totalLoss += distance * distance;
+
+                const pointEl = document.createElement('div');
+                pointEl.className = `demo-point class-${point.class}`;
+                if (isMisclassified) pointEl.classList.add('misclassified');
+
+                pointEl.style.left = `${xScale(point.x)}px`;
+                pointEl.style.top = `${yScale(point.y)}px`;
+
+                // Tooltip
+                pointEl.addEventListener('mouseenter', (e) => {
+                    demoElements.tooltip.style.display = 'block';
+                    demoElements.tooltip.innerHTML = `Class ${point.class.toUpperCase()}<br>x: ${point.x.toFixed(2)}<br>y: ${point.y.toFixed(2)}`;
+                    demoElements.tooltip.style.left = `${xScale(point.x) + 15}px`;
+                    demoElements.tooltip.style.top = `${yScale(point.y) - 10}px`;
+                });
+
+                pointEl.addEventListener('mouseleave', () => {
+                    demoElements.tooltip.style.display = 'none';
+                });
+
+                demoElements.plot.appendChild(pointEl);
+            });
+
+            // Update metrics
+            const accuracy = ((demoState.numPoints - errors) / demoState.numPoints * 100).toFixed(1);
+            const mse = (totalLoss / demoState.numPoints).toFixed(3);
+
+            demoElements.equation.textContent = `y = ${demoState.m.toFixed(2)}x + ${demoState.c.toFixed(2)}`;
+            demoElements.accuracy.textContent = `${accuracy}%`;
+            demoElements.errors.textContent = `${errors}/${demoState.numPoints}`;
+            demoElements.loss.textContent = mse;
+        }
+
+        // One gradient descent step
+        function gradientStep() {
+            let dm = 0, dc = 0;
+            const n = demoState.points.length;
+
+            demoState.points.forEach(point => {
+                const predicted = demoState.m * point.x + demoState.c;
+                const target = point.class === 'a' ? point.y + 0.5 : point.y - 0.5;
+                const error = predicted - target;
+
+                dm += (2/n) * point.x * error;
+                dc += (2/n) * error;
+            });
+
+            demoState.m -= demoState.learningRate * dm * 10;
+            demoState.c -= demoState.learningRate * dc * 10;
+
+            // Clamp values
+            demoState.m = Math.max(-3, Math.min(3, demoState.m));
+            demoState.c = Math.max(-5, Math.min(5, demoState.c));
+
+            // Update sliders
+            demoElements.slope.value = demoState.m;
+            demoElements.slopeValue.textContent = demoState.m.toFixed(1);
+            demoElements.intercept.value = demoState.c;
+            demoElements.interceptValue.textContent = demoState.c.toFixed(1);
+
+            renderDemo();
+        }
+
+        // Auto-fit toggle
+        function toggleAutoFit() {
+            if (demoState.isRunning) {
+                demoState.isRunning = false;
+                demoElements.btnAutoFit.textContent = 'Auto-Fit';
+            } else {
+                demoState.isRunning = true;
+                demoElements.btnAutoFit.textContent = 'Stop';
+                autoFitLoop();
+            }
+        }
+
+        // Auto-fit loop
+        function autoFitLoop() {
+            if (!demoState.isRunning) return;
+
+            gradientStep();
+
+            // Check convergence
+            const currentErrors = parseInt(demoElements.errors.textContent.split('/')[0]);
+            if (currentErrors <= 2) {
+                demoState.isRunning = false;
+                demoElements.btnAutoFit.textContent = 'Auto-Fit';
+                return;
+            }
+
+            setTimeout(autoFitLoop, 100);
+        }
+
+        // Reset demo
+        function resetDemo() {
+            demoState.m = 0.0;
+            demoState.c = 2.0;
+            demoState.isRunning = false;
+
+            demoElements.slope.value = 0.0;
+            demoElements.slopeValue.textContent = '0.0';
+            demoElements.intercept.value = 2.0;
+            demoElements.interceptValue.textContent = '2.0';
+            demoElements.btnAutoFit.textContent = 'Auto-Fit';
+
+            renderDemo();
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', renderDemo);
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initDemo);
+    </script>
+</body>
+</html>
