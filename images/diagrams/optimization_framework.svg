@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="minGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c0392b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="maxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e8449;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="3" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="35" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#2c3e50" text-anchor="middle">The Optimization Framework in Machine Learning</text>
+
+  <!-- Minimize Section -->
+  <g transform="translate(30, 60)">
+    <rect x="0" y="0" width="350" height="170" rx="12" fill="white" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="350" height="50" rx="12" fill="url(#minGrad)"/>
+    <rect x="0" y="38" width="350" height="12" fill="url(#minGrad)"/>
+    <text x="175" y="33" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">MINIMIZE</text>
+
+    <!-- Minimize items -->
+    <g transform="translate(20, 70)">
+      <circle cx="15" cy="12" r="8" fill="#e74c3c" opacity="0.2"/>
+      <text x="15" y="16" font-family="Arial, sans-serif" font-size="14" fill="#e74c3c" text-anchor="middle" font-weight="bold">1</text>
+      <text x="35" y="16" font-family="Arial, sans-serif" font-size="14" fill="#2c3e50">Errors (Misclassifications)</text>
+    </g>
+    <g transform="translate(20, 100)">
+      <circle cx="15" cy="12" r="8" fill="#e74c3c" opacity="0.2"/>
+      <text x="15" y="16" font-family="Arial, sans-serif" font-size="14" fill="#e74c3c" text-anchor="middle" font-weight="bold">2</text>
+      <text x="35" y="16" font-family="Arial, sans-serif" font-size="14" fill="#2c3e50">Loss (MSE, Cross-Entropy)</text>
+    </g>
+    <g transform="translate(20, 130)">
+      <circle cx="15" cy="12" r="8" fill="#e74c3c" opacity="0.2"/>
+      <text x="15" y="16" font-family="Arial, sans-serif" font-size="14" fill="#e74c3c" text-anchor="middle" font-weight="bold">3</text>
+      <text x="35" y="16" font-family="Arial, sans-serif" font-size="14" fill="#2c3e50">Cost / Penalty</text>
+    </g>
+  </g>
+
+  <!-- Maximize Section -->
+  <g transform="translate(420, 60)">
+    <rect x="0" y="0" width="350" height="170" rx="12" fill="white" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="350" height="50" rx="12" fill="url(#maxGrad)"/>
+    <rect x="0" y="38" width="350" height="12" fill="url(#maxGrad)"/>
+    <text x="175" y="33" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">MAXIMIZE</text>
+
+    <!-- Maximize items -->
+    <g transform="translate(20, 70)">
+      <circle cx="15" cy="12" r="8" fill="#27ae60" opacity="0.2"/>
+      <text x="15" y="16" font-family="Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="bold">1</text>
+      <text x="35" y="16" font-family="Arial, sans-serif" font-size="14" fill="#2c3e50">Accuracy (Correct Predictions)</text>
+    </g>
+    <g transform="translate(20, 100)">
+      <circle cx="15" cy="12" r="8" fill="#27ae60" opacity="0.2"/>
+      <text x="15" y="16" font-family="Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="bold">2</text>
+      <text x="35" y="16" font-family="Arial, sans-serif" font-size="14" fill="#2c3e50">Rewards (Reinforcement)</text>
+    </g>
+    <g transform="translate(20, 130)">
+      <circle cx="15" cy="12" r="8" fill="#27ae60" opacity="0.2"/>
+      <text x="15" y="16" font-family="Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="bold">3</text>
+      <text x="35" y="16" font-family="Arial, sans-serif" font-size="14" fill="#2c3e50">Profit / Performance</text>
+    </g>
+  </g>
+
+  <!-- Optimization Landscape -->
+  <g transform="translate(150, 260)">
+    <rect x="0" y="0" width="500" height="170" rx="12" fill="white" filter="url(#shadow)"/>
+    <text x="250" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50" text-anchor="middle">Optimization Landscape (Loss Surface)</text>
+
+    <!-- Loss curve -->
+    <path d="M50 130 Q100 40 150 100 Q200 160 250 80 Q300 0 350 60 Q400 120 450 90"
+          stroke="#3498db" stroke-width="3" fill="none"/>
+
+    <!-- Global minimum marker -->
+    <circle cx="300" cy="55" r="8" fill="#27ae60"/>
+    <text x="300" y="75" font-family="Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Global Min</text>
+
+    <!-- Local minimum marker -->
+    <circle cx="150" cy="100" r="6" fill="#f39c12"/>
+    <text x="150" y="118" font-family="Arial, sans-serif" font-size="10" fill="#f39c12" text-anchor="middle">Local Min</text>
+
+    <!-- Current position marker -->
+    <circle cx="80" cy="85" r="6" fill="#e74c3c"/>
+    <text x="80" y="70" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle">Start</text>
+
+    <!-- Arrow showing descent -->
+    <path d="M90 85 L135 98" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4,2"/>
+    <polygon points="135,98 128,94 130,100" fill="#e74c3c"/>
+
+    <!-- Axes labels -->
+    <text x="250" y="155" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Parameters (weights)</text>
+    <text x="30" y="90" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle" transform="rotate(-90, 30, 90)">Loss</text>
+  </g>
+
+  <!-- Key insight -->
+  <text x="400" y="445" font-family="Arial, sans-serif" font-size="13" fill="#666" text-anchor="middle" font-style="italic">Training = Searching for parameters that minimize loss (maximize accuracy)</text>
+</svg>
