@@ -23,6 +23,7 @@
             --accent-red: #f85149;
             --accent-yellow: #d29922;
             --accent-purple: #a371f7;
+            --accent-gold: #ffd700;
             --card-red: #e74c3c;
             --card-black: #2c3e50;
             --team1-color: #3498db;
@@ -145,6 +146,7 @@
             margin-bottom: 0.5rem;
             text-align: center;
             min-width: 120px;
+            position: relative;
         }
 
         .player-info.team1 { border-right: 3px solid var(--team1-color); border-left: none; }
@@ -162,6 +164,33 @@
         .player-agent {
             font-size: 0.75rem;
             color: var(--text-secondary);
+        }
+
+        .buyer-badge {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 0 15px var(--accent-gold), 0 2px 8px rgba(0,0,0,0.3);
+            border: 3px solid var(--bg-primary);
+            z-index: 100;
+        }
+
+        .buyer-badge.sun-badge {
+            animation: rotateSun 3s linear infinite;
+        }
+
+        @keyframes rotateSun {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .hand {
@@ -308,6 +337,16 @@
 
         .trick-card .card {
             transform: scale(0.9);
+        }
+
+        .card.ikah {
+            animation: ikahPulse 0.6s ease-in-out;
+            box-shadow: 0 0 20px var(--accent-gold), 0 0 30px var(--accent-gold);
+        }
+
+        @keyframes ikahPulse {
+            0%, 100% { transform: scale(0.9); }
+            50% { transform: scale(1.05); }
         }
 
         .trick-info {
@@ -852,6 +891,10 @@
         .log-entry.error { color: var(--accent-red); }
         .log-entry.bid { color: var(--accent-purple); }
         .log-entry.play { color: var(--accent-blue); }
+        .log-entry.ikah {
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
 
         .log-time {
             color: var(--text-muted);
@@ -1324,6 +1367,7 @@
             currentBidder: null,
             hokumDeclared: false,
             currentTrick: [],
+            playedCards: [],
             trickNumber: 0,
             trickLeader: null,
             currentPlayer: null,
@@ -1331,6 +1375,7 @@
             team2Tricks: [],
             declaredProjects: { team1: [], team2: [] },
             doubleLevel: 1,
+            lastDoubler: null,
             isLocked: false
         };
 
@@ -1452,6 +1497,7 @@
                     bids.push(BID_TYPES.PASS);
                     bids.push(BID_TYPES.HOKUM_SECOND);
                     bids.push(BID_TYPES.SUN);
+                    bids.push(BID_TYPES.ASHKAL);
                 }
 
                 return bids;
@@ -1497,6 +1543,32 @@
                         gameState.round.buyer = playerIndex;
                         gameState.round.buyingTeam = gameState.players[playerIndex].teamIndex;
                         return { success: true, endBidding: true };
+
+                    case BID_TYPES.ASHKAL:
+                        gameState.round.gameType = 'sun';
+                        gameState.round.trumpSuit = null;
+                        gameState.round.buyer = playerIndex;
+                        gameState.round.buyingTeam = gameState.players[playerIndex].teamIndex;
+
+                        const partnerIndex = (playerIndex + 2) % 4;
+                        const biddingCard = gameState.round.biddingCard;
+
+                        const buyerHand = gameState.players[playerIndex].hand;
+                        const cardIndex = buyerHand.findIndex(c => c.id === biddingCard.id);
+                        if (cardIndex !== -1) {
+                            buyerHand.splice(cardIndex, 1);
+                        }
+
+                        gameState.players[partnerIndex].hand.push(biddingCard);
+
+                        gameState.players[playerIndex].hand = DeckManager.sortHand(
+                            gameState.players[playerIndex].hand, null
+                        );
+                        gameState.players[partnerIndex].hand = DeckManager.sortHand(
+                            gameState.players[partnerIndex].hand, null
+                        );
+
+                        return { success: true, endBidding: true, isAshkal: true };
 
                     case BID_TYPES.PASS:
                         this.advanceToNextBidder();
@@ -1664,6 +1736,44 @@
                 return false;
             },
 
+            isIkah(card, playerIndex) {
+                const gameType = gameState.round.gameType;
+                const trumpSuit = gameState.round.trumpSuit;
+
+                // Ikah only applies in Hokum mode
+                if (gameType !== 'hokum' || !trumpSuit) {
+                    return false;
+                }
+
+                const playedCards = gameState.round.playedCards || [];
+                const playerHand = gameState.players[playerIndex].hand;
+
+                // Get all cards in the same suit that haven't been played yet
+                const allRanks = ['7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+                const playedInSuit = playedCards.filter(c => c.suit === card.suit);
+
+                // Check if this card is the highest remaining in the suit
+                const cardIsTrump = card.suit === trumpSuit;
+                const cardPower = card.getRankingPower(gameType, cardIsTrump);
+
+                for (const rank of allRanks) {
+                    const testCard = { suit: card.suit, rank: rank };
+                    const testIsTrump = card.suit === trumpSuit;
+
+                    // Skip if this test card has already been played
+                    const alreadyPlayed = playedInSuit.some(pc => pc.rank === rank);
+                    if (alreadyPlayed) continue;
+
+                    // Check if a higher card exists
+                    const testPower = Card.prototype.getRankingPower.call(testCard, gameType, testIsTrump);
+                    if (testPower > cardPower) {
+                        return false; // Higher card exists that hasn't been played
+                    }
+                }
+
+                return true; // This is the highest remaining card in the suit
+            },
+
             playCard(playerIndex, card) {
                 const hand = gameState.players[playerIndex].hand;
                 const cardIndex = hand.findIndex(c => c.id === card.id);
@@ -1748,6 +1858,24 @@
                     }
                 }
 
+                // Detect Baloot (K+Q of trump) - 20 points
+                if (trumpSuit && gameType === 'hokum') {
+                    const trumpCards = hand.filter(c => c.suit === trumpSuit);
+                    const hasKing = trumpCards.some(c => c.rank === 'K');
+                    const hasQueen = trumpCards.some(c => c.rank === 'Q');
+
+                    if (hasKing && hasQueen) {
+                        const king = trumpCards.find(c => c.rank === 'K');
+                        const queen = trumpCards.find(c => c.rank === 'Q');
+
+                        projects.push({
+                            type: 'بلوت',
+                            cards: [king, queen],
+                            points: 20
+                        });
+                    }
+                }
+
                 return projects;
             },
 
@@ -1795,6 +1923,16 @@
                     return { team1: team1Projects, team2: [] };
                 } else if (team2Max > team1Max) {
                     return { team1: [], team2: team2Projects };
+                } else if (team1Max === team2Max && team1Max > 0) {
+                    // Tie: use first-declarer rule
+                    const team1First = team1Projects.length > 0 ? Math.min(...team1Projects.map(p => p.declaredBy)) : Infinity;
+                    const team2First = team2Projects.length > 0 ? Math.min(...team2Projects.map(p => p.declaredBy)) : Infinity;
+
+                    if (team1First < team2First) {
+                        return { team1: team1Projects, team2: [] };
+                    } else {
+                        return { team1: [], team2: team2Projects };
+                    }
                 } else {
                     return { team1: [], team2: [] };
                 }
@@ -1964,6 +2102,12 @@
 
                     return { bidType: BID_TYPES.PASS };
                 } else {
+                    // Check if Ashkal is a good option (high cards in hand)
+                    const highCards = this.hand.filter(c => ['A', '10', 'K'].includes(c.rank)).length;
+                    if (highCards >= 4) {
+                        return { bidType: BID_TYPES.ASHKAL };
+                    }
+
                     for (const suit of Object.values(SUITS)) {
                         if (suit === biddingCard.suit) continue;
                         const suitCards = this.hand.filter(c => c.suit === suit);
@@ -1979,6 +2123,7 @@
 
             async decideCard(trickState, legalCards) {
                 const { currentTrick, trumpSuit, gameType } = trickState;
+                const partnerIndex = (this.playerIndex + 2) % 4;
 
                 if (currentTrick.length === 0) {
                     return legalCards.reduce((best, card) =>
@@ -1988,6 +2133,20 @@
                 }
 
                 const ledSuit = currentTrick[0].card.suit;
+                const currentWinner = TrickSystem.getCurrentWinner();
+                const partnerIsWinning = currentWinner && currentWinner.playerIndex === partnerIndex;
+
+                if (partnerIsWinning) {
+                    // Protect partner's high cards by prioritizing throw-away cards
+                    const lowValueCards = legalCards.filter(c => ['7', '8', '9'].includes(c.rank));
+                    if (lowValueCards.length > 0) {
+                        return lowValueCards.reduce((lowest, card) =>
+                            card.getPointValue(gameType, card.suit === trumpSuit) <
+                            lowest.getPointValue(gameType, lowest.suit === trumpSuit) ? card : lowest
+                        );
+                    }
+                }
+
                 const canFollow = legalCards.some(c => c.suit === ledSuit);
 
                 if (canFollow) {
@@ -2049,6 +2208,12 @@
 
                     return { bidType: BID_TYPES.PASS };
                 } else {
+                    // Check if Ashkal is a good option (high cards in hand)
+                    const highCards = this.hand.filter(c => ['A', '10', 'K'].includes(c.rank)).length;
+                    if (highCards >= 4) {
+                        return { bidType: BID_TYPES.ASHKAL };
+                    }
+
                     let bestSuit = null;
                     let bestScore = 0;
 
@@ -2096,6 +2261,14 @@
                 const partnerIsWinning = currentWinner.playerIndex === partnerIndex;
 
                 if (partnerIsWinning) {
+                    // Protect partner's high cards by prioritizing throw-away cards
+                    const lowValueCards = legalCards.filter(c => ['7', '8', '9'].includes(c.rank));
+                    if (lowValueCards.length > 0) {
+                        return lowValueCards.reduce((lowest, card) =>
+                            card.getPointValue(gameType, card.suit === trumpSuit) <
+                            lowest.getPointValue(gameType, lowest.suit === trumpSuit) ? card : lowest
+                        );
+                    }
                     return legalCards.reduce((lowest, card) =>
                         card.getPointValue(gameType, card.suit === trumpSuit) <
                         lowest.getPointValue(gameType, lowest.suit === trumpSuit) ? card : lowest
@@ -2264,6 +2437,9 @@
                     return;
                 }
 
+                // Update player info to show buyer badge
+                UIRenderer.updatePlayerInfo();
+
                 DeckManager.deal(2);
 
                 gameState.players.forEach(p => {
@@ -2276,7 +2452,64 @@
                 UIRenderer.log(`${gameState.players[gameState.round.buyer].name} يشتري ${gameState.round.gameType === 'sun' ? 'صن' : 'حكم'}${gameState.round.trumpSuit ? ' (' + SUIT_SYMBOLS[gameState.round.trumpSuit] + ')' : ''}`, 'success');
 
                 await this.delay(800);
+
+                // Doubling phase
+                await this.handleDoubling();
+
                 await this.runPlayingPhase();
+            },
+
+            async handleDoubling() {
+                const maxDoubles = 3;  // Can go to 4x (doubleLevel 3)
+
+                while (gameState.round.doubleLevel < maxDoubles) {
+                    const nextDoubler = this.getNextDoubler();
+                    if (nextDoubler === null) break;  // No one can double
+
+                    const agent = gameState.players[nextDoubler].agent;
+                    const shouldDouble = await agent.decideDouble(gameState);
+
+                    if (shouldDouble) {
+                        gameState.round.doubleLevel++;
+                        gameState.round.lastDoubler = nextDoubler;
+                        const doublerName = gameState.players[nextDoubler].name;
+                        const doubleNames = ['', 'دبل (2x)', 'ثري (3x)', 'فور (4x)'];
+                        UIRenderer.log(`${doublerName}: ${doubleNames[gameState.round.doubleLevel]}`, 'warning');
+                        await this.delay(800);
+                    } else {
+                        break;  // Player declined, end doubling
+                    }
+                }
+            },
+
+            getNextDoubler() {
+                const buyer = gameState.round.buyer;
+                const buyingTeam = gameState.round.buyingTeam;
+                const currentLevel = gameState.round.doubleLevel;
+
+                if (currentLevel === 0) {
+                    // Opponent team can double - pick first opponent after buyer
+                    for (let i = 1; i <= 3; i++) {
+                        const playerIndex = (buyer + i) % 4;
+                        if (gameState.players[playerIndex].teamIndex !== buyingTeam) {
+                            return playerIndex;
+                        }
+                    }
+                } else {
+                    // Alternate between teams
+                    const lastDoubler = gameState.round.lastDoubler;
+                    const lastDoublerTeam = gameState.players[lastDoubler].teamIndex;
+
+                    // Next doubler is from the other team
+                    for (let i = 1; i <= 3; i++) {
+                        const playerIndex = (lastDoubler + i) % 4;
+                        if (gameState.players[playerIndex].teamIndex !== lastDoublerTeam) {
+                            return playerIndex;
+                        }
+                    }
+                }
+
+                return null;  // No valid doubler
             },
 
             async runPlayingPhase() {
@@ -2284,6 +2517,9 @@
                 gameState.round.trickNumber = 1;
                 gameState.round.trickLeader = (gameState.match.dealerIndex + 1) % 4;
                 gameState.round.currentPlayer = gameState.round.trickLeader;
+
+                // Update player info to show buyer badge now that phase is 'playing'
+                UIRenderer.updatePlayerInfo();
 
                 await this.handleProjects();
 
@@ -2310,10 +2546,15 @@
                             ? gameState.round.declaredProjects.team1
                             : gameState.round.declaredProjects.team2;
 
-                        teamProjects.push(...declared.map(p => ({
-                            ...p,
-                            declaredBy: player.index
-                        })));
+                        teamProjects.push(...declared.map(p => {
+                            // Track Baloot declaration
+                            if (p.type === 'بلوت') {
+                                const teamKey = player.teamIndex === 0 ? 'team1' : 'team2';
+                                gameState.round.balootDeclared[teamKey] = true;
+                            }
+
+                            return { ...p, declaredBy: player.index };
+                        }));
 
                         if (declared.length > 0) {
                             UIRenderer.log(`${player.name} يعلن: ${declared.map(p => p.type).join('، ')}`, 'success');
@@ -2329,8 +2570,7 @@
 
                 if (resolved.team1.length > 0 || resolved.team2.length > 0) {
                     UIRenderer.showProjectsModal(resolved);
-                    await this.delay(2000);
-                    UIRenderer.closeProjectsModal();
+                    await UIRenderer.waitForProjectsModalClose();
                 }
             },
 
@@ -2372,15 +2612,27 @@
 
                     const result = TrickSystem.playCard(playerIndex, card);
 
+                    // Track played card globally for Ikah detection
+                    gameState.round.playedCards.push(card);
+
                     for (const player of gameState.players) {
                         player.agent.onCardPlayed(playerIndex, card);
                     }
 
                     this.recordAction('playCard', { playerIndex, card: card.id, trickNumber: gameState.round.trickNumber });
 
-                    UIRenderer.renderCardInTrick(playerIndex, card);
+                    // Detect Ikah before rendering and logging
+                    const isIkah = TrickSystem.isIkah(card, playerIndex);
+
+                    UIRenderer.renderCardInTrick(playerIndex, card, isIkah);
                     UIRenderer.renderPlayerHand(playerIndex);
-                    UIRenderer.log(`${gameState.players[playerIndex].name} يلعب ${card.toString()}`, 'play');
+
+                    const playerName = gameState.players[playerIndex].name;
+                    if (isIkah) {
+                        UIRenderer.log(`${playerName} يلعب ${card.toString()} - اكه! (Ikah!)`, 'ikah');
+                    } else {
+                        UIRenderer.log(`${playerName} يلعب ${card.toString()}`, 'play');
+                    }
 
                     await this.delay(400);
                 }
@@ -2502,11 +2754,15 @@
                 document.getElementById(`playerInfo${playerIndex}`).classList.add('current-turn');
             },
 
-            renderCardInTrick(playerIndex, card) {
+            renderCardInTrick(playerIndex, card, isIkah = false) {
                 const position = gameState.players[playerIndex].position;
                 const trickCardEl = document.querySelector(`.trick-card[data-position="${position}"]`);
                 trickCardEl.innerHTML = '';
-                trickCardEl.appendChild(card.toElement());
+                const cardElement = card.toElement();
+                if (isIkah) {
+                    cardElement.classList.add('ikah');
+                }
+                trickCardEl.appendChild(cardElement);
             },
 
             clearTrickArea() {
@@ -2546,6 +2802,28 @@
                     const el = document.getElementById(`playerInfo${i}`);
                     el.querySelector('.player-name').textContent = player.name;
                     el.querySelector('.player-agent').textContent = player.agent.name;
+
+                    // Remove existing buyer badge
+                    const existingBadge = el.querySelector('.buyer-badge');
+                    if (existingBadge) {
+                        existingBadge.remove();
+                    }
+
+                    // Add buyer badge if this player is the buyer
+                    if (gameState.round.buyer === i && gameState.round.phase !== 'bidding') {
+                        const badge = document.createElement('div');
+                        badge.className = 'buyer-badge';
+
+                        if (gameState.round.gameType === 'hokum' && gameState.round.trumpSuit) {
+                            const suitSymbols = { spades: '♠', hearts: '♥', diamonds: '♦', clubs: '♣' };
+                            badge.textContent = suitSymbols[gameState.round.trumpSuit];
+                        } else if (gameState.round.gameType === 'sun') {
+                            badge.innerHTML = '☀️';
+                            badge.classList.add('sun-badge');
+                        }
+
+                        el.appendChild(badge);
+                    }
                 }
             },
 
@@ -2616,6 +2894,16 @@
 
             closeProjectsModal() {
                 document.getElementById('projectsModal').classList.remove('active');
+                if (UIRenderer._projectsModalResolve) {
+                    UIRenderer._projectsModalResolve();
+                    UIRenderer._projectsModalResolve = null;
+                }
+            },
+
+            waitForProjectsModalClose() {
+                return new Promise(resolve => {
+                    UIRenderer._projectsModalResolve = resolve;
+                });
             },
 
             showGameEnd(winnerTeam) {
