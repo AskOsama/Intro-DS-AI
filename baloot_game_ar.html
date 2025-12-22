@@ -184,6 +184,24 @@
             z-index: 100;
         }
 
+        .dealer-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            box-shadow: 0 0 10px var(--accent-blue), 0 2px 8px rgba(0,0,0,0.3);
+            border: 2px solid var(--bg-primary);
+            z-index: 100;
+        }
+
         .buyer-badge.sun-badge {
             animation: rotateSun 3s linear infinite;
         }
@@ -1859,20 +1877,43 @@
                 }
 
                 // Detect Baloot (K+Q of trump) - 20 points
+                // Per rules line 96-97: K+Q in 5+ card sequence → NO Baloot
                 if (trumpSuit && gameType === 'hokum') {
                     const trumpCards = hand.filter(c => c.suit === trumpSuit);
                     const hasKing = trumpCards.some(c => c.rank === 'K');
                     const hasQueen = trumpCards.some(c => c.rank === 'Q');
 
                     if (hasKing && hasQueen) {
-                        const king = trumpCards.find(c => c.rank === 'K');
-                        const queen = trumpCards.find(c => c.rank === 'Q');
+                        // Check if K and Q are part of a mia-sequence (5+ cards)
+                        let partOfMiaSequence = false;
 
-                        projects.push({
-                            type: 'بلوت',
-                            cards: [king, queen],
-                            points: 20
-                        });
+                        for (const project of projects) {
+                            if (project.type === 'mia' &&
+                                project.subtype === 'sequence' &&
+                                project.suit === trumpSuit &&
+                                project.cards.length >= 5) {
+
+                                const hasKInSeq = project.cards.some(c => c.rank === 'K');
+                                const hasQInSeq = project.cards.some(c => c.rank === 'Q');
+
+                                if (hasKInSeq && hasQInSeq) {
+                                    partOfMiaSequence = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        // Only add Baloot if NOT part of a 5+ card sequence
+                        if (!partOfMiaSequence) {
+                            const king = trumpCards.find(c => c.rank === 'K');
+                            const queen = trumpCards.find(c => c.rank === 'Q');
+
+                            projects.push({
+                                type: 'بلوت',
+                                cards: [king, queen],
+                                points: 20
+                            });
+                        }
                     }
                 }
 
@@ -2460,7 +2501,8 @@
             },
 
             async handleDoubling() {
-                const maxDoubles = 3;  // Can go to 4x (doubleLevel 3)
+                // Per rules line 126: Sun only allows 1 double, Hokum allows up to 3 (4x)
+                const maxDoubles = gameState.round.gameType === 'sun' ? 1 : 3;
 
                 while (gameState.round.doubleLevel < maxDoubles) {
                     const nextDoubler = this.getNextDoubler();
@@ -2472,6 +2514,13 @@
                     if (shouldDouble) {
                         gameState.round.doubleLevel++;
                         gameState.round.lastDoubler = nextDoubler;
+
+                        // Per rules line 132-139: Update locked state for Hokum
+                        // Level 1 (Double) → locked, Level 2 (Triple) → open, Level 3 (Four) → locked
+                        if (gameState.round.gameType === 'hokum') {
+                            gameState.round.isLocked = (gameState.round.doubleLevel % 2 === 1);
+                        }
+
                         const doublerName = gameState.players[nextDoubler].name;
                         const doubleNames = ['', 'دبل (2x)', 'ثري (3x)', 'فور (4x)'];
                         UIRenderer.log(`${doublerName}: ${doubleNames[gameState.round.doubleLevel]}`, 'warning');
@@ -2803,10 +2852,25 @@
                     el.querySelector('.player-name').textContent = player.name;
                     el.querySelector('.player-agent').textContent = player.agent.name;
 
-                    // Remove existing buyer badge
-                    const existingBadge = el.querySelector('.buyer-badge');
-                    if (existingBadge) {
-                        existingBadge.remove();
+                    // Remove existing badges
+                    const existingBuyerBadge = el.querySelector('.buyer-badge');
+                    if (existingBuyerBadge) {
+                        existingBuyerBadge.remove();
+                    }
+
+                    const existingDealerBadge = el.querySelector('.dealer-badge');
+                    if (existingDealerBadge) {
+                        existingDealerBadge.remove();
+                    }
+
+                    // Per rules line 7-13: Add dealer badge during bidding
+                    if (gameState.round.phase === 'bidding' &&
+                        gameState.match.dealerIndex === i) {
+                        const badge = document.createElement('div');
+                        badge.className = 'dealer-badge';
+                        badge.textContent = 'م';  // Arabic: م for موزع (Dealer)
+                        badge.title = 'الموزع';
+                        el.appendChild(badge);
                     }
 
                     // Add buyer badge if this player is the buyer
