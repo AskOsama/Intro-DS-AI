@@ -2215,42 +2215,179 @@
                 this.hand = [...hand];
             }
 
+            // Helper: Calculate expected project value from hand
+            calculateProjectPotential(hand, trumpSuit, gameType) {
+                let projectValue = 0;
+
+                // Detect potential sequences per suit
+                const bySuit = {};
+                for (const suit of Object.values(SUITS)) {
+                    bySuit[suit] = hand.filter(c => c.suit === suit)
+                        .sort((a, b) => a.getSequenceValue() - b.getSequenceValue());
+                }
+
+                for (const [suit, cards] of Object.entries(bySuit)) {
+                    if (cards.length >= 3) {
+                        // Check for sequential patterns
+                        let consecutiveCount = 1;
+                        let maxConsecutive = 1;
+
+                        for (let i = 1; i < cards.length; i++) {
+                            if (cards[i].getSequenceValue() === cards[i-1].getSequenceValue() + 1) {
+                                consecutiveCount++;
+                                maxConsecutive = Math.max(maxConsecutive, consecutiveCount);
+                            } else {
+                                consecutiveCount = 1;
+                            }
+                        }
+
+                        // Award points for sequences
+                        if (maxConsecutive >= 5) {
+                            projectValue += (gameType === 'hokum' ? 10 : 20);  // Mia (100)
+                        } else if (maxConsecutive === 4) {
+                            projectValue += (gameType === 'hokum' ? 5 : 10);   // Khamsin (50)
+                        } else if (maxConsecutive === 3) {
+                            projectValue += (gameType === 'hokum' ? 2 : 4);    // Sira (30)
+                        }
+                    }
+                }
+
+                // Check for Baloot (K+Q of trump) in Hokum
+                // IMPORTANT: Only count if NOT part of 5+ sequence (new rule)
+                if (gameType === 'hokum' && trumpSuit) {
+                    const trumpCards = bySuit[trumpSuit] || [];
+                    const hasKing = trumpCards.some(c => c.rank === 'K');
+                    const hasQueen = trumpCards.some(c => c.rank === 'Q');
+
+                    if (hasKing && hasQueen) {
+                        // Check if K and Q would be part of a 5+ sequence
+                        const trumpSequence = this.getLongestSequence(trumpCards);
+                        if (trumpSequence < 5) {
+                            projectValue += 20;  // Baloot (separate from sequence)
+                        }
+                        // else: K+Q in 5+ sequence → no extra Baloot points (already counted in Mia)
+                    }
+                }
+
+                // Check for four-of-a-kind
+                const byRank = {};
+                for (const rank of Object.values(RANKS)) {
+                    byRank[rank] = hand.filter(c => c.rank === rank);
+                }
+
+                for (const [rank, cards] of Object.entries(byRank)) {
+                    if (cards.length === 4) {
+                        if (rank === 'A') {
+                            projectValue += (gameType === 'sun' ? 40 : 10);  // Four Aces
+                        } else if (['10', 'J', 'Q', 'K'].includes(rank)) {
+                            projectValue += (gameType === 'hokum' ? 10 : 20);  // Four-of-kind
+                        }
+                    }
+                }
+
+                return projectValue;
+            }
+
+            // Helper: Get longest consecutive sequence length
+            getLongestSequence(sortedCards) {
+                if (sortedCards.length < 2) return sortedCards.length;
+
+                let consecutiveCount = 1;
+                let maxConsecutive = 1;
+
+                for (let i = 1; i < sortedCards.length; i++) {
+                    if (sortedCards[i].getSequenceValue() === sortedCards[i-1].getSequenceValue() + 1) {
+                        consecutiveCount++;
+                        maxConsecutive = Math.max(maxConsecutive, consecutiveCount);
+                    } else {
+                        consecutiveCount = 1;
+                    }
+                }
+
+                return maxConsecutive;
+            }
+
+            // Helper: Evaluate Hokum hand strength
+            evaluateHokumHand(hand, trumpSuit) {
+                const trumpCards = hand.filter(c => c.suit === trumpSuit);
+                let score = trumpCards.length * 8;
+
+                if (trumpCards.some(c => c.rank === 'J')) score += 15;
+                if (trumpCards.some(c => c.rank === '9')) score += 12;
+                if (trumpCards.some(c => c.rank === 'A')) score += 8;
+
+                return score;
+            }
+
+            // Helper: Evaluate Sun hand strength
+            evaluateSunHand(hand) {
+                const aces = hand.filter(c => c.rank === 'A').length;
+                const tens = hand.filter(c => c.rank === '10').length;
+                const kings = hand.filter(c => c.rank === 'K').length;
+
+                return aces * 12 + tens * 10 + kings * 6;
+            }
+
             async decideBid(biddingState) {
                 const { biddingCard, biddingRound } = biddingState;
                 const hand = this.hand;
                 const biddingCardSuit = biddingCard.suit;
 
-                const suitCount = hand.filter(c => c.suit === biddingCardSuit).length;
-                const hasJack = hand.some(c => c.suit === biddingCardSuit && c.rank === 'J');
-                const hasNine = hand.some(c => c.suit === biddingCardSuit && c.rank === '9');
-
+                // ROUND 1
                 if (biddingRound === 1) {
-                    if (suitCount >= 3 && (hasJack || hasNine)) {
-                        return { bidType: BID_TYPES.HOKUM };
-                    }
-                    const highCards = hand.filter(c => ['A', '10', 'K'].includes(c.rank)).length;
-                    if (highCards >= 5) {
+                    // Evaluate Hokum potential
+                    const hokumTrumpSuit = biddingCardSuit;
+                    const hokumScore = this.evaluateHokumHand(hand, hokumTrumpSuit);
+                    const hokumProjects = this.calculateProjectPotential(hand, hokumTrumpSuit, 'hokum');
+                    const totalHokum = hokumScore + hokumProjects;
+
+                    // Evaluate Sun potential
+                    const sunScore = this.evaluateSunHand(hand);
+                    const sunProjects = this.calculateProjectPotential(hand, null, 'sun');
+                    const totalSun = sunScore + sunProjects;
+
+                    // Decision thresholds
+                    const HOKUM_THRESHOLD = 35;  // Includes trump strength + projects
+                    const SUN_THRESHOLD = 50;     // Includes high cards + projects
+
+                    // Prefer Sun if significantly better (Sun is stronger bid)
+                    if (totalSun >= SUN_THRESHOLD && totalSun > totalHokum + 10) {
                         return { bidType: BID_TYPES.SUN };
                     }
+
+                    if (totalHokum >= HOKUM_THRESHOLD) {
+                        return { bidType: BID_TYPES.HOKUM };
+                    }
+
+                    if (totalSun >= SUN_THRESHOLD) {
+                        return { bidType: BID_TYPES.SUN };
+                    }
+
                     return { bidType: BID_TYPES.PASS };
+
+                // ROUND 2
                 } else {
-                    // Check if Ashkal is a good option (high cards in hand)
-                    const highCards = hand.filter(c => ['A', '10', 'K'].includes(c.rank)).length;
-                    if (highCards >= 4) {
+                    // Evaluate Ashkal (Sun with card transfer)
+                    // Note: Losing bidding card is a penalty
+                    const ashkalScore = this.evaluateSunHand(hand) - 5;  // -5 penalty for losing card
+                    const ashkalProjects = this.calculateProjectPotential(hand, null, 'sun');
+                    const totalAshkal = ashkalScore + ashkalProjects;
+
+                    if (totalAshkal >= 45) {
                         return { bidType: BID_TYPES.ASHKAL };
                     }
 
-                    const suits = Object.values(SUITS).filter(s => s !== biddingCardSuit);
+                    // Evaluate Hokum Thani (alternative suit trump)
                     let bestSuit = null;
                     let bestScore = 0;
 
-                    for (const suit of suits) {
-                        const cards = hand.filter(c => c.suit === suit);
-                        let score = cards.length * 10;
-                        if (cards.some(c => c.rank === 'J')) score += 30;
-                        if (cards.some(c => c.rank === '9')) score += 20;
-                        if (score > bestScore) {
-                            bestScore = score;
+                    for (const suit of Object.values(SUITS).filter(s => s !== biddingCardSuit)) {
+                        const hokumScore = this.evaluateHokumHand(hand, suit);
+                        const hokumProjects = this.calculateProjectPotential(hand, suit, 'hokum');
+                        const totalScore = hokumScore + hokumProjects;
+
+                        if (totalScore > bestScore) {
+                            bestScore = totalScore;
                             bestSuit = suit;
                         }
                     }
@@ -2258,6 +2395,7 @@
                     if (bestScore >= 40) {
                         return { bidType: BID_TYPES.HOKUM_SECOND, suitChoice: bestSuit };
                     }
+
                     return { bidType: BID_TYPES.PASS };
                 }
             }
@@ -2310,6 +2448,66 @@
                     card.getRankingPower(gameType, isTrump) < lowest.getRankingPower(gameType, isTrump)
                         ? card : lowest
                 );
+            }
+
+            async decideDouble(gameState) {
+                const { round, players } = gameState;
+                const myTeam = this.teamIndex;
+                const buyingTeam = round.buyingTeam;
+                const hand = players[this.playerIndex].hand;
+                const trumpSuit = round.trumpSuit;
+                const gameType = round.gameType;
+
+                // Calculate hand strength
+                let handStrength = 0;
+
+                if (gameType === 'hokum' && trumpSuit) {
+                    // Trump strength for Hokum
+                    const trumpCards = hand.filter(c => c.suit === trumpSuit);
+                    handStrength = trumpCards.length * 8;
+                    if (trumpCards.some(c => c.rank === 'J')) handStrength += 15;
+                    if (trumpCards.some(c => c.rank === '9')) handStrength += 12;
+                    if (trumpCards.some(c => c.rank === 'A')) handStrength += 8;
+                } else {
+                    // High cards for Sun
+                    const aces = hand.filter(c => c.rank === 'A').length;
+                    const tens = hand.filter(c => c.rank === '10').length;
+                    handStrength = aces * 10 + tens * 6;
+                }
+
+                const currentLevel = round.doubleLevel;
+
+                // Opponent team doubling
+                if (buyingTeam !== myTeam) {
+                    const DOUBLE_THRESHOLD = 50;
+                    const REDOUBLE_THRESHOLD = 55;
+                    const QUAD_THRESHOLD = 70;
+
+                    if (currentLevel === 0 && handStrength >= DOUBLE_THRESHOLD) {
+                        return true;  // Double to 2x
+                    }
+                    // Note: Sun games automatically limited to 1 double by game rules
+                    if (gameType === 'hokum' && currentLevel === 1 && handStrength >= REDOUBLE_THRESHOLD) {
+                        return true;  // Redouble to 3x
+                    }
+                    if (gameType === 'hokum' && currentLevel === 2 && handStrength >= QUAD_THRESHOLD) {
+                        return true;  // Quadruple to 4x
+                    }
+                }
+                // Buyer team accepting double
+                else {
+                    const ACCEPT_THRESHOLD = 45;
+                    const ACCEPT_REDOUBLE_THRESHOLD = 55;
+
+                    if (currentLevel === 1 && handStrength >= ACCEPT_THRESHOLD) {
+                        return true;  // Accept double, go to 3x
+                    }
+                    if (gameType === 'hokum' && currentLevel === 2 && handStrength >= ACCEPT_REDOUBLE_THRESHOLD) {
+                        return true;  // Accept redouble, go to 4x
+                    }
+                }
+
+                return false;  // Don't double
             }
         }
 
@@ -2572,6 +2770,7 @@
             async runBiddingPhase() {
                 BiddingSystem.startBidding();
                 UIRenderer.showBiddingOverlay();
+                UIRenderer.updatePlayerInfo();  // Show dealer badge during bidding
 
                 let biddingComplete = false;
                 let reshuffle = false;
