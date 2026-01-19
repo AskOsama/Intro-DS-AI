@@ -2982,8 +2982,9 @@
 
                 if (resolved.team1.length > 0 || resolved.team2.length > 0) {
                     UIRenderer.showProjectsModal(resolved);
-                    // Wait for user to manually close modal
-                    await UIRenderer.waitForProjectsModalClose();
+                    // AI vs AI mode: auto-close after delay (users can still see what was declared)
+                    await this.delay(2500);
+                    UIRenderer.closeProjectsModal();
                 }
             },
 
